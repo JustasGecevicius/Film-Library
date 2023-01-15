@@ -1,4 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
+
+// Services
+import api from "services/axios";
 
 interface Config {
   change_keys: string[];
@@ -33,20 +36,19 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const getConfig = async () => {
-      const config = await fetch(
-        "https://api.themoviedb.org/3/configuration?api_key=2e1d9e703d345ef35e7a54d9ac882a26"
+      const { data } = await api<Config>(
+        "/configuration?api_key=2e1d9e703d345ef35e7a54d9ac882a26"
       );
 
-      const response = (await config.json()) as Config;
-      setConfig(response);
+      setConfig(data);
     };
 
     const getTrending = async () => {
-      const trending = await fetch(
-        "https://api.themoviedb.org/3/movie/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=1"
+      const { data } = await api<Images>(
+        "/movie/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=1"
       );
-      const response = (await trending.json()) as Images;
-      setMoviePictures(response);
+
+      setMoviePictures(data);
     };
 
     getConfig();
