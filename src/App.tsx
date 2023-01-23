@@ -35,7 +35,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         console.log(signInInfo);
-    },[signInInfo])
+    }, [signInInfo]);
 
     return (
         <div className="App">
@@ -46,43 +46,51 @@ const App: React.FC = () => {
                         <UserContext.Provider
                             value={{ signInInfo, setSignInInfo }}
                         >
-                            <Home />{" "}
+                            <Header />{" "}
                         </UserContext.Provider>
                     }
-                ></Route>
-                <Route
-                    path="/Film-Library/Explore"
-                    element={
-                        <UserContext.Provider
-                            value={{ signInInfo, setSignInInfo }}
-                        >
-                            <Explore />
-                        </UserContext.Provider>
-                    }
-                ></Route>
-                <Route
-                    path="/Film-Library/Friends"
-                    element={
-                        <UserContext.Provider
-                            value={{ signInInfo, setSignInInfo }}
-                        >
-                            <Friends />
-                        </UserContext.Provider>
-                    }
-                ></Route>
-                <Route path="/Film-Library/People" element={
-                <UserContext.Provider value={{signInInfo, setSignInInfo}}><People /></UserContext.Provider>
-                }></Route>
-                <Route
-                    path="/Film-Library/UserProfile"
-                    element={
-                        <UserContext.Provider
-                            value={{ signInInfo, setSignInInfo }}
-                        >
-                            <UserProfile />
-                        </UserContext.Provider>
-                    }
-                ></Route>
+                >
+                    <Route
+                        path="/Film-Library/Explore"
+                        element={
+                            <UserContext.Provider
+                                value={{ signInInfo, setSignInInfo }}
+                            >
+                                <Explore />
+                            </UserContext.Provider>
+                        }
+                    ></Route>
+                    <Route
+                        path="/Film-Library/Friends"
+                        element={
+                            <UserContext.Provider
+                                value={{ signInInfo, setSignInInfo }}
+                            >
+                                <Friends />
+                            </UserContext.Provider>
+                        }
+                    ></Route>
+                    <Route
+                        path="/Film-Library/People"
+                        element={
+                            <UserContext.Provider
+                                value={{ signInInfo, setSignInInfo }}
+                            >
+                                <People />
+                            </UserContext.Provider>
+                        }
+                    ></Route>
+                    <Route
+                        path="/Film-Library/UserProfile"
+                        element={
+                            <UserContext.Provider
+                                value={{ signInInfo, setSignInInfo }}
+                            >
+                                <UserProfile />
+                            </UserContext.Provider>
+                        }
+                    ></Route>
+                </Route>
             </Routes>
         </div>
     );

@@ -9,7 +9,7 @@ interface Props {}
 
 export const Friends: React.FC<Props> = () => {
     return <>
-    <SearchArea></SearchArea>
+    {/* <SearchArea></SearchArea> */}
     <FriendBasedSuggestions></FriendBasedSuggestions>
     <ActiveFriends></ActiveFriends>
     <PopularWithFriends></PopularWithFriends>

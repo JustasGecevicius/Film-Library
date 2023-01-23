@@ -8,6 +8,6 @@ interface Props {}
 
 export const Home: React.FC<Props> = () => {
     return <>
-    <SearchArea></SearchArea>
+    {/* <SearchArea></SearchArea> */}
     </>;
 };

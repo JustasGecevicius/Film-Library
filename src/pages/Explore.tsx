@@ -9,7 +9,7 @@ interface Props {}
 export const Explore: React.FC<Props> = () => {
     return (
         <>
-            <SearchArea></SearchArea>
+            {/* <SearchArea></SearchArea> */}
             <PopularMovies></PopularMovies>
             <TopRated></TopRated>
             <PopularWithFriends></PopularWithFriends>

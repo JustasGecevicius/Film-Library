@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "../css/header.css";
 import {
     GoogleAuthProvider,
@@ -66,8 +66,8 @@ export const Header: React.FC<Props> = () => {
 
     initFirebaseAuth();
 
-    return (
-        <header>
+    return (<>
+<header>
             <Link to="/Film-Library">
                 <div className="logoDiv">
                     <img src="logo.jpg" alt="logoImage" className="logo" />
@@ -144,5 +144,8 @@ export const Header: React.FC<Props> = () => {
                 )}
             </div>
         </header>
+        <Outlet/>
+    </>
+        
     );
 };

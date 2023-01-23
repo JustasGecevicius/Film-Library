@@ -6,7 +6,7 @@ interface Props {}
 
 export const People: React.FC<Props> = () => {
     return <>
-    <SearchArea></SearchArea>
+    {/* <SearchArea></SearchArea> */}
     <PopularPeople></PopularPeople>
     <PopularPeopleFriends></PopularPeopleFriends>
     </>;
