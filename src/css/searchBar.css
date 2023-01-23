@@ -1,0 +1,27 @@
+.search .searchForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search button {
+  background-color: #76bfff;
+  color: #f2f2f2;
+  float: right;
+  padding: 5px;
+  font-size: 12px;
+  border: none;
+  border-radius: 15px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.search button img {
+  max-width: 25px;
+}
+.search input[type=text] {
+  padding-left: 1rem;
+  font-size: 1.5rem;
+  width: 500px;
+  height: 37.5px;
+  border-radius: 25px;
+  border: none;
+}

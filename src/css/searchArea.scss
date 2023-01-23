@@ -1,0 +1,12 @@
+header{
+        position: absolute;
+}
+.backgroundSearchImage{
+        height: 600px;
+        background-position: top;
+        background-size: cover;
+}
+.search{
+        position: relative;
+        bottom: calc(-100% + 100px);
+}

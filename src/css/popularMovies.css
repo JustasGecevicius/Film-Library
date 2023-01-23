@@ -1,0 +1,37 @@
+.popularMoviesSection {
+  margin: 0 auto;
+  width: 90%;
+  margin-top: 3rem;
+  overflow-x: scroll;
+  height: auto;
+}
+.popularMoviesSection h2 {
+  margin-top: 2rem;
+}
+.popularMoviesSection .movieHolder {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+}
+.popularMoviesSection .movieHolder .imagePoster {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+.popularMoviesSection .movieHolder .imagePoster .posterImage {
+  border-radius: 10px;
+  min-height: 278px;
+  max-height: 278px;
+}
+.popularMoviesSection .movieHolder .imagePoster .movieText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 4rem;
+}
+.popularMoviesSection .movieHolder .imagePoster .movieText p {
+  text-align: center;
+}

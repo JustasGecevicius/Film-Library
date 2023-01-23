@@ -1,92 +1,91 @@
-import React, { useEffect, useState } from "react";
-
-// Services
-import api from "services/axios";
-
-interface Config {
-  change_keys: string[];
-  images: {
-    backdrop_sizes: string[];
-    base_url: string;
-    logo_sizes: string[];
-    poster_sizes: string[];
-    profile_sizes: string[];
-    secure_base_url: string;
-    still_sizes: string[];
-  };
-}
-
-interface Images {
-  page: number;
-  results: ImagesObject[];
-  total_pages: number;
-  total_results: number;
-}
-
-interface ImagesObject {
-  adult: boolean;
-  backdrop_path: string | null;
-}
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Header } from "./sections/Header";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import "./css/app.css";
+import { SearchArea } from "./components/SearchArea";
+import { Home } from "./pages/Home";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    useLocation,
+    Router,
+    useFetcher,
+} from "react-router-dom";
+import { Explore } from "pages/Explore";
+import { Friends } from "pages/Friends";
+import { People } from "pages/People";
+import { UserProfile } from "pages/UserProfile";
+import { SearchBar } from "components/SearchBar";
+import { initializeApp } from "firebase/app";
+import config from "./services/config";
+import {
+    GoogleAuthProvider,
+    getAuth,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged,
+} from "firebase/auth";
+import { UserContext } from "services/userContext";
 
 const App: React.FC = () => {
-  const [moviePictures, setMoviePictures] = useState<Images>();
-  const [config, setConfig] = useState<Config>();
-  const [imageIndex, setImageIndex] = useState<number>(0);
-  const [src, setSrc] = useState<string[]>([]);
+    const [signInInfo, setSignInInfo] = useState({});
+    const app = initializeApp(config);
+    const location = useLocation();
 
-  useEffect(() => {
-    const getConfig = async () => {
-      const { data } = await api<Config>(
-        "/configuration?api_key=2e1d9e703d345ef35e7a54d9ac882a26"
-      );
+    useEffect(() => {
+        console.log(signInInfo);
+    },[signInInfo])
 
-      setConfig(data);
-    };
-
-    const getTrending = async () => {
-      const { data } = await api<Images>(
-        "/movie/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=1"
-      );
-
-      setMoviePictures(data);
-    };
-
-    getConfig();
-    getTrending();
-  }, []);
-
-  useEffect(() => {
-    if (!config || !moviePictures) return;
-
-    // Config
-    const configUrl = config["images"]["base_url"];
-    const configSize = config["images"]["backdrop_sizes"][3];
-
-    setSrc(
-      moviePictures["results"].map(
-        (m) => configUrl + configSize + m["backdrop_path"]
-      )
+    return (
+        <div className="App">
+            <Routes location={location} key={location.pathname}>
+                <Route
+                    path="/Film-Library"
+                    element={
+                        <UserContext.Provider
+                            value={{ signInInfo, setSignInInfo }}
+                        >
+                            <Home />{" "}
+                        </UserContext.Provider>
+                    }
+                ></Route>
+                <Route
+                    path="/Film-Library/Explore"
+                    element={
+                        <UserContext.Provider
+                            value={{ signInInfo, setSignInInfo }}
+                        >
+                            <Explore />
+                        </UserContext.Provider>
+                    }
+                ></Route>
+                <Route
+                    path="/Film-Library/Friends"
+                    element={
+                        <UserContext.Provider
+                            value={{ signInInfo, setSignInInfo }}
+                        >
+                            <Friends />
+                        </UserContext.Provider>
+                    }
+                ></Route>
+                <Route path="/Film-Library/People" element={
+                <UserContext.Provider value={{signInInfo, setSignInInfo}}><People /></UserContext.Provider>
+                }></Route>
+                <Route
+                    path="/Film-Library/UserProfile"
+                    element={
+                        <UserContext.Provider
+                            value={{ signInInfo, setSignInInfo }}
+                        >
+                            <UserProfile />
+                        </UserContext.Provider>
+                    }
+                ></Route>
+            </Routes>
+        </div>
     );
-  }, [config, moviePictures]);
-
-  useEffect(() => {
-    if (!moviePictures) return;
-
-    setInterval(() => {
-      setImageIndex((prev) => (prev + 1) % moviePictures["results"].length);
-    }, 2000);
-  }, [moviePictures]);
-
-  if (!config || !moviePictures) {
-    return <div>Loading...</div>;
-  }
-
-  console.log(src);
-  return (
-    <div className="App">
-      <img alt="headerImage" src={src[imageIndex]}></img>
-    </div>
-  );
 };
 
-export default App;
+export { App };
