@@ -1,109 +1,69 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
-import { api } from "../../services/axios";
+import { useEffect, useState } from "react";
+
+// Components
 import { ImagePoster } from "../../components/ImagePoster";
 
-interface Props {}
+// Features
+import { getConfig } from "features/config/api";
+import { getTrendingMovies } from "features/movies/api";
 
-interface Config {
-    change_keys: string[];
-    images: {
-        backdrop_sizes: string[];
-        base_url: string;
-        logo_sizes: string[];
-        poster_sizes: string[];
-        profile_sizes: string[];
-        secure_base_url: string;
-        still_sizes: string[];
+// Types
+import { GetConfig } from "features/config/types";
+import { GetTrendingMovies } from "features/movies/types";
+
+// Styles
+import "../../css/popularMovies.css";
+
+export const PopularWithFriends = () => {
+  const [trendingMovies, setTrendingMovies] = useState<GetTrendingMovies>();
+  const [config, setConfig] = useState<GetConfig>();
+  const [src, setSrc] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: configData } = await getConfig();
+      const { data: trendingMoviesData } = await getTrendingMovies();
+
+      setConfig(configData);
+      setTrendingMovies(trendingMoviesData);
     };
-}
 
-interface Images {
-    page: number;
-    results: ImagesObject[];
-    total_pages: number;
-    total_results: number;
-}
+    fetchData();
+  }, []);
 
-interface ImagesObject {
-    adult: boolean;
-    backdrop_path: string | null;
-    poster_path: string | null;
-    original_title: string;
-    release_date: string;
-    vote_average: string;
-}
+  useEffect(() => {
+    if (!config || !trendingMovies) return;
 
-export const PopularWithFriends: React.FC<Props> = () => {
-    const [moviePictures, setMoviePictures] = useState<Images>();
-    const [config, setConfig] = useState<Config>();
-    const [src, setSrc] = useState<string[]>([]);
+    // Config
+    const configUrl = config["images"]["base_url"];
+    const configSize = config["images"]["poster_sizes"][2];
 
-    // useEffect(() => {
-    //     console.log(moviePictures);
-    //     console.log(src);
-    // }, [src]);
-
-    useEffect(() => {
-        const getConfig = async () => {
-            const { data } = await api<Config>(
-                "/configuration?api_key=2e1d9e703d345ef35e7a54d9ac882a26"
-            );
-
-            setConfig(data);
-        };
-
-        const getTrending = async () => {
-            const { data } = await api<Images>(
-                "/movie/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=1"
-            );
-
-            setMoviePictures(data);
-        };
-
-        getConfig();
-        getTrending();
-    }, []);
-
-    useEffect(() => {
-        if (!config || !moviePictures) return;
-
-        // Config
-        const configUrl = config["images"]["base_url"];
-        const configSize = config["images"]["poster_sizes"][2];
-
-        setSrc(
-            moviePictures["results"].map(
-                (m) => configUrl + configSize + m["poster_path"]
-            )
-        );
-    }, [config, moviePictures]);
-
-    if (!config || !moviePictures) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div className="popularMoviesSection">
-            <h2>Popular Movies With Friends</h2>
-            <div className="movieHolder">
-                {src.map((elem, index) => {
-                    return (
-                        <ImagePoster
-                        key={index}
-                            imageLink={elem}
-                            name={
-                                moviePictures["results"][index][
-                                    "original_title"
-                                ]
-                            }
-                            releaseDate={
-                                moviePictures["results"][index]["release_date"]
-                            }
-                        ></ImagePoster>
-                    );
-                })}
-            </div>
-        </div>
+    setSrc(
+      trendingMovies["results"].map(
+        (m) => configUrl + configSize + m["poster_path"]
+      )
     );
+  }, [config, trendingMovies]);
+
+  if (!config || !trendingMovies) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="popularMoviesSection">
+      <h2>Popular Movies</h2>
+      <div className="movieHolder">
+        {src.map((elem, index) => {
+          return (
+            <ImagePoster
+              imageLink={elem}
+              name={trendingMovies["results"][index]["title"]}
+              releaseDate={trendingMovies["results"][index]["release_date"]}
+              key={index}
+            ></ImagePoster>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
