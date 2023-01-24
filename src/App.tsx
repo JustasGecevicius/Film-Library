@@ -27,11 +27,26 @@ import {
     onAuthStateChanged,
 } from "firebase/auth";
 import { UserContext } from "services/userContext";
+import { userInfoFetch } from "services/userInfoFetch";
 
 const App: React.FC = () => {
     const [signInInfo, setSignInInfo] = useState({});
     const app = initializeApp(config);
     const location = useLocation();
+    console.log("app");
+    
+    const [info, setInfo] = useState({});
+
+    const infoFetch = async () => {
+        if(Object.keys(info).length === 0){
+            const userInfo = await userInfoFetch();
+            setInfo(userInfo);
+        }        
+    }
+    infoFetch();
+
+    useEffect (() => {console.log(info)},[info]);
+    
 
     useEffect(() => {
         console.log(signInInfo);
@@ -41,15 +56,24 @@ const App: React.FC = () => {
         <div className="App">
             <Routes location={location} key={location.pathname}>
                 <Route
-                    path="/Film-Library"
                     element={
                         <UserContext.Provider
                             value={{ signInInfo, setSignInInfo }}
                         >
-                            <Header />{" "}
+                            <Header />
                         </UserContext.Provider>
                     }
                 >
+                    <Route
+                        path="/Film-Library"
+                        element={
+                            <UserContext.Provider
+                                value={{ signInInfo, setSignInInfo }}
+                            >
+                                <Home />
+                            </UserContext.Provider>
+                        }
+                    ></Route>
                     <Route
                         path="/Film-Library/Explore"
                         element={
