@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "../css/header.css";
 import {
@@ -9,13 +9,18 @@ import {
     signOut,
 } from "firebase/auth";
 import { UserContext } from "services/userContext";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import config from "services/config";
 
 interface Props {}
 
 
 export const Header: React.FC<Props> = () => {
-    const {signInInfo, setSignInInfo} = useContext<any>(UserContext);
 
+    const {signInInfo, setSignInInfo} = useContext<any>(UserContext);
+    const app = initializeApp(config);
+    const db = getFirestore(app);
 
 
     async function signInUser() {
@@ -48,23 +53,33 @@ export const Header: React.FC<Props> = () => {
         }
     }
     const authStateObserver = (user: any) => {
+        console.log(user);
         if (user) {
             const userName = getUserName();
             const profilePic = getProfilePicUrl();
             const userId: string = user.uid;
-            //console.log(userName, profilePic, userId);
+            const userEmail = user.email;
             const userData = {
                 name: userName,
                 profilePicUrl: profilePic,
                 id: userId,
-            };
+                email: userEmail
+            };          
+            setDoc(doc(db, "nicknames", userId), {
+                email: userEmail,
+                nickname:userName
+            })
             setSignInInfo((prev:any) => userData);
+
         } else {
             setSignInInfo(null);
         }
     };
 
-    initFirebaseAuth();
+    useEffect (() => {initFirebaseAuth();
+    },[]);
+
+
 
     return (<>
 <header>
