@@ -6,12 +6,10 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  max-width: 1500px;
+  max-width: 900px;
   width: 90%;
   margin: 0 auto;
   border-radius: 0 0 10px 10px;
-  left: 0;
-  right: 0;
   /* The switch - the box around the slider */
   /* The slider */
   /* Rounded sliders */

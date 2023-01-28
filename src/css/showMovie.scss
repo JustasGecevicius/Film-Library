@@ -1,0 +1,151 @@
+$max-width: 900px;
+
+.backdrop {
+    height: 500px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 1.5rem;
+    box-shadow: inset 0px -200px 100px -50px black;
+    .width {
+        height: 100%;
+        max-width: $max-width;
+        margin: 0 auto;
+        .posterWrapper {
+            position: relative;
+            top: 100%;
+            transform: translate(0, -100%);
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            column-gap: 2rem;
+            .poster {
+                background-position: center;
+                background-size: cover;
+                height: 200px;
+                aspect-ratio: 2 / 3;
+                box-shadow: 5px 2px 10px -2px black;
+                border-radius: 10px;
+            }
+            .posterText {
+                padding: 1rem;
+                color: white;
+                border-radius: 10px;
+                h2 {
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+}
+.genres {
+    background-color: black;
+    padding: 0rem 1.5rem;
+    .genreItems {
+        margin: 0 auto;
+        max-width: $max-width;
+        display: flex;
+        flex-direction: row;
+        column-gap: 1rem;
+        padding: 1rem 0rem;
+        background-color: black;
+        color: white;
+    }
+    .genreSymbol {
+        padding: 0.2rem 0.5rem;
+        border-radius: 1rem;
+        border: solid white 1px;
+    }
+}
+.overviewWidth {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+    p {
+        max-width: $max-width;
+    }
+}
+
+.likeAndRate {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    .likeAndRateWidth {
+        display: flex;
+        justify-content: flex-start;
+        column-gap: 2rem;
+        max-width: $max-width;
+        width: 100%;
+        button{
+                padding: 0.5rem;
+        }
+    }
+}
+
+.visitHomepage{
+        padding: 1.5rem;
+        display: flex;
+        justify-content: center;
+        .visitHomepageWidth{
+                max-width: $max-width;
+                width: 100%;
+                a{
+                        font-weight: bold;
+                        text-decoration: none;
+                        font-size: 1.5rem;
+                        color: black;
+
+                }
+        }
+}
+
+.movieNumbers{
+        padding: 1.5rem;
+        display: flex;
+        justify-content: center;
+        .movieNumbersWidth{
+                max-width: $max-width;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                column-gap: 1rem;
+                .movieNumbersSymbol{
+                        border: solid black 1px;
+                        padding: 0.2rem 0.5rem;
+                        border-radius: 1rem;
+                }
+        }       
+}
+
+.producedBy{
+        padding: 1.5rem;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        .producedByWidth{
+                max-width: $max-width;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                column-gap: 1rem;
+                .cards{
+                        display: flex;
+                        flex-direction: row;
+                        column-gap: 2rem;
+                }
+                .producerCard{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        .producerLogo{
+                                width: 100px;
+                                background-position: center;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                height: 100px;
+                        }
+                }
+        }
+}

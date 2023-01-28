@@ -1,56 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Header } from "./sections/Header";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { Header } from "./sections/header/Header";
+import React, { useEffect, useState } from "react";
 import "./css/app.css";
-import { SearchArea } from "./components/SearchArea";
-import { Home } from "./pages/Home";
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-    useLocation,
-    Router,
-    useFetcher,
-} from "react-router-dom";
-import { Explore } from "pages/Explore";
-import { Friends } from "pages/Friends";
-import { People } from "pages/People";
-import { UserProfile } from "pages/UserProfile";
-import { SearchBar } from "components/SearchBar";
+import { Home } from "./pages/home/Home";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { Explore } from "pages/explore/Explore";
+import { Friends } from "pages/friends/Friends";
+import { People } from "pages/people/People";
+import { UserProfile } from "pages/userProfile/UserProfile";
 import { initializeApp } from "firebase/app";
 import config from "./services/config";
-import {
-    GoogleAuthProvider,
-    getAuth,
-    signInWithPopup,
-    signOut,
-    onAuthStateChanged,
-} from "firebase/auth";
 import { UserContext } from "services/userContext";
-import { userInfoFetch } from "services/userInfoFetch";
+import { ShowMovie } from "reusableComponents/showMovie/ShowMovie";
 
 const App: React.FC = () => {
     const [signInInfo, setSignInInfo] = useState({});
     const app = initializeApp(config);
     const location = useLocation();
-    console.log("app");
-    
-    const [info, setInfo] = useState({});
-
-    const infoFetch = async () => {
-        if(Object.keys(info).length === 0){
-            const userInfo = await userInfoFetch();
-            setInfo(userInfo);
-        }        
-    }
-    infoFetch();
-
-    useEffect (() => {console.log(info)},[info]);
-    
-
-    useEffect(() => {
-        console.log(signInInfo);
-    }, [signInInfo]);
 
     return (
         <div className="App">
@@ -73,7 +39,9 @@ const App: React.FC = () => {
                                 <Home />
                             </UserContext.Provider>
                         }
-                    ></Route>
+                    >
+                        <Route path=":movieId" element={<ShowMovie />}></Route>
+                    </Route>
                     <Route
                         path="/Film-Library/Explore"
                         element={
@@ -84,6 +52,9 @@ const App: React.FC = () => {
                             </UserContext.Provider>
                         }
                     ></Route>
+                    <Route path="/Film-Library/Explore/:movieId" element={<ShowMovie />}>
+
+                    </Route>
                     <Route
                         path="/Film-Library/Friends"
                         element={
@@ -93,7 +64,9 @@ const App: React.FC = () => {
                                 <Friends />
                             </UserContext.Provider>
                         }
-                    ></Route>
+                    >
+                    </Route>
+                    <Route path="/Film-Library/Friends/:movieId" element={<ShowMovie />}/>
                     <Route
                         path="/Film-Library/People"
                         element={
@@ -104,6 +77,7 @@ const App: React.FC = () => {
                             </UserContext.Provider>
                         }
                     ></Route>
+                    <Route path="/Film-Library/People/:movieId" element={<ShowMovie />}/>
                     <Route
                         path="/Film-Library/UserProfile"
                         element={
