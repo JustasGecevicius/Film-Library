@@ -1,9 +1,11 @@
 .popularMoviesSection {
+  position: relative;
   margin: 0 auto;
   width: 90%;
   margin-top: 3rem;
   overflow-x: scroll;
   height: auto;
+  outline: solid red;
 }
 .popularMoviesSection h2 {
   margin-top: 2rem;
@@ -14,6 +16,8 @@
   flex-direction: row;
   -moz-column-gap: 2rem;
        column-gap: 2rem;
+  width: 100%;
+  overflow-x: auto;
 }
 .popularMoviesSection .movieHolder .imagePoster {
   display: flex;
