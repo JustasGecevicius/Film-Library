@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Header } from "../sections/header/Header";
 import { api } from "../services/axios";
 import "../css/searchArea.css";
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "./showMovie/searchBar/SearchBar";
 
 interface Props {}
 

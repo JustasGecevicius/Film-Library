@@ -1,6 +1,5 @@
 import { getConfig } from "features/config/api";
 import { GetConfig } from "features/config/types";
-import { Config } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Backdrop } from "./components/Backdrop";
@@ -25,23 +24,18 @@ export const ShowMovie: React.FC<Props> = () => {
     const [productionCompanies, setProductionCompanies] = useState<any>();
     const { movieId } = useParams();
 
-    //console.log(data);
-
-    const fetch = async () => {
-        if (!movieId) return;
-        const { data: movieData } = await getMovieData(movieId);
-        const { data: configuration } = await getConfig();
-        // const {data : productionCompanies} = await getProductionCompanies();
-        setConfig(configuration);
-        setData(movieData);
-    };
-
     useEffect(() => {
+        const fetch = async () => {
+            if (!movieId) return;
+            const { data: movieData } = await getMovieData(movieId);
+            const { data: configuration } = await getConfig();
+            setConfig(configuration);
+            setData(movieData);
+        };
         fetch();
     }, []);
 
     useEffect(() => {
-        //console.log(config);
         if (data && config) {
             const backdrop =
                 config["images"]["base_url"] +
@@ -55,12 +49,13 @@ export const ShowMovie: React.FC<Props> = () => {
                 data["production_companies"],
                 config
             );
-           // console.log(productionCompanyData ,"data");
             setPosterURL(poster);
             setBackdropURL(backdrop);
             setProductionCompanies(productionCompanyData);
         }
     }, [config, data]);
+
+    if(movieId === undefined) return <></>;
 
     return (
         <>
@@ -74,7 +69,7 @@ export const ShowMovie: React.FC<Props> = () => {
             {data ? (
                 <>
                     <Genres genres={data["genres"]} />
-                    <LikeAndRate id={movieId} />
+                    <LikeAndRate id={movieId} title={data["title"]} />
                     <Description overview={data["overview"]} />
                     <VisitHomepage link={data["homepage"]} />
                     <MovieNumbers
