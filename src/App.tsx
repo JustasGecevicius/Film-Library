@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Header } from "./sections/header/Header";
+import { Header } from "./reusableComponents/Header";
 import React, { useEffect, useState } from "react";
 import "./css/app.css";
 import { Home } from "./pages/home/Home";
@@ -9,10 +9,10 @@ import { Friends } from "pages/friends/Friends";
 import { People } from "pages/people/People";
 import { UserProfile } from "pages/userProfile/UserProfile";
 import { initializeApp } from "firebase/app";
-import config from "./services/config";
-import { DB, UserContext } from "services/userContext";
-import { ShowMovie } from "reusableComponents/showMovie/ShowMovie";
+import config from "./features/services/config";
+import { DB, UserContext } from "features/services/userContext";
 import { getFirestore } from "firebase/firestore";
+import { ShowMovie } from "pages/showMovie/ShowMovie";
 
 const App: React.FC = () => {
     const [signInInfo, setSignInInfo] = useState({});

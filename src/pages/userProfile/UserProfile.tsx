@@ -1,5 +1,5 @@
 import React from "react";
-import { Header } from "sections/header/Header";
+import { Header } from "reusableComponents/Header";
 
 interface Props {}
 

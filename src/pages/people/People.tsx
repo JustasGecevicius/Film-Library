@@ -1,10 +1,11 @@
 import { SearchArea } from "reusableComponents/SearchArea";
 import React, { useEffect, useState } from "react";
-import { getPopularPeople } from "./features/api";
+import { getPopularPeople } from "../../features/people/api";
 import { getConfig } from "features/config/api";
-import { filterPeopleInformation } from "features/filterMovieInformation";
 import { PosterDisplay } from "reusableComponents/PosterDisplay";
 import "../../css/popularMovies.css";
+import { filterPeopleInformation } from "features/people/functions";
+
 // import { PopularPeopleFriends } from "sections/people/PopularPeopleFriends";
 interface Props {}
 

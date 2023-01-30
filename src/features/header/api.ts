@@ -1,8 +1,7 @@
-import { getStorage, ref, getDownloadURL, getMetadata, listAll } from "firebase/storage"
+import { getDownloadURL, getMetadata, getStorage, listAll, ref } from "firebase/storage";
 import { Metadata } from "./types";
 
-
-export const api = async () => {
+export const fetchHeaderIcons = async () => {
         const storage = getStorage();
         const metadata : Promise<Metadata>[]= [];
         let data : Promise<string>[] = [];
@@ -14,7 +13,6 @@ export const api = async () => {
                 metadata.push(getMetadata(elem));
                 data.push(getDownloadURL(elem));
         })
-        //console.log( data)
         const metaPromises = await Promise.all(metadata);
         const dataPromises = await Promise.all(data);
         metaPromises.forEach((elem, index) => {

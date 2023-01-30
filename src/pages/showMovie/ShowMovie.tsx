@@ -1,22 +1,19 @@
 //functions
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchData } from "./features/api";
-import { filterProductionCompanies } from "./features/productionCompanyInformation";
-
 //types
 import { GetConfig } from "features/config/types";
-import { BackdropType, Company, MovieData } from "./features/types";
-
+import { MovieData, BackdropType, Company } from "features/movies/types";
 //components
 import { Backdrop } from "./components/Backdrop";
 import "../../css/showMovie.css";
 import { Genres } from "./components/Genres";
 import { Description } from "./components/Description";
-import { LikeAndRate } from "./components/likeAndRate/LikeAndRate";
+import { LikeAndRate } from "./components/LikeAndRate";
 import { VisitHomepage } from "./components/VisitHomepage";
-import { MovieNumbers } from "./components/movieNumbers/MovieNumbers";
-import { ProducedBy } from "./components/productionCompanies/ProducedBy";
+import { MovieNumbers } from "./components/MovieNumbers";
+import { ProducedBy } from "./components/ProducedBy";
+import { fetchData, filterProductionCompanies } from "features/movies/functions";
 
 
 
@@ -68,7 +65,7 @@ export const ShowMovie = () => {
                     <Genres genres={data["genres"]} />
                     <LikeAndRate id={movieId} title={data["title"]} />
                     <Description overview={data["overview"]} />
-                    <VisitHomepage link={data["homepage"]} />
+                    {data["homepage"] ? <VisitHomepage link={data["homepage"]} /> : null}                    
                     <MovieNumbers
                         budget={data["budget"]}
                         revenue={data["revenue"]}

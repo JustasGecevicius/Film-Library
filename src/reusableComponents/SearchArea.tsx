@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Header } from "../sections/header/Header";
-import { api } from "../services/axios";
+import { Header } from "./Header";
+import { api } from "../features/services/axios";
 import "../css/searchArea.css";
-import { SearchBar } from "./showMovie/components/searchBar/SearchBar";
+import { SearchBar } from "reusableComponents/SearchBar";
 
 interface Props {}
 
@@ -36,10 +36,6 @@ export const SearchArea: React.FC<Props> = () => {
     const [config, setConfig] = useState<Config>();
     const [imageIndex, setImageIndex] = useState<number>(0);
     const [src, setSrc] = useState<string[]>([]);
-
-    // useEffect(() => {
-    //     //console.log(moviePictures, config);
-    // }, [moviePictures, config]);
 
     useEffect(() => {
         const getConfig = async () => {

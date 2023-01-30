@@ -2,14 +2,13 @@ import { SearchArea } from "reusableComponents/SearchArea";
 import { useContext, useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import "../../css/home.css";
-import { SearchBar } from "reusableComponents/showMovie/components/searchBar/SearchBar";
-import { UserContext } from "services/userContext";
+import { UserContext } from "features/services/userContext";
+import { SearchBar } from "reusableComponents/SearchBar";
 
 interface Props {}
 
 export const Home: React.FC<Props> = () => {
     const { signInInfo, setSignInInfo } = useContext<any>(UserContext);
-   // console.log(signInInfo);
     const [name, setName] = useState();
     const storage = getStorage();
     const pathRef = ref(storage, "background.jpg");
@@ -32,10 +31,6 @@ export const Home: React.FC<Props> = () => {
             setName(signInInfo["name"].split(" ").slice(0, -1).join("."));
         }
     }, [signInInfo]);
-
-    // useEffect(() => {
-    //     console.log(signInInfo, name);
-    // }, [signInInfo, name]);
 
     return background ? (
         <div

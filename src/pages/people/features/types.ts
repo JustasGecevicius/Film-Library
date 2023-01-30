@@ -1,1 +1,0 @@
-import { GetTrendingMovies } from "features/movies/types";

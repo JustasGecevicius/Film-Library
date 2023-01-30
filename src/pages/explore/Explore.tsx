@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getPopularMovies, getTopRatedMovies } from "./features/api";
-import { filterMovieInformation } from "features/filterMovieInformation";
 import { PosterDisplay } from "reusableComponents/PosterDisplay";
 import { getConfig } from "features/config/api";
-import "../../css/explore.css"
+import "../../css/explore.css";
+import { filterMovieInformation } from "features/movies/functions";
+import { getTopRatedMovies, getTrendingMovies } from "features/movies/api";
 
 interface Props {}
 
@@ -15,7 +15,7 @@ export const Explore: React.FC<Props> = () => {
     useEffect(() => {
         const fetch = async () => {
             const { data: configuration } = await getConfig();
-            const { data: popMovies } = await getPopularMovies();
+            const { data: popMovies } = await getTrendingMovies();
             const { data: topMovies } = await getTopRatedMovies();
             const popMovieData = filterMovieInformation(
                 configuration,

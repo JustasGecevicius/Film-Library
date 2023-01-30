@@ -2,18 +2,17 @@
 
 //functions
 import { useContext, useEffect, useState } from "react";
-import { DB, UserContext } from "services/userContext";
-import { fetchLiked, like } from "./api";
+import { DB, UserContext } from "features/services/userContext";
 
 //styles
-import "../../../../css/likeAndRate.css";
+import "../../../css/likeAndRate.css";
 
 //types
-import { Props } from "./types";
-
+import { LikeAndRateType } from "features/movies/types";
+import { fetchLiked, like } from "features/movies/functions";
 
 //get the id and title of the movie as props
-export const LikeAndRate = ({ id, title }: Props) => {
+export const LikeAndRate = ({ id, title }: LikeAndRateType) => {
     //gets the user data to later update it and the firestore app
     const { signInInfo } = useContext<any>(UserContext);
     const { db } = useContext<any>(DB);
@@ -38,7 +37,7 @@ export const LikeAndRate = ({ id, title }: Props) => {
                         like(id, signInInfo["id"], db, title, setLiked, liked);
                     }}
                 >
-                    Like
+                    {liked ? "Unlike" : "Like"}
                 </button>
                 <form className="rateForm">
                     <input

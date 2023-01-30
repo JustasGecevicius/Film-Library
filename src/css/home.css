@@ -4,6 +4,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  z-index: 10;
 }
 .background .backgroundCover {
   position: fixed;
@@ -15,6 +17,7 @@
   left: 0;
   right: 0;
   box-shadow: inset 0px 0px 100px 100px;
+  z-index: 15;
 }
 .background .textWrap {
   display: flex;

@@ -1,4 +1,4 @@
-import { api } from "services/axios";
+import { api } from "features/services/axios";
 
 import { GET_CONFIG_URL } from "./constants";
 

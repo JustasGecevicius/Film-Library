@@ -1,4 +1,4 @@
-import { api } from "services/axios";
+import { api } from "features/services/axios";
 
 import { GET_TRENDING_PEOPLE_URL } from "./constants";
 
