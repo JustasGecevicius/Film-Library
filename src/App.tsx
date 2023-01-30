@@ -10,12 +10,14 @@ import { People } from "pages/people/People";
 import { UserProfile } from "pages/userProfile/UserProfile";
 import { initializeApp } from "firebase/app";
 import config from "./services/config";
-import { UserContext } from "services/userContext";
+import { DB, UserContext } from "services/userContext";
 import { ShowMovie } from "reusableComponents/showMovie/ShowMovie";
+import { getFirestore } from "firebase/firestore";
 
 const App: React.FC = () => {
     const [signInInfo, setSignInInfo] = useState({});
     const app = initializeApp(config);
+    const db = getFirestore(app);
     const location = useLocation();
 
     return (
@@ -26,7 +28,9 @@ const App: React.FC = () => {
                         <UserContext.Provider
                             value={{ signInInfo, setSignInInfo }}
                         >
-                            <Header />
+                            <DB.Provider value={{ db }}>
+                                <Header />
+                            </DB.Provider>
                         </UserContext.Provider>
                     }
                 >
@@ -36,7 +40,9 @@ const App: React.FC = () => {
                             <UserContext.Provider
                                 value={{ signInInfo, setSignInInfo }}
                             >
-                                <Home />
+                                <DB.Provider value={{ db }}>
+                                    <Home />
+                                </DB.Provider>
                             </UserContext.Provider>
                         }
                     >
@@ -48,43 +54,64 @@ const App: React.FC = () => {
                             <UserContext.Provider
                                 value={{ signInInfo, setSignInInfo }}
                             >
-                                <Explore />
+                                <DB.Provider value={{ db }}>
+                                    <Explore />
+                                </DB.Provider>
                             </UserContext.Provider>
                         }
                     ></Route>
-                    <Route path="/Film-Library/Explore/:movieId" element={<ShowMovie />}>
-
-                    </Route>
+                    <Route
+                        path="/Film-Library/Explore/:movieId"
+                        element={
+                            <UserContext.Provider
+                                value={{ signInInfo, setSignInInfo }}
+                            >
+                                <ShowMovie />
+                                <DB.Provider value={{ db }}></DB.Provider>
+                            </UserContext.Provider>
+                        }
+                    ></Route>
                     <Route
                         path="/Film-Library/Friends"
                         element={
                             <UserContext.Provider
                                 value={{ signInInfo, setSignInInfo }}
                             >
-                                <Friends />
+                                <DB.Provider value={{ db }}>
+                                    <Friends />
+                                </DB.Provider>
                             </UserContext.Provider>
                         }
-                    >
-                    </Route>
-                    <Route path="/Film-Library/Friends/:movieId" element={<ShowMovie />}/>
+                    ></Route>
+                    <Route
+                        path="/Film-Library/Friends/:movieId"
+                        element={<ShowMovie />}
+                    />
                     <Route
                         path="/Film-Library/People"
                         element={
                             <UserContext.Provider
                                 value={{ signInInfo, setSignInInfo }}
                             >
-                                <People />
+                                <DB.Provider value={{ db }}>
+                                    <People />
+                                </DB.Provider>
                             </UserContext.Provider>
                         }
                     ></Route>
-                    <Route path="/Film-Library/People/:movieId" element={<ShowMovie />}/>
+                    <Route
+                        path="/Film-Library/People/:movieId"
+                        element={<ShowMovie />}
+                    />
                     <Route
                         path="/Film-Library/UserProfile"
                         element={
                             <UserContext.Provider
                                 value={{ signInInfo, setSignInInfo }}
                             >
-                                <UserProfile />
+                                <DB.Provider value={{ db }}>
+                                    <UserProfile />
+                                </DB.Provider>
                             </UserContext.Provider>
                         }
                     ></Route>

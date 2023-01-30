@@ -10,3 +10,5 @@ interface Context {
 }
 
 export const UserContext = createContext<Context | null>(null);
+
+export const DB = createContext<any>(null);
