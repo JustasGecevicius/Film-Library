@@ -15,110 +15,93 @@ import { ShowMovie } from "reusableComponents/showMovie/ShowMovie";
 import { getFirestore } from "firebase/firestore";
 
 const App: React.FC = () => {
-    const [signInInfo, setSignInInfo] = useState({});
-    const app = initializeApp(config);
-    const db = getFirestore(app);
-    const location = useLocation();
+  const [signInInfo, setSignInInfo] = useState({});
+  const app = initializeApp(config);
+  const db = getFirestore(app);
+  const location = useLocation();
 
-    return (
-        <div className="App">
-            <Routes location={location} key={location.pathname}>
-                <Route
-                    element={
-                        <UserContext.Provider
-                            value={{ signInInfo, setSignInInfo }}
-                        >
-                            <DB.Provider value={{ db }}>
-                                <Header />
-                            </DB.Provider>
-                        </UserContext.Provider>
-                    }
-                >
-                    <Route
-                        path="/Film-Library"
-                        element={
-                            <UserContext.Provider
-                                value={{ signInInfo, setSignInInfo }}
-                            >
-                                <DB.Provider value={{ db }}>
-                                    <Home />
-                                </DB.Provider>
-                            </UserContext.Provider>
-                        }
-                    >
-                        <Route path=":movieId" element={<ShowMovie />}></Route>
-                    </Route>
-                    <Route
-                        path="/Film-Library/Explore"
-                        element={
-                            <UserContext.Provider
-                                value={{ signInInfo, setSignInInfo }}
-                            >
-                                <DB.Provider value={{ db }}>
-                                    <Explore />
-                                </DB.Provider>
-                            </UserContext.Provider>
-                        }
-                    ></Route>
-                    <Route
-                        path="/Film-Library/Explore/:movieId"
-                        element={
-                            <UserContext.Provider
-                                value={{ signInInfo, setSignInInfo }}
-                            >
-                                <ShowMovie />
-                                <DB.Provider value={{ db }}></DB.Provider>
-                            </UserContext.Provider>
-                        }
-                    ></Route>
-                    <Route
-                        path="/Film-Library/Friends"
-                        element={
-                            <UserContext.Provider
-                                value={{ signInInfo, setSignInInfo }}
-                            >
-                                <DB.Provider value={{ db }}>
-                                    <Friends />
-                                </DB.Provider>
-                            </UserContext.Provider>
-                        }
-                    ></Route>
-                    <Route
-                        path="/Film-Library/Friends/:movieId"
-                        element={<ShowMovie />}
-                    />
-                    <Route
-                        path="/Film-Library/People"
-                        element={
-                            <UserContext.Provider
-                                value={{ signInInfo, setSignInInfo }}
-                            >
-                                <DB.Provider value={{ db }}>
-                                    <People />
-                                </DB.Provider>
-                            </UserContext.Provider>
-                        }
-                    ></Route>
-                    <Route
-                        path="/Film-Library/People/:movieId"
-                        element={<ShowMovie />}
-                    />
-                    <Route
-                        path="/Film-Library/UserProfile"
-                        element={
-                            <UserContext.Provider
-                                value={{ signInInfo, setSignInInfo }}
-                            >
-                                <DB.Provider value={{ db }}>
-                                    <UserProfile />
-                                </DB.Provider>
-                            </UserContext.Provider>
-                        }
-                    ></Route>
-                </Route>
-            </Routes>
-        </div>
-    );
+  return (
+    <div className="App">
+      <Routes location={location} key={location.pathname}>
+        <Route
+          element={
+            <UserContext.Provider value={{ signInInfo, setSignInInfo }}>
+              <DB.Provider value={{ db }}>
+                <Header />
+              </DB.Provider>
+            </UserContext.Provider>
+          }
+        >
+          <Route
+            path="/Film-Library"
+            element={
+              <UserContext.Provider value={{ signInInfo, setSignInInfo }}>
+                <DB.Provider value={{ db }}>
+                  <Home />
+                </DB.Provider>
+              </UserContext.Provider>
+            }
+          >
+            <Route path=":movieId" element={<ShowMovie />}></Route>
+          </Route>
+          <Route
+            path="/Film-Library/Explore"
+            element={
+              <UserContext.Provider value={{ signInInfo, setSignInInfo }}>
+                <DB.Provider value={{ db }}>
+                  <Explore />
+                </DB.Provider>
+              </UserContext.Provider>
+            }
+          ></Route>
+          <Route
+            path="/Film-Library/Explore/:movieId"
+            element={
+              <UserContext.Provider value={{ signInInfo, setSignInInfo }}>
+                <ShowMovie />
+                <DB.Provider value={{ db }}></DB.Provider>
+              </UserContext.Provider>
+            }
+          ></Route>
+          <Route
+            path="/Film-Library/Friends"
+            element={
+              <UserContext.Provider value={{ signInInfo, setSignInInfo }}>
+                <DB.Provider value={{ db }}>
+                  <Friends />
+                </DB.Provider>
+              </UserContext.Provider>
+            }
+          ></Route>
+          <Route
+            path="/Film-Library/Friends/:movieId"
+            element={<ShowMovie />}
+          />
+          <Route
+            path="/Film-Library/People"
+            element={
+              <UserContext.Provider value={{ signInInfo, setSignInInfo }}>
+                <DB.Provider value={{ db }}>
+                  <People />
+                </DB.Provider>
+              </UserContext.Provider>
+            }
+          ></Route>
+          <Route path="/Film-Library/People/:movieId" element={<ShowMovie />} />
+          <Route
+            path="/Film-Library/UserProfile"
+            element={
+              <UserContext.Provider value={{ signInInfo, setSignInInfo }}>
+                <DB.Provider value={{ db }}>
+                  <UserProfile />
+                </DB.Provider>
+              </UserContext.Provider>
+            }
+          ></Route>
+        </Route>
+      </Routes>
+    </div>
+  );
 };
 
 export { App };
