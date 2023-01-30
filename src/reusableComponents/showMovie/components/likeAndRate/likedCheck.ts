@@ -4,5 +4,6 @@ interface Props{
 }
 
 export const likedCheck = (likedMovies : any, currentMovie : any) => {
-        console.log(likedMovies, currentMovie);
+        //returns true or false depending on if the movie was found in the liked list or not
+       return Object.keys(likedMovies).includes(currentMovie);
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../../css/searchBar.css";
+import "../../../../css/searchBar.css";
 import { fetch } from "./api";
 
 interface Props {}

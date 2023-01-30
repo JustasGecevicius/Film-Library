@@ -1,3 +1,5 @@
+import { GetConfig } from "features/config/types";
+
 export interface MovieData {
     adult: boolean;
     backdrop_path: string | null;
@@ -32,3 +34,23 @@ export interface Array {
     name:string;
     origin_country:string;
 }
+
+export interface BackdropType{
+    backdropURL : string;
+    posterURL: string;
+}
+
+export interface Company{
+    id : number
+    logo_path:string
+    name:string
+    origin_country:string
+}
+
+export interface FetchData{
+    movieId: string,
+    setConfig: React.Dispatch<React.SetStateAction<GetConfig | undefined>>,
+    setData: React.Dispatch<React.SetStateAction<MovieData | undefined>>
+}
+
+

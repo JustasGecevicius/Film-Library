@@ -1,3 +1,4 @@
-export interface Like {
-        
+export interface Props {
+        id: string;
+        title: string;
 }

@@ -1,39 +1,37 @@
-import { getConfig } from "features/config/api";
-import { GetConfig } from "features/config/types";
-import React, { useEffect, useState } from "react";
+//functions
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { fetchData } from "./features/api";
+import { filterProductionCompanies } from "./features/productionCompanyInformation";
+
+//types
+import { GetConfig } from "features/config/types";
+import { BackdropType, Company, MovieData } from "./features/types";
+
+//components
 import { Backdrop } from "./components/Backdrop";
-import { getMovieData } from "./features/api";
-import { MovieData } from "./features/types";
 import "../../css/showMovie.css";
 import { Genres } from "./components/Genres";
 import { Description } from "./components/Description";
 import { LikeAndRate } from "./components/likeAndRate/LikeAndRate";
 import { VisitHomepage } from "./components/VisitHomepage";
 import { MovieNumbers } from "./components/movieNumbers/MovieNumbers";
-import { productionCompanyInformationFilter } from "./features/productionCompanyInformation";
 import { ProducedBy } from "./components/productionCompanies/ProducedBy";
 
-interface Props {}
 
-export const ShowMovie: React.FC<Props> = () => {
+
+export const ShowMovie = () => {
+    //states
     const [config, setConfig] = useState<GetConfig>();
     const [data, setData] = useState<MovieData>();
-    const [backdropURL, setBackdropURL] = useState<string>();
-    const [posterURL, setPosterURL] = useState<string>();
-    const [productionCompanies, setProductionCompanies] = useState<any>();
+    const [backdropImages, setBackdropImages] = useState<BackdropType>();
+    const [productionCompanies, setProductionCompanies] = useState<Company[]>();
+    //router Parameters
     const { movieId } = useParams();
 
     useEffect(() => {
-        const fetch = async () => {
-            if (!movieId) return;
-            const { data: movieData } = await getMovieData(movieId);
-            const { data: configuration } = await getConfig();
-            setConfig(configuration);
-            setData(movieData);
-        };
-        fetch();
-    }, []);
+        if(movieId) fetchData({movieId, setConfig, setData});
+    }, [movieId]);
 
     useEffect(() => {
         if (data && config) {
@@ -45,12 +43,11 @@ export const ShowMovie: React.FC<Props> = () => {
                 config["images"]["base_url"] +
                 config["images"]["poster_sizes"][6] +
                 data["poster_path"];
-            const productionCompanyData = productionCompanyInformationFilter(
+            const productionCompanyData = filterProductionCompanies(
                 data["production_companies"],
                 config
             );
-            setPosterURL(poster);
-            setBackdropURL(backdrop);
+            setBackdropImages({backdropURL:backdrop, posterURL:poster})
             setProductionCompanies(productionCompanyData);
         }
     }, [config, data]);
@@ -59,10 +56,10 @@ export const ShowMovie: React.FC<Props> = () => {
 
     return (
         <>
-            {backdropURL && posterURL && data ? (
+            {backdropImages && data ? (
                 <Backdrop
-                    backdrop={backdropURL}
-                    poster={posterURL}
+                    backdrop={backdropImages["backdropURL"]}
+                    poster={backdropImages["posterURL"]}
                     title={data["title"]}
                 />
             ) : null}

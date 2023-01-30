@@ -1,5 +1,5 @@
 
-export const productionCompanyInformationFilter = (array : Object[], configuration : any) => {
+export const filterProductionCompanies = (array : Object[], configuration : any) => {
 
         const baseURL = configuration["images"]["base_url"] + configuration["images"]["logo_sizes"][6];
         const sortedArray: any = [];
