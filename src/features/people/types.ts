@@ -1,3 +1,1 @@
-export interface People{
-        
-}
+export interface People {}

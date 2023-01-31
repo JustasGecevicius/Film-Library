@@ -1,40 +1,40 @@
 .popularMoviesSection {
-    position: relative;
-    margin: 0 auto;
-    width: 90%;
-    margin-top: 3rem;
-    overflow-x: scroll;
-    height: auto;
-    outline: solid red;
-    h2 {
-        margin-top: 2rem;
-    }
-    .movieHolder {
-        margin-top: 2rem;
+  position: relative;
+  margin: 0 auto;
+  width: 90%;
+  margin-top: 3rem;
+  overflow-x: scroll;
+  height: auto;
+  outline: solid red;
+  h2 {
+    margin-top: 2rem;
+  }
+  .movieHolder {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    column-gap: 2rem;
+    width: 100%;
+    overflow-x: auto;
+    .imagePoster {
+      display: flex;
+      flex-direction: column;
+      row-gap: 1rem;
+      .posterImage {
+        border-radius: 10px;
+        min-height: 278px;
+        max-height: 278px;
+      }
+      .movieText {
         display: flex;
-        flex-direction: row;
-        column-gap: 2rem;
-        width: 100%;
-        overflow-x: auto;
-        .imagePoster {
-            display: flex;
-            flex-direction: column;
-            row-gap: 1rem;
-            .posterImage {
-                border-radius: 10px;
-                min-height: 278px;
-                max-height: 278px;
-            }
-            .movieText {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                min-height: 4rem;
-                p{
-                        text-align: center;
-                }
-            }
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 4rem;
+        p {
+          text-align: center;
         }
+      }
     }
+  }
 }

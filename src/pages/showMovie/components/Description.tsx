@@ -1,13 +1,13 @@
 interface Props {
-    overview: string;
+  overview: string
 }
 
-export const Description = ({ overview } : Props) => {
-    return (
-        <div className="overview">
-            <div className="overviewWidth">
-                <p className="overview">{overview}</p>
-            </div>
-        </div>
-    );
-};
+export const Description = ({ overview }: Props) => {
+  return (
+    <div className='overview'>
+      <div className='overviewWidth'>
+        <p className='overview'>{overview}</p>
+      </div>
+    </div>
+  )
+}

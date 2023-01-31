@@ -1,28 +1,28 @@
-import { ImagePoster } from "./ImagePoster";
+import { ImagePoster } from './ImagePoster'
 
 interface Props {
-  arr: Object[];
-  sectionName: string;
+  arr: Object[]
+  sectionName: string
 }
 
 export const PosterDisplay = ({ arr, sectionName }: Props) => {
-  console.log(arr);
+  console.log(arr)
   return (
-    <div className="popularMoviesSection">
-      <h2 className="sectionName">{sectionName}</h2>
-      <div className="movieHolder">
+    <div className='popularMoviesSection'>
+      <h2 className='sectionName'>{sectionName}</h2>
+      <div className='movieHolder'>
         {arr.map((elem: any, index) => {
           return (
             <ImagePoster
               key={index}
-              imageLink={elem["imageURL"]}
-              name={elem["name"]}
-              releaseDate={elem["releaseDate"]}
-              movieId={elem["movieId"]}
+              imageLink={elem['imageURL']}
+              name={elem['name']}
+              releaseDate={elem['releaseDate']}
+              movieId={elem['movieId']}
             ></ImagePoster>
-          );
+          )
         })}
       </div>
     </div>
-  );
-};
+  )
+}

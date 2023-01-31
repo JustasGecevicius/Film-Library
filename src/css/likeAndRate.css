@@ -5,7 +5,7 @@ button {
   display: flex;
   flex-direction: row;
   -moz-column-gap: 0.2rem;
-       column-gap: 0.2rem;
+  column-gap: 0.2rem;
   justify-content: flex-start;
   align-items: center;
   background-color: white;
@@ -33,7 +33,7 @@ button:hover {
   display: flex;
   flex-direction: row;
   -moz-column-gap: 1rem;
-       column-gap: 1rem;
+  column-gap: 1rem;
 }
 .rateForm input {
   width: 3rem;

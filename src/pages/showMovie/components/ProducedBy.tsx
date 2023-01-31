@@ -1,5 +1,5 @@
 interface Props {
-    productionCompanies: Object[];
+  productionCompanies: Object[]
 }
 
 // interface Producer{
@@ -8,26 +8,26 @@ interface Props {
 // }
 
 export const ProducedBy: React.FC<Props> = ({ productionCompanies }) => {
-    return (
-        <div className="producedBy">
-            <div className="producedByWidth">
-                <h3 className="productionCompany"> Production Companies</h3>
-                <div className="cards">
-                    {productionCompanies.map((elem: any, index: number) => {
-                        return (
-                            <div key={index} className="producerCard">
-                                <div
-                                    className="producerLogo"
-                                    style={{
-                                        backgroundImage: `url(${elem["logo_path"]})`,
-                                    }}
-                                ></div>
-                                <p className="producerName">{elem["name"]}</p>
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
+  return (
+    <div className='producedBy'>
+      <div className='producedByWidth'>
+        <h3 className='productionCompany'> Production Companies</h3>
+        <div className='cards'>
+          {productionCompanies.map((elem: any, index: number) => {
+            return (
+              <div key={index} className='producerCard'>
+                <div
+                  className='producerLogo'
+                  style={{
+                    backgroundImage: `url(${elem['logo_path']})`,
+                  }}
+                ></div>
+                <p className='producerName'>{elem['name']}</p>
+              </div>
+            )
+          })}
         </div>
-    );
-};
+      </div>
+    </div>
+  )
+}
