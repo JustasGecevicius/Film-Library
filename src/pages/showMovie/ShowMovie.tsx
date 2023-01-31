@@ -63,7 +63,7 @@ export const ShowMovie = () => {
             {data ? (
                 <>
                     <Genres genres={data["genres"]} />
-                    <LikeAndRate id={movieId} title={data["title"]} />
+                    <LikeAndRate movieId={movieId} title={data["title"]} />
                     <Description overview={data["overview"]} />
                     {data["homepage"] ? <VisitHomepage link={data["homepage"]} /> : null}                    
                     <MovieNumbers

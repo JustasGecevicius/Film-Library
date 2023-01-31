@@ -42,35 +42,63 @@ export const filterProductionCompanies = (array : Object[], configuration : any)
         return sortedArray; 
 }
 
-export const like = async (id : string, userId : string, db: any, title: string, setLiked :any, liked:boolean) => {
+export const like = async (db: any, movieId : string, userId : string, title: string, setLiked :any, liked:boolean) => {
         //gets the movie refference
         const movieRef = doc(db, "likedMovies", `${userId}`)
         //delete or add the movie based on liked state
         if(liked){
-                await updateDoc(movieRef, {[id] : deleteField()})
+                await updateDoc(movieRef, {[movieId] : deleteField()})
         }
         else{
-                await updateDoc(movieRef, {[id] : title});
+                await updateDoc(movieRef, {[movieId] : title});
         }
         //setting the state of liked to the opposite
         setLiked(!liked);
 }
 
-export const fetchLiked = async (db : any, signInInfo : any, id : any, setLiked : any) => {
+export const fetchLiked = async (db : any, userId : any, movieId : any, setLiked : any) => {
         const docRef: DocumentReference<DocumentData> = doc(
                 db,
                 "likedMovies",
-                `${signInInfo["id"]}`
+                `${userId}`
             );
             const document = await getDoc(docRef);
             const allFields: DocumentData | undefined = document.data();
             //checking if the movie is liked already and setting the liked state
-            setLiked(likedCheck(allFields, id));
+            setLiked(likedCheck(allFields, movieId));
 }
 
 export const likedCheck = (likedMovies : any, currentMovie : any) => {
         //returns true or false depending on if the movie was found in the liked list or not
+        console.log(likedMovies, currentMovie);
        return Object.keys(likedMovies).includes(currentMovie);
+}
+
+export const rate = async (db: any, movieId : string, userId : string, rating: any, setRating :any) => {
+    //gets the movie refference
+    console.log(rating[0].value)
+    const movieRef = doc(db, "ratedMovies", `${userId}`)
+    //delete or add the movie based on liked state
+    if(rating){
+        await updateDoc(movieRef, {[movieId] : rating[0].value});
+    }
+    //setting the state of liked to the opposite
+    setRating(rating[0].value);
+}
+
+export const fetchRating = async (db : any, userId : string, movieId : any, setRating : any) => {
+    const docRef: DocumentReference<DocumentData> = doc(
+            db,
+            "ratedMovies",
+            `${userId}`
+        );
+        const document = await getDoc(docRef);
+        const allFields: DocumentData | undefined = document.data();
+        if(!allFields) return;
+        if(Object.keys(allFields).includes(movieId)){
+            setRating(allFields[movieId]);
+        }
+        else{setRating("X");};
 }
 
 const symbolChecker = (number : number) => {

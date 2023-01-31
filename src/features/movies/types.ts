@@ -71,7 +71,7 @@ export interface Company{
 }
 
 export interface LikeAndRateType {
-  id: string;
+  movieId: string;
   title: string;
 }
 
