@@ -2,7 +2,7 @@
 
 //functions
 import { useContext, useEffect, useState } from "react";
-import { DB, UserContext } from "features/services/userContext";
+//import { DB, UserContext } from "features/services/userContext";
 
 //styles
 import "../../../css/likeAndRate.css";
@@ -10,12 +10,12 @@ import "../../../css/likeAndRate.css";
 //types
 import { LikeAndRateType } from "features/movies/types";
 import { fetchLiked, fetchRating, like, rate } from "features/movies/functions";
+import { FirebaseContext } from "features/context/FirebaseContext";
 
-//get the id and title of the movie as props
+//get the uid and title of the movie as props
 export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
     //gets the user data to later update it and the firestore app
-    const { signInInfo } = useContext<any>(UserContext);
-    const { db } = useContext<any>(DB);
+    const {db, userInfo} = useContext<any>(FirebaseContext);
 
     //state for if the movie is liked or not
     const [liked, setLiked] = useState(false);
@@ -24,26 +24,26 @@ export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
     //fetches all the liked movies when the user information is received from context
     useEffect(() => {
         //if information found start the fetch
-        if (Object.keys(signInInfo).length !== 0) {
-            fetchLiked(db, signInInfo["id"], movieId, setLiked);
-            fetchRating(db, signInInfo["id"], movieId, setRating);
+        if (Object.keys(userInfo).length !== 0) {
+            fetchLiked(db, userInfo["uid"], movieId, setLiked);
+            fetchRating(db, userInfo["uid"], movieId, setRating);
         }
-    }, [signInInfo]);
+    }, [userInfo]);
 
     const handleSubmit = (e : React.FormEvent) => {
         e.preventDefault();
-        rate(db, movieId, signInInfo["id"], e["target"], setRating);
+        rate(db, movieId, userInfo["uid"], e["target"], setRating);
     }
 
     useEffect (() => {console.log(liked)},[liked]);
 
-    return signInInfo["id"] ? (
+    return userInfo["uid"] ? (
         <div className="likeAndRate">
             <div className="likeAndRateWidth">
                 <button
                     className={liked ? "unlike" : "like"}
                     onClick={() => {
-                        like(db, movieId, signInInfo["id"], title, setLiked, liked);
+                        like(db, movieId, userInfo["uid"], title, setLiked, liked);
                     }}
                 >
                     {liked ? "Unlike" : "Like"}
