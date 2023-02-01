@@ -1,22 +1,18 @@
 import { ImagePoster } from "./ImagePoster";
+import { MoviePosterDisplayType, PeoplePosterDisplayType } from "features/movies/types";
 
-interface Props {
-    arr: Object[];
-    sectionName: string;
-}
-
-export const PosterDisplay = ({ arr, sectionName }: Props) => {
+export const PosterDisplay = ({ arr, sectionName }: MoviePosterDisplayType | PeoplePosterDisplayType) => {
     return (
         <div className="popularMoviesSection">
             <h2 className="sectionName">{sectionName}</h2>
             <div className="movieHolder">
-                {arr.map((elem : any, index) => {
+                {arr.map((elem, index) => {
                             return (
                                 <ImagePoster
                                     key={index}
                                     imageLink={elem["imageURL"]}
                                     name={
-                                        elem["name"]
+                                        elem["title"]
                                     }
                                     releaseDate={
                                         elem["releaseDate"]

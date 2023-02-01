@@ -1,13 +1,17 @@
-export const filterPeopleInformation = (config : any, fetchPeopleResponse : any) => {
-        const peopleArray : Object[] = [];
-        fetchPeopleResponse["results"].forEach((elem : any) => {
-                const personObject = {name:"", imageURL:""};
+import { GetConfig } from "features/config/types";
+import { People, PeopleArray } from "./types";
+
+export const filterPeopleInformation = (config : GetConfig, fetchPeopleResponse : People) => {
+        const peopleArray : PeopleArray[] = [];
+        fetchPeopleResponse["results"].forEach((elem) => {
+                const personObject = {title:"", imageURL:""};
                 const imageURL = config["images"]["base_url"] + config["images"]["profile_sizes"][3] + elem["profile_path"];
 
-                personObject["name"] = elem["name"];
+                personObject["title"] = elem["name"];
                 personObject["imageURL"] = imageURL;    
                 
-                if(personObject["name"] && personObject["imageURL"]) peopleArray.push(personObject);
+                if(personObject["title"] && personObject["imageURL"]) peopleArray.push(personObject);
         });
+        //console.log(peopleArray);
         return peopleArray;
 }

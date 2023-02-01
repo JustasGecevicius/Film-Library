@@ -1,15 +1,13 @@
-import { SearchArea } from "reusableComponents/SearchArea";
 import { useContext, useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import "../../css/home.css";
-//import { UserContext } from "features/services/userContext";
+import "../css/home.css";
 import { SearchBar } from "reusableComponents/SearchBar";
 import { FirebaseContext } from "features/context/FirebaseContext";
 
 export const Home = () => {
-  //const { userInfo, setSignInInfo } = useContext<any>(UserContext);
+  //FIIIIIX THIIIIS ANNYYYYYY?????
   const { userInfo } = useContext<any>(FirebaseContext);
-  const [displayName, setDisplayName] = useState();
+  const [displayName, setDisplayName] = useState<string | undefined>();
   const storage = getStorage();
   const pathRef = ref(storage, "background.jpg");
   const [background, setBackground] = useState<string | undefined>();

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //types
 import { GetConfig } from "features/config/types";
-import { MovieData, BackdropType, Company } from "features/movies/types";
+import { MovieData, BackdropType, ProductionCompany } from "features/movies/types";
 //components
 import { Backdrop } from "./components/Backdrop";
 import "../../css/showMovie.css";
@@ -23,7 +23,7 @@ export const ShowMovie = () => {
   const [config, setConfig] = useState<GetConfig>();
   const [data, setData] = useState<MovieData>();
   const [backdropImages, setBackdropImages] = useState<BackdropType>();
-  const [productionCompanies, setProductionCompanies] = useState<Company[]>();
+  const [productionCompanies, setProductionCompanies] = useState<ProductionCompany[]>();
   //router Parameters
   const { movieId } = useParams();
 

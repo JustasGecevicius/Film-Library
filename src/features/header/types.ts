@@ -13,14 +13,7 @@ export interface Metadata {
         contentEncoding?: string | undefined;
         contentType?: string | undefined;
     }
-
-    export interface UserObject {
-        name: string|undefined
-        photoURL:string|undefined
-        id:string|undefined
-        email:string|undefined
-    }
     
-    export interface Fields {
-        [field : string] : string
-    }
+export interface IconsObject {
+    [field: string]: string;
+  }

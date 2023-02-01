@@ -1,11 +1,13 @@
 import { getConfig } from "features/config/api";
-import { deleteField, doc, DocumentData, DocumentReference, getDoc, updateDoc } from "firebase/firestore";
+import { GetConfig } from "features/config/types";
+import { deleteField, doc, DocumentData, DocumentReference, Firestore, getDoc, updateDoc } from "firebase/firestore";
 import { getMovieData } from "./api";
-import { FetchData, TagFixer } from "./types";
+import { FetchData, GetTrendingMovies, MovieNumbersType, MovieObjectType } from "./types";
 
-export const filterMovieInformation = (config : any, fetchMovieResponse : any) => {
-        const movieArray : Object[] = [];
-        fetchMovieResponse["results"].forEach((elem : any) => {
+export const filterMovieInformation = (config : GetConfig, fetchMovieResponse : GetTrendingMovies) => {
+        const movieArray : MovieObjectType[] = [];
+        fetchMovieResponse["results"].forEach((elem) => {
+                //console.log(elem, "elem")
                 const movieObject = {title:"", imageURL:"", releaseDate:"", movieId:""};
                 const imageURL = config["images"]["base_url"] + config["images"]["poster_sizes"][5] + elem["poster_path"];
 
@@ -70,13 +72,13 @@ export const fetchLiked = async (db : any, userId : any, movieId : any, setLiked
 
 export const likedCheck = (likedMovies : any, currentMovie : any) => {
         //returns true or false depending on if the movie was found in the liked list or not
-        console.log(likedMovies, currentMovie);
+        //console.log(likedMovies, currentMovie);
        return Object.keys(likedMovies).includes(currentMovie);
 }
-
-export const rate = async (db: any, movieId : string, userId : string, rating: any, setRating :any) => {
+//find a way to fix the rating type issue???
+export const rate = async (db: any, movieId : string, userId : string, rating: any, setRating :React.Dispatch<React.SetStateAction<string>>) => {
     //gets the movie refference
-    console.log(rating[0].value)
+    //console.log(rating[0].value)
     const movieRef = doc(db, "ratedMovies", `${userId}`)
     //delete or add the movie based on liked state
     if(rating){
@@ -86,7 +88,7 @@ export const rate = async (db: any, movieId : string, userId : string, rating: a
     setRating(rating[0].value);
 }
 
-export const fetchRating = async (db : any, userId : string, movieId : any, setRating : any) => {
+export const fetchRating = async (db : Firestore, userId : string, movieId : string, setRating : React.Dispatch<React.SetStateAction<string>>) => {
     const docRef: DocumentReference<DocumentData> = doc(
             db,
             "ratedMovies",
@@ -136,13 +138,13 @@ const symbolChecker = (number : number) => {
             value = Math.round(number / 1000000000).toString() + "b";
             break;
         default:
-            value = number.toString();
+            value = "0";
     }
     return value;
 }
 
-export const tagFixer = (props : TagFixer) => {
-        let newArr : [string, string | undefined][] = [];
+export const tagFixer = (props : MovieNumbersType) => {
+        let newArr : [string, string][] = [];
         const arr : [string, number][] = Object.entries(props);
             arr.forEach((elem, index) => {
                 newArr.push(["", ""]);

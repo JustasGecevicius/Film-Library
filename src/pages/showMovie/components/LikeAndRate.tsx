@@ -2,7 +2,6 @@
 
 //functions
 import { useContext, useEffect, useState } from "react";
-//import { DB, UserContext } from "features/services/userContext";
 
 //styles
 import "../../../css/likeAndRate.css";
@@ -24,7 +23,7 @@ export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
     //fetches all the liked movies when the user information is received from context
     useEffect(() => {
         //if information found start the fetch
-        if (Object.keys(userInfo).length !== 0) {
+        if (userInfo && Object.keys(userInfo).length !== 0) {
             fetchLiked(db, userInfo["uid"], movieId, setLiked);
             fetchRating(db, userInfo["uid"], movieId, setRating);
         }
@@ -32,12 +31,12 @@ export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
 
     const handleSubmit = (e : React.FormEvent) => {
         e.preventDefault();
-        rate(db, movieId, userInfo["uid"], e["target"], setRating);
+        if(userInfo["uid"]){
+            rate(db, movieId, userInfo["uid"], e["target"], setRating);
+        }
     }
 
-    useEffect (() => {console.log(liked)},[liked]);
-
-    return userInfo["uid"] ? (
+    return userInfo ? (
         <div className="likeAndRate">
             <div className="likeAndRateWidth">
                 <button

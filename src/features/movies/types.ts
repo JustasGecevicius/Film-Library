@@ -1,4 +1,5 @@
 import { GetConfig } from "features/config/types";
+import { PeopleArray } from "features/people/types";
 
 export interface GetTrendingMovies {
   page: number;
@@ -15,6 +16,7 @@ interface GetTrendingMoviesResults {
   release_date: string;
   vote_average: string;
   title: string;
+  id:number;
 }
 
 export interface MovieData {
@@ -22,7 +24,7 @@ export interface MovieData {
   backdrop_path: string | null;
   belongs_to_collection: Object;
   budget: number;
-  genres: Object[];
+  genres: MovieDataGenres[];
   homepage: string;
   id: number;
   imdb_id: string;
@@ -45,29 +47,31 @@ export interface MovieData {
   vote_count: number;
 }
 
-export interface FetchData{
-  movieId: string,
-  setConfig: React.Dispatch<React.SetStateAction<GetConfig | undefined>>,
-  setData: React.Dispatch<React.SetStateAction<MovieData | undefined>>
+export interface MovieDataGenres {
+  id: number;
+  name: string;
+}
+
+export interface MovieDataGenresType{
+  genres : {id: number; name: string}[] 
+}
+
+export interface FetchData {
+  movieId: string;
+  setConfig: React.Dispatch<React.SetStateAction<GetConfig | undefined>>;
+  setData: React.Dispatch<React.SetStateAction<MovieData | undefined>>;
 }
 
 export interface Array {
-  id:number;
-  logo_path:string;
-  name:string;
-  origin_country:string;
+  id: number;
+  logo_path: string;
+  name: string;
+  origin_country: string;
 }
 
-export interface BackdropType{
-  backdropURL : string;
+export interface BackdropType {
+  backdropURL: string;
   posterURL: string;
-}
-
-export interface Company{
-  id : number
-  logo_path:string
-  name:string
-  origin_country:string
 }
 
 export interface LikeAndRateType {
@@ -75,7 +79,7 @@ export interface LikeAndRateType {
   title: string;
 }
 
-export interface TagFixer {
+export interface MovieNumbersType {
   budget: number;
   revenue: number;
   runtime: number;
@@ -91,4 +95,40 @@ export interface MovieBackdropType {
   backdrop: string;
   poster: string;
   title: string;
+}
+
+export interface MoviePosterDisplayType {
+  arr: PeopleArray[];
+  sectionName: string;
+}
+
+export interface PeoplePosterDisplayType {
+  arr: MovieObjectType[];
+  sectionName: string;
+}
+
+export interface MovieObjectType {
+  title: string;
+  imageURL: string;
+  releaseDate: string;
+  movieId: string;
+}
+
+export interface DescriptionType {
+  overview: string;
+}
+
+export interface ProducedByType {
+  productionCompanies: ProductionCompany[];
+}
+
+export interface ProductionCompany{
+  id: number;
+  logo_path: string;
+  name:string;
+  origin_path:string;
+}
+
+export interface VisitHomepageType {
+  link: string;
 }

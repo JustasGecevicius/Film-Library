@@ -2,12 +2,12 @@
 import { Header } from "./reusableComponents/Header";
 import React, { useEffect, useState } from "react";
 import "./css/app.css";
-import { Home } from "./pages/home/Home";
+import { Home } from "./pages/Home";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Explore } from "pages/explore/Explore";
-import { Friends } from "pages/friends/Friends";
-import { People } from "pages/people/People";
-import { UserProfile } from "pages/userProfile/UserProfile";
+import { Explore } from "pages/Explore";
+import { Friends } from "pages/Friends";
+import { People } from "pages/People";
+import { UserProfile } from "pages/UserProfile";
 import { initializeApp } from "firebase/app";
 import config from "./features/services/config";
 //import { DB, UserContext } from "features/services/userContext";

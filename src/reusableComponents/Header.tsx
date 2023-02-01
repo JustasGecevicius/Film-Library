@@ -1,14 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "../css/header.css";
-import { signInUser, signOutUser } from "../features/header/functions";
+import { signInUser, signOutUser } from "../features/firebase/functions";
 import { fetchHeaderIcons } from "features/header/api";
 import { FirebaseContext } from "features/context/FirebaseContext";
+import { IconsObject } from "features/header/types";
 
 export const Header = () => {
-  const { userInfo } = useContext<any>(FirebaseContext);
+//FIX THIS ANY USER THING!!!!!
+  const {userInfo} = useContext<any>(FirebaseContext);
 
-  const [icons, setIcons] = useState();
+  const [icons, setIcons] = useState<IconsObject>();
 
   useEffect(() => {
     const fetch = async () => {

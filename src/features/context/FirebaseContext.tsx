@@ -7,6 +7,7 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 import { ContainerProps, Context, UserInfo } from "./types";
 
+  //create Firebase and User Context
 export const FirebaseContext = createContext<Context | null>(null);
 
 export const FirebaseContextComponent = (props: ContainerProps) => {
@@ -17,8 +18,6 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
   // User information state
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
-  //create Firebase and User Context
-
   // initializing firebase auth
   useEffect(() => {
     function initFirebaseAuth() {
@@ -27,7 +26,7 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
     }
     const authStateObserver = (user: User | null) => {
       if (user) {
-        console.log(user);
+        //console.log(user);
         const { displayName, photoURL, uid, email } = user;
         const location = `users/${uid}`;
         initializeUser(uid, db);

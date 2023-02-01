@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { PosterDisplay } from "reusableComponents/PosterDisplay";
 import { getConfig } from "features/config/api";
-import "../../css/explore.css";
+import "../css/explore.css";
 import { filterMovieInformation } from "features/movies/functions";
 import { getTopRatedMovies, getTrendingMovies } from "features/movies/api";
+import { MovieObjectType } from "features/movies/types";
+import { GetConfig } from "features/config/types";
 
 interface Props {}
 
 export const Explore: React.FC<Props> = () => {
-    const [config, setConfig] = useState<any>();
-    const [popularMovies, setPopularMovies] = useState<any>();
-    const [topRatedMovies, setTopRatedMovies] = useState<any>();
+    const [config, setConfig] = useState<GetConfig>();
+    const [popularMovies, setPopularMovies] = useState<MovieObjectType[]>();
+    const [topRatedMovies, setTopRatedMovies] = useState<MovieObjectType[]>();
 
     useEffect(() => {
         const fetch = async () => {
@@ -26,6 +28,7 @@ export const Explore: React.FC<Props> = () => {
                 topMovies
             );
             setConfig(configuration);
+
             setPopularMovies(popMovieData);
             setTopRatedMovies(topMovieData);
         };
@@ -47,7 +50,6 @@ export const Explore: React.FC<Props> = () => {
                     sectionName="Top Rated Movies"
                 ></PosterDisplay>
             ) : null}
-            {/* <PopularWithFriends></PopularWithFriends> */}
         </>
     );
 };

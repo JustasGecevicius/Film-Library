@@ -8,7 +8,7 @@ import { GetTrendingMovies, MovieData } from "./types";
 export const getTrendingMovies = async () =>
     await api<GetTrendingMovies>(GET_TRENDING_MOVIES_URL);
 
-export const getTopRatedMovies = async () => await api(GET_TOP_RATED_URL);
+export const getTopRatedMovies = async () => await api<GetTrendingMovies>(GET_TOP_RATED_URL);
 
 export const getMovieData = async (movieId: string) =>
     await api<MovieData>(
