@@ -15,9 +15,9 @@ export const PosterDisplay = ({ arr, sectionName }: MoviePosterDisplayType | Peo
                                         elem["title"]
                                     }
                                     releaseDate={
-                                        elem["releaseDate"]
+                                        elem["release_date"]
                                     }
-                                    movieId={elem["movieId"]}
+                                    id={elem["id"]}
                                 ></ImagePoster>
                             );
                         })}

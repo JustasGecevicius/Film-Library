@@ -15,6 +15,7 @@ export const fetchHeaderIcons = async () : Promise<IconsObject> => {
 
   const listRef = ref(storage, "header");
   const allItems = await listAll(listRef);
+
   allItems.items.forEach((elem) => {
     metadata.push(getMetadata(elem));
     data.push(getDownloadURL(elem));

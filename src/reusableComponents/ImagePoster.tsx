@@ -4,13 +4,13 @@ interface Props {
   imageLink: string;
   name: string;
   releaseDate?: string;
-  movieId?:string;
+  id?:number;
 }
 
-export const ImagePoster = ({ imageLink, name, releaseDate, movieId }: Props) => {
+export const ImagePoster = ({ imageLink, name, releaseDate, id }: Props) => {
 
-  return (movieId ? <Link to={movieId}>
-    <div className="imagePoster" data-id = {movieId} >
+  return (id ? <Link to={`${id}`}>
+    <div className="imagePoster" data-id = {`${id}`} >
       <img src={imageLink} alt="posterImage" className="posterImage" />
       <div className="movieText">
         <p className="title">{name}</p>

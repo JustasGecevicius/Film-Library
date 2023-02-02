@@ -1,24 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { initializeUser } from "features/firebase/functions";
-import config from "features/services/config";
+
+// Firebase
 import { initializeApp } from "firebase/app";
+import { initializeUser } from "features/firebase/functions";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
+import config from "features/services/config";
+
+// Hooks
 import { createContext, useEffect, useState } from "react";
+
+// Types
 import { ContainerProps, Context, UserInfo } from "./types";
 
-  //create Firebase and User Context
+  // Create Firebase and User Context
 export const FirebaseContext = createContext<Context | null>(null);
 
 export const FirebaseContextComponent = (props: ContainerProps) => {
-  //getting firebase
+  // Getting firebase
   const app = initializeApp(config);
   const db = getFirestore(app);
 
   // User information state
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
-  // initializing firebase auth
+  // Initializing firebase auth
   useEffect(() => {
     function initFirebaseAuth() {
       // Listen to auth state changes.
@@ -26,10 +32,9 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
     }
     const authStateObserver = (user: User | null) => {
       if (user) {
-        //console.log(user);
         const { displayName, photoURL, uid, email } = user;
         const location = `users/${uid}`;
-        initializeUser(uid, db);
+        initializeUser(db, uid);
         setDoc(doc(db, location), {
           ...{ displayName, photoURL, uid, email },
         });

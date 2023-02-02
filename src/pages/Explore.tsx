@@ -5,48 +5,46 @@ import "../css/explore.css";
 import { filterMovieInformation } from "features/movies/functions";
 import { getTopRatedMovies, getTrendingMovies } from "features/movies/api";
 import { MovieObjectType } from "features/movies/types";
-import { GetConfig } from "features/config/types";
+import { SearchArea } from "reusableComponents/SearchArea";
+import { useQuery } from "react-query";
 
 interface Props {}
 
 export const Explore: React.FC<Props> = () => {
-    const [config, setConfig] = useState<GetConfig>();
-    const [popularMovies, setPopularMovies] = useState<MovieObjectType[]>();
-    const [topRatedMovies, setTopRatedMovies] = useState<MovieObjectType[]>();
+    // States for both trending and top movies
+    const [trendingMovies, setTrendingMovies] = useState<MovieObjectType[]>();
+    const [topMovies, setTopMovies] = useState<MovieObjectType[]>();
 
-    useEffect(() => {
-        const fetch = async () => {
-            const { data: configuration } = await getConfig();
-            const { data: popMovies } = await getTrendingMovies();
-            const { data: topMovies } = await getTopRatedMovies();
-            const popMovieData = filterMovieInformation(
-                configuration,
-                popMovies
-            );
-            const topMovieData = filterMovieInformation(
-                configuration,
-                topMovies
-            );
-            setConfig(configuration);
+    // Fetching config trending movies and top rated movies
+    const {data : config} = useQuery("config", getConfig);
+    const {data : trending} = useQuery("trending", getTrendingMovies);
+    const {data : top} = useQuery("trending", getTopRatedMovies);
 
-            setPopularMovies(popMovieData);
-            setTopRatedMovies(topMovieData);
-        };
-        fetch();
-    }, []);
+    // UseEffect for setting the movie data to state
+    useEffect (() => {
+        if(config && trending){
+            const trendingData = filterMovieInformation(config, trending);
+            setTrendingMovies(trendingData);
+        }
+        if(config && top){
+            const topData = filterMovieInformation(config, top);
+            setTopMovies(topData);
+        }
+    },[trending, config, top]);
 
     return (
         <>
-            {popularMovies ? (
+            <SearchArea/>
+             {trendingMovies ? (
                 <PosterDisplay
-                    arr={popularMovies}
+                    arr={trendingMovies}
                     sectionName="Popular Movies"
                 ></PosterDisplay>
             ) : null}
 
-            {topRatedMovies ? (
+            {topMovies ? (
                 <PosterDisplay
-                    arr={topRatedMovies}
+                    arr={topMovies}
                     sectionName="Top Rated Movies"
                 ></PosterDisplay>
             ) : null}

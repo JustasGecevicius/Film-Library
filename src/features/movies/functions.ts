@@ -4,31 +4,29 @@ import { deleteField, doc, DocumentData, DocumentReference, Firestore, getDoc, u
 import { getMovieData } from "./api";
 import { FetchData, GetTrendingMovies, MovieNumbersType, MovieObjectType } from "./types";
 
+// Takes the general movie response and returns an array of only the required fields
 export const filterMovieInformation = (config : GetConfig, fetchMovieResponse : GetTrendingMovies) => {
         const movieArray : MovieObjectType[] = [];
+        const baseUrl = config["images"]["base_url"] + config["images"]["poster_sizes"][5];
         fetchMovieResponse["results"].forEach((elem) => {
-                //console.log(elem, "elem")
-                const movieObject = {title:"", imageURL:"", releaseDate:"", movieId:""};
-                const imageURL = config["images"]["base_url"] + config["images"]["poster_sizes"][5] + elem["poster_path"];
-
-                movieObject["title"] = elem["title"];
-                movieObject["releaseDate"] = elem["release_date"];
-                movieObject["imageURL"] = imageURL;  
-                movieObject["movieId"] = elem["id"].toString();
+                const {title, release_date, poster_path, id} = elem;
+                const imageURL = baseUrl + poster_path;
                 
-                if(movieObject["title"] && movieObject["releaseDate"] && movieObject["imageURL"]) movieArray.push(movieObject);
+                if(title && release_date && poster_path && id) movieArray.push({title, release_date, imageURL, id});
         });
+        console.log(movieArray);
         return movieArray;
 }
 
-export const fetchData = async ({ movieId, setConfig, setData }: FetchData) => {
+// 
+export const fetchMovieData = async ({ movieId, setConfig, setData }: FetchData) => {
         const { data: movieData } = await getMovieData(movieId);
-        const { data: configuration } = await getConfig();
+        const configuration = await getConfig();
         setConfig(configuration);
         setData(movieData);
 };
 
-export const filterProductionCompanies = (array : Object[], configuration : any) => {
+export const filterProductionCompanies = ( configuration : GetConfig, array : Object[]) => {
 
         const baseURL = configuration["images"]["base_url"] + configuration["images"]["logo_sizes"][6];
         const sortedArray: any = [];
@@ -44,7 +42,7 @@ export const filterProductionCompanies = (array : Object[], configuration : any)
         return sortedArray; 
 }
 
-export const like = async (db: any, movieId : string, userId : string, title: string, setLiked :any, liked:boolean) => {
+export const like = async (db: Firestore, movieId : string, userId : string, title: string, liked:boolean, setLiked :React.Dispatch<React.SetStateAction<boolean>>) => {
         //gets the movie refference
         const movieRef = doc(db, "likedMovies", `${userId}`)
         //delete or add the movie based on liked state
@@ -58,7 +56,7 @@ export const like = async (db: any, movieId : string, userId : string, title: st
         setLiked(!liked);
 }
 
-export const fetchLiked = async (db : any, userId : any, movieId : any, setLiked : any) => {
+export const fetchLiked = async (db : Firestore, userId : string, movieId : string, setLiked : React.Dispatch<React.SetStateAction<boolean>>) => {
         const docRef: DocumentReference<DocumentData> = doc(
                 db,
                 "likedMovies",
@@ -76,7 +74,7 @@ export const likedCheck = (likedMovies : any, currentMovie : any) => {
        return Object.keys(likedMovies).includes(currentMovie);
 }
 //find a way to fix the rating type issue???
-export const rate = async (db: any, movieId : string, userId : string, rating: any, setRating :React.Dispatch<React.SetStateAction<string>>) => {
+export const rate = async (db: Firestore, movieId : string, userId : string, rating: any, setRating :React.Dispatch<React.SetStateAction<string>>) => {
     //gets the movie refference
     //console.log(rating[0].value)
     const movieRef = doc(db, "ratedMovies", `${userId}`)

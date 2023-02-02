@@ -1,33 +1,25 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "../css/header.css";
 import { signInUser, signOutUser } from "../features/firebase/functions";
 import { fetchHeaderIcons } from "features/header/api";
 import { FirebaseContext } from "features/context/FirebaseContext";
-import { IconsObject } from "features/header/types";
+import { useQuery } from "react-query";
 
 export const Header = () => {
-//FIX THIS ANY USER THING!!!!!
-  const {userInfo} = useContext<any>(FirebaseContext);
+  //FIX THIS ANY USER THING!!!!!
+  const { userInfo } = useContext<any>(FirebaseContext);
 
-  const [icons, setIcons] = useState<IconsObject>();
-
-  useEffect(() => {
-    const fetch = async () => {
-      const iconFetch = await fetchHeaderIcons();
-      setIcons(iconFetch);
-    };
-    fetch();
-  }, []);
+  const { data } = useQuery("icons", fetchHeaderIcons);
 
   return (
     <>
-      {icons ? (
+      {data ? (
         <div className="headerWidth">
           <header>
             <Link to="/Film-Library">
               <div className="logoDiv">
-                <img src={icons["logo"]} alt="logoImage" className="logo" />
+                <img src={data["logo"]} alt="logoImage" className="logo" />
                 <h2>Discoverisms</h2>
               </div>
             </Link>
@@ -37,7 +29,7 @@ export const Header = () => {
                   <img
                     alt="exploreIcon.png"
                     className="navigationImage"
-                    src={icons["exploreIcon"]}
+                    src={data["exploreIcon"]}
                   ></img>
                   Explore
                 </Link>
@@ -45,7 +37,7 @@ export const Header = () => {
               <li className="navigationButton">
                 <Link to="/Film-Library/People" className="navigationLink">
                   <img
-                    src={icons["cameraIcon"]}
+                    src={data["cameraIcon"]}
                     alt="cameraIcon"
                     className="navigationImage"
                   />
@@ -55,7 +47,7 @@ export const Header = () => {
               <li className="navigationButton">
                 <Link to="/Film-Library/Friends" className="navigationLink">
                   <img
-                    src={icons["friendsIcon"]}
+                    src={data["friendsIcon"]}
                     alt="friendsIcon"
                     className="navigationImage"
                   />
@@ -65,7 +57,7 @@ export const Header = () => {
               <li className="navigationButton">
                 <Link to="/Film-Library/UserProfile" className="navigationLink">
                   <img
-                    src={icons["userIcon"]}
+                    src={data["userIcon"]}
                     alt="userIcon"
                     className="navigationImage"
                   />
@@ -96,7 +88,7 @@ export const Header = () => {
                 >
                   <img
                     className="loginImage"
-                    src={icons["loginIcon"]}
+                    src={data["loginIcon"]}
                     alt="login"
                   ></img>
                   Sign Out
@@ -110,7 +102,7 @@ export const Header = () => {
                 >
                   <img
                     className="loginImage"
-                    src={icons["loginIcon"]}
+                    src={data["loginIcon"]}
                     alt="login"
                   ></img>
                   Sign In
@@ -120,7 +112,6 @@ export const Header = () => {
           </header>
         </div>
       ) : null}
-
       <Outlet />
     </>
   );

@@ -1,28 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-//functions
+// Functions
 import { useContext, useEffect, useState } from "react";
 
-//styles
+// Styles
 import "../../../css/likeAndRate.css";
 
-//types
+// Types
 import { LikeAndRateType } from "features/movies/types";
 import { fetchLiked, fetchRating, like, rate } from "features/movies/functions";
 import { FirebaseContext } from "features/context/FirebaseContext";
 
-//get the uid and title of the movie as props
+
+// Get the uid and title of the movie as props
 export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
-    //gets the user data to later update it and the firestore app
+    // Gets the user data to later update it and the firestore app
+    // FIND A WAY TO FIX THE ANY TYPE!!!!!!
     const {db, userInfo} = useContext<any>(FirebaseContext);
 
-    //state for if the movie is liked or not
+    // State for if the movie is liked or not
     const [liked, setLiked] = useState(false);
     const [ rating, setRating ] = useState("X");
 
-    //fetches all the liked movies when the user information is received from context
+    // Fetches all the liked movies when the user information is received from context
     useEffect(() => {
-        //if information found start the fetch
+        // If information found start the fetch
         if (userInfo && Object.keys(userInfo).length !== 0) {
             fetchLiked(db, userInfo["uid"], movieId, setLiked);
             fetchRating(db, userInfo["uid"], movieId, setRating);
@@ -42,7 +44,7 @@ export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
                 <button
                     className={liked ? "unlike" : "like"}
                     onClick={() => {
-                        like(db, movieId, userInfo["uid"], title, setLiked, liked);
+                        like(db, movieId, userInfo["uid"], title, liked, setLiked);
                     }}
                 >
                     {liked ? "Unlike" : "Like"}

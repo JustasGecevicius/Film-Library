@@ -15,7 +15,7 @@ export const People: React.FC<Props> = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const { data: configuration } = await getConfig();
+      const configuration = await getConfig();
       const { data: popPeople } = await getPopularPeople();
       const peopleData = filterPeopleInformation(configuration, popPeople);
       //console.log(peopleData);

@@ -14,21 +14,23 @@ import { VisitHomepage } from "./components/VisitHomepage";
 import { MovieNumbers } from "./components/MovieNumbers";
 import { ProducedBy } from "./components/ProducedBy";
 import {
-  fetchData,
+  fetchMovieData,
   filterProductionCompanies,
 } from "features/movies/functions";
 
 export const ShowMovie = () => {
   //states
-  const [config, setConfig] = useState<GetConfig>();
+  const {movieId} = useParams();
+  //console.log(movieId);
+  //const {data : config} = useQuery("config", getConfig);
   const [data, setData] = useState<MovieData>();
+  const [ config, setConfig ] = useState<GetConfig>();
   const [backdropImages, setBackdropImages] = useState<BackdropType>();
   const [productionCompanies, setProductionCompanies] = useState<ProductionCompany[]>();
   //router Parameters
-  const { movieId } = useParams();
 
   useEffect(() => {
-    if (movieId) fetchData({ movieId, setConfig, setData });
+    if (movieId) fetchMovieData({ movieId, setConfig, setData });
   }, [movieId]);
 
   useEffect(() => {
@@ -42,8 +44,8 @@ export const ShowMovie = () => {
         config["images"]["poster_sizes"][6] +
         data["poster_path"];
       const productionCompanyData = filterProductionCompanies(
-        data["production_companies"],
-        config
+        config,
+        data["production_companies"]        
       );
       setBackdropImages({ backdropURL: backdrop, posterURL: poster });
       setProductionCompanies(productionCompanyData);

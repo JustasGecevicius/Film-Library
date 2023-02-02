@@ -24,7 +24,7 @@ export interface MovieData {
   backdrop_path: string | null;
   belongs_to_collection: Object;
   budget: number;
-  genres: MovieDataGenres[];
+  genres: MovieDataGenre[];
   homepage: string;
   id: number;
   imdb_id: string;
@@ -47,26 +47,19 @@ export interface MovieData {
   vote_count: number;
 }
 
-export interface MovieDataGenres {
-  id: number;
-  name: string;
+export interface MovieDataGenresType{
+  genres : MovieDataGenre[] 
 }
 
-export interface MovieDataGenresType{
-  genres : {id: number; name: string}[] 
+interface MovieDataGenre {
+  id: number;
+  name: string;
 }
 
 export interface FetchData {
   movieId: string;
   setConfig: React.Dispatch<React.SetStateAction<GetConfig | undefined>>;
   setData: React.Dispatch<React.SetStateAction<MovieData | undefined>>;
-}
-
-export interface Array {
-  id: number;
-  logo_path: string;
-  name: string;
-  origin_country: string;
 }
 
 export interface BackdropType {
@@ -110,8 +103,8 @@ export interface PeoplePosterDisplayType {
 export interface MovieObjectType {
   title: string;
   imageURL: string;
-  releaseDate: string;
-  movieId: string;
+  release_date: string;
+  id: number;
 }
 
 export interface DescriptionType {
@@ -132,3 +125,4 @@ export interface ProductionCompany{
 export interface VisitHomepageType {
   link: string;
 }
+

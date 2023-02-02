@@ -1,7 +1,3 @@
-import React from "react";
-
-interface Props {}
-
-export const UserProfile: React.FC<Props> = () => {
+export const UserProfile = () => {
     return <></>;
 };

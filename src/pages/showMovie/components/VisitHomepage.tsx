@@ -1,6 +1,6 @@
 import { VisitHomepageType } from "features/movies/types";
 
-export const VisitHomepage = ({ link }: VisitHomepageType) => {
+export const VisitHomepage = ({ link } : VisitHomepageType ) => {
   return (
     <div className="visitHomepage">
       <div className="visitHomepageWidth">

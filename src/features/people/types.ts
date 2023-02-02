@@ -27,8 +27,8 @@ export interface Person{
         profile_path: string;
 }
 
-export interface KnownFor{
-        adult: false
+interface KnownFor{
+        adult: boolean
         backdrop_path: string
         genre_ids: number[]
         id: number
@@ -47,6 +47,6 @@ export interface KnownFor{
 export interface PeopleArray {
     title:string;
     imageURL:string;
-    releaseDate?: string;
-    movieId?: string;
+    release_date?: string;
+    id?: number;
 }
