@@ -1,11 +1,13 @@
+// Apis
 import { getConfig } from "features/config/api";
 import { getTrendingMovies } from "features/movies/api";
 
+// A function that returns just an array of links for the search area picture switcher
 export const searchAreaImageLinksFetch = async () => {
-  // fetching config and movie data
+  // Fetching config and movie data
   const config = await getConfig();
   const trendingMovies = await getTrendingMovies();
-  // creating the base url and
+  // Creating the base url and
   const baseUrl =
     config["images"]["base_url"] + config["images"]["backdrop_sizes"][3];
   // Array for the Image links

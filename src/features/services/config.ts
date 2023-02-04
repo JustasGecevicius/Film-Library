@@ -1,3 +1,4 @@
+// The firebase config file
 const firebaseConfig = {
   apiKey: "AIzaSyDkMa8qqmLWHN_AyoHy1Lg4yu7bfdZOQOE",
   authDomain: "film-library-d7ab4.firebaseapp.com",

@@ -1,7 +1,7 @@
 import { ImagePoster } from "./ImagePoster";
-import { MoviePosterDisplayType, PeoplePosterDisplayType } from "features/movies/types";
+import { MoviePosterDisplayType } from "features/movies/types";
 
-export const PosterDisplay = ({ arr, sectionName }: MoviePosterDisplayType | PeoplePosterDisplayType) => {
+export const PosterDisplay = ({ arr, sectionName }: MoviePosterDisplayType) => {
     return (
         <div className="popularMoviesSection">
             <h2 className="sectionName">{sectionName}</h2>
@@ -11,9 +11,7 @@ export const PosterDisplay = ({ arr, sectionName }: MoviePosterDisplayType | Peo
                                 <ImagePoster
                                     key={index}
                                     imageLink={elem["imageURL"]}
-                                    name={
-                                        elem["title"]
-                                    }
+                                    name={elem["title"] || elem["name"]}
                                     releaseDate={
                                         elem["release_date"]
                                     }

@@ -17,10 +17,12 @@ export const getTopRatedMovies = async () =>
     return response["data"];
   });
 
-export const getMovieData = async (movieId: string) =>
+export const getMovieData = async (movieId: string | undefined) =>
   await api<MovieData>(
     `/movie/${movieId}?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US`
   ).then((response) => {
-    console.log(response, "response");
-    return response;
+    //console.log(response, "response");
+    return response["data"];
   });
+
+

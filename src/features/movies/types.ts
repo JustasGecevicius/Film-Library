@@ -1,6 +1,3 @@
-import { GetConfig } from "features/config/types";
-import { PeopleArray } from "features/people/types";
-
 export interface GetTrendingMovies {
   page: number;
   results: GetTrendingMoviesResults[];
@@ -33,7 +30,7 @@ export interface MovieData {
   overview: string;
   popularity: number;
   poster_path: string | null;
-  production_companies: Object[];
+  production_companies: ProductionCompany[];
   production_countries: Object[];
   release_date: string;
   revenue: number;
@@ -57,9 +54,7 @@ interface MovieDataGenre {
 }
 
 export interface FetchData {
-  movieId: string;
-  setConfig: React.Dispatch<React.SetStateAction<GetConfig | undefined>>;
-  setData: React.Dispatch<React.SetStateAction<MovieData | undefined>>;
+  movieId: string | undefined;
 }
 
 export interface BackdropType {
@@ -91,22 +86,17 @@ export interface MovieBackdropType {
 }
 
 export interface MoviePosterDisplayType {
-  arr: PeopleArray[];
-  sectionName: string;
-}
-
-export interface PeoplePosterDisplayType {
   arr: MovieObjectType[];
   sectionName: string;
 }
 
 export interface MovieObjectType {
-  title: string;
+  title?: string;
   imageURL: string;
   release_date: string;
-  id: number;
+  id?: number;
+  name?:string | undefined
 }
-
 export interface DescriptionType {
   overview: string;
 }

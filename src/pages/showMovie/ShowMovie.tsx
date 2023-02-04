@@ -1,79 +1,86 @@
-//functions
+// Functions
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-//types
-import { GetConfig } from "features/config/types";
-import { MovieData, BackdropType, ProductionCompany } from "features/movies/types";
-//components
+import {
+  filterProductionCompanies,
+} from "features/movies/functions";
+import { useQuery } from "react-query";
+
+// Types
+import {
+  BackdropType,
+  ProductionCompany,
+} from "features/movies/types";
+
+// Components
 import { Backdrop } from "./components/Backdrop";
-import "../../css/showMovie.css";
 import { Genres } from "./components/Genres";
 import { Description } from "./components/Description";
 import { LikeAndRate } from "./components/LikeAndRate";
 import { VisitHomepage } from "./components/VisitHomepage";
 import { MovieNumbers } from "./components/MovieNumbers";
 import { ProducedBy } from "./components/ProducedBy";
-import {
-  fetchMovieData,
-  filterProductionCompanies,
-} from "features/movies/functions";
+
+// Apis
+import { getConfig } from "features/config/api";
+import { getMovieData } from "features/movies/api";
+
+// Styles 
+import "../../css/showMovie.css";
+
 
 export const ShowMovie = () => {
-  //states
-  const {movieId} = useParams();
-  //console.log(movieId);
-  //const {data : config} = useQuery("config", getConfig);
-  const [data, setData] = useState<MovieData>();
-  const [ config, setConfig ] = useState<GetConfig>();
+  // Getting the movie id from router parameters
+  const { movieId } = useParams();
+  // Fetching the configuration information 
+  const { data: config } = useQuery("config", getConfig);
+  // States for production companies and backdrop images
   const [backdropImages, setBackdropImages] = useState<BackdropType>();
-  const [productionCompanies, setProductionCompanies] = useState<ProductionCompany[]>();
-  //router Parameters
+  const [productionCompanies, setProductionCompanies] =
+    useState<ProductionCompany[]>();
+  // Fetching the movie data
+  const { data: movies } = useQuery(["moviedata", movieId], () =>
+    getMovieData(movieId)
+  );
 
+  // UseEffect for setting the backdrop images and the production companies
   useEffect(() => {
-    if (movieId) fetchMovieData({ movieId, setConfig, setData });
-  }, [movieId]);
-
-  useEffect(() => {
-    if (data && config) {
-      const backdrop =
-        config["images"]["base_url"] +
-        config["images"]["backdrop_sizes"][3] +
-        data["backdrop_path"];
-      const poster =
-        config["images"]["base_url"] +
-        config["images"]["poster_sizes"][6] +
-        data["poster_path"];
+    if (movies && config) {
+      const backdrop = `${config["images"]["base_url"]}${config["images"]["backdrop_sizes"][3]}${movies["backdrop_path"]}`;
+      const poster = `${config["images"]["base_url"]}${config["images"]["poster_sizes"][6]}${movies["poster_path"]}`;
       const productionCompanyData = filterProductionCompanies(
         config,
-        data["production_companies"]        
+        movies["production_companies"]
       );
       setBackdropImages({ backdropURL: backdrop, posterURL: poster });
       setProductionCompanies(productionCompanyData);
     }
-  }, [config, data]);
+  }, [config, movies]);
 
   if (movieId === undefined) return <></>;
 
   return (
     <>
-      {backdropImages && data ? (
+      {backdropImages && movies ? (
         <Backdrop
           backdrop={backdropImages["backdropURL"]}
           poster={backdropImages["posterURL"]}
-          title={data["title"]}
+          title={movies["title"]}
         />
       ) : null}
-      {data ? (
+      {movies ? (
         <>
-          <Genres genres={data["genres"]} />
-          <LikeAndRate movieId={movieId} title={data["title"]} />
-          <Description overview={data["overview"]} />
-          {data["homepage"] ? <VisitHomepage link={data["homepage"]} /> : null}
+          <Genres genres={movies["genres"]} />
+          <LikeAndRate movieId={movieId} title={movies["title"]} />
+          <Description overview={movies["overview"]} />
+          {movies["homepage"] ? (
+            <VisitHomepage link={movies["homepage"]} />
+          ) : null}
           <MovieNumbers
-            budget={data["budget"]}
-            revenue={data["revenue"]}
-            runtime={data["runtime"]}
-            voteAverage={data["vote_average"]}
+            budget={movies["budget"]}
+            revenue={movies["revenue"]}
+            runtime={movies["runtime"]}
+            voteAverage={movies["vote_average"]}
           />
           {productionCompanies ? (
             <ProducedBy productionCompanies={productionCompanies} />

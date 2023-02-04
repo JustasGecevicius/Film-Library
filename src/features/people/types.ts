@@ -45,8 +45,9 @@ interface KnownFor{
 }
 
 export interface PeopleArray {
-    title:string;
+    name?: string;
     imageURL:string;
     release_date?: string;
     id?: number;
+    title?: string | undefined;
 }

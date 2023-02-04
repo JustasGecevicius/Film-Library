@@ -1,4 +1,4 @@
-import { FirebaseContextComponent } from "features/context/FirebaseContext";
+import { FirebaseContextComponent } from "features/firebase/context/FirebaseContext";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";

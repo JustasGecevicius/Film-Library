@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import "../css/home.css";
 import { SearchBar } from "reusableComponents/SearchBar";
-import { FirebaseContext } from "features/context/FirebaseContext";
+import { FirebaseContext } from "features/firebase/context/FirebaseContext";
+import { useQuery } from "react-query";
 
 export const Home = () => {
   //FIIIIIX THIIIIS ANNYYYYYY?????
@@ -10,15 +11,19 @@ export const Home = () => {
   const [displayName, setDisplayName] = useState<string | undefined>();
   const storage = getStorage();
   const pathRef = ref(storage, "background.jpg");
-  const [background, setBackground] = useState<string | undefined>();
+  // const [background, setBackground] = useState<string | undefined>();
 
-  useEffect(() => {
-    const fetch = async () => {
-      const link = await getDownloadURL(pathRef);
-      setBackground(link);
-    };
-    fetch();
-  }, []);
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const link = await getDownloadURL(pathRef);
+  //     setBackground(link);
+  //   };
+  //   fetch();
+  // }, []);
+
+  const { data: background } = useQuery(["background", pathRef], () =>
+    getDownloadURL(pathRef)
+  );
 
   useEffect(() => {
     if (userInfo !== undefined && Object.keys(userInfo).length !== 0) {

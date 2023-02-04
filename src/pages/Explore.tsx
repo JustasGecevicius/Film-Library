@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { PosterDisplay } from "reusableComponents/PosterDisplay";
-import { getConfig } from "features/config/api";
-import "../css/explore.css";
-import { filterMovieInformation } from "features/movies/functions";
-import { getTopRatedMovies, getTrendingMovies } from "features/movies/api";
-import { MovieObjectType } from "features/movies/types";
-import { SearchArea } from "reusableComponents/SearchArea";
+// Hooks
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 
-interface Props {}
+// Components
+import { PosterDisplay } from "reusableComponents/PosterDisplay";
+import { SearchArea } from "reusableComponents/SearchArea";
 
-export const Explore: React.FC<Props> = () => {
+// Apis
+import { getConfig } from "features/config/api";
+import { getTopRatedMovies, getTrendingMovies } from "features/movies/api";
+
+// Types
+import { MovieObjectType } from "features/movies/types";
+
+// Functions
+import { filterMovieInformation } from "features/movies/functions";
+
+// Styles
+import "../css/explore.css";
+
+
+export const Explore = () => {
     // States for both trending and top movies
     const [trendingMovies, setTrendingMovies] = useState<MovieObjectType[]>();
     const [topMovies, setTopMovies] = useState<MovieObjectType[]>();

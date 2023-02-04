@@ -1,3 +1,4 @@
+// Styles
 import "../css/popularMovies.css";
 
 interface Props {}
