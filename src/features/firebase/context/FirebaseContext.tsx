@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 // Firebase
 import { initializeApp } from "firebase/app";
 import { initializeUser } from "features/firebase/functions";
@@ -8,13 +6,13 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import config from "features/services/config";
 
 // Hooks
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 // Types
 import { ContainerProps, Context, UserInfo } from "./types";
 
-  // Create Firebase and User Context
-export const FirebaseContext = createContext<Context | null>(null);
+// Create Firebase and User Context
+export const FirebaseContext = createContext<Context | undefined>(undefined);
 
 export const FirebaseContextComponent = (props: ContainerProps) => {
   // Getting firebase
@@ -39,12 +37,15 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
           ...{ displayName, photoURL, uid, email },
         });
         if (displayName && photoURL && uid && email)
-        setUserInfo({ displayName, photoURL, uid, email });
+          setUserInfo({ displayName, photoURL, uid, email });
       } else {
         setUserInfo(undefined);
       }
     };
     initFirebaseAuth();
+
+    // TODO
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -52,4 +53,14 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
       {props.children}
     </FirebaseContext.Provider>
   );
+};
+
+export const useFirebaseContext = () => {
+  const context = useContext(FirebaseContext);
+
+  if (context === undefined) {
+    throw new Error("useFirebaseContext was used outside its provider");
+  }
+
+  return context;
 };

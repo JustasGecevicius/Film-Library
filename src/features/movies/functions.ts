@@ -50,7 +50,7 @@ export const filterProductionCompanies = (
     if (elem["logo_path"]) {
       const imageURL = baseURL + elem["logo_path"];
       const newObj = { ...elem, logo_path: imageURL };
-     // console.log(newObj, "newObj");
+      // console.log(newObj, "newObj");
       sortedArray.push(newObj);
     }
   });
@@ -102,21 +102,16 @@ export const likedCheck = (likedMovies: any, currentMovie: any) => {
 
 // A function that handles the functionality of rating a movie
 // Find a way to fix the rating type issue???
-export const rate = async (
+export const rate = (
   db: Firestore,
   movieId: string,
   userId: string,
-  rating: any,
-  setRating: React.Dispatch<React.SetStateAction<string>>
+  rating: string
 ) => {
   // Gets the movie refference
   const movieRef = doc(db, "ratedMovies", `${userId}`);
   // Delete or add the movie based on liked state
-  if (rating) {
-    await updateDoc(movieRef, { [movieId]: rating[0].value });
-  }
-  //setting the state of liked to the opposite
-  setRating(rating[0].value);
+  return updateDoc(movieRef, { [movieId]: rating });
 };
 
 // A function that fetches all the rated movies by the user

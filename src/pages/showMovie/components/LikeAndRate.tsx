@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 // Functions
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 // Styles
 import "../../../css/likeAndRate.css";
@@ -9,17 +9,18 @@ import "../../../css/likeAndRate.css";
 // Types
 import { LikeAndRateType } from "features/movies/types";
 import { fetchLiked, fetchRating, like, rate } from "features/movies/functions";
-import { FirebaseContext } from "features/firebase/context/FirebaseContext";
+import { useFirebaseContext } from "features/firebase/context/FirebaseContext";
 
 // Get the uid and title of the movie as props
 export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
   // Gets the user data to later update it and the firestore app
-  // FIND A WAY TO FIX THE ANY TYPE!!!!!!
-  const { db, userInfo } = useContext<any>(FirebaseContext);
+
+  const { db, userInfo } = useFirebaseContext();
 
   // State for if the movie is liked or not
   const [liked, setLiked] = useState(false);
   const [rating, setRating] = useState("X");
+  const [rateInput, setRateInput] = useState<string>();
 
   // Fetches all the liked movies when the user information is received from context
   useEffect(() => {
@@ -30,10 +31,15 @@ export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
     }
   }, [userInfo]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (userInfo["uid"]) {
-      rate(db, movieId, userInfo["uid"], e["target"], setRating);
+  const handleSubmit = async () => {
+    if (!rateInput || !userInfo?.uid) return;
+
+    try {
+      await rate(db, movieId, userInfo.uid, rateInput);
+
+      setRating(rating);
+    } catch {
+      console.error("Eik NX");
     }
   };
 
@@ -48,17 +54,19 @@ export const LikeAndRate = ({ movieId, title }: LikeAndRateType) => {
         >
           {liked ? "Unlike" : "Like"}
         </button>
-        <form
-          className="rateForm"
-          onSubmit={(e: React.FormEvent) => {
-            handleSubmit(e);
-          }}
-        >
-          <input className="rateInput" type="number" max="10" min="0"></input>
-          <button className="rateButton" type="submit">
-            Rate
-          </button>
-        </form>
+        {/* <form className="rateForm" onSubmit={handleSubmit}> */}
+        <input
+          name="rateInput"
+          className="rateInput"
+          type="number"
+          max="10"
+          min="0"
+          onChange={(e) => setRateInput(e.target.value)}
+        />
+        <button className="rateButton" onClick={handleSubmit}>
+          Rate
+        </button>
+        {/* </form> */}
         <div className="movieNumbersSymbol">
           <p className="movieNumberSymbolText">{`Your Rating | ${rating}`}</p>
         </div>
