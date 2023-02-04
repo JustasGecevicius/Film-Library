@@ -93,7 +93,7 @@ export interface MoviePosterDisplayType {
 export interface MovieObjectType {
   title?: string;
   imageURL: string;
-  release_date: string;
+  release_date?: string;
   id?: number;
   name?:string | undefined
 }
