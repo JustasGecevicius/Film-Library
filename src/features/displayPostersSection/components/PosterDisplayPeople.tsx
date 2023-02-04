@@ -5,6 +5,9 @@ export const PosterDisplayPeople = ({
   arr,
   sectionName,
 }: PeoplePosterDisplayType) => {
+
+  console.log(arr, "arr");
+
   return (
     <div className="popularMoviesSection">
       <h2 className="sectionName">{sectionName}</h2>

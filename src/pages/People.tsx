@@ -5,6 +5,8 @@ import "../css/popularMovies.css";
 import { filterPeopleInformation } from "features/people/functions";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
 import { PersonObject } from "features/displayPostersSection/types";
+import { SearchArea } from "features/searchArea/components/SearchArea";
+import { useQuery } from "react-query";
 
 // import { PopularPeopleFriends } from "sections/people/PopularPeopleFriends";
 interface Props {}
@@ -12,20 +14,19 @@ interface Props {}
 export const People: React.FC<Props> = () => {
   const [popularPeople, setPopularPeople] = useState<PersonObject[]>();
 
-  useEffect(() => {
-    const fetch = async () => {
-      const configuration = await getConfig();
-      const { data: popPeople } = await getPopularPeople();
-      const peopleData = filterPeopleInformation(configuration, popPeople);
-      //console.log(peopleData);
+  const {data : config} = useQuery("config", getConfig);
+  useQuery(["people", config], getPopularPeople, {
+    enabled: !!config,
+    onSuccess:({data}) => {
+      setPopularPeople(filterPeopleInformation(config, data));
+    }
+  })
 
-      setPopularPeople(peopleData);
-    };
-    fetch();
-  }, []);
+  useEffect (() => {console.log(popularPeople)},[popularPeople]);
 
   return (
     <>
+    <SearchArea></SearchArea>
       {popularPeople ? (
         <PosterDisplayPeople
           arr={popularPeople}
