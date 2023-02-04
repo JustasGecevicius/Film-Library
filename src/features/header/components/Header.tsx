@@ -1,14 +1,12 @@
-import { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
-import "../css/header.css";
-import { signInUser, signOutUser } from "../features/firebase/functions";
+import "../../../css/header.css";
+import { signInUser, signOutUser } from "../../firebase/functions";
 import { fetchHeaderIcons } from "features/header/api";
-import { FirebaseContext } from "features/context/FirebaseContext";
+import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useQuery } from "react-query";
 
 export const Header = () => {
-  //FIX THIS ANY USER THING!!!!!
-  const { userInfo } = useContext<any>(FirebaseContext);
+  const {userInfo} = useFirebaseContext();
 
   const { data } = useQuery("icons", fetchHeaderIcons);
 

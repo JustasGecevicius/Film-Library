@@ -2,7 +2,7 @@ import { getConfig } from "features/config/api";
 import { GetConfig } from "features/config/types";
 import { deleteField, doc, DocumentData, DocumentReference, Firestore, getDoc, updateDoc } from "firebase/firestore";
 import { getMovieData } from "./api";
-import { FetchData, GetTrendingMovies, MovieNumbersType, MovieObjectType } from "./types";
+import { FetchData, GetTrendingMovies, MovieNumbersType, MovieObjectType, ProductionCompany } from "./types";
 
 // Takes the general movie response and returns an array of only the required fields
 export const filterMovieInformation = (config : GetConfig, fetchMovieResponse : GetTrendingMovies) => {
@@ -14,7 +14,7 @@ export const filterMovieInformation = (config : GetConfig, fetchMovieResponse : 
                 
                 if(title && release_date && poster_path && id) movieArray.push({title, release_date, imageURL, id});
         });
-        console.log(movieArray);
+       // console.log(movieArray);
         return movieArray;
 }
 
@@ -26,15 +26,15 @@ export const fetchMovieData = async ({ movieId, setConfig, setData }: FetchData)
         setData(movieData);
 };
 
-export const filterProductionCompanies = ( configuration : GetConfig, array : Object[]) => {
-
+export const filterProductionCompanies = ( configuration : GetConfig, array : ProductionCompany[]) => {
+        console.log(array, "array");
         const baseURL = configuration["images"]["base_url"] + configuration["images"]["logo_sizes"][6];
-        const sortedArray: any = [];
+        const sortedArray: ProductionCompany[] = [];
 
-        array.forEach((elem : any) => {
+        array.forEach((elem) => {
                 if(elem["logo_path"]){
-                        const imageURL = baseURL + elem["logo_path"];
-                        const newObj = {...elem, "logo_path": imageURL};
+                        const logoURL = baseURL + elem["logo_path"];
+                        const newObj = {...elem, "logo_path": logoURL};
                         sortedArray.push(newObj);
                 }
         })     
@@ -63,28 +63,28 @@ export const fetchLiked = async (db : Firestore, userId : string, movieId : stri
                 `${userId}`
             );
             const document = await getDoc(docRef);
-            const allFields: DocumentData | undefined = document.data();
+            const allFields: DocumentData | undefined = await document.data();
             //checking if the movie is liked already and setting the liked state
+            if(allFields)
             setLiked(likedCheck(allFields, movieId));
 }
 
-export const likedCheck = (likedMovies : any, currentMovie : any) => {
+export const likedCheck = (likedMovies : DocumentData, currentMovie : string) => {
         //returns true or false depending on if the movie was found in the liked list or not
-        //console.log(likedMovies, currentMovie);
        return Object.keys(likedMovies).includes(currentMovie);
 }
-//find a way to fix the rating type issue???
-export const rate = async (db: Firestore, movieId : string, userId : string, rating: any, setRating :React.Dispatch<React.SetStateAction<string>>) => {
-    //gets the movie refference
-    //console.log(rating[0].value)
-    const movieRef = doc(db, "ratedMovies", `${userId}`)
-    //delete or add the movie based on liked state
-    if(rating){
-        await updateDoc(movieRef, {[movieId] : rating[0].value});
-    }
-    //setting the state of liked to the opposite
-    setRating(rating[0].value);
-}
+
+export const rate = (
+    db: Firestore,
+    movieId: string,
+    userId: string,
+    rating: string
+  ) => {
+    // Gets the movie refference
+    const movieRef = doc(db, "ratedMovies", `${userId}`);
+    // Delete or add the movie based on liked state
+    return updateDoc(movieRef, { [movieId]: rating });
+  };
 
 export const fetchRating = async (db : Firestore, userId : string, movieId : string, setRating : React.Dispatch<React.SetStateAction<string>>) => {
     const docRef: DocumentReference<DocumentData> = doc(

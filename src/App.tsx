@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Header } from "./reusableComponents/Header";
+import { Header } from "./features/header/components/Header";
 import React, { useEffect, useState } from "react";
 import "./css/app.css";
 import { Home } from "./pages/Home";
@@ -12,7 +12,7 @@ import { initializeApp } from "firebase/app";
 import config from "./features/services/config";
 //import { DB, UserContext } from "features/services/userContext";
 import { getFirestore } from "firebase/firestore";
-import { ShowMovie } from "pages/showMovie/ShowMovie";
+import { ShowMovie } from "pages/ShowMovie";
 
 const App: React.FC = () => {
   const [signInInfo, setSignInInfo] = useState({});

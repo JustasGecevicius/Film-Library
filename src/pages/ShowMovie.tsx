@@ -3,16 +3,20 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //types
 import { GetConfig } from "features/config/types";
-import { MovieData, BackdropType, ProductionCompany } from "features/movies/types";
+import {
+  MovieData,
+  BackdropType,
+  ProductionCompany,
+} from "features/movies/types";
 //components
-import { Backdrop } from "./components/Backdrop";
-import "../../css/showMovie.css";
-import { Genres } from "./components/Genres";
-import { Description } from "./components/Description";
-import { LikeAndRate } from "./components/LikeAndRate";
-import { VisitHomepage } from "./components/VisitHomepage";
-import { MovieNumbers } from "./components/MovieNumbers";
-import { ProducedBy } from "./components/ProducedBy";
+import { Backdrop } from "../features/showMovie/components/Backdrop";
+import "../css/showMovie.css";
+import { Genres } from "../features/showMovie/components/Genres";
+import { Description } from "../features/showMovie/components/Description";
+import { LikeAndRate } from "../features/showMovie/components/LikeAndRate";
+import { VisitHomepage } from "../features/showMovie/components/VisitHomepage";
+import { MovieNumbers } from "../features/showMovie/components/MovieNumbers";
+import { ProducedBy } from "../features/showMovie/components/ProducedBy";
 import {
   fetchMovieData,
   filterProductionCompanies,
@@ -20,13 +24,14 @@ import {
 
 export const ShowMovie = () => {
   //states
-  const {movieId} = useParams();
+  const { movieId } = useParams();
   //console.log(movieId);
   //const {data : config} = useQuery("config", getConfig);
   const [data, setData] = useState<MovieData>();
-  const [ config, setConfig ] = useState<GetConfig>();
+  const [config, setConfig] = useState<GetConfig>();
   const [backdropImages, setBackdropImages] = useState<BackdropType>();
-  const [productionCompanies, setProductionCompanies] = useState<ProductionCompany[]>();
+  const [productionCompanies, setProductionCompanies] =
+    useState<ProductionCompany[]>();
   //router Parameters
 
   useEffect(() => {
@@ -45,7 +50,7 @@ export const ShowMovie = () => {
         data["poster_path"];
       const productionCompanyData = filterProductionCompanies(
         config,
-        data["production_companies"]        
+        data["production_companies"]
       );
       setBackdropImages({ backdropURL: backdrop, posterURL: poster });
       setProductionCompanies(productionCompanyData);
@@ -65,7 +70,7 @@ export const ShowMovie = () => {
       ) : null}
       {data ? (
         <>
-          <Genres genres={data["genres"]} />
+          <Genres genres={data["genres"]}></Genres>
           <LikeAndRate movieId={movieId} title={data["title"]} />
           <Description overview={data["overview"]} />
           {data["homepage"] ? <VisitHomepage link={data["homepage"]} /> : null}

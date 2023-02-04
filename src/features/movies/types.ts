@@ -1,5 +1,4 @@
 import { GetConfig } from "features/config/types";
-import { PeopleArray } from "features/people/types";
 
 export interface GetTrendingMovies {
   page: number;
@@ -33,7 +32,7 @@ export interface MovieData {
   overview: string;
   popularity: number;
   poster_path: string | null;
-  production_companies: Object[];
+  production_companies: ProductionCompany[];
   production_countries: Object[];
   release_date: string;
   revenue: number;
@@ -88,16 +87,6 @@ export interface MovieBackdropType {
   backdrop: string;
   poster: string;
   title: string;
-}
-
-export interface MoviePosterDisplayType {
-  arr: PeopleArray[];
-  sectionName: string;
-}
-
-export interface PeoplePosterDisplayType {
-  arr: MovieObjectType[];
-  sectionName: string;
 }
 
 export interface MovieObjectType {

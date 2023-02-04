@@ -1,6 +1,6 @@
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, StorageReference } from "firebase/storage";
 import React, { useEffect, useState } from "react";
-import "../css/searchBar.css";
+import "../../../css/searchBar.css";
 
 interface Props {}
 
@@ -10,7 +10,7 @@ export const SearchBar: React.FC<Props> = () => {
     useEffect(() => {
         const fetch = async () => {
             const storage = getStorage();
-            const refference : any = ref(storage, "searchBar/searchIcon.png");
+            const refference : StorageReference = ref(storage, "searchBar/searchIcon.png");
             const link = await getDownloadURL(refference);
             return link
     }

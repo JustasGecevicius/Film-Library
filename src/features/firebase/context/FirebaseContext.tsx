@@ -8,13 +8,13 @@ import { doc, getFirestore, setDoc } from "firebase/firestore";
 import config from "features/services/config";
 
 // Hooks
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 // Types
-import { ContainerProps, Context, UserInfo } from "./types";
+import { ContainerProps, Context, UserInfo } from "features/context/types";
 
   // Create Firebase and User Context
-export const FirebaseContext = createContext<Context | undefined>(undefined);
+export const FirebaseContext = createContext<Context | null>(null);
 
 export const FirebaseContextComponent = (props: ContainerProps) => {
   // Getting firebase
@@ -53,13 +53,3 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
     </FirebaseContext.Provider>
   );
 };
-
-export const useFirebaseContext = () => {
-  const context = useContext(FirebaseContext);
-
-  if (context === undefined) {
-    throw new Error('useUserContext must be used withing a UserContextProvider')
-  }
-
-  return context
-}

@@ -1,17 +1,16 @@
-import { SearchArea } from "reusableComponents/SearchArea";
 import React, { useEffect, useState } from "react";
 import { getPopularPeople } from "../features/people/api";
 import { getConfig } from "features/config/api";
-import { PosterDisplay } from "reusableComponents/PosterDisplay";
 import "../css/popularMovies.css";
 import { filterPeopleInformation } from "features/people/functions";
-import { PeopleArray, PeopleTypes } from "features/people/types";
+import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
+import { PersonObject } from "features/displayPostersSection/types";
 
 // import { PopularPeopleFriends } from "sections/people/PopularPeopleFriends";
 interface Props {}
 
 export const People: React.FC<Props> = () => {
-  const [popularPeople, setPopularPeople] = useState<PeopleArray[]>();
+  const [popularPeople, setPopularPeople] = useState<PersonObject[]>();
 
   useEffect(() => {
     const fetch = async () => {
@@ -28,10 +27,10 @@ export const People: React.FC<Props> = () => {
   return (
     <>
       {popularPeople ? (
-        <PosterDisplay
+        <PosterDisplayPeople
           arr={popularPeople}
           sectionName="Popular People"
-        ></PosterDisplay>
+        ></PosterDisplayPeople>
       ) : null}
     </>
   );

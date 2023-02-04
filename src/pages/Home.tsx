@@ -1,27 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import "../css/home.css";
-import { SearchBar } from "reusableComponents/SearchBar";
-import { FirebaseContext } from "features/context/FirebaseContext";
+import { SearchBar } from "features/searchArea/components/SearchBar";
+import { useFirebaseContext } from "features/context/FirebaseContext";
+import { useQuery } from "react-query";
 
 export const Home = () => {
-  //FIIIIIX THIIIIS ANNYYYYYY?????
-  const { userInfo } = useContext<any>(FirebaseContext);
-  const [displayName, setDisplayName] = useState<string | undefined>();
   const storage = getStorage();
   const pathRef = ref(storage, "background.jpg");
-  const [background, setBackground] = useState<string | undefined>();
+
+  const { userInfo } = useFirebaseContext();
+  const {data : background} = useQuery(["link", pathRef], () => getDownloadURL(pathRef))
+
+  const [displayName, setDisplayName] = useState<string | undefined>();
 
   useEffect(() => {
-    const fetch = async () => {
-      const link = await getDownloadURL(pathRef);
-      setBackground(link);
-    };
-    fetch();
-  }, []);
-
-  useEffect(() => {
-    if (userInfo !== undefined && Object.keys(userInfo).length !== 0) {
+    if (userInfo !== undefined) {
       setDisplayName(userInfo["displayName"].split(" ").slice(0, -1).join("."));
     }
   }, [userInfo]);
