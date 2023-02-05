@@ -1,7 +1,6 @@
 import { ProducedByType } from "features/movies/types";
 
 export const ProducedBy = ({ productionCompanies } : ProducedByType) => {
-    //console.log(productionCompanies);
     return (
         <div className="producedBy">
             <div className="producedByWidth">

@@ -6,10 +6,13 @@ import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useQuery } from "react-query";
 
 export const Header = () => {
-  const {userInfo} = useFirebaseContext();
+  const { userInfo } = useFirebaseContext();
 
   const { data } = useQuery("icons", fetchHeaderIcons);
 
+  //if(userInfo)
+  //console.log(userInfo["photoURL"]);
+  
   return (
     <>
       {data ? (
@@ -70,11 +73,11 @@ export const Header = () => {
               </label>
               {userInfo ? (
                 <div className="userInformationDisplay">
-                  <img
+                  {userInfo["photoURL"] ? <img
                     alt="userImage"
                     className="userImage"
                     src={userInfo["photoURL"]}
-                  ></img>
+                  /> : null}
                 </div>
               ) : null}
               {userInfo ? (

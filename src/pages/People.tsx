@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getPopularPeople } from "../features/people/api";
 import { getConfig } from "features/config/api";
 import "../css/popularMovies.css";
@@ -21,8 +21,6 @@ export const People: React.FC<Props> = () => {
       setPopularPeople(filterPeopleInformation(config, data));
     }
   })
-
-  useEffect (() => {console.log(popularPeople)},[popularPeople]);
 
   return (
     <>

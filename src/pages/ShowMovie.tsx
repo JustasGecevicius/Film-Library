@@ -25,8 +25,6 @@ import {
 export const ShowMovie = () => {
   //states
   const { movieId } = useParams();
-  //console.log(movieId);
-  //const {data : config} = useQuery("config", getConfig);
   const [data, setData] = useState<MovieData>();
   const [config, setConfig] = useState<GetConfig>();
   const [backdropImages, setBackdropImages] = useState<BackdropType>();

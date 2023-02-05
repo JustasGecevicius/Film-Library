@@ -8,7 +8,6 @@ export const MovieNumbers = ({
   runtime,
   voteAverage,
 }: MovieNumbersType) => {
-  //console.log(props)
   const fixedProps = tagFixer({ budget, revenue, runtime, voteAverage });
   return (
     <div className="movieNumbers">

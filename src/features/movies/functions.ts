@@ -14,7 +14,6 @@ export const filterMovieInformation = (config : GetConfig, fetchMovieResponse : 
                 
                 if(title && release_date && poster_path && id) movieArray.push({title, release_date, imageURL, id});
         });
-       // console.log(movieArray);
         return movieArray;
 }
 
@@ -27,7 +26,6 @@ export const fetchMovieData = async ({ movieId, setConfig, setData }: FetchData)
 };
 
 export const filterProductionCompanies = ( configuration : GetConfig, array : ProductionCompany[]) => {
-        console.log(array, "array");
         const baseURL = configuration["images"]["base_url"] + configuration["images"]["logo_sizes"][6];
         const sortedArray: ProductionCompany[] = [];
 
