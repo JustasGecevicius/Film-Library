@@ -16,7 +16,8 @@ import {
 export async function initializeUser(
   db: Firestore,
   userId: string | undefined,
-  userName: string | null
+  userName: string | null,
+  userURL: string | null
 ) {
   // Gets a list of all the different fields in Firebase
   const docRef: DocumentReference<DocumentData> = doc(
@@ -49,7 +50,7 @@ export async function initializeUser(
       );
       const field = await getDoc(fieldRef);
       if (!field.exists()) {
-        setDoc(doc(db, `${elem}`, `${userName}`), {id : userId});
+        setDoc(doc(db, `${elem}`, `${userName}`), {id : userId, URL: userURL});
       }
     }
 

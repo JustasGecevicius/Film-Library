@@ -23,13 +23,13 @@ export const SearchBar: React.FC<Props> = () => {
 
     return icon ? (
         <div className="search">
-            <input type="text" placeholder="Search" name="search"></input>
+            <input className = "searchInput" type="text" placeholder="Search" name="search"></input>
             <button>
                 <img
                     alt="exploreIcon"
                     src={icon}
                     className="navigationImage"
-                ></img>
+                />
             </button>
         </div>
     ) : null;

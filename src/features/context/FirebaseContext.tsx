@@ -34,7 +34,7 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
       if (user) {
         const { displayName, photoURL, uid, email } = user;
         const location = `users/${uid}`;
-        initializeUser(db, uid, displayName);
+        initializeUser(db, uid, displayName, photoURL);
         setDoc(doc(db, location), {
           ...{ displayName, photoURL, uid, email },
         });

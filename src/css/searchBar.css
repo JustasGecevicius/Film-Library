@@ -1,8 +1,3 @@
-.search .searchForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .search button {
   background-color: #76bfff;
   color: #f2f2f2;
@@ -24,4 +19,26 @@
   height: 37.5px;
   border-radius: 25px;
   border: none;
+}
+.search .searchField {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.search .searchResultsDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.search .searchResultsDisplay .foundUser {
+  width: 535px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+}
+.search .searchResultsDisplay .foundUser img {
+  max-width: 50px;
 }

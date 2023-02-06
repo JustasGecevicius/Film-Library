@@ -38,12 +38,12 @@ export function useDebounce(value: string, delay: number) {
 }
 
 export const searchUsers = (query : QuerySnapshot<DocumentData>, searchString : string) => {
-  const ids : string[] = [];
+  const ids : {name : string, id : DocumentData, URL : string}[] = [];
   query.forEach((elem) => {
-      ids.push(elem.id);
+    if(elem.id.toLowerCase().includes(searchString)){
+      const {URL, id} = elem.data();
+      ids.push({name : elem.id, id, URL});
+    }
   })
-  let usersFound = ids.filter((user)=>{
-    return user.toLowerCase().includes(searchString)
-})
-  return usersFound ? usersFound : undefined;
+  return ids.length !== 0 ? ids : undefined;
 }
