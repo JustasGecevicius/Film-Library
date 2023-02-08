@@ -9,17 +9,20 @@ import { GetTrendingMovies, MovieData } from "./types";
 
 export const getTrendingMovies = async () =>
   await api<GetTrendingMovies>(GET_TRENDING_MOVIES_URL).then((response) => {
-    return response["data"];
+    return response.data;
   });
 
 export const getTopRatedMovies = async () =>
   await api<GetTrendingMovies>(GET_TOP_RATED_URL).then((response) => {
-    return response["data"];
+    return response.data;
   });
 
-export const getMovieData = async (movieId: string) =>
-  await api<MovieData>(
+export const getMovieData = (movieId: string | undefined) => {
+  if (!movieId) return;
+  return api<MovieData>(
     `/movie/${movieId}?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US`
   ).then((response) => {
-    return response;
+    return response.data;
   });
+}
+

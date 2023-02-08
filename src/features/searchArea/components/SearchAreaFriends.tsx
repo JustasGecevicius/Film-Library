@@ -37,6 +37,7 @@ export const SearchAreaFriends = () => {
     >
       <Header></Header>
       <SearchBar></SearchBar>
+      
     </div>
   );
 };

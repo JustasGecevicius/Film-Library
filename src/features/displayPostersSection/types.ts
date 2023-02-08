@@ -1,13 +1,8 @@
+import { MovieObject } from "features/movies/types";
+
 export interface MoviesPosterDisplayType {
   arr: MovieObject[];
   sectionName: string;
-}
-
-export interface MovieObject {
-  title:string;
-  imageURL:string;
-  release_date?: string;
-  id?: number;
 }
 
 export interface PeoplePosterDisplayType {

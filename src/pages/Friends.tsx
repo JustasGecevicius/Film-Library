@@ -1,11 +1,20 @@
-import { SearchArea } from "features/searchArea/components/SearchArea";
+import { PosterDisplayMovies } from "features/displayPostersSection/components/PosterDisplayMovies";
+import { useFetchFriendMovies } from "features/friends/hooks";
 import { SearchAreaPeople } from "features/searchArea/components/SearchAreaPeople";
 import "../css/popularMovies.css";
 
-interface Props {}
+export const Friends = () => {
+  const friendMovies = useFetchFriendMovies();
 
-export const Friends: React.FC<Props> = () => {
-    return <>
-        <SearchAreaPeople></SearchAreaPeople>
-    </>;
+  return (
+    <>
+      <SearchAreaPeople></SearchAreaPeople>
+      {friendMovies ? (
+        <PosterDisplayMovies
+          arr={friendMovies}
+          sectionName="Popular With Friends"
+        ></PosterDisplayMovies>
+      ) : null}
+    </>
+  );
 };

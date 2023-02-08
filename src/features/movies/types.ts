@@ -2,12 +2,12 @@ import { GetConfig } from "features/config/types";
 
 export interface GetTrendingMovies {
   page: number;
-  results: GetTrendingMoviesResults[];
+  results: MovieData[];
   total_pages: number;
   total_results: number;
 }
 
-interface GetTrendingMoviesResults {
+export interface GetTrendingMoviesResults {
   adult: boolean;
   backdrop_path: string | null;
   poster_path: string | null;
@@ -89,9 +89,9 @@ export interface MovieBackdropType {
   title: string;
 }
 
-export interface MovieObjectType {
-  title: string;
-  imageURL: string;
+export interface MovieObject {
+  title:string;
+  imageURL:string;
   release_date: string;
   id: number;
 }

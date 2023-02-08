@@ -4,16 +4,16 @@ import { getConfig } from "features/config/api";
 import "../css/explore.css";
 import { filterMovieInformation } from "features/movies/functions";
 import { getTopRatedMovies, getTrendingMovies } from "features/movies/api";
-import { MovieObjectType } from "features/movies/types";
 import { SearchArea } from "features/searchArea/components/SearchArea";
 import { useQuery } from "react-query";
+import { MovieData, MovieObject } from "features/movies/types";
 
 interface Props {}
 
 export const Explore: React.FC<Props> = () => {
   // States for both trending and top movies
-  const [trendingMovies, setTrendingMovies] = useState<MovieObjectType[]>();
-  const [topMovies, setTopMovies] = useState<MovieObjectType[]>();
+  const [trendingMovies, setTrendingMovies] = useState<MovieObject[]>();
+  const [topMovies, setTopMovies] = useState<MovieObject[]>();
 
   // Fetching config trending movies and top rated movies
   const { data: config } = useQuery("config", getConfig);
@@ -23,11 +23,11 @@ export const Explore: React.FC<Props> = () => {
   // UseEffect for setting the movie data to state
   useEffect(() => {
     if (config && trending) {
-      const trendingData = filterMovieInformation(config, trending);
+      const trendingData = filterMovieInformation(config, trending.results);
       setTrendingMovies(trendingData);
     }
     if (config && top) {
-      const topData = filterMovieInformation(config, top);
+      const topData = filterMovieInformation(config, top.results);
       setTopMovies(topData);
     }
   }, [trending, config, top]);

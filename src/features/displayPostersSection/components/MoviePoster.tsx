@@ -1,4 +1,4 @@
-import { MovieObject } from "features/displayPostersSection/types";
+import { MovieObject } from "features/movies/types";
 import { Link } from "react-router-dom";
 
 export const MoviePoster = ({ imageURL, title, release_date, id }: MovieObject) => {

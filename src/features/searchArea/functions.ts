@@ -1,8 +1,10 @@
 import { getConfig } from "features/config/api";
+import { UserInfo } from "features/context/types";
 import { getTrendingMovies } from "features/movies/api";
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
+import { doc, DocumentData, Firestore, QuerySnapshot, updateDoc } from "firebase/firestore";
 
 import { useEffect, useState } from "react";
+import { Friend } from "./types";
 
 export const searchAreaImageLinksFetch = async () => {
   // fetching config and movie data
@@ -38,12 +40,38 @@ export function useDebounce(value: string, delay: number) {
 }
 
 export const searchUsers = (query : QuerySnapshot<DocumentData>, searchString : string) => {
-  const ids : {name : string, id : DocumentData, URL : string}[] = [];
+  const ids : {friendName : string, friendId : DocumentData, URL : string}[] = [];
   query.forEach((elem) => {
     if(elem.id.toLowerCase().includes(searchString)){
       const {URL, id} = elem.data();
-      ids.push({name : elem.id, id, URL});
+      ids.push({friendName : elem.id, friendId : id, URL});
     }
   })
   return ids.length !== 0 ? ids : undefined;
 }
+
+export const handleAddFriend = (
+  id: DocumentData,
+  name: string,
+  userInfo: UserInfo | undefined,
+  db: Firestore
+) => {
+  if (!userInfo) return;
+  const ref = doc(db, "friends", userInfo.uid);
+  updateDoc(ref, {
+    [name]: id,
+  });
+};
+
+export const removeFriendFromDOM = (
+  setFilteredAnswers: React.Dispatch<
+    React.SetStateAction<Friend[] | undefined>
+  >,
+  filteredAnswers: Friend[] | undefined,
+  userIndex: number
+) => {
+  setFilteredAnswers((arr) => {
+    if (!arr) return;
+    return arr.splice(userIndex, 1);
+  });
+};

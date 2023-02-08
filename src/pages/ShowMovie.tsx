@@ -1,82 +1,63 @@
-//functions
-import { useEffect, useState } from "react";
+// Hooks
 import { useParams } from "react-router-dom";
-//types
-import { GetConfig } from "features/config/types";
-import {
-  MovieData,
-  BackdropType,
-  ProductionCompany,
-} from "features/movies/types";
-//components
+import { useBackdrop, useProductionCompanies } from "features/showMovie/hooks";
+import { useQuery } from "react-query";
+// API
+import { getMovieData } from "../features/movies/api";
+import { getConfig } from "features/config/api";
+// Components
 import { Backdrop } from "../features/showMovie/components/Backdrop";
-import "../css/showMovie.css";
 import { Genres } from "../features/showMovie/components/Genres";
 import { Description } from "../features/showMovie/components/Description";
 import { LikeAndRate } from "../features/showMovie/components/LikeAndRate";
 import { VisitHomepage } from "../features/showMovie/components/VisitHomepage";
 import { MovieNumbers } from "../features/showMovie/components/MovieNumbers";
 import { ProducedBy } from "../features/showMovie/components/ProducedBy";
-import {
-  fetchMovieData,
-  filterProductionCompanies,
-} from "features/movies/functions";
+// Styles
+import "../css/showMovie.css";
 
 export const ShowMovie = () => {
-  //states
-  const { movieId } = useParams();
-  const [data, setData] = useState<MovieData>();
-  const [config, setConfig] = useState<GetConfig>();
-  const [backdropImages, setBackdropImages] = useState<BackdropType>();
-  const [productionCompanies, setProductionCompanies] =
-    useState<ProductionCompany[]>();
   //router Parameters
+  const { movieId } = useParams();
 
-  useEffect(() => {
-    if (movieId) fetchMovieData({ movieId, setConfig, setData });
-  }, [movieId]);
-
-  useEffect(() => {
-    if (data && config) {
-      const backdrop =
-        config["images"]["base_url"] +
-        config["images"]["backdrop_sizes"][3] +
-        data["backdrop_path"];
-      const poster =
-        config["images"]["base_url"] +
-        config["images"]["poster_sizes"][6] +
-        data["poster_path"];
-      const productionCompanyData = filterProductionCompanies(
-        config,
-        data["production_companies"]
-      );
-      setBackdropImages({ backdropURL: backdrop, posterURL: poster });
-      setProductionCompanies(productionCompanyData);
+  const { data: movieData } = useQuery(
+    ["movie", movieId],
+    () => {
+      return getMovieData(movieId);
+    },
+    {
+      enabled: !!movieId,
     }
-  }, [config, data]);
+  );
+  const { data: config } = useQuery("config", getConfig);
+
+  const backdropImages = useBackdrop(config, movieData);
+  const productionCompanies = useProductionCompanies(config, movieData);
 
   if (movieId === undefined) return <></>;
 
   return (
     <>
-      {backdropImages && data ? (
+      {backdropImages && movieData ? (
         <Backdrop
           backdrop={backdropImages["backdropURL"]}
           poster={backdropImages["posterURL"]}
-          title={data["title"]}
+          title={movieData["title"]}
         />
       ) : null}
-      {data ? (
+      {movieData ? (
         <>
-          <Genres genres={data["genres"]}></Genres>
-          <LikeAndRate movieId={movieId} title={data["title"]} />
-          <Description overview={data["overview"]} />
-          {data["homepage"] ? <VisitHomepage link={data["homepage"]} /> : null}
+          <Genres genres={movieData["genres"]}></Genres>
+          <LikeAndRate movieId={movieId} title={movieData["title"]} />
+          <Description overview={movieData["overview"]} />
+          {movieData["homepage"] ? (
+            <VisitHomepage link={movieData["homepage"]} />
+          ) : null}
           <MovieNumbers
-            budget={data["budget"]}
-            revenue={data["revenue"]}
-            runtime={data["runtime"]}
-            voteAverage={data["vote_average"]}
+            budget={movieData["budget"]}
+            revenue={movieData["revenue"]}
+            runtime={movieData["runtime"]}
+            voteAverage={movieData["vote_average"]}
           />
           {productionCompanies ? (
             <ProducedBy productionCompanies={productionCompanies} />
