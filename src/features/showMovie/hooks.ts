@@ -1,15 +1,31 @@
-import { GetConfig } from "features/config/types";
+import { getConfig } from "features/config/api";
+import { getMovieData } from "features/movies/api";
 import { filterProductionCompanies } from "features/movies/functions";
-import { MovieData, ProductionCompany } from "features/movies/types";
+import { ProductionCompany } from "features/movies/types";
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 
 interface BackdropAndPoster {
   backdropURL:string;
   posterURL:string;
 }
 
-export const useBackdrop = (config : GetConfig | undefined, movieData : MovieData | undefined) => {
+export const useBackdrop = () => {
   const [backdropAndPoster, setBackdropAndPoster] = useState<BackdropAndPoster>();
+  const { data: config } = useQuery("config", getConfig);
+  const { movieId } = useParams();
+
+  const { data: movieData } = useQuery(
+    ["movie", movieId],
+    () => {
+      return getMovieData(movieId);
+    },
+    {
+      enabled: !!movieId,
+    }
+  );
+
   useEffect(() => {
     if (movieData && config) {
       const backdropURL =
@@ -26,8 +42,20 @@ export const useBackdrop = (config : GetConfig | undefined, movieData : MovieDat
   return backdropAndPoster;
 }
 
-export const useProductionCompanies = (config : GetConfig | undefined, movieData : MovieData | undefined) => {
+export const useProductionCompanies = () => {
   const [productionCompanies, setProductionCompanies] = useState<ProductionCompany[]>();
+  const { movieId } = useParams();
+
+  const { data: movieData } = useQuery(
+    ["movie", movieId],
+    () => {
+      return getMovieData(movieId);
+    },
+    {
+      enabled: !!movieId,
+    }
+  );
+  const { data: config } = useQuery("config", getConfig);
   useEffect(() => {
     if (movieData && config) {
       const productionCompanyData = filterProductionCompanies(
@@ -38,4 +66,19 @@ export const useProductionCompanies = (config : GetConfig | undefined, movieData
     }
   }, [config, movieData]);
   return productionCompanies
+}
+
+export const useMovieData = () => {
+  const { movieId } = useParams();
+
+  const { data: movieData } = useQuery(
+    ["movie", movieId],
+    () => {
+      return getMovieData(movieId);
+    },
+    {
+      enabled: !!movieId,
+    }
+  );
+  return movieData;
 }

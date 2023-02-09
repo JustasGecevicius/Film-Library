@@ -67,7 +67,6 @@ export interface BackdropType {
 }
 
 export interface LikeAndRateType {
-  movieId: string;
   title: string;
 }
 

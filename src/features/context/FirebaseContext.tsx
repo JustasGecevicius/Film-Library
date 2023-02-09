@@ -58,7 +58,7 @@ export const useFirebaseContext = () => {
   const context = useContext(FirebaseContext);
 
   if (context === undefined) {
-    throw new Error('useUserContext must be used withing a UserContextProvider')
+    throw new Error('useFirebaseContext must be used withing a UserContextProvider')
   }
 
   return context

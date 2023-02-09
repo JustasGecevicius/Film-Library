@@ -1,10 +1,5 @@
 // Hooks
-import { useParams } from "react-router-dom";
-import { useBackdrop, useProductionCompanies } from "features/showMovie/hooks";
-import { useQuery } from "react-query";
-// API
-import { getMovieData } from "../features/movies/api";
-import { getConfig } from "features/config/api";
+import { useBackdrop, useMovieData, useProductionCompanies } from "features/showMovie/hooks";
 // Components
 import { Backdrop } from "../features/showMovie/components/Backdrop";
 import { Genres } from "../features/showMovie/components/Genres";
@@ -17,24 +12,10 @@ import { ProducedBy } from "../features/showMovie/components/ProducedBy";
 import "../css/showMovie.css";
 
 export const ShowMovie = () => {
-  //router Parameters
-  const { movieId } = useParams();
 
-  const { data: movieData } = useQuery(
-    ["movie", movieId],
-    () => {
-      return getMovieData(movieId);
-    },
-    {
-      enabled: !!movieId,
-    }
-  );
-  const { data: config } = useQuery("config", getConfig);
-
-  const backdropImages = useBackdrop(config, movieData);
-  const productionCompanies = useProductionCompanies(config, movieData);
-
-  if (movieId === undefined) return <></>;
+  const movieData = useMovieData();
+  const backdropImages = useBackdrop();
+  const productionCompanies = useProductionCompanies();
 
   return (
     <>
@@ -48,7 +29,7 @@ export const ShowMovie = () => {
       {movieData ? (
         <>
           <Genres genres={movieData["genres"]}></Genres>
-          <LikeAndRate movieId={movieId} title={movieData["title"]} />
+          <LikeAndRate title={movieData["title"]} />
           <Description overview={movieData["overview"]} />
           {movieData["homepage"] ? (
             <VisitHomepage link={movieData["homepage"]} />

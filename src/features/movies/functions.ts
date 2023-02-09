@@ -34,16 +34,6 @@ export const filterMovieInformation = (
   return movieArray;
 };
 
-// export const filterSingleMovieInformation = (config : GetConfig, movieResult : GetTrendingMoviesResults) => {
-//     const movieArray : MovieObject[] = [];
-//     const baseUrl = config["images"]["base_url"] + config["images"]["poster_sizes"][5];
-//     const {title, release_date, poster_path, id} = movieResult;
-//     const imageURL = baseUrl + poster_path;
-
-//     if(title && release_date && poster_path && id) movieArray.push({title, release_date, imageURL, id});
-//     return movieArray;
-// }
-
 export const filterProductionCompanies = (
   configuration: GetConfig,
   array: ProductionCompany[]
@@ -69,8 +59,7 @@ export const like = async (
   movieId: string,
   userId: string,
   title: string,
-  liked: boolean,
-  setLiked: React.Dispatch<React.SetStateAction<boolean>>
+  liked: boolean | undefined
 ) => {
   //gets the movie refference
   const movieRef = doc(db, "likedMovies", `${userId}`);
@@ -80,37 +69,33 @@ export const like = async (
   } else {
     await updateDoc(movieRef, { [movieId]: title });
   }
-  //setting the state of liked to the opposite
-  setLiked(!liked);
 };
 
-export const fetchLiked = async (
-  db: Firestore,
-  userId: string,
-  movieId: string,
-  setLiked: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+export const fetchLiked = async (db: Firestore, userId: string | undefined) => {
   const docRef: DocumentReference<DocumentData> = doc(
     db,
     "likedMovies",
     `${userId}`
   );
   const document = await getDoc(docRef);
-  const allFields: DocumentData | undefined = await document.data();
-  //checking if the movie is liked already and setting the liked state
-  if (allFields) setLiked(likedCheck(allFields, movieId));
+  const likedMovies: DocumentData | undefined = await document.data();
+  return likedMovies;
 };
 
-export const likedCheck = (likedMovies: DocumentData, currentMovie: string) => {
+export const likedRatedCheck = (
+  moviesArray: DocumentData,
+  currentMovie: string | undefined
+) => {
   //returns true or false depending on if the movie was found in the liked list or not
-  return Object.keys(likedMovies).includes(currentMovie);
+  if (!currentMovie) return;
+  return Object.keys(moviesArray).includes(currentMovie);
 };
 
 export const rate = (
   db: Firestore,
   movieId: string,
   userId: string,
-  rating: string
+  rating: string | undefined
 ) => {
   // Gets the movie refference
   const movieRef = doc(db, "ratedMovies", `${userId}`);
@@ -118,12 +103,7 @@ export const rate = (
   return updateDoc(movieRef, { [movieId]: rating });
 };
 
-export const fetchRating = async (
-  db: Firestore,
-  userId: string,
-  movieId: string,
-  setRating: React.Dispatch<React.SetStateAction<string>>
-) => {
+export const fetchRated = async (db: Firestore, userId: string | undefined) => {
   const docRef: DocumentReference<DocumentData> = doc(
     db,
     "ratedMovies",
@@ -131,11 +111,18 @@ export const fetchRating = async (
   );
   const document = await getDoc(docRef);
   const allFields: DocumentData | undefined = document.data();
-  if (!allFields) return;
-  if (Object.keys(allFields).includes(movieId)) {
-    setRating(allFields[movieId]);
+  return allFields;
+};
+
+export const checkRating = (
+  ratedMovies: DocumentData,
+  currentMovieId: string | undefined
+) => {
+  if (!currentMovieId) return;
+  if (Object.keys(ratedMovies).includes(currentMovieId)) {
+    return ratedMovies[currentMovieId];
   } else {
-    setRating("X");
+    return "X";
   }
 };
 
