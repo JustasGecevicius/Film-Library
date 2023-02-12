@@ -9,4 +9,5 @@ header{
 .search{
         position: relative;
         bottom: calc(-100% + 100px);
+        flex-direction: column;
 }

@@ -15,10 +15,11 @@ export const PosterDisplayMovies = ({
           return (
             <MoviePoster
               key={index}
-              imageURL={elem["imageURL"]}
-              title={elem["title"]}
-              release_date={elem["release_date"]}
-              id={elem["id"]}
+              imageURL={elem.imageURL}
+              title={elem.title}
+              release_date={elem.release_date}
+              id={elem.id}
+              liked={elem.liked}
             ></MoviePoster>
           );
         })}

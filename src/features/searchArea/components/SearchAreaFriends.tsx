@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Header } from "../../header/components/Header";
 import "../../../css/searchArea.css";
-import { SearchBar } from "features/searchArea/components/SearchBar";
 import { useQuery } from "react-query";
 import { searchAreaImageLinksFetch } from "features/searchArea/functions";
+import { SearchBarFriends } from "./SearchBarFriends";
 
 export const SearchAreaFriends = () => {
   //state for the index of the image that switches on a timer
@@ -21,7 +21,7 @@ export const SearchAreaFriends = () => {
       if (links) {
         setInterval(() => {
           setImageIndex((prev) => (prev + 1) % links.length);
-        }, 500000);
+        }, 5000);
         calledOnce.current = true;
       }
     }
@@ -36,7 +36,7 @@ export const SearchAreaFriends = () => {
       style={{ backgroundImage: `url(${links[imageIndex]})` }}
     >
       <Header></Header>
-      <SearchBar></SearchBar>
+      <SearchBarFriends></SearchBarFriends>
       
     </div>
   );

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Header } from "../../header/components/Header";
 import "../../../css/searchArea.css";
-import { SearchBar } from "features/searchArea/components/SearchBar";
 import { useQuery } from "react-query";
 import { searchAreaImageLinksFetch } from "features/searchArea/functions";
+import { SearchBarMovies } from "./SearchBarMovies";
 
 export const SearchAreaMovies = () => {
   //state for the index of the image that switches on a timer
@@ -36,7 +36,7 @@ export const SearchAreaMovies = () => {
       style={{ backgroundImage: `url(${links[imageIndex]})` }}
     >
       <Header></Header>
-      <SearchBar></SearchBar>
+      <SearchBarMovies></SearchBarMovies>
     </div>
   );
 };

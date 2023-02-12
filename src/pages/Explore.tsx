@@ -1,7 +1,7 @@
 import { PosterDisplayMovies } from "features/displayPostersSection/components/PosterDisplayMovies";
 import "../css/explore.css";
-import { SearchArea } from "features/searchArea/components/SearchArea";
 import { useTopMovies, useTrendingMovies } from "features/movies/hooks";
+import { SearchAreaMovies } from "features/searchArea/components/SearchAreaMovies";
 
 interface Props {}
 
@@ -9,10 +9,12 @@ export const Explore: React.FC<Props> = () => {
 
   const topMovies = useTopMovies();
   const trendingMovies = useTrendingMovies();
+  console.log(topMovies, trendingMovies);
+
 
   return (
     <>
-      <SearchArea />
+      <SearchAreaMovies />
       {trendingMovies ? (
         <PosterDisplayMovies
           arr={trendingMovies}

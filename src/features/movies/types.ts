@@ -1,6 +1,6 @@
 import { GetConfig } from "features/config/types";
 
-export interface GetTrendingMovies {
+export interface GetMovies {
   page: number;
   results: MovieData[];
   total_pages: number;
@@ -93,6 +93,7 @@ export interface MovieObject {
   imageURL:string;
   release_date: string;
   id: number;
+  liked?:boolean;
 }
 
 export interface DescriptionType {

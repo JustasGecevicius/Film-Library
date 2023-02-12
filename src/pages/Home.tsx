@@ -1,18 +1,20 @@
 import "../css/home.css";
-import { SearchBar } from "features/searchArea/components/SearchBar";
 import { useBackground, useDisplayName } from "features/welcomeScreen/hooks";
+import { Header } from "features/header/components/Header";
 
 export const Home = () => {
-
-const background = useBackground();
-const displayName = useDisplayName();
+  const background = useBackground();
+  const displayName = useDisplayName();
 
   return background ? (
     <div
       className="background"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className="backgroundCover"></div>
+      <div className="backgroundCover">
+        {" "}
+        <Header></Header>
+      </div>
       <div className="textWrap">
         {displayName ? (
           <h3>
@@ -21,7 +23,6 @@ const displayName = useDisplayName();
         ) : (
           <h2>Discover</h2>
         )}
-        <SearchBar />
       </div>
     </div>
   ) : null;

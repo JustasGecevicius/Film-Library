@@ -1,12 +1,18 @@
 .search {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     button {
         background-color: #76bfff;
         color: #f2f2f2;
         float: right;
         padding: 5px;
         font-size: 12px;
+        height: 37.5px;
         border: none;
-        border-radius: 15px;
+        border-radius: 1rem;
         margin-left: 5px;
         cursor: pointer;
         img {
@@ -18,7 +24,7 @@
         font-size: 1.5rem;
         width: 500px;
         height: 37.5px;
-        border-radius: 25px;
+        border-radius: 1rem;
         border: none;
     }
     .searchField{
@@ -28,15 +34,31 @@
         align-items: center;
     }
     .searchResultsDisplay{
-        display: flex;
+        display: flex;        
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
+        max-height: 300px;
+        overflow-y: auto;
+        position: relative;
+        z-index: 50;
         .foundUser{
-            width: 535px;
+            width: 450px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            background-color: white;
+            img{
+                max-width: 50px;
+            }
+        }
+        .foundMovie{
+            width: 450px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            column-gap: 2rem;
+            align-items: center;
             background-color: white;
             img{
                 max-width: 50px;

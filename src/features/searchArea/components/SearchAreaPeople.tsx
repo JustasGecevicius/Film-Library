@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Header } from "../../header/components/Header";
 import "../../../css/searchArea.css";
-import { SearchBar } from "features/searchArea/components/SearchBar";
 import { useQuery } from "react-query";
 import { searchAreaImageLinksFetch } from "features/searchArea/functions";
 import { SearchBarFriends } from "./SearchBarFriends";

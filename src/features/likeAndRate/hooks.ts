@@ -24,7 +24,7 @@ export const useLiked = (likeButtonClicked: boolean) => {
   );
   useEffect(() => {
     if (!likedMovies || !movieId) return;
-    setLiked(likedRatedCheck(likedMovies, movieId));
+    setLiked(likedRatedCheck(Object.keys(likedMovies), movieId));
   }, [likedMovies, movieId]);
 
   useEffect (() => {

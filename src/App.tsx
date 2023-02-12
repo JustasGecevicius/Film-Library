@@ -15,35 +15,31 @@ import { getFirestore } from "firebase/firestore";
 import { ShowMovie } from "pages/ShowMovie";
 
 const App: React.FC = () => {
-  const [signInInfo, setSignInInfo] = useState({});
-  const app = initializeApp(config);
-  const db = getFirestore(app);
+  initializeApp(config);
   const location = useLocation();
 
   return (
     <div className="App">
       <Routes location={location} key={location.pathname}>
-        <Route element={<Header />}>
-          <Route path="/Film-Library" element={<Home />}>
-            <Route path=":movieId" element={<ShowMovie />}></Route>
-          </Route>
-          <Route path="/Film-Library/Explore" element={<Explore />}></Route>
-          <Route
-            path="/Film-Library/Explore/:movieId"
-            element={<ShowMovie />}
-          ></Route>
-          <Route path="/Film-Library/Friends" element={<Friends />}></Route>
-          <Route
-            path="/Film-Library/Friends/:movieId"
-            element={<ShowMovie />}
-          />
-          <Route path="/Film-Library/People" element={<People />}></Route>
-          <Route path="/Film-Library/People/:movieId" element={<ShowMovie />} />
-          <Route
-            path="/Film-Library/UserProfile"
-            element={<UserProfile />}
-          ></Route>
+        <Route path="/Film-Library" element={<Home />}>
+          <Route path=":movieId" element={<ShowMovie />}/>
         </Route>
+        <Route path="/Film-Library/Explore" element={<Explore />}/>
+        <Route
+          path="/Film-Library/Explore/:movieId"
+          element={<ShowMovie />}
+        />
+        <Route path="/Film-Library/Friends" element={<Friends />}/>
+        <Route
+          path="/Film-Library/Friends/:movieId"
+          element={<ShowMovie />}
+        />
+        <Route path="/Film-Library/People" element={<People />}/>
+        <Route path="/Film-Library/People/:movieId" element={<ShowMovie />} />
+        <Route
+          path="/Film-Library/UserProfile"
+          element={<UserProfile />}
+        />
       </Routes>
     </div>
   );

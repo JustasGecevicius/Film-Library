@@ -5,15 +5,15 @@ import { api } from "features/services/axios";
 import { GET_TOP_RATED_URL, GET_TRENDING_MOVIES_URL } from "./constants";
 
 // Types
-import { GetTrendingMovies, MovieData } from "./types";
+import { GetMovies, MovieData } from "./types";
 
 export const getTrendingMovies = async () =>
-  await api<GetTrendingMovies>(GET_TRENDING_MOVIES_URL).then((response) => {
+  await api<GetMovies>(GET_TRENDING_MOVIES_URL).then((response) => {
     return response.data;
   });
 
 export const getTopRatedMovies = async () =>
-  await api<GetTrendingMovies>(GET_TOP_RATED_URL).then((response) => {
+  await api<GetMovies>(GET_TOP_RATED_URL).then((response) => {
     return response.data;
   });
 
@@ -24,5 +24,13 @@ export const getMovieData = (movieId: string | undefined) => {
   ).then((response) => {
     return response.data;
   });
-}
+};
 
+export const getMovieDataSearch = (searchString: string | undefined) => {
+  if (!searchString) return;
+  return api<GetMovies>(
+    `/search/movie?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&query=${searchString}&page=1&include_adult=false`
+  ).then((response) => {
+    return response.data;
+  });
+};

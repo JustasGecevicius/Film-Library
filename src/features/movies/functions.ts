@@ -34,6 +34,15 @@ export const filterMovieInformation = (
   return movieArray;
 };
 
+export const checkMoviesArrayLike = (moviesList : MovieObject[], likedMovieIds: string[]) => {
+  moviesList.forEach(elem => {
+    if(likedRatedCheck(likedMovieIds, elem.id.toString())){
+      elem.liked = true;
+    }
+  })
+  return moviesList;
+}
+
 export const filterProductionCompanies = (
   configuration: GetConfig,
   array: ProductionCompany[]
@@ -71,6 +80,10 @@ export const like = async (
   }
 };
 
+interface LikedMovies {
+  [field: string] : string
+}
+
 export const fetchLiked = async (db: Firestore, userId: string | undefined) => {
   const docRef: DocumentReference<DocumentData> = doc(
     db,
@@ -78,17 +91,17 @@ export const fetchLiked = async (db: Firestore, userId: string | undefined) => {
     `${userId}`
   );
   const document = await getDoc(docRef);
-  const likedMovies: DocumentData | undefined = await document.data();
+  const likedMovies = await document.data() as LikedMovies;
   return likedMovies;
 };
 
 export const likedRatedCheck = (
-  moviesArray: DocumentData,
+  moviesArray: string[],
   currentMovie: string | undefined
 ) => {
   //returns true or false depending on if the movie was found in the liked list or not
   if (!currentMovie) return;
-  return Object.keys(moviesArray).includes(currentMovie);
+  return moviesArray.includes(currentMovie.toString());
 };
 
 export const rate = (
