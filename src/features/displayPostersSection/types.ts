@@ -1,7 +1,7 @@
-import { MovieObject } from "features/movies/types";
+import { MovieData } from "features/movies/types";
 
 export interface MoviesPosterDisplayType {
-  arr: MovieObject[];
+  arr: MovieData[] | undefined;
   sectionName: string;
 }
 

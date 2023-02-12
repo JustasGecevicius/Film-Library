@@ -1,7 +1,7 @@
 import { GetConfig } from "features/config/types";
 import { UserInfo } from "features/context/types";
 import { getMovieData } from "features/movies/api";
-import { filterMovieInformation } from "features/movies/functions";
+import { MovieData } from "features/movies/types";
 import { doc, Firestore, getDoc } from "firebase/firestore";
 import { Friends } from "./types";
 
@@ -82,9 +82,7 @@ export const fetchMoviesFromList = async (
     const movieData = getMovieData(elem);
     return movieData;
   });
-  const filteredResponse = filterMovieInformation(
-    config,
-    await Promise.all(promiseArray)
-  );
+  const response = await Promise.all(promiseArray);
+  const filteredResponse = response.filter(elem => elem !== undefined) as MovieData[];
   return filteredResponse;
 };

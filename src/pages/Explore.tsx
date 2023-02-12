@@ -9,8 +9,6 @@ export const Explore: React.FC<Props> = () => {
 
   const topMovies = useTopMovies();
   const trendingMovies = useTrendingMovies();
-  console.log(topMovies, trendingMovies);
-
 
   return (
     <>

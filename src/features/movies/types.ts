@@ -44,6 +44,7 @@ export interface MovieData {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  liked:boolean;
 }
 
 export interface MovieDataGenresType{

@@ -6,12 +6,11 @@ import { getTopRatedMovies, getTrendingMovies } from "./api";
 import {
   checkMoviesArrayLike,
   fetchLiked,
-  filterMovieInformation,
 } from "./functions";
-import { MovieObject } from "./types";
+import { MovieData, MovieObject } from "./types";
 
 export const useTrendingMovies = () => {
-  const [trendingMovies, setTrendingMovies] = useState<MovieObject[]>();
+  const [trendingMovies, setTrendingMovies] = useState<MovieData[]>();
   const { data: config } = useQuery("config", getConfig);
   const { data: trending } = useQuery("trending", getTrendingMovies);
   const { userInfo, db } = useFirebaseContext();
@@ -23,16 +22,16 @@ export const useTrendingMovies = () => {
     }
   );
   useEffect(() => {
+    console.log(config);
     if (!config || !trending || !likedMovies) return;
-    const trendingData = filterMovieInformation(config, trending.results);
-    const likeCheckedTrendingData = checkMoviesArrayLike(trendingData, Object.keys(likedMovies))
+    const likeCheckedTrendingData = checkMoviesArrayLike(trending.results, Object.keys(likedMovies))
     setTrendingMovies(likeCheckedTrendingData);
   }, [config, trending, likedMovies]);
   return trendingMovies;
 };
 
 export const useTopMovies = () => {
-  const [topMovies, setTopMovies] = useState<MovieObject[]>();
+  const [topMovies, setTopMovies] = useState<MovieData[]>();
   const { data: config } = useQuery("config", getConfig);
   const { data: top } = useQuery("topRated", getTopRatedMovies);
   const { userInfo, db } = useFirebaseContext();
@@ -45,8 +44,7 @@ export const useTopMovies = () => {
   );
   useEffect(() => {
     if (!config || !top || !likedMovies) return;
-    const topData = filterMovieInformation(config, top.results);
-    const likeCheckedTopData = checkMoviesArrayLike(topData, Object.keys(likedMovies));
+    const likeCheckedTopData = checkMoviesArrayLike(top.results, Object.keys(likedMovies));
     setTopMovies(likeCheckedTopData);
   }, [config, top, likedMovies]);
   return topMovies;
