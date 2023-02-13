@@ -1,5 +1,4 @@
 import { Header } from "features/header/components/Header";
-import { SearchArea } from "features/searchArea/components/SearchArea";
 
 export const UserProfile = () => {
   return (

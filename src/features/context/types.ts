@@ -9,7 +9,7 @@ export interface Context {
 }
 export interface UserInfo {
   displayName: string;
-  photoURL: string;
+  profileURL: string;
   uid: string;
   email: string;
 }

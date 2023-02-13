@@ -1,12 +1,13 @@
 
 import { MoviePoster } from "features/displayPostersSection/components/MoviePoster";
-import { MoviesPosterDisplayType } from "../types";
+import { MoviesPosterDisplayType, PosterType } from "../types";
 
 
 export const PosterDisplayMovies = ({
   arr,
   sectionName,
-}: MoviesPosterDisplayType) => {
+  type
+}: MoviesPosterDisplayType & PosterType) => {
   return (
     <div className="popularMoviesSection">
       <h2 className="sectionName">{sectionName}</h2>
@@ -20,6 +21,8 @@ export const PosterDisplayMovies = ({
               release_date={elem.release_date}
               id={elem.id}
               liked={elem.liked}
+              rating={elem.rating}
+              type={type}
             ></MoviePoster>
           );
         })}

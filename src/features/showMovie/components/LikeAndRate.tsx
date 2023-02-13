@@ -24,7 +24,7 @@ export const LikeAndRate = ({ title }: LikeAndRateType) => {
   const [rateInput, setRateInput] = useState<string>();
   const [rateButtonClick, setRateButtonClick] = useState<boolean>();
   const rating = useRating(rateButtonClick, rateInput);
-
+  //console.log(rating, "rating");
   return userInfo && movieId ? (
     <div className="likeAndRate">
       <div className="likeAndRateWidth">
@@ -55,7 +55,7 @@ export const LikeAndRate = ({ title }: LikeAndRateType) => {
           Rate
         </button>
         <div className="movieNumbersSymbol">
-          <p className="movieNumberSymbolText">{`Your Rating | ${rating}`}</p>
+          <p className="movieNumberSymbolText">{`Your Rating | ${rating ? rating : "none"}`}</p>
         </div>
       </div>
     </div>

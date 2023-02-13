@@ -13,6 +13,7 @@ import config from "./features/services/config";
 //import { DB, UserContext } from "features/services/userContext";
 import { getFirestore } from "firebase/firestore";
 import { ShowMovie } from "pages/ShowMovie";
+import { ShowSeries } from "pages/ShowSeries";
 
 const App: React.FC = () => {
   initializeApp(config);
@@ -21,25 +22,13 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Routes location={location} key={location.pathname}>
-        <Route path="/Film-Library" element={<Home />}>
-          <Route path=":movieId" element={<ShowMovie />}/>
-        </Route>
-        <Route path="/Film-Library/Explore" element={<Explore />}/>
-        <Route
-          path="/Film-Library/Explore/:movieId"
-          element={<ShowMovie />}
-        />
-        <Route path="/Film-Library/Friends" element={<Friends />}/>
-        <Route
-          path="/Film-Library/Friends/:movieId"
-          element={<ShowMovie />}
-        />
-        <Route path="/Film-Library/People" element={<People />}/>
-        <Route path="/Film-Library/People/:movieId" element={<ShowMovie />} />
-        <Route
-          path="/Film-Library/UserProfile"
-          element={<UserProfile />}
-        />
+        <Route path="/Film-Library" element={<Home />} />
+        <Route path="/Film-Library/Explore" element={<Explore />} />
+        <Route path="/Film-Library/Friends" element={<Friends />} />
+        <Route path="/Film-Library/People" element={<People />} />
+        <Route path="/Film-Library/UserProfile" element={<UserProfile />} />
+        <Route path="/Film-Library/movie/:movieId" element={<ShowMovie />} />
+        <Route path="/Film-Library/series/:seriesId" element={<ShowSeries />} />
       </Routes>
     </div>
   );

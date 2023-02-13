@@ -15,3 +15,7 @@ export interface PersonObject{
   imageURL: string;
   id?: number;
 }
+
+export interface PosterType{
+  type: "movie" | "series";
+}

@@ -3,10 +3,7 @@ import { PosterDisplayPeople } from "features/displayPostersSection/components/P
 import { SearchArea } from "features/searchArea/components/SearchArea";
 import { usePopularPeople } from "features/people/hooks";
 
-// import { PopularPeopleFriends } from "sections/people/PopularPeopleFriends";
-interface Props {}
-
-export const People: React.FC<Props> = () => {
+export const People = () => {
 
   const popularPeople = usePopularPeople();
 

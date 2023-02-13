@@ -3,7 +3,6 @@
     margin: 0 auto;
     width: 90%;
     margin-top: 3rem;
-    overflow-x: scroll;
     height: auto;
     h2 {
         margin-top: 2rem;
@@ -25,6 +24,21 @@
                 max-width: 25px;
                 right: 0%;
                 margin: 0.5rem;
+        }
+        .posterRating{
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            background-color: black;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            left: 0%;
+            margin: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
             .posterImage {
                 border-radius: 10px;

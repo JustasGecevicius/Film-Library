@@ -6,8 +6,6 @@ import {
 } from "firebase/auth";
 import {
   doc,
-  DocumentData,
-  DocumentReference,
   Firestore,
   getDoc,
   setDoc,
@@ -20,40 +18,33 @@ export async function initializeUser(
   userURL: string | null
 ) {
   // Gets a list of all the different fields in Firebase
-  const docRef: DocumentReference<DocumentData> = doc(
-    db,
-    "fieldsList",
-    "Fields"
-  );
+  const docRef = doc(db, "fieldsList/Fields");
   const document = await getDoc(docRef);
   const allfields = document.data();
 
   if (!allfields) return;
   // Checks if the field exists already ie the user isn't new and if not then creates all the neccesary fields
-  allfields["fields"].forEach(async (elem : string) => {
-    if(elem !== "userNames"){
-      const fieldRef: DocumentReference<DocumentData> = doc(
+  allfields["fields"].forEach(async (elem: string) => {
+    if (elem !== "userNames") {
+      const fieldRef = doc(
         db,
-        `${elem}`,
-        `${userId}`
+        `${elem}/${userId}`
       );
       const field = await getDoc(fieldRef);
       if (!field.exists()) {
         setDoc(doc(db, `${elem}`, `${userId}`), {});
       }
     }
-    if(elem === "userNames"){
-      const fieldRef: DocumentReference<DocumentData> = doc(
+    if (elem === "userNames") {
+      const fieldRef = doc(
         db,
-        `${elem}`,
-        `${userName}`
+        `${elem}/${userName}`
       );
       const field = await getDoc(fieldRef);
       if (!field.exists()) {
-        setDoc(doc(db, `${elem}`, `${userName}`), {id : userId, URL: userURL});
+        setDoc(doc(db, `${elem}`, `${userName}`), { uid: userId, profileURL: userURL });
       }
     }
-
   });
 }
 

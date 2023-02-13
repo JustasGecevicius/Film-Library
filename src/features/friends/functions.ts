@@ -3,73 +3,61 @@ import { UserInfo } from "features/context/types";
 import { getMovieData } from "features/movies/api";
 import { filterMovieInformation } from "features/movies/functions";
 import { doc, Firestore, getDoc } from "firebase/firestore";
-import { Friends } from "./types";
-
-interface Data {
-  [field: string]: string;
-}
+import { Data, MoviesListRated } from "./types";
 
 export const fetchFriends = async (
   userInfo: UserInfo | undefined,
   db: Firestore
 ) => {
   if (!userInfo) return;
-  const ref = doc(db, "friends", userInfo.uid);
-  const friends = await getDoc(ref);
-  const data = friends.data() as Friends;
+  const friends = await getDoc(doc(db, "friends", userInfo.uid));
+  const data = friends.data() as Data;
   return data;
 };
 
 export const fetchFriendLikedMoviesList = async (
-  friendsList: Friends | undefined,
+  friendsList: Data | undefined,
   db: Firestore
 ) => {
   if (!friendsList) return;
   const moviesList: string[] = [];
-  const promiseArray = Object.values(friendsList).map((elem) => {
-    const ref = doc(db, "likedMovies", elem);
-    return getDoc(ref);
-  });
+  const promiseArray = Object.values(friendsList).map((elem) =>
+    getDoc(doc(db, "likedMovies", elem))
+  );
   const responses = await Promise.all(promiseArray);
-  responses.forEach((elem) => {
-    const responseData = elem.data() as Data;
-    Object.keys(responseData).forEach((elem) => {
-      moviesList.push(elem);
+  responses.forEach((likedMoviesList) => {
+    const responseData = likedMoviesList.data() as Data;
+    Object.keys(responseData).forEach((likedMovie) => {
+      moviesList.push(likedMovie);
     });
   });
   return moviesList;
 };
 
-interface MoviesListRated {
-  ratings: string[];
-  movies: string[];
-}
-
 export const fetchFriendRatedMoviesList = async (
-  friendsList: Friends | undefined,
+  friendsList: Data | undefined,
   db: Firestore
 ) => {
   if (!friendsList) return;
   const moviesList: MoviesListRated = { ratings: [], movies: [] };
-  const promiseArray = Object.values(friendsList).map((elem) => {
-    const ref = doc(db, "ratedMovies", elem);
-    return getDoc(ref);
-  });
+  const promiseArray = Object.values(friendsList).map((friend) =>
+    getDoc(doc(db, "ratedMovies", friend))
+  );
   const response = await Promise.all(promiseArray);
-  response.forEach((elem) => {
-    const data = elem.data();
-    if(!data) return;
-    Object.keys(data).forEach(movieId => {
+  response.forEach((ratedMoviesList) => {
+    const data = ratedMoviesList.data();
+    if (!data) return;
+    Object.keys(data).forEach((movieId) => {
       moviesList.movies.push(movieId);
-    })
+    });
   });
-  response.forEach((elem) => {
-    const data = elem.data();
-    if(!data) return;
-    Object.values(data).forEach(rating => {
+  response.forEach((ratedMoviesList) => {
+    const data = ratedMoviesList.data();
+    if (!data) return;
+    Object.values(data).forEach((rating) => {
       moviesList.ratings.push(rating);
-    })
-  });  
+    });
+  });
   return moviesList;
 };
 

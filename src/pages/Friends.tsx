@@ -14,6 +14,7 @@ export const Friends = () => {
         <PosterDisplayMovies
           arr={friendLikedMovies}
           sectionName="Popular With Friends"
+          type="movie"
         ></PosterDisplayMovies>
       ) : null}
     </>

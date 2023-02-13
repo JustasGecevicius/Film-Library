@@ -3,39 +3,39 @@ import {
   checkRating,
   fetchLiked,
   fetchRated,
-  likedRatedCheck,
+  likedCheck,
 } from "features/movies/functions";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
 export const useLiked = (likeButtonClicked: boolean) => {
-  const [liked, setLiked] = useState<boolean>();
+  const [liked, setLiked] = useState<boolean | undefined>(undefined);
   const { userInfo, db } = useFirebaseContext();
   const { movieId } = useParams();
   const { data: likedMovies } = useQuery(
     ["likedMovies", userInfo, db],
-    () => {
-      return fetchLiked(db, userInfo?.uid);
-    },
-    {
-      enabled: !!userInfo && !!db,
-    }
+    () => fetchLiked(db, userInfo?.uid),
+    { enabled: !!userInfo && !!db }
   );
   useEffect(() => {
     if (!likedMovies || !movieId) return;
-    setLiked(likedRatedCheck(Object.keys(likedMovies), movieId));
+    setLiked(likedCheck(Object.keys(likedMovies), movieId));
   }, [likedMovies, movieId]);
 
-  useEffect (() => {
+  useEffect(() => {
+    if(liked === undefined) return
     setLiked(!liked);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[likeButtonClicked]);
+  }, [likeButtonClicked]);
 
   return liked;
 };
 
-export const useRating = (rateButtonClick : boolean | undefined, rateInput: string | undefined) => {
+export const useRating = (
+  rateButtonClick: boolean | undefined,
+  rateInput: string | undefined
+) => {
   const [rating, setRating] = useState<string>();
   const { userInfo, db } = useFirebaseContext();
   const { movieId } = useParams();
@@ -53,6 +53,7 @@ export const useRating = (rateButtonClick : boolean | undefined, rateInput: stri
     setRating(checkRating(ratedMovies, movieId));
   }, [ratedMovies, movieId]);
   useEffect(() => {
+    if(!rateInput) return;
     setRating(rateInput);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rateButtonClick]);

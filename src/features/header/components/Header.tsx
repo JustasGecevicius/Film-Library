@@ -69,10 +69,10 @@ export const Header = () => {
               </label>
               {userInfo ? (
                 <div className="userInformationDisplay">
-                  {userInfo["photoURL"] ? <img
+                  {userInfo.profileURL ? <img
                     alt="userImage"
                     className="userImage"
-                    src={userInfo["photoURL"]}
+                    src={userInfo.profileURL}
                   /> : null}
                 </div>
               ) : null}

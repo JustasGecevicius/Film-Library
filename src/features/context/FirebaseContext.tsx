@@ -32,14 +32,14 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
     }
     const authStateObserver = (user: User | null) => {
       if (user) {
-        const { displayName, photoURL, uid, email } = user;
+        const { displayName, photoURL : profileURL, uid, email } = user;
         const location = `users/${uid}`;
-        initializeUser(db, uid, displayName, photoURL);
+        initializeUser(db, uid, displayName, profileURL);
         setDoc(doc(db, location), {
-          ...{ displayName, photoURL, uid, email },
+          ...{ displayName, profileURL, uid, email },
         });
-        if (displayName && photoURL && uid && email)
-        setUserInfo({ displayName, photoURL, uid, email });
+        if (displayName && profileURL && uid && email)
+        setUserInfo({ displayName, profileURL, uid, email });
       } else {
         setUserInfo(undefined);
       }

@@ -3,7 +3,6 @@ import {
   deleteField,
   doc,
   DocumentData,
-  DocumentReference,
   Firestore,
   getDoc,
   updateDoc,
@@ -27,21 +26,43 @@ export const filterMovieInformation = (
     if (!elem) return;
     const { title, release_date, poster_path, id } = elem;
     const imageURL = baseUrl + poster_path;
-
-    if (title && release_date && poster_path && id)
-      movieArray.push({ title, release_date, imageURL, id });
+    movieArray.push({ title, release_date, imageURL, id });
   });
   return movieArray;
 };
 
-export const checkMoviesArrayLike = (moviesList : MovieObject[], likedMovieIds: string[]) => {
-  moviesList.forEach(elem => {
-    if(likedRatedCheck(likedMovieIds, elem.id.toString())){
-      elem.liked = true;
-    }
-  })
+export const checkLikeAndRate = (
+  moviesList: MovieObject[],
+  likedMovieIds: string[],
+  ratedMovies: DocumentData | undefined
+) => {
+  moviesList.forEach((elem) => {
+    elem.liked = likedCheck(likedMovieIds, elem.id.toString())
+    if(!ratedMovies) return;
+    elem.rating = checkRating(ratedMovies, elem.id.toString())
+  });
   return moviesList;
-}
+};
+
+// export const checkMoviesArrayRating = (
+//   moviesList: MovieObject[],
+//   ratedMovies: DocumentData | undefined
+// ) => {
+//   if(!ratedMovies) return;
+//   moviesList.forEach((elem) => {
+//     elem.rating = checkRating(ratedMovies, elem.id.toString())
+//   });
+//   return moviesList;
+// };
+
+// export const checkLikeAndRate = (topData : MovieObject[], likedMovies : LikedMovies, ratedMovies : DocumentData | undefined) => {
+//   const likeCheckedTopData = checkMoviesArrayLike(
+//     topData,
+//     Object.keys(likedMovies),
+//     ratedMovies
+//   );
+//   return rateCheckedTopData;
+// }
 
 export const filterProductionCompanies = (
   configuration: GetConfig,
@@ -81,21 +102,24 @@ export const like = async (
 };
 
 interface LikedMovies {
-  [field: string] : string
+  [field: string]: string;
+  //movieId : movieName
 }
 
 export const fetchLiked = async (db: Firestore, userId: string | undefined) => {
-  const docRef: DocumentReference<DocumentData> = doc(
+  const docRef = doc(
     db,
     "likedMovies",
     `${userId}`
   );
   const document = await getDoc(docRef);
-  const likedMovies = await document.data() as LikedMovies;
+  const likedMovies = document.data() as LikedMovies;
+  //console.log(likedMovies, "liked");
+
   return likedMovies;
 };
 
-export const likedRatedCheck = (
+export const likedCheck = (
   moviesArray: string[],
   currentMovie: string | undefined
 ) => {
@@ -117,13 +141,14 @@ export const rate = (
 };
 
 export const fetchRated = async (db: Firestore, userId: string | undefined) => {
-  const docRef: DocumentReference<DocumentData> = doc(
+  const docRef = doc(
     db,
     "ratedMovies",
     `${userId}`
   );
   const document = await getDoc(docRef);
-  const allFields: DocumentData | undefined = document.data();
+  const allFields = document.data();
+  //console.log(allFields, "fetchRated");
   return allFields;
 };
 
@@ -134,9 +159,7 @@ export const checkRating = (
   if (!currentMovieId) return;
   if (Object.keys(ratedMovies).includes(currentMovieId)) {
     return ratedMovies[currentMovieId];
-  } else {
-    return "X";
-  }
+  } else return undefined;
 };
 
 const symbolChecker = (number: number) => {

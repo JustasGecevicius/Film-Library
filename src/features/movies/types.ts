@@ -94,6 +94,7 @@ export interface MovieObject {
   release_date: string;
   id: number;
   liked?:boolean;
+  rating?:number;
 }
 
 export interface DescriptionType {
