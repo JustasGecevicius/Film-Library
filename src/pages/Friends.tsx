@@ -1,5 +1,5 @@
 import { PosterDisplayMovies } from "features/displayPostersSection/components/PosterDisplayMovies";
-import { useFetchFriendLikedMovies, useFetchFriendRatedMovies } from "features/friends/hooks";
+import { useFetchFriendLikedMovies } from "features/friends/hooks";
 import { SearchAreaPeople } from "features/searchArea/components/SearchAreaPeople";
 import "../css/popularMovies.css";
 
