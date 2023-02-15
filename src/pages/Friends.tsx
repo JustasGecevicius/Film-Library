@@ -5,7 +5,7 @@ import "../css/popularMovies.css";
 
 export const Friends = () => {
   const friendLikedMovies = useFetchFriendLikedMovies();
-  const friendRatedMovies = useFetchFriendRatedMovies();
+ // const friendRatedMovies = useFetchFriendRatedMovies();
 
   return (
     <>

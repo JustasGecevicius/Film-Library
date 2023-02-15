@@ -34,7 +34,8 @@
                 h3{
                         text-align: center;
                         color: white;
-                        font-size: 4rem;
+                        font-size: 4rem;position: relative;
+                        z-index: 50;
                 }
         }
 }

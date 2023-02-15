@@ -68,6 +68,7 @@ export interface BackdropType {
 
 export interface LikeAndRateType {
   title: string;
+  type : "movie" | "series"
 }
 
 export interface MovieNumbersType {

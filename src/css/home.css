@@ -37,4 +37,6 @@
   text-align: center;
   color: white;
   font-size: 4rem;
+  position: relative;
+  z-index: 50;
 }

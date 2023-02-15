@@ -69,7 +69,7 @@ export interface ProductionCompany {
   id: number;
   logo_path: string;
   name: string;
-  origin_country: string;
+  origin_path: string;
 }
 
 export interface ProductionCountry {
@@ -118,8 +118,7 @@ export interface SeriesData {
     poster_path: string;
     production_companies:ProductionCompany[]
     production_countries:ProductionCountry[];
-    seasons:Season[]
-      
+    seasons:Season[]      
     spoken_languages:SpokenLanguages[];
     status: string;
     tagline:string;

@@ -1,21 +1,8 @@
 // Base axios api
 import { api } from "features/services/axios";
 
-// Contstant
-import { GET_TOP_RATED_URL, GET_TRENDING_MOVIES_URL } from "./constants";
-
 // Types
 import { GetMovies, MovieData } from "./types";
-
-export const getTrendingMovies = async () =>
-  await api<GetMovies>(GET_TRENDING_MOVIES_URL).then((response) => {
-    return response.data;
-  });
-
-export const getTopRatedMovies = async () =>
-  await api<GetMovies>(GET_TOP_RATED_URL).then((response) => {
-    return response.data;
-  });
 
 export const getMovieData = (movieId: string | undefined) => {
   if (!movieId) return;

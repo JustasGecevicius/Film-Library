@@ -27,8 +27,8 @@ const App: React.FC = () => {
         <Route path="/Film-Library/Friends" element={<Friends />} />
         <Route path="/Film-Library/People" element={<People />} />
         <Route path="/Film-Library/UserProfile" element={<UserProfile />} />
-        <Route path="/Film-Library/movie/:movieId" element={<ShowMovie />} />
-        <Route path="/Film-Library/series/:seriesId" element={<ShowSeries />} />
+        <Route path="/Film-Library/movie/:id" element={<ShowMovie />} />
+        <Route path="/Film-Library/series/:id" element={<ShowSeries />} />
       </Routes>
     </div>
   );

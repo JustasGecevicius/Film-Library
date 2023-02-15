@@ -5,33 +5,34 @@ import { useParams } from "react-router-dom";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 
 // Functions
-import { like, rate } from "features/movies/functions";
+
 
 // Styles
 import "../../../css/likeAndRate.css";
 
 // Types
 import { LikeAndRateType } from "features/movies/types";
+import { like, rate } from "../functions";
 
 
-export const LikeAndRate = ({ title }: LikeAndRateType) => {
-  const { movieId } = useParams();
+export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
+  const { id } = useParams();
   const { db, userInfo } = useFirebaseContext();
   // Like functionality
-  const [likeButtonClicked, setlikeButtonClicked] = useState<boolean>(false);
-  const liked = useLiked(likeButtonClicked);
+  const [likeButtonClicked, setlikeButtonClicked] = useState(false);
+  const liked = useLiked(likeButtonClicked, type);
   // Rate functionality
-  const [rateInput, setRateInput] = useState<string>();
-  const [rateButtonClick, setRateButtonClick] = useState<boolean>();
-  const rating = useRating(rateButtonClick, rateInput);
-  //console.log(rating, "rating");
-  return userInfo && movieId ? (
+  const [rateInput, setRateInput] = useState<string | undefined>(undefined);
+  const [rateButtonClick, setRateButtonClick] = useState(false);
+  const rating = useRating(rateButtonClick, rateInput, type);
+
+  return userInfo && id ? (
     <div className="likeAndRate">
       <div className="likeAndRateWidth">
         <button
           className={liked ? "unlike" : "like"}
           onClick={() => {
-            like(db, movieId, userInfo["uid"], title, liked);
+            like(db, id, userInfo["uid"], title, liked);
             setlikeButtonClicked(!likeButtonClicked);
           }}
         >
@@ -42,13 +43,13 @@ export const LikeAndRate = ({ title }: LikeAndRateType) => {
           className="rateInput"
           type="number"
           max="10"
-          min="0"
+          min="1"
           onChange={(e) => setRateInput(e.target.value)}
         />
         <button
           className="rateButton"
           onClick={() => {
-            rate(db, movieId, userInfo.uid, rateInput);
+            rate(db, id, userInfo.uid, rateInput);
             setRateButtonClick(!rateButtonClick);
           }}
         >
@@ -59,5 +60,5 @@ export const LikeAndRate = ({ title }: LikeAndRateType) => {
         </div>
       </div>
     </div>
-  ) : null;
+  ) : <div className="suckAss"></div>;
 };

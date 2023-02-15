@@ -1,21 +1,25 @@
 // Hooks
-import { useBackdrop, useMovieData, useProductionCompanies } from "features/showMovie/hooks";
+
 // Components
-import { Backdrop } from "../features/showMovie/components/Backdrop";
-import { Genres } from "../features/showMovie/components/Genres";
-import { Description } from "../features/showMovie/components/Description";
-import { LikeAndRate } from "../features/showMovie/components/LikeAndRate";
-import { VisitHomepage } from "../features/showMovie/components/VisitHomepage";
-import { MovieNumbers } from "../features/showMovie/components/MovieNumbers";
-import { ProducedBy } from "../features/showMovie/components/ProducedBy";
+import { Backdrop } from "../features/showMovieAndSeries/components/Backdrop";
+import { Genres } from "../features/showMovieAndSeries/components/Genres";
+import { Description } from "../features/showMovieAndSeries/components/Description";
+import { LikeAndRate } from "../features/likeAndRate/components/LikeAndRate";
+import { VisitHomepage } from "../features/showMovieAndSeries/components/VisitHomepage";
+import { ProducedBy } from "../features/showMovieAndSeries/components/ProducedBy";
 // Styles
 import "../css/showMovie.css";
+import {
+  useBackdrop,
+  useProductionCompanies,
+} from "features/showMovieAndSeries/hooks";
+import { DataNumbers } from "features/showMovieAndSeries/components/DataNumbers";
+import { useMovieData } from "features/movies/hooks";
 
 export const ShowMovie = () => {
-
   const movieData = useMovieData();
-  const backdropImages = useBackdrop();
-  const productionCompanies = useProductionCompanies();
+  const backdropImages = useBackdrop(movieData);
+  const productionCompanies = useProductionCompanies(movieData);
 
   return (
     <>
@@ -29,12 +33,12 @@ export const ShowMovie = () => {
       {movieData ? (
         <>
           <Genres genres={movieData["genres"]}></Genres>
-          <LikeAndRate title={movieData["title"]} />
+          <LikeAndRate title={movieData["title"]} type="movie" />
           <Description overview={movieData["overview"]} />
           {movieData["homepage"] ? (
             <VisitHomepage link={movieData["homepage"]} />
           ) : null}
-          <MovieNumbers
+          <DataNumbers
             budget={movieData["budget"]}
             revenue={movieData["revenue"]}
             runtime={movieData["runtime"]}

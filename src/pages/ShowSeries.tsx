@@ -1,44 +1,49 @@
 // Hooks
-import { useBackdrop, useMovieData, useProductionCompanies } from "features/showMovie/hooks";
 // Components
-import { Backdrop } from "../features/showMovie/components/Backdrop";
-import { Genres } from "../features/showMovie/components/Genres";
-import { Description } from "../features/showMovie/components/Description";
-import { LikeAndRate } from "../features/showMovie/components/LikeAndRate";
-import { VisitHomepage } from "../features/showMovie/components/VisitHomepage";
-import { MovieNumbers } from "../features/showMovie/components/MovieNumbers";
-import { ProducedBy } from "../features/showMovie/components/ProducedBy";
+import { Backdrop } from "../features/showMovieAndSeries/components/Backdrop";
+import { Genres } from "../features/showMovieAndSeries/components/Genres";
+import { Description } from "../features/showMovieAndSeries/components/Description";
+import { LikeAndRate } from "../features/likeAndRate/components/LikeAndRate";
+import { VisitHomepage } from "../features/showMovieAndSeries/components/VisitHomepage";
+import { ProducedBy } from "../features/showMovieAndSeries/components/ProducedBy";
 // Styles
 import "../css/showMovie.css";
+import {
+  useBackdrop,
+  useProductionCompanies,
+} from "features/showMovieAndSeries/hooks";
+import { DataNumbers } from "features/showMovieAndSeries/components/DataNumbers";
+import { useSeriesData } from "features/series/hooks";
 
 export const ShowSeries = () => {
+  const seriesData = useSeriesData();
+  const backdropImages = useBackdrop(seriesData);
+  const productionCompanies = useProductionCompanies(seriesData);
 
-  const movieData = useMovieData();
-  const backdropImages = useBackdrop();
-  const productionCompanies = useProductionCompanies();
+  console.log(seriesData, "series");
 
   return (
     <>
-      {backdropImages && movieData ? (
+      {backdropImages && seriesData ? (
         <Backdrop
           backdrop={backdropImages["backdropURL"]}
           poster={backdropImages["posterURL"]}
-          title={movieData["title"]}
+          title={seriesData["name"]}
         />
       ) : null}
-      {movieData ? (
+      {seriesData ? (
         <>
-          <Genres genres={movieData["genres"]}></Genres>
-          <LikeAndRate title={movieData["title"]} />
-          <Description overview={movieData["overview"]} />
-          {movieData["homepage"] ? (
-            <VisitHomepage link={movieData["homepage"]} />
+          <Genres genres={seriesData["genres"]}></Genres>
+          <LikeAndRate title={seriesData["name"]} type="series" />
+          <Description overview={seriesData["overview"]} />
+          {seriesData["homepage"] ? (
+            <VisitHomepage link={seriesData["homepage"]} />
           ) : null}
-          <MovieNumbers
-            budget={movieData["budget"]}
-            revenue={movieData["revenue"]}
-            runtime={movieData["runtime"]}
-            voteAverage={movieData["vote_average"]}
+          <DataNumbers
+            voteAverage={seriesData["vote_average"]}
+            last_air_date={seriesData.last_air_date}
+            number_of_episodes={seriesData.number_of_episodes}
+            number_of_seasons={seriesData.number_of_seasons}
           />
           {productionCompanies ? (
             <ProducedBy productionCompanies={productionCompanies} />
