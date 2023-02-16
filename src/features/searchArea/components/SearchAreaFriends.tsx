@@ -1,16 +1,20 @@
+// Hooks
 import { useEffect, useRef, useState } from "react";
-import { Header } from "../../header/components/Header";
-import "../../../css/searchArea.css";
 import { useQuery } from "react-query";
-import { searchAreaImageLinksFetch } from "features/searchArea/functions";
+// Components
+import { Header } from "../../header/components/Header";
 import { SearchBarFriends } from "./SearchBarFriends";
+// Styles
+import "../../../css/searchArea.css";
+// Functions
+import { searchAreaImageLinksFetch } from "features/searchArea/functions";
 
 export const SearchAreaFriends = () => {
-  //state for the index of the image that switches on a timer
+  // State for the index of the image that switches on a timer
   const [imageIndex, setImageIndex] = useState<number>(0);
 
-  //fetched links from firebase for the top movies
-  const { data: links } = useQuery("movieImages", searchAreaImageLinksFetch);
+  // Fetched links from firebase for the top movies
+  const { data: links } = useQuery("backgroundImages", searchAreaImageLinksFetch);
   
   // useEffect that sets the interval for image changes
   const calledOnce = useRef(false);
@@ -21,7 +25,7 @@ export const SearchAreaFriends = () => {
       if (links) {
         setInterval(() => {
           setImageIndex((prev) => (prev + 1) % links.length);
-        }, 5000);
+        }, 50000);
         calledOnce.current = true;
       }
     }

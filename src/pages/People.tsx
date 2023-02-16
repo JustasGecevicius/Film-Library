@@ -1,15 +1,18 @@
+// Styles
 import "../css/popularMovies.css";
+// Components
+import { SearchAreaPeople } from "features/searchArea/components/SearchAreaPeople";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
-import { SearchArea } from "features/searchArea/components/SearchArea";
+// Hooks
 import { usePopularPeople } from "features/people/hooks";
 
 export const People = () => {
-
+// Getting the popular people
   const popularPeople = usePopularPeople();
 
   return (
     <>
-    <SearchArea/>
+    <SearchAreaPeople/>
       {popularPeople ? (
         <PosterDisplayPeople
           arr={popularPeople}

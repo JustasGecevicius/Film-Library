@@ -1,4 +1,3 @@
-// Hooks
 // Components
 import { Backdrop } from "../features/showMovieAndSeries/components/Backdrop";
 import { Genres } from "../features/showMovieAndSeries/components/Genres";
@@ -6,21 +5,22 @@ import { Description } from "../features/showMovieAndSeries/components/Descripti
 import { LikeAndRate } from "../features/likeAndRate/components/LikeAndRate";
 import { VisitHomepage } from "../features/showMovieAndSeries/components/VisitHomepage";
 import { ProducedBy } from "../features/showMovieAndSeries/components/ProducedBy";
+import { DataNumbers } from "features/showMovieAndSeries/components/DataNumbers";
 // Styles
 import "../css/showMovie.css";
+// Hooks
 import {
   useBackdrop,
   useProductionCompanies,
 } from "features/showMovieAndSeries/hooks";
-import { DataNumbers } from "features/showMovieAndSeries/components/DataNumbers";
 import { useSeriesData } from "features/series/hooks";
 
 export const ShowSeries = () => {
+
+  // Getting series data, backdrop images and the production companies
   const seriesData = useSeriesData();
   const backdropImages = useBackdrop(seriesData);
   const productionCompanies = useProductionCompanies(seriesData);
-
-  console.log(seriesData, "series");
 
   return (
     <>

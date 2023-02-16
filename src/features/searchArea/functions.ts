@@ -1,10 +1,13 @@
+// API
 import { getConfig } from "features/config/api";
-import { UserInfo } from "features/context/types";
 import { getPopular } from "features/popular/api";
-import { doc, DocumentData, Firestore, QuerySnapshot, updateDoc } from "firebase/firestore";
-
-import { useEffect, useState } from "react";
+// Types 
+import { UserInfo } from "features/context/types";
 import { Friend } from "./types";
+// Firebase
+import { doc, DocumentData, Firestore, QuerySnapshot, updateDoc } from "firebase/firestore";
+// Hooks
+import { useEffect, useState } from "react";
 
 export const searchAreaImageLinksFetch = async () => {
   // fetching config and movie data
@@ -23,6 +26,8 @@ export const searchAreaImageLinksFetch = async () => {
   return imageLinksArray;
 };
 
+// A function used to stop the website from fetching immediately
+// when the user changes the imput
 export function useDebounce(value: string, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -38,18 +43,18 @@ export function useDebounce(value: string, delay: number) {
 
   return debouncedValue;
 }
-
-export const searchUsers = (query : QuerySnapshot<DocumentData>, searchString : string) => {
-  const ids : {friendName : string, friendId : DocumentData, URL : string}[] = [];
-  query.forEach((elem) => {
-    if(elem.id.toLowerCase().includes(searchString)){
-      const {URL, id} = elem.data();
-      ids.push({friendName : elem.id, friendId : id, URL});
+// A function to search for certain users
+export const searchUsers = (allUsers : QuerySnapshot<DocumentData>, searchString : string) => {
+  const matchedUsers : Friend[] = [];
+  allUsers.forEach((user) => {
+    if(user.id.toLowerCase().includes(searchString)){
+      const {profileURL, uid} = user.data();
+      matchedUsers.push({friendName : user.id, uid, profileURL});
     }
   })
-  return ids.length !== 0 ? ids : undefined;
+  return matchedUsers.length !== 0 ? matchedUsers : undefined;
 }
-
+// A function that add a friend to the users firebase friends section
 export const handleAddFriend = (
   id: DocumentData,
   name: string,
@@ -62,16 +67,16 @@ export const handleAddFriend = (
     [name]: id,
   });
 };
-
+// Removes a user from the list of found users 
+// when the user is added to the friends list
 export const removeFriendFromDOM = (
-  setFilteredAnswers: React.Dispatch<
-    React.SetStateAction<Friend[] | undefined>
-  >,
-  filteredAnswers: Friend[] | undefined,
+  answers: Friend[] | undefined,
   userIndex: number
 ) => {
-  setFilteredAnswers((arr) => {
-    if (!arr) return;
-    return arr.splice(userIndex, 1);
-  });
-};
+  if(!answers) return;
+  const newArr = [...answers];
+  newArr.splice(userIndex, 1);
+  console.log(newArr, "newArr");
+    return newArr;
+  };
+

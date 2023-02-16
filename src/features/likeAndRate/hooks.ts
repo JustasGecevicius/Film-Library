@@ -9,19 +9,23 @@ export const useLiked = (
   likeButtonClicked: boolean,
   type: "movie" | "series"
 ) => {
-  const [liked, setLiked] = useState<boolean | undefined>(undefined);
+  // Getting Context and id from the Router
   const { userInfo, db } = useFirebaseContext();
   const { id } = useParams();
+  // Liked state for this specific movie/series
+  const [liked, setLiked] = useState<boolean | undefined>(undefined);
+  // Gets the liked movies/series for this user
   const { data: likedData } = useQuery<LikedRatedData | undefined>(
     ["likedData", userInfo, db],
     () => fetchLiked(db, userInfo?.uid, type),
     { enabled: !!userInfo && !!db }
   );
+  // Setting liked to false or true based on if this series/movies was found in the list for this specific user
   useEffect(() => {
     if (!likedData || !id) return;
     setLiked(checkLike(Object.keys(likedData), id));
   }, [likedData, id]);
-
+  // Setting liked based on the like button click
   useEffect(() => {
     if (liked === undefined) return;
     setLiked(!liked);
@@ -36,13 +40,15 @@ export const useRating = (
   rateInput: string | undefined,
   type: "movie" | "series"
 ) => {
-  const [rating, setRating] = useState<string>();
   const { userInfo, db } = useFirebaseContext();
   const { id } = useParams();
+
+  const [rating, setRating] = useState<string>();
+
   const { data: ratedData } = useQuery<LikedRatedData | undefined>(
     ["ratedData", db, userInfo?.uid],
     () => {
-      return fetchRated(db, userInfo?.uid, type)
+      return fetchRated(db, userInfo?.uid, type);
     },
     {
       enabled: !!userInfo && !!db,

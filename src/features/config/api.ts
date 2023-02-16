@@ -8,5 +8,5 @@ import { GET_CONFIG_URL } from "./constants";
 import { GetConfig } from "./types";
 
 export const getConfig = async () => await api<GetConfig>(GET_CONFIG_URL).then((response) => {
-  return response["data"]
+  return response.data
 });

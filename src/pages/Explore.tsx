@@ -1,12 +1,15 @@
+// Components
 import { PosterDisplayMovies } from "features/displayPostersSection/components/PosterDisplayMovies";
-import "../css/explore.css";
 import { SearchAreaMovies } from "features/searchArea/components/SearchAreaMovies";
+// Styles
+import "../css/explore.css";
+// Hooks
 import { useTop } from "features/topRated/hooks";
 import { usePopular } from "features/popular/hooks";
 
-interface Props {}
+export const Explore = () => {
 
-export const Explore: React.FC<Props> = () => {
+  // Getting all the movie information to display
   const topMovies = useTop("movie");
   const trendingMovies = usePopular("movie");
   const topSeries = useTop("series");

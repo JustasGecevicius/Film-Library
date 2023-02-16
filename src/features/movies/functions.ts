@@ -2,7 +2,6 @@ import { GetConfig } from "features/config/types";
 import {
   MovieData,
   MovieObject,
-
 } from "./types";
 
 // Takes the general movie response and returns an array of only the required fields

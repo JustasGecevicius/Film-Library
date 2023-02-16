@@ -1,15 +1,18 @@
+// Components
 import { PosterDisplayMovies } from "features/displayPostersSection/components/PosterDisplayMovies";
+import { SearchAreaFriends } from "features/searchArea/components/SearchAreaFriends";
+// Hooks
 import { useFetchFriendLikedMovies } from "features/friends/hooks";
-import { SearchAreaPeople } from "features/searchArea/components/SearchAreaPeople";
+// Styles
 import "../css/popularMovies.css";
 
 export const Friends = () => {
+  // Getting movies liked by Friends
   const friendLikedMovies = useFetchFriendLikedMovies();
-
 
   return (
     <>
-      <SearchAreaPeople></SearchAreaPeople>
+      <SearchAreaFriends></SearchAreaFriends>
       {friendLikedMovies ? (
         <PosterDisplayMovies
           arr={friendLikedMovies}

@@ -10,6 +10,17 @@ export interface Props {
 
 export interface Friend {
   friendName: string;
-  friendId: DocumentData;
-  URL: string;
+  uid: DocumentData;
+  profileURL: string;
+}
+
+export interface FoundSearchType {
+  id : number
+  name : string
+  URL : string
+}
+
+export interface FriendIndex {
+  friendIndex : number,
+  setIndexToRemove : React.Dispatch<React.SetStateAction<number>>
 }

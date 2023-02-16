@@ -1,3 +1,4 @@
+// Types
 import { GetConfig } from "features/config/types";
 import { MovieObject } from "features/movies/types";
 import { FetchedSeriesObjectResults } from "./types";

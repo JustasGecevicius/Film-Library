@@ -1,14 +1,20 @@
+// API
 import { getConfig } from "features/config/api";
+// Hooks
 import { useFirebaseContext } from "features/context/FirebaseContext";
-import { checkLikeAndRate, fetchLiked, fetchRated } from "features/likeAndRate/functions";
-import { filterMovieInformation } from "features/movies/functions";
-import { MovieData, MovieObject } from "features/movies/types";
-import { filterSeriesInformation } from "features/series/functions";
-import { FetchedSeriesObjectResults } from "features/series/types";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+// Functions
+import { checkLikeAndRate, fetchLiked, fetchRated } from "features/likeAndRate/functions";
+import { filterMovieInformation } from "features/movies/functions";
+import { filterSeriesInformation } from "features/series/functions";
+// Types
+import { MovieData, MovieObject } from "features/movies/types";
+import { FetchedSeriesObjectResults } from "features/series/types";
+// API
 import { getTopRated } from "./api";
 
+// A hook that returns the Top Rated movies or series
 export const useTop = (type: "movie" | "series") => {
   // State
   const [top, setTop] = useState<MovieObject[]>();

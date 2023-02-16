@@ -17,7 +17,7 @@ export const like = (
   title: string,
   liked: boolean | undefined
 ) => {
-  //delete or add the movie based on liked state
+  // Delete or add the movie to firebase based on liked state
   if (liked) {
     updateDoc(doc(db, "likedMovies", `${userId}`), {
       [movieId]: deleteField(),
@@ -31,11 +31,12 @@ export const checkLike = (
   moviesArray: string[],
   currentMovie: string | undefined
 ) => {
-  //returns true or false depending on if the movie was found in the liked list or not
+  // Returns true or false depending on if the movie was found in the liked list or not
   if (!currentMovie) return;
   return moviesArray.includes(currentMovie.toString());
 };
 
+  // Returns the list of liked movies for a specific user from Firebase
 export const fetchLiked = async (
   db: Firestore,
   userId: string | undefined,
@@ -69,6 +70,7 @@ export const rate = (
   updateDoc(doc(db, "ratedMovies", `${userId}`), { [movieId]: rating });
 };
 
+  // Returns the Id if it was rated or undefined
 export const checkRating = (
   ratedMovies: DocumentData,
   currentMovieId: string | undefined
@@ -79,6 +81,7 @@ export const checkRating = (
   } else return undefined;
 };
 
+  // Gets a list of rated movies from Firebase
 export const fetchRated = async (
   db: Firestore,
   userId: string | undefined,
@@ -96,6 +99,7 @@ export const fetchRated = async (
 
 // FUNCTIONS RELATED TO BOTH
 
+// Returns the movies list with liked and rating added as attributes
 export const checkLikeAndRate = (
   moviesList: MovieObject[],
   likedMovieIds: string[],

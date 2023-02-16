@@ -1,12 +1,15 @@
-import { GET_TOP_RATED_URL } from "features/movies/constants";
+// Types
 import { GetMovies } from "features/movies/types";
-import { GET_TOP_RATED_SERIES_URL } from "features/series/constants";
 import { FetchedSeriesObject } from "features/series/types";
+// API
 import { api } from "features/services/axios";
 
-export const getTopRated = async (type: "movie" | "series") =>
+// A function the returns information about the top rated movies or series
+export const getTopRated = async (type: "movie" | "series", page = 1) =>
   await api<FetchedSeriesObject | GetMovies>(
-    type === "movie" ? GET_TOP_RATED_URL : GET_TOP_RATED_SERIES_URL
+    type === "movie"
+      ? `/movie/top_rated?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
+      : `/tv/top_rated?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
   ).then((response) => {
     return response.data.results;
   });

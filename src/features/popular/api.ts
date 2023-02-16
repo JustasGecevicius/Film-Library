@@ -1,12 +1,12 @@
-import { GET_POPULAR_MOVIES_URL } from "features/movies/constants";
 import { GetMovies } from "features/movies/types";
-import { GET_POPULAR_SERIES_URL } from "features/series/constants";
 import { FetchedSeriesObject } from "features/series/types";
 import { api } from "features/services/axios";
 
-export const getPopular = async (type: "movie" | "series") =>
+export const getPopular = async (type: "movie" | "series", page = 1) =>
   await api<FetchedSeriesObject | GetMovies>(
-    type === "movie" ? GET_POPULAR_MOVIES_URL : GET_POPULAR_SERIES_URL
+    type === "movie"
+      ? `/movie/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
+      : `/tv/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
   ).then((response) => {
     return response.data.results;
-});
+  });

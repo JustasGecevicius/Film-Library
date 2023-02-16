@@ -5,6 +5,7 @@ import { filterMovieInformation } from "features/movies/functions";
 import { doc, Firestore, getDoc } from "firebase/firestore";
 import { Data, MoviesListRated } from "./types";
 
+// Fetches a list of friends from Firebase 
 export const fetchFriends = async (
   userInfo: UserInfo | undefined,
   db: Firestore

@@ -1,5 +1,7 @@
+// Hooks
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+// API
 import {  getSeriesData } from "./api";
 
 export const useSeriesData = () => {

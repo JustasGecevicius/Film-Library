@@ -1,4 +1,6 @@
+// API
 import { api } from "features/services/axios";
+// Types
 import { SeriesData } from "./types";
 
 export const getSeriesData = (seriesId: string | undefined) => {

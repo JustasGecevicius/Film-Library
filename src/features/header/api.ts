@@ -23,7 +23,8 @@ export const fetchHeaderIcons = async () : Promise<IconsObject> => {
   const metaPromises = await Promise.all(metadata);
   const dataPromises = await Promise.all(data);
   metaPromises.forEach((elem, index) => {
-    let iconName = elem["name"].split(".").slice(0, -1).join(".");
+    // Removing the file type endings
+    let iconName = elem.name.split(".").slice(0, -1).join(".");
     iconsObject[iconName] = dataPromises[index];
   });
   return iconsObject;

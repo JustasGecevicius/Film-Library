@@ -14,11 +14,6 @@ export interface UserInfo {
   email: string;
 }
 
-export interface LikeAndRateContext{
-  db: Firestore;
-  userInfo: UserInfo | undefined;
-}
-
 export interface ContainerProps {
   children: React.ReactNode;
 }

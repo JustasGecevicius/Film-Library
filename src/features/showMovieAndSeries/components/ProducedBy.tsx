@@ -1,3 +1,4 @@
+// Types
 import { ProducedByType } from "features/movies/types";
 
 export const ProducedBy = ({ productionCompanies } : ProducedByType) => {
@@ -12,10 +13,10 @@ export const ProducedBy = ({ productionCompanies } : ProducedByType) => {
                                 <div
                                     className="producerLogo"
                                     style={{
-                                        backgroundImage: `url(${elem["logo_path"]})`,
+                                        backgroundImage: `url(${elem.logo_path})`,
                                     }}
                                 ></div>
-                                <p className="producerName">{elem["name"]}</p>
+                                <p className="producerName">{elem.name}</p>
                             </div>
                         );
                     })}

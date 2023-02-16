@@ -1,5 +1,7 @@
 /* eslint-disable array-callback-return */
+// Types
 import { DataNumbersType } from "features/showMovieAndSeries/types";
+// Functions
 import { symbolChecker } from "../functions";
 
 export const DataNumbers = ({

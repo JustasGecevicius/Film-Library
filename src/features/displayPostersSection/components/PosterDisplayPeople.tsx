@@ -14,9 +14,9 @@ export const PosterDisplayPeople = ({
           return (
             <PeoplePoster
               key={index}
-              imageURL={elem["imageURL"]}
-              name={elem["name"]}
-              id={elem["id"]}
+              imageURL={elem.imageURL}
+              name={elem.name}
+              id={elem.id}
             ></PeoplePoster>
           );
         })}

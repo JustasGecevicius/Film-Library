@@ -1,3 +1,4 @@
+// Types
 import { MovieBackdropType } from "features/movies/types";
 
 export const Backdrop = ({ backdrop, poster, title } : MovieBackdropType) => {

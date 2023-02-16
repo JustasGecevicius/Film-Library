@@ -10,7 +10,7 @@ export const usePopularPeople = () => {
   const {data : config} = useQuery("config", getConfig);
   useQuery(["people", config], getPopularPeople, {
     enabled: !!config,
-    onSuccess:({data}) => {
+    onSuccess:(data) => {
       setPopularPeople(filterPeopleInformation(config, data));
     }
   })

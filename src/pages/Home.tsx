@@ -1,8 +1,13 @@
+// Styles
 import "../css/home.css";
+// Hooks
 import { useBackground, useDisplayName } from "features/welcomeScreen/hooks";
+// Components
 import { Header } from "features/header/components/Header";
 
 export const Home = () => {
+
+  // Getting the background photo and the user name
   const background = useBackground();
   const displayName = useDisplayName();
 

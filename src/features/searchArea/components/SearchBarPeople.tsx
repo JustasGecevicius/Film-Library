@@ -1,24 +1,40 @@
 // API
 import { getConfig } from "features/config/api";
+import { getMovieDataSearch } from "features/movies/api";
 // Hooks
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
-import { useFocus, useSearchMoviesSeries } from "../hooks";
+import { useDebounce } from "../functions";
+import { useFocus } from "../hooks";
 // Components
 import { Link } from "react-router-dom";
 import { FoundSearch } from "./FoundSearch";
-// Styles 
+// Styles
 import "../../../css/searchBar.css";
 
-export const SearchBarMovies = () => {
-  // State to track user input
-  const [query, setQuery] = useState("");
-  
-  // Hooks to fetch the movies and config
-  const searchResults = useSearchMoviesSeries(query)
+export const SearchBarPeople = () => {
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 700);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+  const { data: searchResults } = useQuery(
+    ["results", debouncedSearch],
+    () => {
+      return getMovieDataSearch(debouncedSearch);
+    },
+    {
+      enabled: !!debouncedSearch,
+    }
+  );
   const { data: config } = useQuery("config", getConfig);
 
   // Check whether user clicked inside/outside of the search bar
+
+
   const focus = useFocus();
 
   return (
@@ -30,15 +46,15 @@ export const SearchBarMovies = () => {
           type="text"
           placeholder="Search"
           name="search"
-          value={query}
+          value={search}
           onChange={(e) => {
-            setQuery(e.target.value)
+            handleChange(e);
           }}
         />
       </div>
       <div className="searchResultsDisplay">
         {searchResults && config
-          ? searchResults.map((elem, index) => {
+          ? searchResults.results.map((elem, index) => {
               return (
                 <Link to={`/Film-Library/movie/${elem.id.toString()}`} key={index}>
                   {focus ? (

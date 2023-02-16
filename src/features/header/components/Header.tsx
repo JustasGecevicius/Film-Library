@@ -16,7 +16,7 @@ export const Header = () => {
           <header>
             <Link to="/Film-Library">
               <div className="logoDiv">
-                <img src={data["logo"]} alt="logoImage" className="logo" />
+                <img src={data.logo} alt="logoImage" className="logo" />
                 <h2>Discoverisms</h2>
               </div>
             </Link>
@@ -26,7 +26,7 @@ export const Header = () => {
                   <img
                     alt="exploreIcon.png"
                     className="navigationImage"
-                    src={data["exploreIcon"]}
+                    src={data.exploreIcon}
                   ></img>
                   Explore
                 </Link>
@@ -34,7 +34,7 @@ export const Header = () => {
               <li className="navigationButton">
                 <Link to="/Film-Library/People" className="navigationLink">
                   <img
-                    src={data["cameraIcon"]}
+                    src={data.cameraIcon}
                     alt="cameraIcon"
                     className="navigationImage"
                   />
@@ -44,7 +44,7 @@ export const Header = () => {
               <li className="navigationButton">
                 <Link to="/Film-Library/Friends" className="navigationLink">
                   <img
-                    src={data["friendsIcon"]}
+                    src={data.friendsIcon}
                     alt="friendsIcon"
                     className="navigationImage"
                   />
@@ -54,7 +54,7 @@ export const Header = () => {
               <li className="navigationButton">
                 <Link to="/Film-Library/UserProfile" className="navigationLink">
                   <img
-                    src={data["userIcon"]}
+                    src={data.userIcon}
                     alt="userIcon"
                     className="navigationImage"
                   />
@@ -85,7 +85,7 @@ export const Header = () => {
                 >
                   <img
                     className="loginImage"
-                    src={data["loginIcon"]}
+                    src={data.loginIcon}
                     alt="login"
                   ></img>
                   Sign Out
@@ -99,7 +99,7 @@ export const Header = () => {
                 >
                   <img
                     className="loginImage"
-                    src={data["loginIcon"]}
+                    src={data.loginIcon}
                     alt="login"
                   ></img>
                   Sign In

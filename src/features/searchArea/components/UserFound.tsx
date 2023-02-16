@@ -1,26 +1,28 @@
+// Hooks
 import { useFirebaseContext } from "features/context/FirebaseContext";
-import { handleAddFriend, removeFriendFromDOM } from "../functions";
-import { Friend, Props } from "../types";
+// Functions
+import { handleAddFriend } from "../functions";
+// Types
+import { Friend, FriendIndex } from "../types";
 
 export const UserFound = ({
-  friendId,
+  uid,
   friendName,
-  URL,
-  setFilteredAnswers,
-  filteredAnswers,
-  friendIndex,
-}: Props & Friend) => {
+  profileURL,
+  setIndexToRemove,
+  friendIndex
+}: Friend & FriendIndex) => {
   
   const { userInfo, db } = useFirebaseContext();
 
   return (
     <div className="foundUser">
-      <img src={URL} alt="userImage" />
+      <img src={profileURL} alt="userImage" />
       <p className="userName">{friendName}</p>
       <button
         onClick={() => {
-          handleAddFriend(friendId, friendName, userInfo, db);
-          removeFriendFromDOM(setFilteredAnswers, filteredAnswers, friendIndex);
+          handleAddFriend(uid, friendName, userInfo, db);
+          setIndexToRemove(friendIndex);
         }}
       >
         Add Friend

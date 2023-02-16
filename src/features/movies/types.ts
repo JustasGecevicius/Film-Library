@@ -7,17 +7,6 @@ export interface GetMovies {
   total_results: number;
 }
 
-export interface GetTrendingMoviesResults {
-  adult: boolean;
-  backdrop_path: string | null;
-  poster_path: string | null;
-  original_title: string;
-  release_date: string;
-  vote_average: string;
-  title: string;
-  id:number;
-}
-
 export interface MovieData {
   adult: boolean;
   backdrop_path: string | null;
@@ -55,32 +44,9 @@ interface MovieDataGenre {
   name: string;
 }
 
-export interface FetchData {
-  movieId: string;
-  setConfig: React.Dispatch<React.SetStateAction<GetConfig | undefined>>;
-  setData: React.Dispatch<React.SetStateAction<MovieData | undefined>>;
-}
-
-export interface BackdropType {
-  backdropURL: string;
-  posterURL: string;
-}
-
 export interface LikeAndRateType {
   title: string;
   type : "movie" | "series"
-}
-
-export interface MovieNumbersType {
-  budget: number;
-  revenue: number;
-  runtime: number;
-  voteAverage: number;
-}
-
-export interface MovieNumbersSymbol {
-  tag: string;
-  number: number;
 }
 
 export interface MovieBackdropType {

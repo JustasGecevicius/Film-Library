@@ -12,7 +12,7 @@ export interface PeoplePosterDisplayType {
 
 export interface PersonObject{
   name: string;
-  imageURL: string;
+  imageURL: string | undefined;
   id?: number;
 }
 

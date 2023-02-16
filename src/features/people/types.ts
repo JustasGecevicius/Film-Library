@@ -1,14 +1,3 @@
-export interface PeopleTypes{  
-    uid: string
-    email: string
-    emailVerified: boolean;
-    displayName: string
-    isAnonymous: boolean;
-    photoURL: string
-    providerData:Object[];
-    stsTokenManager: Object;
-}
-
 export interface People{
     page:number;
     results: Person[];
@@ -42,11 +31,4 @@ interface KnownFor{
         video: boolean
         vote_average: number;
         vote_count:number;
-}
-
-export interface PeopleArray {
-    title:string;
-    imageURL:string;
-    release_date?: string;
-    id?: number;
 }

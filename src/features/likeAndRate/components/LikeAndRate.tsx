@@ -5,17 +5,17 @@ import { useParams } from "react-router-dom";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 
 // Functions
-
+import { like, rate } from "../functions";
 
 // Styles
 import "../../../css/likeAndRate.css";
 
 // Types
 import { LikeAndRateType } from "features/movies/types";
-import { like, rate } from "../functions";
 
 
 export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
+  // Route Parameters and Context
   const { id } = useParams();
   const { db, userInfo } = useFirebaseContext();
   // Like functionality
@@ -32,7 +32,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
         <button
           className={liked ? "unlike" : "like"}
           onClick={() => {
-            like(db, id, userInfo["uid"], title, liked);
+            like(db, id, userInfo.uid, title, liked);
             setlikeButtonClicked(!likeButtonClicked);
           }}
         >
@@ -60,5 +60,5 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
         </div>
       </div>
     </div>
-  ) : <div className="suckAss"></div>;
+  ) : <div className="placeholder"></div>;
 };

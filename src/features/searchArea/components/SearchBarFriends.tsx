@@ -1,73 +1,50 @@
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import { collection, DocumentData, getDocs } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useQuery } from "react-query";
+// Hooks
+import { useState } from "react";
+// Styles
 import "../../../css/searchBar.css";
-import { searchUsers, useDebounce } from "../functions";
+// Components
 import { UserFound } from "./UserFound";
+import { useFocus, useSearchFriends } from "../hooks";
 
 export const SearchBarFriends = () => {
-  // const [icon, setIcon] = useState<string>();
-  const storage = getStorage();
-  const iconRef = ref(storage, "searchBar/searchIcon.png");
-  const { data: icon } = useQuery(["icon", iconRef], () =>
-    getDownloadURL(iconRef)
-  );
-  const [search, setSearch] = useState("");
-  const { db } = useFirebaseContext();
-  const debouncedSearch = useDebounce(search, 700);
-  const [filteredAnswers, setFilteredAnswers] =
-    useState<{ friendName: string; friendId: DocumentData; URL: string }[]>();
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
+  // States for search and remove Index
+  const [query, setQuery] = useState("");
+  const [indexToRemove, setIndexToRemove] = useState<number>(-1);
 
-  useEffect(() => {
-    if (!search) return;
-    handleSearch();
-  }, [debouncedSearch]);
-  const handleSearch = async () => {
-    const query = await getDocs(collection(db, "userNames"));
-    const answers = searchUsers(query, search);
-    if (answers) setFilteredAnswers(answers);
-    else setFilteredAnswers(undefined);
-  };
+  // Hook that returns the fetched results after a certain amount of time
+  const searchResults = useSearchFriends(query, 700, indexToRemove, setIndexToRemove);
+  // Hook that hides the search results if the search bar is not in focus
+  const focus = useFocus();
 
-  return icon ? (
-    <div className="search">
+  return (
+    <div className="search" id="search">
       <div className="searchField">
         <input
           type="text"
           placeholder="Search"
           name="search"
-          value={search}
+          value={query}
           onChange={(e) => {
-            handleChange(e);
+            setQuery(e.target.value);
           }}
         />
-        <button onClick={handleSearch}>
-          <img alt="exploreIcon" src={icon} className="navigationImage" />
-        </button>
       </div>
       <div className="searchResultsDisplay">
-        {filteredAnswers
-          ? filteredAnswers.map((elem, index) => {
+        {searchResults
+          ? searchResults.map((elem, index) => {
               return (
-                <UserFound
-                  key={index}
-                  friendIndex={index}
-                  friendId={elem.friendId}
-                  friendName={elem.friendName}
-                  URL={elem.URL}
-                  setFilteredAnswers={setFilteredAnswers}
-                  filteredAnswers={filteredAnswers}
-                ></UserFound>
-              );
+              focus ? (<UserFound
+                key={index}
+                friendIndex={index}
+                uid={elem.uid}
+                friendName={elem.friendName}
+                profileURL={elem.profileURL}
+                setIndexToRemove={setIndexToRemove}
+              ></UserFound>) : null
+          );
             })
           : null}
       </div>
     </div>
-  ) : null;
+  );
 };

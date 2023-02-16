@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 // Firebase
 import { initializeApp } from "firebase/app";
 import { initializeUser } from "features/firebase/functions";
@@ -32,28 +30,34 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
     }
     const authStateObserver = (user: User | null) => {
       if (user) {
+        // Getting user Details
         const { displayName, photoURL : profileURL, uid, email } = user;
         const location = `users/${uid}`;
+        // Setting up Firebase for that User
         initializeUser(db, uid, displayName, profileURL);
+        // Saving the User in Firebase
         setDoc(doc(db, location), {
           ...{ displayName, profileURL, uid, email },
         });
         if (displayName && profileURL && uid && email)
+        // Setting User Details in Firebase
         setUserInfo({ displayName, profileURL, uid, email });
       } else {
         setUserInfo(undefined);
       }
     };
     initFirebaseAuth();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
+    // Creating the Firebase Provider
     <FirebaseContext.Provider value={{ db, app, userInfo, setUserInfo }}>
       {props.children}
     </FirebaseContext.Provider>
   );
 };
-
+// A function to check if the context is used inside the Provider
 export const useFirebaseContext = () => {
   const context = useContext(FirebaseContext);
 

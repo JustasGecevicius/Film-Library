@@ -1,19 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Header } from "./features/header/components/Header";
-import React, { useEffect, useState } from "react";
-import "./css/app.css";
+// Pages
 import { Home } from "./pages/Home";
-import { Routes, Route, useLocation } from "react-router-dom";
 import { Explore } from "pages/Explore";
 import { Friends } from "pages/Friends";
 import { People } from "pages/People";
 import { UserProfile } from "pages/UserProfile";
-import { initializeApp } from "firebase/app";
-import config from "./features/services/config";
-//import { DB, UserContext } from "features/services/userContext";
-import { getFirestore } from "firebase/firestore";
 import { ShowMovie } from "pages/ShowMovie";
 import { ShowSeries } from "pages/ShowSeries";
+import { ShowAll } from "pages/ShowAll";
+// Router
+import { Routes, Route, useLocation } from "react-router-dom";
+// Firebase
+import { initializeApp } from "firebase/app";
+// Styles
+import "./css/app.css";
+// Config 
+import config from "./features/services/config";
+
+
 
 const App: React.FC = () => {
   initializeApp(config);
@@ -29,6 +32,7 @@ const App: React.FC = () => {
         <Route path="/Film-Library/UserProfile" element={<UserProfile />} />
         <Route path="/Film-Library/movie/:id" element={<ShowMovie />} />
         <Route path="/Film-Library/series/:id" element={<ShowSeries />} />
+        <Route path="/Film-Library/all/:type/:section" element={<ShowAll />} />
       </Routes>
     </div>
   );

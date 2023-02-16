@@ -1,3 +1,4 @@
+// Types
 import { VisitHomepageType } from "features/movies/types";
 
 export const VisitHomepage = ({ link } : VisitHomepageType ) => {

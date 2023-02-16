@@ -23,24 +23,22 @@ export async function initializeUser(
   const allfields = document.data();
 
   if (!allfields) return;
-  // Checks if the field exists already ie the user isn't new and if not then creates all the neccesary fields
-  allfields["fields"].forEach(async (elem: string) => {
+  // Checks if the field exists already and the user isn't new and if not then creates all the neccesary fields
+  allfields.fields.forEach(async (elem: string) => {
     if (elem !== "userNames") {
-      const fieldRef = doc(
+      const field = await getDoc(doc(
         db,
         `${elem}/${userId}`
-      );
-      const field = await getDoc(fieldRef);
+      ));
       if (!field.exists()) {
         setDoc(doc(db, `${elem}`, `${userId}`), {});
       }
     }
-    if (elem === "userNames") {
-      const fieldRef = doc(
+    else {
+        const field = await getDoc(doc(
         db,
         `${elem}/${userName}`
-      );
-      const field = await getDoc(fieldRef);
+      ));
       if (!field.exists()) {
         setDoc(doc(db, `${elem}`, `${userName}`), { uid: userId, profileURL: userURL });
       }
@@ -48,13 +46,13 @@ export async function initializeUser(
   });
 }
 
-// Sign in Firebase using popup auth and Google as the identity provider.
+// Sign in function from Firebase using popup auth and Google as the identity provider.
 export async function signInUser() {
   var provider = new GoogleAuthProvider();
   await signInWithPopup(getAuth(), provider);
 }
 
-// Sign out of Firebase.
+// Sign out function.
 export function signOutUser() {
   signOut(getAuth());
 }

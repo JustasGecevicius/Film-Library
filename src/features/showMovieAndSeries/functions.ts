@@ -1,6 +1,9 @@
+// Types
 import { GetConfig } from "features/config/types";
 import { ProductionCompany } from "./types";
 
+// A function that returns only the needed attributed of the fetched
+// production company information
 export const filterProductionCompanies = (
   configuration: GetConfig,
   array: ProductionCompany[]
@@ -20,7 +23,8 @@ export const filterProductionCompanies = (
 
   return sortedArray;
 };
-
+// A function the reduces the number size to thousands, million and billions
+// and makes it more readeable
 export const symbolChecker = (number: number) => {
   let value: string;
   switch (Math.round(number).toString().length) {

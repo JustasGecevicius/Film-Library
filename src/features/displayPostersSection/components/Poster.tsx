@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import star from "../starIcon.png";
 import { PosterType } from "../types";
 
-export const MoviePoster = ({ imageURL, title, release_date, id, liked, rating, type }: MovieObject & PosterType) => {
+export const Poster = ({ imageURL, title, release_date, id, liked, rating, type }: MovieObject & PosterType) => {
 
+  // Changes the Link based on whether the Poster is for a Movie or for a Series
   return (id ? <Link to={ type === "movie" ? `/Film-Library/movie/${id}` : `/Film-Library/series/${id}`}>
-    <div className="imagePoster" data-id = {`${id}`} >
+    <div className="imagePoster">
       <img src={imageURL} alt="posterImage" className="posterImage" />
       {liked ? <img className="star" src={star} alt="starIcon"/> : null}
       {rating ? <p className="posterRating">{rating}</p> : null}

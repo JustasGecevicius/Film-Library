@@ -1,15 +1,18 @@
+// Components
 import { Poster } from "features/displayPostersSection/components/Poster";
-import { MoviesPosterDisplayType, PosterType } from "../types";
+// Types
+import {
+  MoviesPosterDisplayType,
+  PosterType,
+} from "features/displayPostersSection/types";
 
-export const PosterDisplayMovies = ({
+export const PosterDisplayAll = ({
   arr,
-  sectionName,
   type,
 }: MoviesPosterDisplayType & PosterType) => {
   return (
     <div className="popularMoviesSection">
-      <h2 className="sectionName">{sectionName}</h2>
-      <div className="movieHolder">
+      <div className="allHolder">
         {arr.map((elem, index) => {
           return (
             <Poster

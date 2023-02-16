@@ -1,16 +1,20 @@
+// Hooks
 import { useEffect, useRef, useState } from "react";
-import { Header } from "../../header/components/Header";
-import "../../../css/searchArea.css";
 import { useQuery } from "react-query";
+// Components
+import { Header } from "../../header/components/Header";
+// Styles
+import "../../../css/searchArea.css";
+// Functions
 import { searchAreaImageLinksFetch } from "features/searchArea/functions";
-import { SearchBarFriends } from "./SearchBarFriends";
+import { SearchBarPeople } from "./SearchBarPeople";
 
 export const SearchAreaPeople = () => {
   //state for the index of the image that switches on a timer
   const [imageIndex, setImageIndex] = useState<number>(0);
 
   //fetched links from firebase for the top movies
-  const { data: links } = useQuery("movieImages", searchAreaImageLinksFetch);
+  const { data: links } = useQuery("backgroundImages", searchAreaImageLinksFetch);
 
   // useEffect that sets the interval for image changes
   const calledOnce = useRef(false);
@@ -36,7 +40,7 @@ export const SearchAreaPeople = () => {
       style={{ backgroundImage: `url(${links[imageIndex]})` }}
     >
       <Header></Header>
-      <SearchBarFriends></SearchBarFriends>
+      <SearchBarPeople></SearchBarPeople>
     </div>
   );
 };

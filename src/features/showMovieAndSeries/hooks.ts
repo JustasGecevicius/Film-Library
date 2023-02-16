@@ -1,11 +1,17 @@
+// API
 import { getConfig } from "features/config/api";
+// Types
 import { MovieData } from "features/movies/types";
 import { SeriesData } from "features/series/types";
+import { BackdropAndPoster, ProductionCompany } from "./types";
+// Hooks
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+// Functions
 import { filterProductionCompanies } from "./functions";
-import { BackdropAndPoster, ProductionCompany } from "./types";
 
+// A hook to get the backdrop and poster images
+// for the showMovie and showSeries pages
 export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
   const [backdropAndPoster, setBackdropAndPoster] =
     useState<BackdropAndPoster>();
@@ -26,7 +32,7 @@ export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
   }, [config, data]);
   return backdropAndPoster;
 };
-
+// A hook to use the filtered production company data for a specific movie/series
 export const useProductionCompanies = (
   data: SeriesData | MovieData | undefined
 ) => {
