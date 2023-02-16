@@ -34,7 +34,7 @@ export const DataNumbers = ({
         {fixedNumbers.map((elem, index) => {
           if (elem[1] !== undefined) {
             return (
-              <div className="movieNumbersSymbol" key={index}>
+              <div className="dataNumbersSymbol" key={index}>
                 <p className="movieNumberSymbolText">{`${elem[0]} | ${elem[1]}`}</p>
               </div>
             );
