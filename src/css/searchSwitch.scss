@@ -1,0 +1,68 @@
+        /* The switch - the box around the slider */
+        .searchSwitch {
+          position: relative;
+          display: inline-block;
+          width: 85px;
+          height: 25px;
+          /* Hide default HTML checkbox */
+          input {
+              display: none;
+          }
+          .slider {
+            opacity: 1;
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 85px;
+            background-color: #ccc;
+            &::before {
+                opacity:1;
+                position: absolute;
+                content: "";
+                height: 17px;
+                width: 17px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                -webkit-transition: 0.4s;
+                transition: 0.4s;
+                z-index: 20;
+            }
+            &::after{
+              content: "Movies";
+              position: absolute;
+              left: 25px;
+              z-index: 10;
+              transition:400ms ;
+            }
+        }
+        input:checked + .slider {
+            background-color: black;
+            
+        }
+  
+        input:checked + .slider {
+          &::before{
+            -webkit-transform: translateX(15px);
+            -ms-transform: translateX(15px);
+            transform: translateX(60px);
+          }
+          &::after{
+            content: "Series";
+            transition: ease-out 400ms;
+            left: 8px;
+            color: white;
+          }
+            
+        }
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+            &::before{
+              border-radius: 50%;
+            }
+        }
+      }

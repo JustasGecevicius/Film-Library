@@ -4,7 +4,11 @@ export const UserProfile = () => {
   return (
     <div className="userProfile">
       <Header></Header>
-      <div className="userSection">
+      <label className="switch">
+        <input type="checkbox"></input>
+        <span className="slider round"></span>
+      </label>
+      {/* <div className="userSection">
         <img className="userImage" src="" alt="userImage"></img>
         <div className="userInfo">
             <p><h3>name</h3> text</p>
@@ -13,7 +17,7 @@ export const UserProfile = () => {
                 <div className="metric2"></div>
             </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

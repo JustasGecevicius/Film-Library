@@ -1,0 +1,60 @@
+/* The switch - the box around the slider */
+.searchSwitch {
+  position: relative;
+  display: inline-block;
+  width: 85px;
+  height: 25px;
+  /* Hide default HTML checkbox */
+  /* Rounded sliders */
+}
+.searchSwitch input {
+  display: none;
+}
+.searchSwitch .slider {
+  opacity: 1;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 85px;
+  background-color: #ccc;
+}
+.searchSwitch .slider::before {
+  opacity: 1;
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 17px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  z-index: 20;
+}
+.searchSwitch .slider::after {
+  content: "Movies";
+  position: absolute;
+  left: 25px;
+  z-index: 10;
+  transition: 400ms;
+}
+.searchSwitch input:checked + .slider {
+  background-color: black;
+}
+.searchSwitch input:checked + .slider::before {
+  transform: translateX(60px);
+}
+.searchSwitch input:checked + .slider::after {
+  content: "Series";
+  transition: ease-out 400ms;
+  left: 8px;
+  color: white;
+}
+.searchSwitch .slider.round {
+  border-radius: 34px;
+}
+.searchSwitch .slider.round::before {
+  border-radius: 50%;
+}

@@ -15,6 +15,7 @@ import { initializeApp } from "firebase/app";
 import "./css/app.css";
 // Config 
 import config from "./features/services/config";
+import { ComponentTest } from "pages/ComponentTest";
 
 
 
@@ -29,7 +30,7 @@ const App: React.FC = () => {
         <Route path="/Film-Library/Explore" element={<Explore />} />
         <Route path="/Film-Library/Friends" element={<Friends />} />
         <Route path="/Film-Library/People" element={<People />} />
-        <Route path="/Film-Library/UserProfile" element={<UserProfile />} />
+        <Route path="/Film-Library/UserProfile" element={<ComponentTest />} />
         <Route path="/Film-Library/movie/:id" element={<ShowMovie />} />
         <Route path="/Film-Library/series/:id" element={<ShowSeries />} />
         <Route path="/Film-Library/all/:type/:section" element={<ShowAll />} />

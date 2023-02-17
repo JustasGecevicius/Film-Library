@@ -10,6 +10,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { removeFriendFromDOM, searchUsers, useDebounce } from "./functions";
 // Types
 import { Friend } from "./types";
+import { getSeriesDataSearch } from "features/series/api";
 
 // A function to close to search results window if the user clicks outside it
 export const useFocus = () => {
@@ -48,7 +49,7 @@ export const useSearchFriends = (
   const { db } = useFirebaseContext();
   // State for the answers fetched from Firebase
   const [answers, setAnswers] = useState<Friend[]>();
-  // Debouce Hook 
+  // Debouce Hook
   const debouncedSearch = useDebounce(seachString, time);
   useEffect(() => {
     if (seachString === "") return;
@@ -64,25 +65,69 @@ export const useSearchFriends = (
   // Hook to handle removing users from the list
   useEffect(() => {
     if (indexToRemove === -1) return;
-    setAnswers(prev => removeFriendFromDOM(prev, indexToRemove));
+    setAnswers((prev) => removeFriendFromDOM(prev, indexToRemove));
     setIndexToRemove(-1);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexToRemove]);
 
   return answers;
 };
 
 // A function that searches for users using the TMDB API
-export const useSearchMoviesSeries = (search : string) => {
+// HAVE TO FIX THE ISSUE HERE, THE CODE LOOKS DISCUSTING
+export const useSearchMoviesSeries = (
+  search: string,
+  type: "movie" | "series"
+) => {
+  const isMovie = (type: "movie" | "series") => {
+    if (type === "movie") return true;
+    return false
+  }
+  const isSeries = (type: "movie" | "series") => {
+    if (type === "series") return true;
+    return false
+  }
   const debouncedSearch = useDebounce(search, 700);
-  const { data: searchResults } = useQuery(
-    ["results", debouncedSearch],
+  // HOW TO JOIN THESE TWO QUERIES TOGETHER???
+  const { data: searchResultsMovies } = useQuery(
+    ["resultsMovie", debouncedSearch, type],
     () => {
       return getMovieDataSearch(debouncedSearch);
     },
     {
-      enabled: !!debouncedSearch,
+      enabled: !!isMovie(type),
     }
   );
-  return searchResults?.results
+
+  const { data: searchResultsSeries } = useQuery(
+    ["resultsSeries", debouncedSearch, type],
+    () => {
+      return getSeriesDataSearch(debouncedSearch);
+    },
+    {
+      enabled: !!isSeries(type),
+    }
+  );
+
+if(searchResultsMovies){
+  return searchResultsMovies
 }
+if(searchResultsSeries){
+  return searchResultsSeries
+}
+
+};
+
+export const typeChecker = (
+  type: "movie" | "series",
+  debouncedSearch: string
+) => {
+  let result;
+
+  if (type === "movie") {
+    result = getMovieDataSearch(debouncedSearch);
+  } else {
+    result = getSeriesDataSearch(debouncedSearch);
+  }
+  return result;
+};

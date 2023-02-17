@@ -1,3 +1,7 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
 .search {
     max-width: 600px;
     margin: 0 auto;
@@ -29,9 +33,14 @@
     }
     .searchField{
         display: flex;
+        max-width: 600px;
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        background-color: white;
+        column-gap: 0.5rem;
+        padding-right: 0.5rem;
+        border-radius: 1rem;
     }
     .searchResultsDisplay{
         display: flex;        
@@ -39,11 +48,13 @@
         justify-content: flex-start;
         align-items: center;
         max-height: 300px;
+        width: 600px;
         overflow-y: auto;
         position: relative;
         z-index: 50;
+        background-color: white;
         .foundUser{
-            width: 450px;
+            width: 600px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -53,13 +64,15 @@
             }
         }
         .foundMovie{
-            width: 450px;
+            width: 550px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             column-gap: 2rem;
             align-items: center;
             background-color: white;
+            margin-top: 15px;
             img{
                 max-width: 50px;
             }

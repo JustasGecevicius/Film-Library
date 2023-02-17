@@ -54,7 +54,7 @@ export const SearchBarPeople = () => {
       </div>
       <div className="searchResultsDisplay">
         {searchResults && config
-          ? searchResults.results.map((elem, index) => {
+          ? searchResults.map((elem, index) => {
               return (
                 <Link to={`/Film-Library/movie/${elem.id.toString()}`} key={index}>
                   {focus ? (
