@@ -5,7 +5,11 @@ import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 // Functions
-import { checkLikeAndRate, fetchLiked, fetchRated } from "features/likeAndRate/functions";
+import {
+  checkLikeAndRate,
+  fetchLiked,
+  fetchRated,
+} from "features/likeAndRate/functions";
 import { filterMovieInformation } from "features/movies/functions";
 import { filterSeriesInformation } from "features/series/functions";
 // Types
@@ -18,18 +22,22 @@ import { getTopRated } from "./api";
 export const useTop = (type: "movie" | "series") => {
   // State
   const [top, setTop] = useState<MovieObject[]>();
+
   // Context
   const { userInfo, db } = useFirebaseContext();
+
   // Data Query
   const { data: config } = useQuery("config", getConfig);
   const { data } = useQuery(["topData", type], () => {
     return getTopRated(type);
   });
+
   const { data: liked } = useQuery(
     ["liked", userInfo, db],
     () => fetchLiked(db, userInfo?.uid, type),
     { enabled: !!userInfo && !!db }
   );
+
   const { data: rated } = useQuery(
     ["rated", userInfo, db],
     () => fetchRated(db, userInfo?.uid, type),
@@ -49,7 +57,7 @@ export const useTop = (type: "movie" | "series") => {
       rated
     );
     setTop(likeAndRateCheckedTrendingData);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config, data, liked, rated]);
   return top;
 };
