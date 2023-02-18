@@ -24,3 +24,7 @@ export interface FriendIndex {
   friendIndex : number,
   setIndexToRemove : React.Dispatch<React.SetStateAction<number>>
 }
+
+export interface SearchResultsPropsType {
+  query: string;
+}

@@ -1,6 +1,6 @@
 // Components
 import { PosterDisplayMovies } from "features/displayPostersSection/components/PosterDisplayMovies";
-import { SearchAreaFriends } from "features/searchArea/components/SearchAreaFriends";
+import { SearchAreaFriends } from "features/searchArea/components/searchFriends/SearchAreaFriends";
 // Hooks
 import { useFetchFriendLikedMovies } from "features/friends/hooks";
 // Styles

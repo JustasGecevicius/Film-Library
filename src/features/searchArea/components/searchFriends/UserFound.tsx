@@ -1,18 +1,17 @@
 // Hooks
 import { useFirebaseContext } from "features/context/FirebaseContext";
 // Functions
-import { handleAddFriend } from "../functions";
+import { handleAddFriend } from "../../functions";
 // Types
-import { Friend, FriendIndex } from "../types";
+import { Friend, FriendIndex } from "../../types";
 
 export const UserFound = ({
   uid,
   friendName,
   profileURL,
   setIndexToRemove,
-  friendIndex
+  friendIndex,
 }: Friend & FriendIndex) => {
-  
   const { userInfo, db } = useFirebaseContext();
 
   return (

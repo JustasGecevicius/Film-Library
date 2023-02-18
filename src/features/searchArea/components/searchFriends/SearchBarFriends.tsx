@@ -1,10 +1,10 @@
 // Hooks
 import { useState } from "react";
 // Styles
-import "../../../css/searchBar.css";
+import "css/searchBar.css";
 // Components
 import { UserFound } from "./UserFound";
-import { useFocus, useSearchFriends } from "../hooks";
+import { useFocus, useSearchFriends } from "../../hooks";
 
 export const SearchBarFriends = () => {
   // States for search and remove Index
@@ -12,7 +12,12 @@ export const SearchBarFriends = () => {
   const [indexToRemove, setIndexToRemove] = useState<number>(-1);
 
   // Hook that returns the fetched results after a certain amount of time
-  const searchResults = useSearchFriends(query, 700, indexToRemove, setIndexToRemove);
+  const searchResults = useSearchFriends(
+    query,
+    700,
+    indexToRemove,
+    setIndexToRemove
+  );
   // Hook that hides the search results if the search bar is not in focus
   const focus = useFocus();
 
@@ -32,16 +37,16 @@ export const SearchBarFriends = () => {
       <div className="searchResultsDisplay">
         {searchResults
           ? searchResults.map((elem, index) => {
-              return (
-              focus ? (<UserFound
-                key={index}
-                friendIndex={index}
-                uid={elem.uid}
-                friendName={elem.friendName}
-                profileURL={elem.profileURL}
-                setIndexToRemove={setIndexToRemove}
-              ></UserFound>) : null
-          );
+              return focus ? (
+                <UserFound
+                  key={index}
+                  friendIndex={index}
+                  uid={elem.uid}
+                  friendName={elem.friendName}
+                  profileURL={elem.profileURL}
+                  setIndexToRemove={setIndexToRemove}
+                ></UserFound>
+              ) : null;
             })
           : null}
       </div>

@@ -4,13 +4,13 @@ import { getMovieDataSearch } from "features/movies/api";
 // Hooks
 import { ChangeEvent, useState } from "react";
 import { useQuery } from "react-query";
-import { useDebounce } from "../functions";
-import { useFocus } from "../hooks";
+import { useDebounce } from "../../functions";
+import { useFocus } from "../../hooks";
 // Components
 import { Link } from "react-router-dom";
-import { FoundSearch } from "./FoundSearch";
+import { FoundSearch } from "../searchMoviesSeries/FoundSearch";
 // Styles
-import "../../../css/searchBar.css";
+import "css/searchBar.css";
 
 export const SearchBarPeople = () => {
   const [search, setSearch] = useState("");
@@ -34,13 +34,10 @@ export const SearchBarPeople = () => {
 
   // Check whether user clicked inside/outside of the search bar
 
-
   const focus = useFocus();
 
   return (
-    <div
-      className="search" id="search"
-    >
+    <div className="search" id="search">
       <div className="searchField">
         <input
           type="text"
@@ -56,7 +53,10 @@ export const SearchBarPeople = () => {
         {searchResults && config
           ? searchResults.map((elem, index) => {
               return (
-                <Link to={`/Film-Library/movie/${elem.id.toString()}`} key={index}>
+                <Link
+                  to={`/Film-Library/movie/${elem.id.toString()}`}
+                  key={index}
+                >
                   {focus ? (
                     <FoundSearch
                       id={elem.id}

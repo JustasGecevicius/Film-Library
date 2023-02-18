@@ -1,6 +1,6 @@
 // Hooks
 import { useFirebaseContext } from "features/context/FirebaseContext";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 // API
 import { getMovieDataSearch } from "features/movies/api";
@@ -73,61 +73,44 @@ export const useSearchFriends = (
   return answers;
 };
 
-// A function that searches for users using the TMDB API
-// HAVE TO FIX THE ISSUE HERE, THE CODE LOOKS DISCUSTING
-export const useSearchMoviesSeries = (
-  search: string,
-  type: "movie" | "series"
-) => {
-  const isMovie = (type: "movie" | "series") => {
-    if (type === "movie") return true;
-    return false
-  }
-  const isSeries = (type: "movie" | "series") => {
-    if (type === "series") return true;
-    return false
-  }
-  const debouncedSearch = useDebounce(search, 700);
-  // HOW TO JOIN THESE TWO QUERIES TOGETHER???
+// A hook that returns the found Movies based on a query string
+export const useSearchMovies = (query: string, time: number) => {
+  const debouncedSearch = useDebounce(query, time);
   const { data: searchResultsMovies } = useQuery(
-    ["resultsMovie", debouncedSearch, type],
+    ["resultsMovie", debouncedSearch],
     () => {
       return getMovieDataSearch(debouncedSearch);
-    },
-    {
-      enabled: !!isMovie(type),
     }
   );
-
-  const { data: searchResultsSeries } = useQuery(
-    ["resultsSeries", debouncedSearch, type],
-    () => {
-      return getSeriesDataSearch(debouncedSearch);
-    },
-    {
-      enabled: !!isSeries(type),
-    }
-  );
-
-if(searchResultsMovies){
   return searchResultsMovies
 }
-if(searchResultsSeries){
+// A hook that returns the found Series based on a query string
+export const useSearchSeries = (query: string, time: number) => {
+  const debouncedSearch = useDebounce(query, time);
+  const { data: searchResultsSeries } = useQuery(
+    ["resultsSeries", debouncedSearch],
+    () => {
+      return getSeriesDataSearch(debouncedSearch);
+    }
+  );
   return searchResultsSeries
 }
 
-};
-
-export const typeChecker = (
-  type: "movie" | "series",
-  debouncedSearch: string
-) => {
-  let result;
-
-  if (type === "movie") {
-    result = getMovieDataSearch(debouncedSearch);
-  } else {
-    result = getSeriesDataSearch(debouncedSearch);
-  }
-  return result;
-};
+export const useIndex = (links : string[] | undefined, time : number) => {
+  const [imageIndex, setImageIndex] = useState(0);
+    const calledOnce = useRef(false);
+  useEffect(() => {
+    if (calledOnce.current) {
+      return;
+    } else {
+      if (links) {
+        setInterval(() => {
+          setImageIndex((prev) => (prev + 1) % links.length);
+        }, time);
+        calledOnce.current = true;
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [links]);
+  return imageIndex;
+}
