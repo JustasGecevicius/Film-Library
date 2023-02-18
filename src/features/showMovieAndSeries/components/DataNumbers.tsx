@@ -23,7 +23,6 @@ export const DataNumbers = ({
     ["Runtime", runtime],
     ["Average", voteAverage],
     ["Last Episode", last_air_date],
-    ["Average", voteAverage],
     ["Episodes", number_of_episodes],
     ["Seasons", number_of_seasons],
   ];

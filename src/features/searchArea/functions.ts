@@ -76,7 +76,6 @@ export const removeFriendFromDOM = (
   if(!answers) return;
   const newArr = [...answers];
   newArr.splice(userIndex, 1);
-  console.log(newArr, "newArr");
     return newArr;
   };
 

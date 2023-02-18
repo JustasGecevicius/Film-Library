@@ -2,3 +2,10 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.explore {
+  padding: 3rem;
+}
+.explore .typeName {
+  font-size: 2rem;
+}

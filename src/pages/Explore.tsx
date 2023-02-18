@@ -1,5 +1,5 @@
 // Components
-import { PosterDisplayMovies } from "features/displayPostersSection/components/PosterDisplayMovies";
+import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { SearchAreaMoviesSeries } from "features/searchArea/components/searchMoviesSeries/SearchAreaMoviesSeries";
 // Styles
 import "../css/explore.css";
@@ -14,12 +14,12 @@ export const Explore = () => {
   const topSeries = useTop("series");
   const popularSeries = usePopular("series");
 
-  return (
-    <>
-      <SearchAreaMoviesSeries />
-      <h2>Movies</h2>
+  return (<>
+    <SearchAreaMoviesSeries />
+    <div className="explore">      
+      <h2 className="typeName">Movies</h2>
       {trendingMovies ? (
-        <PosterDisplayMovies
+        <PosterDisplayMoviesSeries
           arr={trendingMovies}
           sectionName="Popular"
           type="movie"
@@ -29,7 +29,7 @@ export const Explore = () => {
       )}
 
       {topMovies ? (
-        <PosterDisplayMovies
+        <PosterDisplayMoviesSeries
           arr={topMovies}
           sectionName="Top Rated"
           type="movie"
@@ -38,9 +38,9 @@ export const Explore = () => {
         <p>Loading...</p>
       )}
 
-      <h2>Series</h2>
+      <h2 className="typeName">Series</h2>
       {popularSeries ? (
-        <PosterDisplayMovies
+        <PosterDisplayMoviesSeries
           arr={popularSeries}
           sectionName="Popular"
           type="series"
@@ -50,7 +50,7 @@ export const Explore = () => {
       )}
 
       {topSeries ? (
-        <PosterDisplayMovies
+        <PosterDisplayMoviesSeries
           arr={topSeries}
           sectionName="Top Rated"
           type="series"
@@ -58,6 +58,7 @@ export const Explore = () => {
       ) : (
         <p>Loading...</p>
       )}
+    </div>
     </>
   );
 };

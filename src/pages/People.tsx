@@ -1,5 +1,4 @@
-// Styles
-import "../css/popularMovies.css";
+
 // Components
 import { SearchAreaPeople } from "features/searchArea/components/searchPeople/SearchAreaPeople";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";

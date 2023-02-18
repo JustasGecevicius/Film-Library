@@ -15,15 +15,15 @@ import { FetchedSeriesObjectResults } from "features/series/types";
 import { getTopRated } from "./api";
 
 // A hook that returns the Top Rated movies or series
-export const useTop = (type: "movie" | "series") => {
+export const useTop = (type: "movie" | "series", pageNumber : number = 1) => {
   // State
   const [top, setTop] = useState<MovieObject[]>();
   // Context
   const { userInfo, db } = useFirebaseContext();
   // Data Query
   const { data: config } = useQuery("config", getConfig);
-  const { data } = useQuery(["topData", type], () => {
-    return getTopRated(type);
+  const { data } = useQuery(["topData", type, pageNumber], () => {
+    return getTopRated(type, pageNumber);
   });
   const { data: liked } = useQuery(
     ["liked", userInfo, db],

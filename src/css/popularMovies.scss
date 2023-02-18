@@ -1,60 +1,23 @@
 .popularMoviesSection {
-    position: relative;
-    margin: 0 auto;
-    width: 90%;
-    margin-top: 3rem;
-    height: auto;
-    h2 {
-        margin-top: 2rem;
+  position: relative;
+  margin: 0 auto;
+  height: auto;
+  .postersTopSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .sectionName {
+      margin-top: 2rem;
+      display: inline-block;
     }
-    .movieHolder {
-        margin-top: 2rem;
-        display: flex;
-        flex-direction: row;
-        column-gap: 2rem;
-        width: 100%;
-        overflow-x: auto;
-        .imagePoster {
-            display: flex;
-            flex-direction: column;
-            row-gap: 1rem;
-            position: relative;
-            .star{
-                position: absolute;
-                max-width: 25px;
-                right: 0%;
-                margin: 0.5rem;
-        }
-        .posterRating{
-            position: absolute;
-            height: 30px;
-            width: 30px;
-            background-color: black;
-            color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            left: 0%;
-            margin: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-            .posterImage {
-                border-radius: 10px;
-                min-height: 278px;
-                max-height: 278px;
-            }
-            .movieText {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                min-height: 4rem;
-                p{
-                        text-align: center;
-                }
-            }
-        }
-    }
+  }
+  .movieHolder {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    column-gap: 2rem;
+    width: 100%;
+    overflow-x: auto;
+  }
 }

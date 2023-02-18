@@ -9,15 +9,15 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getPopular } from "./api";
 
-export const usePopular = (type: "movie" | "series") => {
+export const usePopular = (type: "movie" | "series", pageNumber : number = 1) => {
   // State
   const [popular, setPopular] = useState<MovieObject[]>();
   // Context
   const { userInfo, db } = useFirebaseContext();
   // Data Query
   const { data: config } = useQuery("config", getConfig);
-  const { data } = useQuery(["popularData", type], () => {
-    return getPopular(type);
+  const { data } = useQuery(["popularData", type, pageNumber], () => {
+    return getPopular(type, pageNumber);
   });
   const { data: liked } = useQuery(
     ["liked", userInfo, db],
