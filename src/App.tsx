@@ -3,7 +3,6 @@ import { Home } from "./pages/Home";
 import { Explore } from "pages/Explore";
 import { Friends } from "pages/Friends";
 import { People } from "pages/People";
-import { UserProfile } from "pages/UserProfile";
 import { ShowMovie } from "pages/ShowMovie";
 import { ShowSeries } from "pages/ShowSeries";
 import { ShowAll } from "pages/ShowAll";
@@ -12,7 +11,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 // Firebase
 import { initializeApp } from "firebase/app";
 // Styles
-import "./css/app.css";
+import "css/app.css";
 // Config 
 import config from "./features/services/config";
 import { ComponentTest } from "pages/ComponentTest";

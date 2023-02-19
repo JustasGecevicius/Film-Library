@@ -1,5 +1,3 @@
-import "../css/componentsTest.css";
-
 export const ComponentTest = () => {
     return (
     <label className="searchSwitch">

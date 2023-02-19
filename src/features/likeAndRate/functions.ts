@@ -15,16 +15,29 @@ export const like = (
   movieId: string,
   userId: string,
   title: string,
-  liked: boolean | undefined
+  liked: boolean | undefined,
+  type: "movie" | "series"
 ) => {
   // Delete or add the movie to firebase based on liked state
   if (liked) {
-    updateDoc(doc(db, "likedMovies", `${userId}`), {
-      [movieId]: deleteField(),
-    });
-    return;
+    if (type === "movie") {
+      updateDoc(doc(db, "likedMovies", `${userId}`), {
+        [movieId]: deleteField(),
+      });
+      return;
+    } else {
+      updateDoc(doc(db, "likedSeries", `${userId}`), {
+        [movieId]: deleteField(),
+      });
+      return;
+    }
+  } else {
+    if (type === "movie") {
+      updateDoc(doc(db, "likedMovies", `${userId}`), { [movieId]: title });
+    } else {
+      updateDoc(doc(db, "likedSeries", `${userId}`), { [movieId]: title });
+    }
   }
-  updateDoc(doc(db, "likedMovies", `${userId}`), { [movieId]: title });
 };
 
 export const checkLike = (
@@ -36,7 +49,7 @@ export const checkLike = (
   return moviesArray.includes(currentMovie.toString());
 };
 
-  // Returns the list of liked movies for a specific user from Firebase
+// Returns the list of liked movies for a specific user from Firebase
 export const fetchLiked = async (
   db: Firestore,
   userId: string | undefined,
@@ -70,7 +83,7 @@ export const rate = (
   updateDoc(doc(db, "ratedMovies", `${userId}`), { [movieId]: rating });
 };
 
-  // Returns the Id if it was rated or undefined
+// Returns the Id if it was rated or undefined
 export const checkRating = (
   ratedMovies: DocumentData,
   currentMovieId: string | undefined
@@ -81,7 +94,7 @@ export const checkRating = (
   } else return undefined;
 };
 
-  // Gets a list of rated movies from Firebase
+// Gets a list of rated movies from Firebase
 export const fetchRated = async (
   db: Firestore,
   userId: string | undefined,

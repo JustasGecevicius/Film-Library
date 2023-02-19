@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 // Components
 import { Header } from "../../../header/components/Header";
 // Styles
-import "css/searchArea.css";
+import "features/searchArea/css/searchArea.css";
 // Functions
 import { searchAreaImageLinksFetch } from "features/searchArea/functions";
 import { SearchBarPeople } from "./SearchBarPeople";

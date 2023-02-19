@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import "../../../css/header.css";
+import "features/header/css/header.css";
 import { signInUser, signOutUser } from "../../firebase/functions";
 import { fetchHeaderIcons } from "features/header/api";
 import { useFirebaseContext } from "features/context/FirebaseContext";

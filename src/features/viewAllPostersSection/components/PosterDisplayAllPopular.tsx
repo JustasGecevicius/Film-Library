@@ -2,7 +2,6 @@ import { Poster } from "features/displayPostersSection/components/Poster";
 import { MovieObject } from "features/movies/types";
 import { usePopular } from "features/popular/hooks";
 import { useEffect, useState } from "react";
-import "css/viewAll.css";
 
 interface Props {
   type: "movie" | "series";

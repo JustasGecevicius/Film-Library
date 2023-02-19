@@ -1,19 +1,19 @@
-.popularMoviesSection {
+.section {
   position: relative;
   margin: 0 auto;
   height: auto;
 }
-.popularMoviesSection .postersTopSection {
+.section .sectionInfo {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.popularMoviesSection .postersTopSection .sectionName {
+.section .sectionInfo .sectionName {
   margin-top: 2rem;
   display: inline-block;
 }
-.popularMoviesSection .movieHolder {
+.section .posterHolder {
   margin-top: 2rem;
   display: flex;
   flex-direction: row;

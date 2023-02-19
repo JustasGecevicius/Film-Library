@@ -3,9 +3,11 @@ import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useQuery } from "react-query";
 import {
   fetchFriendLikedMoviesList,
+  fetchFriendLikedSeriesList,
   fetchFriendRatedMoviesList,
   fetchFriends,
   fetchMoviesFromList,
+  fetchSeriesFromList,
 } from "./functions";
 
 export const useFetchFriendLikedMovies = () => {
@@ -80,3 +82,44 @@ export const useFetchFriendRatedMovies = () => {
   );
   return [filteredMoviesList, moviesList?.ratings];
 };
+
+export const useFetchFriendLikedSeries = () => {
+  const { userInfo, db } = useFirebaseContext();
+  const { data: config } = useQuery("config", getConfig);
+
+  const { data: friendsList } = useQuery(
+    ["friends", userInfo, db],
+    () => {
+      return fetchFriends(userInfo, db);
+    },
+    {
+      enabled: !!userInfo && !!db,
+    }
+  );
+
+  const { data: seriesList } = useQuery(
+    ["likedSeriesList", friendsList, db],
+    () => {
+      return fetchFriendLikedSeriesList(friendsList, db);
+    },
+    {
+      enabled: !!friendsList && !!db,
+    }
+  );
+
+  const { data: filteredSeriesList } = useQuery(
+    ["filteredLikedSeries", seriesList, config],
+    () => {
+      return fetchSeriesFromList(seriesList, config);
+    },
+    {
+      enabled: !!seriesList && !!config,
+    }
+  );
+
+  return filteredSeriesList;
+}
+
+export const useFriendRatedSeries = () => {
+  
+}

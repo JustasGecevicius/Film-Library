@@ -1,0 +1,9 @@
+.showAll {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2rem;
+}
+.showAll .moreMovies {
+  margin: 0 auto;
+  margin-top: 2rem;
+}

@@ -3,6 +3,7 @@ import { PosterDisplayAllPopular } from "features/viewAllPostersSection/componen
 import { PosterDisplayAllTop } from "features/viewAllPostersSection/components/PosterDisplayAllTop";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import "pages/css/showAll.css"
 
 interface Paramse{
   section : "Top Rated" | "Popular" | undefined,
@@ -17,12 +18,14 @@ export const ShowAll = () => {
 
     return (<div className="showAll">
       <SearchAreaMoviesSeries/>
-      <h2 className="sectionName">{section}</h2>
-      {section === "Popular" && type ? <PosterDisplayAllPopular type={type} page={pageNumber}/> : null}
-      {section === "Top Rated" && type ? <PosterDisplayAllTop type={type} page={pageNumber}/> : null}
-      
-      <button className="moreMovies" onClick={() => {
-        setPageNumber(prev => prev + 1);
-      }}>More</button>
+      <div className="posterDisplayAllWrapper">
+        <h2 className="sectionName">{`${section} ${type === "movie" ? "movies" : "series"}`}</h2>
+        {section === "Popular" && type ? <PosterDisplayAllPopular type={type} page={pageNumber}/> : null}
+        {section === "Top Rated" && type ? <PosterDisplayAllTop type={type} page={pageNumber}/> : null}
+        
+        <button className="moreMovies" onClick={() => {
+          setPageNumber(prev => prev + 1);
+        }}>More</button>
+      </div>
     </div>);
 }

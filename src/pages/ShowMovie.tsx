@@ -8,7 +8,7 @@ import { ProducedBy } from "../features/showMovieAndSeries/components/ProducedBy
 import { DataNumbers } from "features/showMovieAndSeries/components/DataNumbers";
 
 // Styles
-import "../css/showMovie.css";
+import "pages/css/showMovie.css";
 // Hooks
 import {
   useBackdrop,

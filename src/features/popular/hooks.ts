@@ -20,12 +20,12 @@ export const usePopular = (type: "movie" | "series", pageNumber : number = 1) =>
     return getPopular(type, pageNumber);
   });
   const { data: liked } = useQuery(
-    ["liked", userInfo, db],
+    ["liked", userInfo, db, type],
     () => fetchLiked(db, userInfo?.uid, type),
     { enabled: !!userInfo && !!db }
   );
   const { data: rated } = useQuery(
-    ["rated", userInfo, db],
+    ["rated", userInfo, db, type],
     () => fetchRated(db, userInfo?.uid, type),
     { enabled: !!userInfo && !!db }
   );

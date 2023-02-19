@@ -10,7 +10,7 @@ import { useFocus } from "../../hooks";
 import { Link } from "react-router-dom";
 import { FoundSearch } from "../searchMoviesSeries/FoundSearch";
 // Styles
-import "css/searchBar.css";
+import "features/searchArea/css/searchBar.css";
 
 export const SearchBarPeople = () => {
   const [search, setSearch] = useState("");

@@ -1,11 +1,11 @@
 // Types
 import { GetConfig } from "features/config/types";
 import { MovieObject } from "features/movies/types";
-import { FetchedSeriesObjectResults } from "./types";
+import { FetchedSeriesObjectResults, SeriesData } from "./types";
 
 export const filterSeriesInformation = (
   config: GetConfig,
-  seriesResults: (FetchedSeriesObjectResults | undefined)[]
+  seriesResults: (SeriesData | FetchedSeriesObjectResults | undefined)[]
 ) => {
   const seriesArray: MovieObject[] = [];
   const baseUrl =

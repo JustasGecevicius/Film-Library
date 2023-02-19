@@ -1,6 +1,6 @@
 import { MovieObject } from "features/movies/types";
 import { Link } from "react-router-dom";
-import "css/poster.css";
+import "features/displayPostersSection/css/poster.css";
 import star from "../starIcon.png";
 import { PosterType } from "../types";
 
@@ -21,6 +21,7 @@ export const Poster = ({
           ? `/Film-Library/movie/${id}`
           : `/Film-Library/series/${id}`
       }
+      className="posterLink"
     >
       <div className="imagePoster">
         <img src={imageURL} alt="posterImage" className="posterImage" />

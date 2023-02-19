@@ -1,5 +1,5 @@
 // Styles
-import "../css/home.css";
+import "pages/css/home.css";
 // Hooks
 import { useBackground, useDisplayName } from "features/welcomeScreen/hooks";
 // Components

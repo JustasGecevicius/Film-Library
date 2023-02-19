@@ -8,7 +8,7 @@ import { useFirebaseContext } from "features/context/FirebaseContext";
 import { like, rate } from "../functions";
 
 // Styles
-import "../../../css/likeAndRate.css";
+import "features/likeAndRate/css/likeAndRate.css";
 
 // Types
 import { LikeAndRateType } from "features/movies/types";
@@ -32,7 +32,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
         <button
           className={liked ? "unlike" : "like"}
           onClick={() => {
-            like(db, id, userInfo.uid, title, liked);
+            like(db, id, userInfo.uid, title, liked, type);
             setlikeButtonClicked(!likeButtonClicked);
           }}
         >

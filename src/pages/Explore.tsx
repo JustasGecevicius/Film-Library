@@ -2,7 +2,7 @@
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { SearchAreaMoviesSeries } from "features/searchArea/components/searchMoviesSeries/SearchAreaMoviesSeries";
 // Styles
-import "../css/explore.css";
+import "pages/css/explore.css";
 // Hooks
 import { useTop } from "features/topRated/hooks";
 import { usePopular } from "features/popular/hooks";
