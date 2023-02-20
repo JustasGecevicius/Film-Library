@@ -40,13 +40,26 @@ export const like = (
   }
 };
 
-export const checkLike = (
-  moviesArray: string[],
-  currentMovie: string | undefined
+export const likePerson = (
+  db: Firestore,
+  person_id: string,
+  userId: string,
+  name: string,
+  liked: boolean | undefined
 ) => {
+  if (liked) {
+      updateDoc(doc(db, "likedPeople", `${userId}`), {
+        [person_id]: deleteField(),
+      });
+      return;
+    }
+    updateDoc(doc(db, "likedPeople", `${userId}`), { [person_id]: name });
+};
+
+export const checkLike = (array: string[], value: string | undefined) => {
   // Returns true or false depending on if the movie was found in the liked list or not
-  if (!currentMovie) return;
-  return moviesArray.includes(currentMovie.toString());
+  if (!value) return;
+  return array.includes(value.toString());
 };
 
 // Returns the list of liked movies for a specific user from Firebase
@@ -60,6 +73,16 @@ export const fetchLiked = async (
     type === "movie" ? "likedMovies" : "likedSeries",
     `${userId}`
   );
+  const document = await getDoc(docRef);
+  const liked = document.data();
+  return liked;
+};
+
+export const fetchLikedPeople = async (
+  db: Firestore,
+  userId: string | undefined
+) => {
+  const docRef = doc(db, "likedPeople", `${userId}`);
   const document = await getDoc(docRef);
   const liked = document.data();
   return liked;

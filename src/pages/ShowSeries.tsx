@@ -29,21 +29,21 @@ export const ShowSeries = () => {
     <>
       {backdropImages && seriesData ? (
         <Backdrop
-          backdrop={backdropImages["backdropURL"]}
-          poster={backdropImages["posterURL"]}
-          title={seriesData["name"]}
+        backdrop={backdropImages.backdropURL}
+        poster={backdropImages.posterURL}
+          title={seriesData.name}
         />
       ) : null}
       {seriesData ? (
         <>
-          <Genres genres={seriesData["genres"]}></Genres>
-          <LikeAndRate title={seriesData["name"]} type="series" />
-          <Description overview={seriesData["overview"]} />
-          {seriesData["homepage"] ? (
-            <VisitHomepage link={seriesData["homepage"]} />
-          ) : null}
+          <Genres genres={seriesData.genres}></Genres>
+          <LikeAndRate title={seriesData.name} type="series" />
+          <Description overview={seriesData.overview} />
+          {seriesData.homepage && (
+            <VisitHomepage link={seriesData.homepage} />
+          )}
           <DataNumbers
-            voteAverage={seriesData["vote_average"]}
+            voteAverage={seriesData.vote_average}
             last_air_date={seriesData.last_air_date}
             number_of_episodes={seriesData.number_of_episodes}
             number_of_seasons={seriesData.number_of_seasons}

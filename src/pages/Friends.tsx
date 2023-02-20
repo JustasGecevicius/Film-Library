@@ -17,7 +17,6 @@ export const Friends = () => {
   const friendLikedMovies = useFetchFriendLikedMovies();
   const friendLikedSeries = useFetchFriendLikedSeries();
   const activeFriends = useActiveFriends() as User[];
-  console.log(activeFriends);
 
   return (
     <>

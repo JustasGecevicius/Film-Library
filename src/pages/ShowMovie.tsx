@@ -24,30 +24,29 @@ export const ShowMovie = () => {
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);
   const recommendations = useRecommended(movieData?.id, 1, "movie");
-  console.log(recommendations);
 
   return (
     <>
       {backdropImages && movieData && (
         <Backdrop
-          backdrop={backdropImages["backdropURL"]}
-          poster={backdropImages["posterURL"]}
-          title={movieData["title"]}
+          backdrop={backdropImages.backdropURL}
+          poster={backdropImages.posterURL}
+          title={movieData.title}
         />
       )}
       {movieData && (
         <>
-          <Genres genres={movieData["genres"]}></Genres>
-          <LikeAndRate title={movieData["title"]} type="movie" />
-          <Description overview={movieData["overview"]} />
-          {movieData["homepage"] ? (
-            <VisitHomepage link={movieData["homepage"]} />
-          ) : null}
+          <Genres genres={movieData.genres}></Genres>
+          <LikeAndRate title={movieData.title} type="movie" />
+          <Description overview={movieData.overview} />
+          {movieData.homepage && (
+            <VisitHomepage link={movieData.homepage} />
+          )}
           <DataNumbers
-            budget={movieData["budget"]}
-            revenue={movieData["revenue"]}
-            runtime={movieData["runtime"]}
-            voteAverage={movieData["vote_average"]}
+            budget={movieData.budget}
+            revenue={movieData.revenue}
+            runtime={movieData.runtime}
+            voteAverage={movieData.vote_average}
           />
           {productionCompanies && (
             <ProducedBy productionCompanies={productionCompanies} />

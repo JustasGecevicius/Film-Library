@@ -15,6 +15,7 @@ import "css/app.css";
 // Config 
 import config from "./features/services/config";
 import { ComponentTest } from "pages/ComponentTest";
+import { ShowPerson } from "pages/ShowPerson";
 
 
 
@@ -34,6 +35,7 @@ const App: React.FC = () => {
         <Route path="/Film-Library/series/:id" element={<ShowSeries />} />
         <Route path="/Film-Library/all/:type/:section" element={<ShowAll />} />
         <Route path="/Film-Library/all/:type/:section/:id" element={<ShowAll />} />
+        <Route path="/Film-Library/person/:id" element={<ShowPerson />} />
       </Routes>
     </div>
   );

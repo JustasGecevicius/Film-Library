@@ -14,6 +14,7 @@ import { checkLikeAndRate, fetchLiked, fetchRated } from "features/likeAndRate/f
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { filterMovieInformation } from "features/movies/functions";
 import { filterSeriesInformation } from "features/series/functions";
+import { SingularPerson } from "features/people/types";
 
 // A hook to get the backdrop and poster images
 // for the showMovie and showSeries pages
@@ -37,6 +38,21 @@ export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
   }, [config, data]);
   return backdropAndPoster;
 };
+
+export const useBackdropPerson = (data : SingularPerson | undefined) => {
+  const { data: config } = useQuery("config", getConfig);
+  const [poster, setPoster] = useState<string | undefined>();
+  useEffect (() => {
+    if(config && data){
+      setPoster(config["images"]["base_url"] +
+      config["images"]["profile_sizes"][3] +
+      data["profile_path"])
+      return
+    }
+    setPoster(undefined);
+  },[config, data]);
+  return poster
+}
 // A hook to use the filtered production company data for a specific movie/series
 export const useProductionCompanies = (
   data: SeriesData | MovieData | undefined

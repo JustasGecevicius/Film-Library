@@ -16,7 +16,6 @@ export const ShowAll = () => {
 
   const [pageNumber, setPageNumber] = useState(1);
   const {section, type, id} = useParams<keyof Params>() as Params;
-  console.log(pageNumber);
 
     return (<div className="showAll">
       <SearchAreaMoviesSeries/>
