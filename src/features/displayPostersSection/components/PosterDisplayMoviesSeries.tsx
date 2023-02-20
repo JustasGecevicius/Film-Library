@@ -7,12 +7,17 @@ export const PosterDisplayMoviesSeries = ({
   arr,
   sectionName,
   type,
+  id,
 }: MoviesPosterDisplayType & PosterType) => {
   return (
     <div className="section">
       <div className="sectionInfo">
         <h2 className="sectionName">{sectionName}</h2>
-        <Link to={`/Film-Library/all/${type}/${sectionName}`}>
+        <Link
+          to={`/Film-Library/all/${type}/${sectionName}${
+            id ? "/" + id.toString() : ""
+          }`}
+        >
           <button className="viewAllButton">View All</button>
         </Link>
       </div>

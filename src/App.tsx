@@ -33,6 +33,7 @@ const App: React.FC = () => {
         <Route path="/Film-Library/movie/:id" element={<ShowMovie />} />
         <Route path="/Film-Library/series/:id" element={<ShowSeries />} />
         <Route path="/Film-Library/all/:type/:section" element={<ShowAll />} />
+        <Route path="/Film-Library/all/:type/:section/:id" element={<ShowAll />} />
       </Routes>
     </div>
   );

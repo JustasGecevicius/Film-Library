@@ -1,5 +1,12 @@
 import { getConfig } from "features/config/api";
 import { useFirebaseContext } from "features/context/FirebaseContext";
+import {
+  doc,
+  DocumentData,
+  DocumentSnapshot,
+  getDoc,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import {
   fetchFriendLikedMoviesList,
@@ -118,8 +125,40 @@ export const useFetchFriendLikedSeries = () => {
   );
 
   return filteredSeriesList;
-}
+};
 
-export const useFriendRatedSeries = () => {
-  
-}
+export const useFriendRatedSeries = () => {};
+
+export const useActiveFriends = () => {
+  const [friendsData, setFriendsData] =
+    useState<(DocumentData | undefined)[]>();
+  const promiseArray: Promise<DocumentSnapshot<DocumentData>>[] = [];
+  const { userInfo, db } = useFirebaseContext();
+  const { data: friendsList } = useQuery(
+    ["friends", userInfo, db],
+    () => {
+      return fetchFriends(userInfo, db);
+    },
+    {
+      enabled: !!userInfo && !!db,
+    }
+  );
+  useEffect(() => {
+    let fetch = async () => {
+      if (!friendsList) return;
+      Object.keys(friendsList).forEach((elem) => {
+        const result = getDoc(doc(db, `userNames/${elem}`));
+        promiseArray.push(result);
+      });
+      const arrayResult = await Promise.all(promiseArray);
+
+      const newArr = arrayResult.map((elem) => {
+        return {...elem.data(), name : elem.id};
+      });
+      setFriendsData(newArr);
+    };
+    fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [friendsList]);
+  return friendsData;
+};

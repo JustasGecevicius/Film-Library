@@ -12,8 +12,10 @@ import "pages/css/showMovie.css";
 import {
   useBackdrop,
   useProductionCompanies,
+  useRecommended,
 } from "features/showMovieAndSeries/hooks";
 import { useSeriesData } from "features/series/hooks";
+import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 
 export const ShowSeries = () => {
 
@@ -21,6 +23,7 @@ export const ShowSeries = () => {
   const seriesData = useSeriesData();
   const backdropImages = useBackdrop(seriesData);
   const productionCompanies = useProductionCompanies(seriesData);
+  const recommendations = useRecommended(seriesData?.id, 1, "series");
 
   return (
     <>
@@ -50,6 +53,16 @@ export const ShowSeries = () => {
           ) : null}
         </>
       ) : null}
+      {recommendations && (
+        <div className="recommendationDiv">
+          <PosterDisplayMoviesSeries
+            arr={recommendations}
+            sectionName="Recommended"
+            type="series"
+            id={seriesData?.id}
+          />
+        </div>
+      )}
     </>
   );
 };

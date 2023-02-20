@@ -13,26 +13,29 @@ import "pages/css/showMovie.css";
 import {
   useBackdrop,
   useProductionCompanies,
+  useRecommended,
 } from "features/showMovieAndSeries/hooks";
 import { useMovieData } from "features/movies/hooks";
+import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 
 export const ShowMovie = () => {
-
   // Getting the movie data, backdrop Images and production companies.
   const movieData = useMovieData();
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);
+  const recommendations = useRecommended(movieData?.id, 1, "movie");
+  console.log(recommendations);
 
   return (
     <>
-      {backdropImages && movieData ? (
+      {backdropImages && movieData && (
         <Backdrop
           backdrop={backdropImages["backdropURL"]}
           poster={backdropImages["posterURL"]}
           title={movieData["title"]}
         />
-      ) : null}
-      {movieData ? (
+      )}
+      {movieData && (
         <>
           <Genres genres={movieData["genres"]}></Genres>
           <LikeAndRate title={movieData["title"]} type="movie" />
@@ -46,11 +49,21 @@ export const ShowMovie = () => {
             runtime={movieData["runtime"]}
             voteAverage={movieData["vote_average"]}
           />
-          {productionCompanies ? (
+          {productionCompanies && (
             <ProducedBy productionCompanies={productionCompanies} />
-          ) : null}
+          )}
         </>
-      ) : null}
+      )}
+      {recommendations && (
+        <div className="recommendationDiv">
+          <PosterDisplayMoviesSeries
+            arr={recommendations}
+            sectionName="Recommended"
+            type="movie"
+            id={movieData?.id}
+          />
+        </div>
+      )}
     </>
   );
 };

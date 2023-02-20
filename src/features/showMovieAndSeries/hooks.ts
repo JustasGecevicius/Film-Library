@@ -1,14 +1,19 @@
 // API
 import { getConfig } from "features/config/api";
 // Types
-import { MovieData } from "features/movies/types";
-import { SeriesData } from "features/series/types";
+import { MovieData, MovieObject } from "features/movies/types";
+import { FetchedSeriesObjectResults, SeriesData } from "features/series/types";
 import { BackdropAndPoster, ProductionCompany } from "./types";
 // Hooks
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 // Functions
 import { filterProductionCompanies } from "./functions";
+import { getRecommendations } from "./api";
+import { checkLikeAndRate, fetchLiked, fetchRated } from "features/likeAndRate/functions";
+import { useFirebaseContext } from "features/context/FirebaseContext";
+import { filterMovieInformation } from "features/movies/functions";
+import { filterSeriesInformation } from "features/series/functions";
 
 // A hook to get the backdrop and poster images
 // for the showMovie and showSeries pages
@@ -51,3 +56,40 @@ export const useProductionCompanies = (
   }, [config, data]);
   return productionCompanies;
 };
+
+export const useRecommended = (id : number | undefined, page = 1, type:"movie" | "series") => {
+    const [recommended, setRecommended] = useState<MovieObject[]>();
+    const { userInfo, db } = useFirebaseContext();
+    const { data: config } = useQuery("config", getConfig);
+    const { data } = useQuery(["recommendations", id, type, page], () => {
+        return getRecommendations(page, id, type)
+    }, {
+      enabled:!!id
+    })
+    const { data: liked } = useQuery(
+      ["liked", userInfo, db, type],
+      () => fetchLiked(db, userInfo?.uid, type),
+      { enabled: !!userInfo && !!db }
+    );
+    const { data: rated } = useQuery(
+      ["rated", userInfo, db, type],
+      () => fetchRated(db, userInfo?.uid, type),
+      { enabled: !!userInfo && !!db }
+    );
+  // Filtering information and Checking for Like and Rate
+    useEffect(() => {
+      if (!config || !data || !liked || !rated) return;
+      const trendingData =
+        type === "movie"
+          ? filterMovieInformation(config, data as MovieData[])
+          : filterSeriesInformation(config, data as FetchedSeriesObjectResults[]);
+      const likeAndRateCheckedData = checkLikeAndRate(
+        trendingData,
+        Object.keys(liked),
+        rated
+      );
+      setRecommended(likeAndRateCheckedData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [config, data, liked, rated]);
+    return recommended;
+}

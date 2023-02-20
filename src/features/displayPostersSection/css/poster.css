@@ -2,20 +2,21 @@
   text-decoration: none;
   color: black;
 }
-.posterLink .imagePoster {
+
+.imagePoster {
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
   position: relative;
   max-width: 185px;
 }
-.posterLink .imagePoster .star {
+.imagePoster .star {
   position: absolute;
   max-width: 25px;
   right: 0%;
   margin: 0.5rem;
 }
-.posterLink .imagePoster .posterRating {
+.imagePoster .posterRating {
   position: absolute;
   height: 30px;
   width: 30px;
@@ -30,18 +31,21 @@
   align-items: center;
   justify-content: center;
 }
-.posterLink .imagePoster .posterImage {
+.imagePoster .posterImage {
   border-radius: 10px;
-  min-height: 278px;
-  max-height: 278px;
+  height: 278px;
+  width: 185px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
-.posterLink .imagePoster .posterText {
+.imagePoster .posterText {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   min-height: 4rem;
 }
-.posterLink .imagePoster .posterText p {
+.imagePoster .posterText p {
   text-align: center;
 }
