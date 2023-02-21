@@ -8,8 +8,7 @@ import {
   useFetchFriendLikedSeries,
 } from "features/friends/hooks";
 // Styles
-import "pages/css/friends.css";
-import { PosterDisplayFriends } from "features/displayPostersSection/components/PosterDisplayUsers";
+import { PosterDisplayFriends } from "features/displayPostersSection/components/PosterDisplayFriends";
 import { User } from "features/displayPostersSection/types";
 
 export const Friends = () => {
@@ -20,8 +19,9 @@ export const Friends = () => {
 
   return (
     <>
-      <SearchAreaFriends></SearchAreaFriends>
+      <SearchAreaFriends></SearchAreaFriends>      
       <div className="friendsWrapper">
+      <h2 className="typeName"> Movies </h2>
         {friendLikedMovies && (
           <PosterDisplayMoviesSeries
             arr={friendLikedMovies}
@@ -29,7 +29,7 @@ export const Friends = () => {
             type="movie"
           ></PosterDisplayMoviesSeries>
         )}
-        <h2> Series </h2>
+        <h2 className="typeName"> Series </h2>
         {friendLikedSeries && (
           <PosterDisplayMoviesSeries
             arr={friendLikedSeries}

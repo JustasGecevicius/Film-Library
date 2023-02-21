@@ -1,7 +1,7 @@
 // Types
 import { FoundSearchType } from "../../types";
 
-export const FoundSearch = ({ id, name, URL }: FoundSearchType) => {
+export const FoundSearch = ({ name, URL }: FoundSearchType) => {
   return (
     <div className="foundMovie">
       <img src={URL} alt="posterImage" />

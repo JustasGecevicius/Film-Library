@@ -24,7 +24,7 @@ export const ShowSeries = () => {
   const backdropImages = useBackdrop(seriesData);
   const productionCompanies = useProductionCompanies(seriesData);
   const recommendations = useRecommended(seriesData?.id, 1, "series");
-
+  console.log(seriesData, "seriesData");
   return (
     <>
       {backdropImages && seriesData ? (

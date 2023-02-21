@@ -11,29 +11,12 @@ import { Link } from "react-router-dom";
 import { FoundSearch } from "../searchMoviesSeries/FoundSearch";
 // Styles
 import "features/searchArea/css/searchBar.css";
+import { SearchResultsPeople } from "./SearchResultsPeople";
 
 export const SearchBarPeople = () => {
-  const [search, setSearch] = useState("");
-  const debouncedSearch = useDebounce(search, 700);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
-
-  const { data: searchResults } = useQuery(
-    ["results", debouncedSearch],
-    () => {
-      return getMovieDataSearch(debouncedSearch);
-    },
-    {
-      enabled: !!debouncedSearch,
-    }
-  );
-  const { data: config } = useQuery("config", getConfig);
-
+  // State to track user input
+  const [query, setQuery] = useState("");
   // Check whether user clicked inside/outside of the search bar
-
   const focus = useFocus();
 
   return (
@@ -43,32 +26,15 @@ export const SearchBarPeople = () => {
           type="text"
           placeholder="Search"
           name="search"
-          value={search}
+          value={query}
           onChange={(e) => {
-            handleChange(e);
+            setQuery(e.target.value)
           }}
         />
       </div>
-      <div className="searchResultsDisplay">
-        {searchResults && config
-          ? searchResults.map((elem, index) => {
-              return (
-                <Link
-                  to={`/Film-Library/movie/${elem.id.toString()}`}
-                  key={index}
-                >
-                  {focus ? (
-                    <FoundSearch
-                      id={elem.id}
-                      name={elem.title}
-                      URL={`${config.images.base_url}${config.images.poster_sizes[5]}${elem.poster_path}`}
-                    ></FoundSearch>
-                  ) : null}
-                </Link>
-              );
-            })
-          : null}
-      </div>
+      {focus && query !== "" && <div className="searchResultsDisplay">
+        <SearchResultsPeople query={query}/>
+      </div>}
     </div>
   );
 };

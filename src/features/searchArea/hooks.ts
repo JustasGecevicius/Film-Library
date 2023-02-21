@@ -11,6 +11,7 @@ import { removeFriendFromDOM, searchUsers, useDebounce } from "./functions";
 // Types
 import { Friend } from "./types";
 import { getSeriesDataSearch } from "features/series/api";
+import { getPeopleDataSearch } from "features/people/api";
 
 // A function to close to search results window if the user clicks outside it
 export const useFocus = () => {
@@ -113,4 +114,15 @@ export const useIndex = (links : string[] | undefined, time : number) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [links]);
   return imageIndex;
+}
+
+export const useSearchPeople = (query: string, time: number) => {
+  const debouncedSearch = useDebounce(query, time);
+  const { data: searchResultsSeries } = useQuery(
+    ["resultsPeople", debouncedSearch],
+    () => {
+      return getPeopleDataSearch(debouncedSearch);
+    }
+  );
+  return searchResultsSeries
 }

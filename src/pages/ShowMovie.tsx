@@ -24,6 +24,7 @@ export const ShowMovie = () => {
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);
   const recommendations = useRecommended(movieData?.id, 1, "movie");
+  console.log(movieData, "movieData");
 
   return (
     <>
@@ -48,12 +49,12 @@ export const ShowMovie = () => {
             runtime={movieData.runtime}
             voteAverage={movieData.vote_average}
           />
-          {productionCompanies && (
+          {productionCompanies && productionCompanies.length !== 0 && (
             <ProducedBy productionCompanies={productionCompanies} />
           )}
         </>
       )}
-      {recommendations && (
+      {recommendations && recommendations.length !== 0 && (
         <div className="recommendationDiv">
           <PosterDisplayMoviesSeries
             arr={recommendations}

@@ -21,7 +21,9 @@ import { SingularPerson } from "features/people/types";
 export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
   const [backdropAndPoster, setBackdropAndPoster] =
     useState<BackdropAndPoster>();
-  const { data: config } = useQuery("config", getConfig);
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 1800000
+  });
 
   useEffect(() => {
     if (data && config) {
@@ -40,7 +42,9 @@ export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
 };
 
 export const useBackdropPerson = (data : SingularPerson | undefined) => {
-  const { data: config } = useQuery("config", getConfig);
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 1800000
+  });
   const [poster, setPoster] = useState<string | undefined>();
   useEffect (() => {
     if(config && data){
@@ -59,7 +63,9 @@ export const useProductionCompanies = (
 ) => {
   const [productionCompanies, setProductionCompanies] =
     useState<ProductionCompany[]>();
-  const { data: config } = useQuery("config", getConfig);
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 1800000
+  });
 
   useEffect(() => {
     if (data && config) {
@@ -74,9 +80,12 @@ export const useProductionCompanies = (
 };
 
 export const useRecommended = (id : number | undefined, page = 1, type:"movie" | "series") => {
+
     const [recommended, setRecommended] = useState<MovieObject[]>();
     const { userInfo, db } = useFirebaseContext();
-    const { data: config } = useQuery("config", getConfig);
+    const { data: config } = useQuery("config", getConfig, {
+      staleTime: 1800000
+    });
     const { data } = useQuery(["recommendations", id, type, page], () => {
         return getRecommendations(page, id, type)
     }, {

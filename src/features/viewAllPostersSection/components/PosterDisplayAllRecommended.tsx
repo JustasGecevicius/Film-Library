@@ -1,4 +1,4 @@
-import { Poster } from "features/displayPostersSection/components/Poster";
+import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
 import { MovieObject } from "features/movies/types";
 import { useRecommended } from "features/showMovieAndSeries/hooks";
 import { useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 interface Props {
   type: "movie" | "series";
   page: number;
-  id: number | undefined
+  id: number | undefined;
 }
 
 export const PosterDisplayAllRecommended = ({ id, type, page }: Props) => {
@@ -23,7 +23,7 @@ export const PosterDisplayAllRecommended = ({ id, type, page }: Props) => {
     <div className="movieHolderAll">
       {combinedResults.map((elem, index) => {
         return (
-          <Poster
+          <PosterMovieSeries
             key={index}
             imageURL={elem.imageURL}
             title={elem.title}
@@ -32,7 +32,7 @@ export const PosterDisplayAllRecommended = ({ id, type, page }: Props) => {
             liked={elem.liked}
             rating={elem.rating}
             type={type}
-          ></Poster>
+          ></PosterMovieSeries>
         );
       })}
     </div>

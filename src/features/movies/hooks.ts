@@ -5,7 +5,7 @@ import { getMovieData } from "./api";
 export const useMovieData = () => {
   const { id } = useParams();
   const { data: movieData } = useQuery(
-    ["movie", id],
+    ["movieData", id],
     () => {
       return getMovieData(id);
     },

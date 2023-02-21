@@ -1,31 +1,30 @@
 import { getConfig } from "features/config/api";
-import { useSearchMovies } from "features/searchArea/hooks";
+import { useSearchMovies, useSearchPeople } from "features/searchArea/hooks";
 import { SearchResultsPropsType } from "features/searchArea/types";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { FoundSearch } from "features/searchArea/components/searchMoviesSeries/FoundSearch";
 
-export const SearchResultsMovies = ({ query }: SearchResultsPropsType) => {
+export const SearchResultsPeople = ({ query }: SearchResultsPropsType) => {
   const { data: config } = useQuery("config", getConfig, {
     staleTime: 1800000
   });
-  const results = useSearchMovies(query, 700);
+  const results = useSearchPeople(query, 700);
+  console.log(results);
   return (
     <>
-      {results && config ? (
+      {results && config && (
         results.map((elem, index) => {
           return (
-            <Link to={`/Film-Library/movie/${elem.id.toString()}`} key={index}>
-              {elem.poster_path && <FoundSearch
+            <Link to={`/Film-Library/person/${elem.id.toString()}`} key={index}>
+              {elem.profile_path && <FoundSearch
                 id={elem.id}
-                name={elem.title}
-                URL={`${config.images.base_url}${config.images.poster_sizes[5]}${elem.poster_path}`}
-              ></FoundSearch>}
+                name={elem.name}
+                URL={`${config.images.base_url}${config.images.profile_sizes[3]}${elem.profile_path}`}
+              />}
             </Link>
           );
         })
-      ) : (
-        <></>
       )}
     </>
   );

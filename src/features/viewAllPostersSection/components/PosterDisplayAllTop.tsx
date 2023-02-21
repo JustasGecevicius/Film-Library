@@ -1,4 +1,4 @@
-import { Poster } from "features/displayPostersSection/components/Poster";
+import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
 import { MovieObject } from "features/movies/types";
 import { useEffect, useState } from "react";
 import { useTop } from "features/topRated/hooks";
@@ -23,7 +23,7 @@ export const PosterDisplayAllTop = ({ type, page }: Props) => {
     <div className="movieHolderAll">
       {combinedResults.map((elem, index) => {
         return (
-          <Poster
+          <PosterMovieSeries
             key={index}
             imageURL={elem.imageURL}
             title={elem.title}
@@ -32,7 +32,7 @@ export const PosterDisplayAllTop = ({ type, page }: Props) => {
             liked={elem.liked}
             rating={elem.rating}
             type={type}
-          ></Poster>
+          ></PosterMovieSeries>
         );
       })}
     </div>

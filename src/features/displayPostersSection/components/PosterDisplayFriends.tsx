@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { PosterDisplayUsersType } from "../types";
-import { UserPoster } from "./UserPoster";
+import { UserPoster } from "../../poster/components/UserPoster";
 
 export const PosterDisplayFriends = ({
   users,
@@ -11,7 +11,7 @@ export const PosterDisplayFriends = ({
       <div className="sectionInfo">
         <h2 className="sectionName">{sectionName}</h2>
         <Link to={`/Film-Library/allFriends`}>
-            <button className="viewAllButton">View All</button>
+          <button className="viewAllButton">View All</button>
         </Link>
       </div>
       <div className="posterHolder">

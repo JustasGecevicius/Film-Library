@@ -2,6 +2,7 @@
   position: relative;
   margin: 0 auto;
   height: auto;
+  max-width: calc(100% - 4rem);
 }
 .section .sectionInfo {
   display: flex;
@@ -13,7 +14,12 @@
   margin-top: 2rem;
   display: inline-block;
 }
-.section .posterHolder {
+
+.recommendationDiv .section {
+  max-width: 900px;
+}
+
+.posterHolder {
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
@@ -21,8 +27,4 @@
        column-gap: 2rem;
   width: 100%;
   overflow-x: auto;
-}
-
-.recommendationDiv .section {
-  max-width: 900px;
 }

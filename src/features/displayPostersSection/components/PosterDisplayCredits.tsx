@@ -1,28 +1,28 @@
 import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
+import {
+  MoviesPosterDisplayType,
+  PosterType,
+} from "features/displayPostersSection/types";
 import { Link } from "react-router-dom";
-import { MoviesPosterDisplayType, PosterType } from "../types";
-import "features/displayPostersSection/css/posterDisplay.css";
 
-export const PosterDisplayMoviesSeries = ({
+export const PosterDisplayCredits = ({
   arr,
   sectionName,
-  type,
   id,
+  type,
 }: MoviesPosterDisplayType & PosterType) => {
+
+  
   return (
     <div className="section">
       <div className="sectionInfo">
         <h2 className="sectionName">{sectionName}</h2>
-        <Link
-          to={`/Film-Library/all/${type}/${sectionName}${
-            id ? "/" + id.toString() : ""
-          }`}
-        >
+        <Link to={`/Film-Library/allCredits/${type}/${id}`}>
           <button className="viewAllButton">View All</button>
         </Link>
       </div>
       <div className="posterHolder">
-        {arr.map((elem, index) => {
+        {arr.map((elem, index) => {          
           return (
             <PosterMovieSeries
               key={index}

@@ -3,9 +3,7 @@ a {
   color: black;
 }
 
-.explore {
-  padding: 3rem;
-}
-.explore .typeName {
+.typeName {
   font-size: 2rem;
+  padding: 2rem;
 }

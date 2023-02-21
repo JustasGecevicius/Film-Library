@@ -31,7 +31,7 @@ export const SearchBarMoviesSeries = () => {
         />
         <SearchTypeSwitch setType={setType}></SearchTypeSwitch>
       </div>
-      {focus && query !== "" ? (
+      {focus && query !== "" && (
         <div className="searchResultsDisplay">
           {type === "movie" ? (
             <SearchResultsMovies query={query} />
@@ -39,8 +39,6 @@ export const SearchBarMoviesSeries = () => {
             <SearchResultsSeries query={query} />
           )}
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

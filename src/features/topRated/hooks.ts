@@ -21,7 +21,9 @@ export const useTop = (type: "movie" | "series", pageNumber : number = 1) => {
   // Context
   const { userInfo, db } = useFirebaseContext();
   // Data Query
-  const { data: config } = useQuery("config", getConfig);
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 1800000
+  });
   const { data } = useQuery(["topData", type, pageNumber], () => {
     return getTopRated(type, pageNumber);
   });

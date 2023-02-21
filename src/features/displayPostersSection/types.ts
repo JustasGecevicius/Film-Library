@@ -3,7 +3,7 @@ import { MovieObject } from "features/movies/types";
 export interface MoviesPosterDisplayType {
   arr: MovieObject[];
   sectionName: string;
-  id? :number
+  id? :number | string
 }
 
 export interface PeoplePosterDisplayType {
