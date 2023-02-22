@@ -1,4 +1,4 @@
-import { useCredits } from "features/credits/hooks";
+import { useMovieSeriesCredits } from "features/credits/hooks";
 import { PosterDisplayCredits } from "features/displayPostersSection/components/PosterDisplayCredits";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { LikePerson } from "features/likeAndRate/components/LikePerson";
@@ -7,6 +7,7 @@ import { Backdrop } from "features/showMovieAndSeries/components/Backdrop";
 import { Description } from "features/showMovieAndSeries/components/Description";
 import { VisitHomepage } from "features/showMovieAndSeries/components/VisitHomepage";
 import { useBackdropPerson } from "features/showMovieAndSeries/hooks";
+import { BackdropPerson } from "features/showPerson/components/BackdropPerson";
 import { PersonalFacts } from "features/showPerson/components/PersonalFacts";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -24,15 +25,15 @@ export const ShowPerson = () => {
     }
   );
 
-  const movieCredits = useCredits("movie");
-  const seriesCredits = useCredits("series");
+  const movieCredits = useMovieSeriesCredits("movie", id);
+  const seriesCredits = useMovieSeriesCredits("series", id);
 
   const backdrop = useBackdropPerson(person);
-  //console.log(person, credits);
+  console.log(movieCredits, seriesCredits);
   return (
     <>
       {backdrop && person && (
-        <Backdrop backdrop={""} poster={backdrop} title={person.name} />
+        <BackdropPerson backdrop={""} poster={backdrop} title={person.name} />
       )}
       {person && (
         <>

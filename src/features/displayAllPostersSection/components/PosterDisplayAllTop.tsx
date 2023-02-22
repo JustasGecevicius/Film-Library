@@ -2,7 +2,7 @@ import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries"
 import { MovieObject } from "features/movies/types";
 import { useEffect, useState } from "react";
 import { useTop } from "features/topRated/hooks";
-import "features/viewAllPostersSection/css/posterDisplayAll.css";
+import "features/displayAllPostersSection/css/posterDisplayAll.css";
 
 interface Props {
   type: "movie" | "series";

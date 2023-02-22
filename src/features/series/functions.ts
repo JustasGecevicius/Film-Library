@@ -8,12 +8,12 @@ export const filterSeriesInformation = (
   seriesResults: (SeriesData | FetchedSeriesObjectResults | undefined)[]
 ) => {
   const seriesArray: MovieObject[] = [];
-  const baseUrl =
-    config["images"]["base_url"] + config["images"]["poster_sizes"][5];
+  const baseUrl = config.images.base_url + config.images.poster_sizes[5];
     seriesResults.forEach((elem) => {
     if (!elem) return;
     const { name : title, first_air_date : release_date, poster_path, id } = elem;
-    const imageURL = baseUrl + poster_path;
+    const imageURL = poster_path ? baseUrl + poster_path : undefined;
+    if(imageURL)
     seriesArray.push({ title, release_date, imageURL, id });
   });
   return seriesArray;

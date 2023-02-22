@@ -11,18 +11,16 @@ export const PosterDisplayCredits = ({
   id,
   type,
 }: MoviesPosterDisplayType & PosterType) => {
-
-  
   return (
     <div className="section">
       <div className="sectionInfo">
         <h2 className="sectionName">{sectionName}</h2>
-        <Link to={`/Film-Library/allCredits/${type}/${id}`}>
+        <Link to={`/Film-Library/all/${type}/Credits/${id}`}>
           <button className="viewAllButton">View All</button>
         </Link>
       </div>
       <div className="posterHolder">
-        {arr.map((elem, index) => {          
+        {arr.map((elem, index) => {
           return (
             <PosterMovieSeries
               key={index}

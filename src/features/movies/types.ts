@@ -1,5 +1,3 @@
-import { GetConfig } from "features/config/types";
-
 export interface GetMovies {
   page: number;
   results: MovieData[];

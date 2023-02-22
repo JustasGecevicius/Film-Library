@@ -29,7 +29,7 @@ export const SearchBarMoviesSeries = () => {
             setQuery(e.target.value);
           }}
         />
-        <SearchTypeSwitch setType={setType}></SearchTypeSwitch>
+        <SearchTypeSwitch setType={setType}/>
       </div>
       {focus && query !== "" && (
         <div className="searchResultsDisplay">

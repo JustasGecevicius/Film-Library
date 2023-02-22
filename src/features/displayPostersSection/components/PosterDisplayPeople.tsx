@@ -17,6 +17,7 @@ export const PosterDisplayPeople = ({
       </div>
       <div className="posterHolder">
         {arr.map((elem, index) => {
+          console.log(elem.imageURL);
           return (
             <PeoplePoster
               key={index}

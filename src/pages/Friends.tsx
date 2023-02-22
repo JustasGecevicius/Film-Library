@@ -6,6 +6,8 @@ import {
   useActiveFriends,
   useFetchFriendLikedMovies,
   useFetchFriendLikedSeries,
+  useFetchFriendRatedMovies,
+  useFetchFriendRatedSeries,
 } from "features/friends/hooks";
 // Styles
 import { PosterDisplayFriends } from "features/displayPostersSection/components/PosterDisplayFriends";
@@ -15,19 +17,28 @@ export const Friends = () => {
   // Getting movies liked by Friends
   const friendLikedMovies = useFetchFriendLikedMovies();
   const friendLikedSeries = useFetchFriendLikedSeries();
+  const friendRatedMovies = useFetchFriendRatedMovies();
+  const friendRatedSeries = useFetchFriendRatedSeries();
   const activeFriends = useActiveFriends() as User[];
 
   return (
     <>
-      <SearchAreaFriends></SearchAreaFriends>      
+      <SearchAreaFriends></SearchAreaFriends>
       <div className="friendsWrapper">
-      <h2 className="typeName"> Movies </h2>
+        <h2 className="typeName"> Movies </h2>
         {friendLikedMovies && (
           <PosterDisplayMoviesSeries
             arr={friendLikedMovies}
             sectionName="Popular With Friends"
             type="movie"
-          ></PosterDisplayMoviesSeries>
+          />
+        )}
+        {friendRatedMovies.filteredMoviesList && (
+          <PosterDisplayMoviesSeries
+            arr={friendRatedMovies.filteredMoviesList}
+            sectionName="Rated by Friends"
+            type="series"
+          />
         )}
         <h2 className="typeName"> Series </h2>
         {friendLikedSeries && (
@@ -37,6 +48,14 @@ export const Friends = () => {
             type="series"
           />
         )}
+        {friendRatedSeries.filteredSeriesList &&
+          friendRatedSeries.filteredSeriesList.length !== 0 && (
+            <PosterDisplayMoviesSeries
+              arr={friendRatedSeries.filteredSeriesList}
+              sectionName="Rated by Friends"
+              type="series"
+            />
+          )}
         {activeFriends && (
           <PosterDisplayFriends
             users={activeFriends}

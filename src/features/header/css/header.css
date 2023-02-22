@@ -68,7 +68,6 @@
   align-items: center;
   background-color: white;
   border-radius: 1rem;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }

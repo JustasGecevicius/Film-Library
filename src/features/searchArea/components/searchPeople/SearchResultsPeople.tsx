@@ -1,5 +1,5 @@
 import { getConfig } from "features/config/api";
-import { useSearchMovies, useSearchPeople } from "features/searchArea/hooks";
+import { useSearchPeople } from "features/searchArea/hooks";
 import { SearchResultsPropsType } from "features/searchArea/types";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";

@@ -1,14 +1,6 @@
-// API
-import { getConfig } from "features/config/api";
-import { getMovieDataSearch } from "features/movies/api";
 // Hooks
-import { ChangeEvent, useState } from "react";
-import { useQuery } from "react-query";
-import { useDebounce } from "../../functions";
+import { useState } from "react";
 import { useFocus } from "../../hooks";
-// Components
-import { Link } from "react-router-dom";
-import { FoundSearch } from "../searchMoviesSeries/FoundSearch";
 // Styles
 import "features/searchArea/css/searchBar.css";
 import { SearchResultsPeople } from "./SearchResultsPeople";

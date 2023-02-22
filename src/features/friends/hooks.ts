@@ -12,10 +12,92 @@ import {
   fetchFriendLikedMoviesList,
   fetchFriendLikedSeriesList,
   fetchFriendRatedMoviesList,
+  fetchFriendRatedSeriesList,
   fetchFriends,
   fetchMoviesFromList,
   fetchSeriesFromList,
 } from "./functions";
+
+// SERIES RELATED HOOKS
+
+export const useFetchFriendLikedSeries = () => {
+  const { userInfo, db } = useFirebaseContext();
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 1800000
+  });
+
+  const { data: friendsList } = useQuery(
+    ["friends", userInfo, db],
+    () => {
+      return fetchFriends(userInfo, db);
+    },
+    {
+      enabled: !!userInfo && !!db,
+    }
+  );
+
+  const { data: seriesList } = useQuery(
+    ["likedSeriesList", friendsList, db],
+    () => {
+      return fetchFriendLikedSeriesList(friendsList, db);
+    },
+    {
+      enabled: !!friendsList && !!db,
+    }
+  );
+
+  const { data: filteredSeriesList } = useQuery(
+    ["filteredLikedSeries", seriesList, config],
+    () => {
+      return fetchSeriesFromList(seriesList, config);
+    },
+    {
+      enabled: !!seriesList && !!config,
+    }
+  );
+
+  return filteredSeriesList;
+};
+
+export const useFetchFriendRatedSeries = () => {
+  const { userInfo, db } = useFirebaseContext();
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 1800000
+  });
+
+  const { data: friendsList } = useQuery(
+    ["friends", userInfo, db],
+    () => {
+      return fetchFriends(userInfo, db);
+    },
+    {
+      enabled: !!userInfo && !!db,
+    }
+  );
+
+  const { data: seriesList } = useQuery(
+    ["ratedSeriesList", friendsList, db],
+    () => {
+      return fetchFriendRatedSeriesList(friendsList, db);
+    },
+    {
+      enabled: !!friendsList && !!db,
+    }
+  );
+
+  const { data: filteredSeriesList } = useQuery(
+    ["filteredRatedMovies", seriesList, config],
+    () => {
+      return fetchSeriesFromList(seriesList?.series, config);
+    },
+    {
+      enabled: !!seriesList && !!config,
+    }
+  );
+  return {filteredSeriesList, ratings : seriesList?.ratings};
+};
+
+// MOVIE RELATED HOOKS
 
 export const useFetchFriendLikedMovies = () => {
   const { userInfo, db } = useFirebaseContext();
@@ -91,49 +173,10 @@ export const useFetchFriendRatedMovies = () => {
       enabled: !!moviesList && !!config,
     }
   );
-  return [filteredMoviesList, moviesList?.ratings];
+  return {filteredMoviesList, ratings : moviesList?.ratings};
 };
 
-export const useFetchFriendLikedSeries = () => {
-  const { userInfo, db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
-  });
-
-  const { data: friendsList } = useQuery(
-    ["friends", userInfo, db],
-    () => {
-      return fetchFriends(userInfo, db);
-    },
-    {
-      enabled: !!userInfo && !!db,
-    }
-  );
-
-  const { data: seriesList } = useQuery(
-    ["likedSeriesList", friendsList, db],
-    () => {
-      return fetchFriendLikedSeriesList(friendsList, db);
-    },
-    {
-      enabled: !!friendsList && !!db,
-    }
-  );
-
-  const { data: filteredSeriesList } = useQuery(
-    ["filteredLikedSeries", seriesList, config],
-    () => {
-      return fetchSeriesFromList(seriesList, config);
-    },
-    {
-      enabled: !!seriesList && !!config,
-    }
-  );
-
-  return filteredSeriesList;
-};
-
-export const useFriendRatedSeries = () => {};
+// FRIEND RELATED HOOKS
 
 export const useActiveFriends = () => {
   const [friendsData, setFriendsData] =

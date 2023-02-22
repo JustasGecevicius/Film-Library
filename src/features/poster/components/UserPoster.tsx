@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-  PersonObject,
   UserPosterType,
 } from "../../displayPostersSection/types";
 

@@ -20,7 +20,7 @@ export const SearchResultsMovies = ({ query }: SearchResultsPropsType) => {
                 id={elem.id}
                 name={elem.title}
                 URL={`${config.images.base_url}${config.images.poster_sizes[5]}${elem.poster_path}`}
-              ></FoundSearch>}
+              />}
             </Link>
           );
         })

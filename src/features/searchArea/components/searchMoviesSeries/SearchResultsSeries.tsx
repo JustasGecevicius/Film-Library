@@ -16,11 +16,11 @@ export const SearchResultsSeries = ({ query } : SearchResultsPropsType) => {
         results.map((elem, index) => {
           return (
             <Link to={`/Film-Library/movie/${elem.id.toString()}`} key={index}>
-              <FoundSearch
+              {elem.poster_path && <FoundSearch
                 id={elem.id}
                 name={elem.name}
                 URL={`${config.images.base_url}${config.images.poster_sizes[5]}${elem.poster_path}`}
-              ></FoundSearch>
+              />}
             </Link>
           );
         })

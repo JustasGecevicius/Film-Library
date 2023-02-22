@@ -18,7 +18,7 @@ export const useDisplayName = () => {
   const { userInfo } = useFirebaseContext();
   useEffect(() => {
     if (!userInfo) return;
-    setDisplayName(userInfo["displayName"].split(" ").slice(0, -1).join("."));
+    setDisplayName(userInfo.displayName.split(" ").slice(0, -1).join("."));
 
   }, [userInfo]);
   return displayName;

@@ -15,13 +15,13 @@ export const searchAreaImageLinksFetch = async () => {
   const trendingMovies = await getPopular("movie");
   // creating the base url and
   const baseUrl =
-    config["images"]["base_url"] + config["images"]["backdrop_sizes"][3];
+    config.images.base_url + config.images.backdrop_sizes[3];
   // Array for the Image links
   const imageLinksArray: string[] = [];
   // Pushing the image links into the array
   trendingMovies.forEach((movie) => {
-    if (movie["backdrop_path"])
-      imageLinksArray.push(`${baseUrl}${movie["backdrop_path"]}`);
+    if (movie.backdrop_path)
+      imageLinksArray.push(`${baseUrl}${movie.backdrop_path}`);
   });
   return imageLinksArray;
 };

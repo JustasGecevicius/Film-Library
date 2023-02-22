@@ -1,16 +1,16 @@
 import { GetConfig } from "features/config/types";
 import { MovieObject } from "features/movies/types";
-import { Cast } from "features/people/types";
+import { PersonCast } from "features/people/types";
 
-export const filterCreditsCastInformation = (
+export const filterPersonCreditsCastInformation = (
   config: GetConfig,
-  cast: (Cast | undefined)[]
+  cast: (PersonCast | undefined)[]
 ) => {
   const array: MovieObject[] = [];
-  const baseUrl =
-    config["images"]["base_url"] + config["images"]["poster_sizes"][5];
+  const baseUrl = config.images.base_url + config.images.poster_sizes[5];
 
   cast.forEach((elem) => {
+    console.log(elem, "elem");
     if (!elem) return;
     const { title, release_date, poster_path, id } = elem;
 

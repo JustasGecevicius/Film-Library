@@ -28,8 +28,8 @@ export const SearchAreaMoviesSeries = () => {
       className="backgroundSearchImage"
       style={{ backgroundImage: `url(${links[index]})` }}
     >
-      <Header></Header>
-      <SearchBarMoviesSeries></SearchBarMoviesSeries>
+      <Header/>
+      <SearchBarMoviesSeries/>
     </div>
   );
 };

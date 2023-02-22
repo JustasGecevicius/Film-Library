@@ -12,11 +12,13 @@ import "pages/css/showMovie.css";
 // Hooks
 import {
   useBackdrop,
+  useMovieSeriesCast,
   useProductionCompanies,
   useRecommended,
 } from "features/showMovieAndSeries/hooks";
 import { useMovieData } from "features/movies/hooks";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
+import {PosterDisplayPeople} from "features/displayPostersSection/components/PosterDisplayPeople"
 
 export const ShowMovie = () => {
   // Getting the movie data, backdrop Images and production companies.
@@ -24,7 +26,8 @@ export const ShowMovie = () => {
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);
   const recommendations = useRecommended(movieData?.id, 1, "movie");
-  console.log(movieData, "movieData");
+  const credits = useMovieSeriesCast("movie", movieData?.id);
+  console.log(credits);
 
   return (
     <>
@@ -61,6 +64,14 @@ export const ShowMovie = () => {
             sectionName="Recommended"
             type="movie"
             id={movieData?.id}
+          />
+        </div>
+      )}
+      {credits && credits.length !== 0 && (
+        <div className="recommendationDiv">
+          <PosterDisplayPeople
+            arr={credits}
+            sectionName="Cast"
           />
         </div>
       )}

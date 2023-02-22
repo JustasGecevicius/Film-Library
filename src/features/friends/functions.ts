@@ -5,9 +5,10 @@ import { filterMovieInformation } from "features/movies/functions";
 import { getSeriesData } from "features/series/api";
 import { filterSeriesInformation } from "features/series/functions";
 import { doc, Firestore, getDoc } from "firebase/firestore";
-import { Data, MoviesListRated } from "./types";
+import { Data, MoviesListRated, SeriesListRated } from "./types";
 
-// Fetches a list of friends from Firebase 
+// A FUNCTION TO FETCH THE LIST OF FRIENDS OF THE USER
+
 export const fetchFriends = async (
   userInfo: UserInfo | undefined,
   db: Firestore
@@ -18,24 +19,7 @@ export const fetchFriends = async (
   return data;
 };
 
-export const fetchFriendLikedMoviesList = async (
-  friendsList: Data | undefined,
-  db: Firestore
-) => {
-  if (!friendsList) return;
-  const moviesList: string[] = [];
-  const promiseArray = Object.values(friendsList).map((elem) =>
-    getDoc(doc(db, "likedMovies", elem))
-  );
-  const responses = await Promise.all(promiseArray);
-  responses.forEach((likedMoviesList) => {
-    const responseData = likedMoviesList.data() as Data;
-    Object.keys(responseData).forEach((likedMovie) => {
-      moviesList.push(likedMovie);
-    });
-  });
-  return moviesList;
-};
+// SERIES RELATED FUNCTIONS
 
 export const fetchFriendLikedSeriesList = async (
   friendsList: Data | undefined,
@@ -54,6 +38,70 @@ export const fetchFriendLikedSeriesList = async (
     });
   });
   return seriesList;
+};
+
+export const fetchFriendRatedSeriesList = async (
+  friendsList: Data | undefined,
+  db: Firestore
+) => {
+  if (!friendsList) return;
+  const seriesList: SeriesListRated = { ratings: [], series: [] };
+  const promiseArray = Object.values(friendsList).map((friend) =>
+    getDoc(doc(db, "ratedSeries", friend))
+  );
+  const response = await Promise.all(promiseArray);
+  response.forEach((ratedSeriesList) => {
+    const data = ratedSeriesList.data();
+    if (!data) return;
+    Object.keys(data).forEach((series_id) => {
+      seriesList.series.push(series_id);
+    });
+  });
+  response.forEach((ratedSeriesList) => {
+    const data = ratedSeriesList.data();
+    if (!data) return;
+    Object.values(data).forEach((rating) => {
+      seriesList.ratings.push(rating);
+    });
+  });
+  return seriesList;
+};
+
+export const fetchSeriesFromList = async (
+  list: string[] | undefined,
+  config: GetConfig | undefined
+) => {
+  if (!list || !config) return;
+  const promiseArray = list.map((elem) => {
+    const movieData = getSeriesData(elem);
+    return movieData;
+  });
+  const filteredResponse = filterSeriesInformation(
+    config,
+    await Promise.all(promiseArray)
+  );
+  return filteredResponse;
+};
+
+// MOVIES RELATED FUNCTIONS
+
+export const fetchFriendLikedMoviesList = async (
+  friendsList: Data | undefined,
+  db: Firestore
+) => {
+  if (!friendsList) return;
+  const moviesList: string[] = [];
+  const promiseArray = Object.values(friendsList).map((elem) =>
+    getDoc(doc(db, "likedMovies", elem))
+  );
+  const responses = await Promise.all(promiseArray);
+  responses.forEach((likedMoviesList) => {
+    const responseData = likedMoviesList.data() as Data;
+    Object.keys(responseData).forEach((likedMovie) => {
+      moviesList.push(likedMovie);
+    });
+  });
+  return moviesList;
 };
 
 export const fetchFriendRatedMoviesList = async (
@@ -99,18 +147,3 @@ export const fetchMoviesFromList = async (
   return filteredResponse;
 };
 
-export const fetchSeriesFromList = async (
-  list: string[] | undefined,
-  config: GetConfig | undefined
-) => {
-  if (!list || !config) return;
-  const promiseArray = list.map((elem) => {
-    const movieData = getSeriesData(elem);
-    return movieData;
-  });
-  const filteredResponse = filterSeriesInformation(
-    config,
-    await Promise.all(promiseArray)
-  );
-  return filteredResponse;
-};

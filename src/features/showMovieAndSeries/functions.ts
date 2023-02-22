@@ -5,17 +5,17 @@ import { ProductionCompany } from "./types";
 // A function that returns only the needed attributed of the fetched
 // production company information
 export const filterProductionCompanies = (
-  configuration: GetConfig,
+  config: GetConfig,
   array: ProductionCompany[]
 ) => {
   const baseURL =
-    configuration["images"]["base_url"] +
-    configuration["images"]["logo_sizes"][6];
+    config.images.base_url +
+    config.images.logo_sizes[6];
   const sortedArray: ProductionCompany[] = [];
 
   array.forEach((elem) => {
-    if (elem["logo_path"]) {
-      const logoURL = baseURL + elem["logo_path"];
+    if (elem.logo_path) {
+      const logoURL = baseURL + elem.logo_path;
       const newObj = { ...elem, logo_path: logoURL };
       sortedArray.push(newObj);
     }

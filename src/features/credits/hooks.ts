@@ -1,24 +1,21 @@
 
 import { getConfig } from "features/config/api";
 import { useFirebaseContext } from "features/context/FirebaseContext";
-import { getPersonCredits } from "features/credits/api";
+import { getCreditsOfMovieSeries } from "features/credits/api";
 import { checkLikeAndRate, fetchLiked, fetchRated } from "features/likeAndRate/functions";
-import { filterMovieInformation } from "features/movies/functions";
-import { MovieData, MovieObject } from "features/movies/types";
+import {  MovieObject } from "features/movies/types";
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
-import { filterCreditsCastInformation } from "./functions";
+import { filterPersonCreditsCastInformation } from "./functions";
 
-export const useCredits = (type : "movie" | "series") => {
+export const useMovieSeriesCredits = (type : "movie" | "series", id : number | string | undefined, page = 1) => {
   const [credits, setCredits] = useState<MovieObject[]>();
   const { userInfo, db } = useFirebaseContext();
-  const { id } = useParams();
   const { data: config } = useQuery("config", getConfig, {
     staleTime: 1800000
   });
   const {data} = useQuery(["credits", id, type], () => {
-    return getPersonCredits(id, type);
+    return getCreditsOfMovieSeries(id, type);
   }, {
     enabled:!!id && !!type
   })
@@ -35,7 +32,7 @@ export const useCredits = (type : "movie" | "series") => {
    // Filtering information and Checking for Like and Rate
    useEffect(() => {
     if (!config || !data || !liked || !rated) return;
-    const creditsData = filterCreditsCastInformation(config, data.cast)
+    const creditsData = filterPersonCreditsCastInformation(config, data.cast.slice(0, 19 * page))
     const likeAndRateCheckedData = checkLikeAndRate(
       creditsData,
       Object.keys(liked),
@@ -43,6 +40,6 @@ export const useCredits = (type : "movie" | "series") => {
     );
     setCredits(likeAndRateCheckedData);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, data, liked, rated]);
+  }, [config, data, liked, rated, page]);
   return credits;
 }

@@ -42,8 +42,8 @@ export const SearchAreaPeople = () => {
       className="backgroundSearchImage"
       style={{ backgroundImage: `url(${links[imageIndex]})` }}
     >
-      <Header></Header>
-      <SearchBarPeople></SearchBarPeople>
+      <Header/>
+      <SearchBarPeople/>
     </div>
   );
 };

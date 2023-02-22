@@ -1,25 +1,20 @@
-interface Props {
-  birthday: string;
-  deathday: string | null;
-  also_known_as: string[];
-  place_of_birth: string;
-}
+import { PersonalFactsType } from "features/people/types";
 
 export const PersonalFacts = ({
   birthday,
   also_known_as,
   deathday,
   place_of_birth,
-}: Props) => {
+}: PersonalFactsType) => {
   return (
     <div className="dataNumbers">
       <div className="dataNumbersWidth">
         <div className="dataNumbersSymbol">
           <p className="movieNumberSymbolText">{`Birthday | ${birthday}`}</p>
         </div>
-        {also_known_as.map((nickname) => {
+        {also_known_as.map((nickname, index) => {
           return (
-            <div className="dataNumbersSymbol">
+            <div className="dataNumbersSymbol" key={index}>
               <p className="movieNumberSymbolText">{`Known as | ${nickname}`}</p>
             </div>
           );

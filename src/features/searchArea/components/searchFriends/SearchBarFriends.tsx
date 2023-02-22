@@ -36,8 +36,8 @@ export const SearchBarFriends = () => {
       </div>
       <div className="searchResultsDisplay">
         {searchResults
-          ? searchResults.map((elem, index) => {
-              return focus ? (
+          && searchResults.map((elem, index) => {
+              return focus && (
                 <UserFound
                   key={index}
                   friendIndex={index}
@@ -45,10 +45,9 @@ export const SearchBarFriends = () => {
                   friendName={elem.friendName}
                   profileURL={elem.profileURL}
                   setIndexToRemove={setIndexToRemove}
-                ></UserFound>
-              ) : null;
-            })
-          : null}
+                />
+              )
+            })}
       </div>
     </div>
   );

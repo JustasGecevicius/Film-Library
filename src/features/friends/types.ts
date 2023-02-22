@@ -6,3 +6,8 @@ export interface MoviesListRated {
   ratings: string[];
   movies: string[];
 }
+
+export interface SeriesListRated {
+  ratings: string[];
+  series: string[];
+}

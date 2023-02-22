@@ -1,6 +1,5 @@
 // Base axios api
 import { api } from "features/services/axios";
-
 // Types
 import { GetMovies, MovieData } from "./types";
 
@@ -21,3 +20,5 @@ export const getMovieDataSearch = (searchString: string | undefined) => {
     return response.data.results;
   });
 };
+
+
