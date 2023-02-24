@@ -156,3 +156,13 @@
   background-repeat: no-repeat;
   height: 100px;
 }
+
+.trailerDiv {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+}
+.trailerDiv .trailer {
+  height: 500px;
+  width: 900px;
+}

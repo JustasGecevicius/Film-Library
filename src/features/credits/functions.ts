@@ -10,7 +10,6 @@ export const filterPersonCreditsCastInformation = (
   const baseUrl = config.images.base_url + config.images.poster_sizes[5];
 
   cast.forEach((elem) => {
-    console.log(elem, "elem");
     if (!elem) return;
     const { title, release_date, poster_path, id } = elem;
 

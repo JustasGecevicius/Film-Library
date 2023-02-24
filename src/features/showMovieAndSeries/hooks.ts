@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 // Functions
 import { filterProductionCompanies } from "./functions";
-import { getRecommendations } from "./api";
+import { getRecommendations, getWatchProviders } from "./api";
 import {
   checkLikeAndRate,
   fetchLiked,
@@ -153,7 +153,6 @@ export const useMovieSeriesCast = (
       enabled: !!type && !!id,
     }
   );
-  console.log(data, "getMovieSeriesCredits");
   useEffect(() => {
     if (!data) return;
     const filteredCredits = filterCastInformation(
@@ -165,3 +164,14 @@ export const useMovieSeriesCast = (
   }, [data]);
   return credits;
 };
+
+export const useWatchProviders = (id : number | string | undefined, type : "movie" | "series") => {
+  const [watchProviders, setWatchProviders] = useState();
+  const {data : config} = useQuery(["config"], getConfig);
+  const {data : watchProvidersData} = useQuery(["watchProviders", type, id], () => {
+    return getWatchProviders(id, type)
+  }, {
+    enabled:!!id && !!type,
+  })
+  useEffect (() => {console.log(watchProvidersData, id, "watchProv")},[watchProvidersData]);
+}

@@ -10,7 +10,6 @@ export const SearchResultsPeople = ({ query }: SearchResultsPropsType) => {
     staleTime: 1800000
   });
   const results = useSearchPeople(query, 700);
-  console.log(results);
   return (
     <>
       {results && config && (

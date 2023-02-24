@@ -16,13 +16,15 @@ import "css/app.css";
 import config from "./features/services/config";
 import { ComponentTest } from "pages/ComponentTest";
 import { ShowPerson } from "pages/ShowPerson";
+import { useCountry } from "features/location/hooks";
 
 
 
 const App: React.FC = () => {
   initializeApp(config);
   const location = useLocation();
-
+  //const locationCode = useCountry();
+  //console.log(locationCode);
   return (
     <div className="App">
       <Routes location={location} key={location.pathname}>

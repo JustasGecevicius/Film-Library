@@ -18,16 +18,15 @@ import {
 import { useSeriesData } from "features/series/hooks";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
+import { Trailer } from "features/showMovieAndSeries/components/Trailer";
 
 export const ShowSeries = () => {
-
   // Getting series data, backdrop images and the production companies
   const seriesData = useSeriesData();
   const backdropImages = useBackdrop(seriesData);
   const productionCompanies = useProductionCompanies(seriesData);
   const recommendations = useRecommended(seriesData?.id, 1, "series");
   const credits = useMovieSeriesCast("series", seriesData?.id);
-  console.log(credits, "credits");
   return (
     <>
       {backdropImages && seriesData ? (
@@ -56,6 +55,9 @@ export const ShowSeries = () => {
           ) : null}
         </>
       ) : null}
+       {seriesData && (
+        <Trailer name={seriesData?.name} year={seriesData.first_air_date} />
+      )}
       {recommendations && (
         <div className="recommendationDiv">
           <PosterDisplayMoviesSeries

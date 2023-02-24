@@ -10,6 +10,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 // Types
 import { ContainerProps, Context, UserInfo } from "./types";
+import { useQuery } from "react-query";
+
 
   // Create Firebase and User Context
 export const FirebaseContext = createContext<Context | undefined>(undefined);
@@ -19,9 +21,10 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
   const app = initializeApp(config);
   const db = getFirestore(app);
 
+  
+  //const {data : location} = useQuery(["location"], getCurrentPosition)
   // User information state
   const [userInfo, setUserInfo] = useState<UserInfo>();
-
   // Initializing firebase auth
   useEffect(() => {
     function initFirebaseAuth() {
@@ -29,6 +32,7 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
       onAuthStateChanged(getAuth(), authStateObserver);
     }
     const authStateObserver = (user: User | null) => {
+      
       if (user) {
         // Getting user Details
         const { displayName, photoURL : profileURL, uid, email } = user;

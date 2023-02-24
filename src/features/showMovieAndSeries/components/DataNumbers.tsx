@@ -3,6 +3,7 @@
 import { DataNumbersType } from "features/showMovieAndSeries/types";
 // Functions
 import { symbolChecker } from "../functions";
+import _ from "lodash";
 
 export const DataNumbers = ({
   budget,
@@ -20,8 +21,8 @@ export const DataNumbers = ({
   const fixedNumbers = [
     ["Budget", fixedBudget],
     ["Revenue", fixedRevenue],
-    ["Runtime", runtime],
-    ["Average", voteAverage],
+    ["Runtime", `${runtime} minutes`],
+    ["Average Rating", voteAverage ? _.round(voteAverage, 2) : undefined],
     ["Last Episode", last_air_date],
     ["Episodes", number_of_episodes],
     ["Seasons", number_of_seasons],

@@ -29,7 +29,6 @@ export const ShowPerson = () => {
   const seriesCredits = useMovieSeriesCredits("series", id);
 
   const backdrop = useBackdropPerson(person);
-  console.log(movieCredits, seriesCredits);
   return (
     <>
       {backdrop && person && (

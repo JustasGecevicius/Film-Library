@@ -7,11 +7,13 @@ import { getMovieDataSearch } from "features/movies/api";
 // Firestore
 import { collection, getDocs } from "firebase/firestore";
 // Functions
-import { removeFriendFromDOM, searchUsers, useDebounce } from "./functions";
+import { removeFriendFromDOM, searchUsers } from "./functions";
 // Types
 import { Friend } from "./types";
 import { getSeriesDataSearch } from "features/series/api";
 import { getPeopleDataSearch } from "features/people/api";
+import { getConfig } from "features/config/api";
+import { getPopular } from "features/popular/api";
 
 // A function to close to search results window if the user clicks outside it
 export const useFocus = () => {
@@ -125,4 +127,45 @@ export const useSearchPeople = (query: string, time: number) => {
     }
   );
   return searchResultsSeries
+}
+
+export const useSearchAreaImages = () => {
+  // fetching config and movie data
+  const [imageLinks, setImageLinks] = useState<string[]>([]);
+  const {data : config} = useQuery(["config"], getConfig)
+  const {data : trendingMovies} = useQuery(["trendingMovies"], () => getPopular("movie"));
+  // creating the base url and
+  useEffect (() => {
+    if(!config || !trendingMovies) return;
+    const baseUrl =
+    config.images.base_url + config.images.backdrop_sizes[3];
+    trendingMovies.forEach((movie) => {
+      if (movie.backdrop_path)
+      setImageLinks((prev) => {
+        const arr = [...prev];
+        arr.push(`${baseUrl}${movie.backdrop_path}`)
+        return arr
+      })
+    });
+  },[config, trendingMovies]);
+
+  return imageLinks;
+};
+
+// A function used to stop the website from fetching immediately
+// when the user changes the imput
+export function useDebounce(value: string, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
 }

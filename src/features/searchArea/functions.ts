@@ -8,41 +8,8 @@ import { Friend } from "./types";
 import { doc, DocumentData, Firestore, QuerySnapshot, updateDoc } from "firebase/firestore";
 // Hooks
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
-export const searchAreaImageLinksFetch = async () => {
-  // fetching config and movie data
-  const config = await getConfig();
-  const trendingMovies = await getPopular("movie");
-  // creating the base url and
-  const baseUrl =
-    config.images.base_url + config.images.backdrop_sizes[3];
-  // Array for the Image links
-  const imageLinksArray: string[] = [];
-  // Pushing the image links into the array
-  trendingMovies.forEach((movie) => {
-    if (movie.backdrop_path)
-      imageLinksArray.push(`${baseUrl}${movie.backdrop_path}`);
-  });
-  return imageLinksArray;
-};
-
-// A function used to stop the website from fetching immediately
-// when the user changes the imput
-export function useDebounce(value: string, delay: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
-}
 // A function to search for certain users
 export const searchUsers = (allUsers : QuerySnapshot<DocumentData>, searchString : string) => {
   const matchedUsers : Friend[] = [];

@@ -1,6 +1,7 @@
 // Types
 import { GetConfig } from "features/config/types";
 import { ProductionCompany } from "./types";
+import _ from "lodash";
 
 // A function that returns only the needed attributed of the fetched
 // production company information
@@ -8,9 +9,7 @@ export const filterProductionCompanies = (
   config: GetConfig,
   array: ProductionCompany[]
 ) => {
-  const baseURL =
-    config.images.base_url +
-    config.images.logo_sizes[6];
+  const baseURL = config.images.base_url + config.images.logo_sizes[6];
   const sortedArray: ProductionCompany[] = [];
 
   array.forEach((elem) => {
@@ -26,40 +25,13 @@ export const filterProductionCompanies = (
 // A function the reduces the number size to thousands, million and billions
 // and makes it more readeable
 export const symbolChecker = (number: number) => {
-  let value: string;
-  switch (Math.round(number).toString().length) {
-    case 3:
-      value = number.toString();
-      break;
-    case 4:
-      value = Math.round(number / 1000).toString() + "k";
-      break;
-    case 5:
-      value = Math.round(number / 1000).toString() + "k";
-      break;
-    case 6:
-      value = Math.round(number / 1000).toString() + "k";
-      break;
-    case 7:
-      value = Math.round(number / 1000000).toString() + "m";
-      break;
-    case 8:
-      value = Math.round(number / 1000000).toString() + "m";
-      break;
-    case 9:
-      value = Math.round(number / 1000000).toString() + "m";
-      break;
-    case 10:
-      value = Math.round(number / 1000000000).toString() + "b";
-      break;
-    case 11:
-      value = Math.round(number / 1000000000).toString() + "b";
-      break;
-    case 12:
-      value = Math.round(number / 1000000000).toString() + "b";
-      break;
-    default:
-      value = "0";
+  if (_.inRange(number, 1000, 999999)) {
+    return Math.round(number / 1000).toString() + "k";
+  } 
+  else if (_.inRange(number, 1000000, 999999999)) {
+    return Math.round(number / 1000000).toString() + "m";
+  } 
+  else if (_.inRange(number, 1000000000, 999999999999)) {
+    return Math.round(number / 1000000000).toString() + "b";
   }
-  return value;
 };

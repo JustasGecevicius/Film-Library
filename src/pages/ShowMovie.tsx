@@ -15,10 +15,12 @@ import {
   useMovieSeriesCast,
   useProductionCompanies,
   useRecommended,
+  useWatchProviders,
 } from "features/showMovieAndSeries/hooks";
 import { useMovieData } from "features/movies/hooks";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
-import {PosterDisplayPeople} from "features/displayPostersSection/components/PosterDisplayPeople"
+import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
+import { Trailer } from "features/showMovieAndSeries/components/Trailer";
 
 export const ShowMovie = () => {
   // Getting the movie data, backdrop Images and production companies.
@@ -27,7 +29,7 @@ export const ShowMovie = () => {
   const productionCompanies = useProductionCompanies(movieData);
   const recommendations = useRecommended(movieData?.id, 1, "movie");
   const credits = useMovieSeriesCast("movie", movieData?.id);
-  console.log(credits);
+  const watchProviders = useWatchProviders(movieData?.id, "movie");
 
   return (
     <>
@@ -43,9 +45,7 @@ export const ShowMovie = () => {
           <Genres genres={movieData.genres}></Genres>
           <LikeAndRate title={movieData.title} type="movie" />
           <Description overview={movieData.overview} />
-          {movieData.homepage && (
-            <VisitHomepage link={movieData.homepage} />
-          )}
+          {movieData.homepage && <VisitHomepage link={movieData.homepage} />}
           <DataNumbers
             budget={movieData.budget}
             revenue={movieData.revenue}
@@ -56,6 +56,9 @@ export const ShowMovie = () => {
             <ProducedBy productionCompanies={productionCompanies} />
           )}
         </>
+      )}
+      {movieData && (
+        <Trailer name={movieData?.title} year={movieData.release_date} />
       )}
       {recommendations && recommendations.length !== 0 && (
         <div className="recommendationDiv">
@@ -69,10 +72,7 @@ export const ShowMovie = () => {
       )}
       {credits && credits.length !== 0 && (
         <div className="recommendationDiv">
-          <PosterDisplayPeople
-            arr={credits}
-            sectionName="Cast"
-          />
+          <PosterDisplayPeople arr={credits} sectionName="Cast" />
         </div>
       )}
     </>

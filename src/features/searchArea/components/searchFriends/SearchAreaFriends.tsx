@@ -7,17 +7,14 @@ import { SearchBarFriends } from "features/searchArea/components/searchFriends/S
 // Styles
 import "features/searchArea/css/searchArea.css";
 // Functions
-import { searchAreaImageLinksFetch } from "features/searchArea/functions";
+import { useSearchAreaImages } from "features/searchArea/hooks";
 
 export const SearchAreaFriends = () => {
   // State for the index of the image that switches on a timer
   const [imageIndex, setImageIndex] = useState<number>(0);
 
   // Fetched links from firebase for the top movies
-  const { data: links } = useQuery(
-    "backgroundImages",
-    searchAreaImageLinksFetch
-  );
+const links = useSearchAreaImages();
 
   // useEffect that sets the interval for image changes
   const calledOnce = useRef(false);

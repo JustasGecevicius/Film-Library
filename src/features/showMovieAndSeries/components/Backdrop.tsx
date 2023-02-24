@@ -1,5 +1,6 @@
 // Types
 import { MovieBackdropType } from "features/movies/types";
+import { Link } from "react-router-dom";
 
 export const Backdrop = ({ backdrop, poster, title } : MovieBackdropType) => {
     return (
@@ -8,6 +9,9 @@ export const Backdrop = ({ backdrop, poster, title } : MovieBackdropType) => {
             style={{ backgroundImage: `url(${backdrop})` }}
         >
             <div className="width">
+                <Link to="/Film-Library/Explore">
+                <button className="homeButton">Home</button>
+                </Link>
                 <div className="posterWrapper">
                     <div
                         className="poster"

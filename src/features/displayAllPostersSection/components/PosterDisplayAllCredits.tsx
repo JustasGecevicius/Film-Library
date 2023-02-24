@@ -9,7 +9,6 @@ interface Props {
 
 export const PosterDisplayAllCredits = ({ type, id, page }: Props) => {
   const results = useMovieSeriesCredits(type, id, page);
-  console.log(results, page);
   return results ? (
     <div className="movieHolderAll">
       {results.map((elem, index) => {

@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import "pages/css/showAll.css";
 import { PosterDisplayAllRecommended } from "features/displayAllPostersSection/components/PosterDisplayAllRecommended";
 import { PosterDisplayAllCredits } from "features/displayAllPostersSection/components/PosterDisplayAllCredits";
+import { useSearchAreaImages } from "features/searchArea/hooks";
 
 interface Params {
   section: "Top Rated" | "Popular" | "Recommended" | "Credits" | undefined;
@@ -15,12 +16,12 @@ interface Params {
 
 export const ShowAll = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  const links = useSearchAreaImages();
   const { section, type, id } = useParams<keyof Params>() as Params;
-  console.log(section);
 
   return (
     <div className="showAll">
-      <SearchAreaMoviesSeries />
+      <SearchAreaMoviesSeries links={links} />
       <div className="posterDisplayAllWrapper">
         <h2 className="sectionName">{`${section} ${
           type === "movie" ? "movies" : "series"

@@ -1,6 +1,14 @@
-import axios from "axios"
-const api = axios.create({
+import axios from "axios";
+
+export const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
 });
 
-export {api};
+export const youtubeApi = axios.create({
+  baseURL: "https://youtube.googleapis.com/youtube/v3/",
+})
+
+
+
+
+

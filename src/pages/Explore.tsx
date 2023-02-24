@@ -6,6 +6,8 @@ import "pages/css/explore.css";
 // Hooks
 import { useTop } from "features/topRated/hooks";
 import { usePopular } from "features/popular/hooks";
+import { BounceLoader } from "react-spinners";
+import { useSearchAreaImages } from "features/searchArea/hooks";
 
 export const Explore = () => {
   // Getting all the movie information to display
@@ -13,52 +15,44 @@ export const Explore = () => {
   const trendingMovies = usePopular("movie");
   const topSeries = useTop("series");
   const popularSeries = usePopular("series");
+  const links = useSearchAreaImages();
 
-  return (<>
-    <SearchAreaMoviesSeries />
-    <div className="explore">      
-      <h2 className="typeName">Movies</h2>
-      {trendingMovies ? (
-        <PosterDisplayMoviesSeries
-          arr={trendingMovies}
-          sectionName="Popular"
-          type="movie"
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
+  return (
+    <>
+      {topMovies && trendingMovies && topSeries && popularSeries && links ? (
+        <>
+          <SearchAreaMoviesSeries links={links}/>
+          <div className="explore">
+            <h2 className="typeName">Movies</h2>
 
-      {topMovies ? (
-        <PosterDisplayMoviesSeries
-          arr={topMovies}
-          sectionName="Top Rated"
-          type="movie"
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
+            <PosterDisplayMoviesSeries
+              arr={trendingMovies}
+              sectionName="Popular"
+              type="movie"
+            />
 
-      <h2 className="typeName">Series</h2>
-      {popularSeries ? (
-        <PosterDisplayMoviesSeries
-          arr={popularSeries}
-          sectionName="Popular"
-          type="series"
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
+            <PosterDisplayMoviesSeries
+              arr={topMovies}
+              sectionName="Top Rated"
+              type="movie"
+            />
 
-      {topSeries ? (
-        <PosterDisplayMoviesSeries
-          arr={topSeries}
-          sectionName="Top Rated"
-          type="series"
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+            <h2 className="typeName">Series</h2>
+
+            <PosterDisplayMoviesSeries
+              arr={popularSeries}
+              sectionName="Popular"
+              type="series"
+            />
+
+            <PosterDisplayMoviesSeries
+              arr={topSeries}
+              sectionName="Top Rated"
+              type="series"
+            />
+          </div>
+        </>
+      ) : <BounceLoader color="rgba(0, 0, 0, 1)" />}
     </>
   );
 };
