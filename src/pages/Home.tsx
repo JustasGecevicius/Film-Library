@@ -17,8 +17,7 @@ export const Home = () => {
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="backgroundCover">
-        {" "}
-        <Header></Header>
+        <Header/>
       </div>
       <div className="textWrap">
         {displayName ? (

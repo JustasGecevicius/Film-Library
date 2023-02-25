@@ -92,18 +92,33 @@ export const fetchLikedPeople = async (
 
 export const rate = (
   db: Firestore,
-  movieId: string,
+  id: string,
   userId: string,
-  rating: string | undefined
+  rating: string | undefined,
+  type : "movie" | "series"
 ) => {
   // Delete or add the movie based on rate state
-  if (rating === undefined) {
-    updateDoc(doc(db, "ratedMovies", `${userId}`), {
-      [movieId]: deleteField(),
-    });
-    return;
+  console.log(rating, "rating");
+  if(type === "movie"){
+    if (rating === undefined) {
+      updateDoc(doc(db, "ratedMovies", `${userId}`), {
+        [id]: deleteField(),
+      });
+      return;
+    }
+    updateDoc(doc(db, "ratedMovies", `${userId}`), { [id]: rating });
   }
-  updateDoc(doc(db, "ratedMovies", `${userId}`), { [movieId]: rating });
+  // Delete or add the series based on rate state
+  else if(type === "series"){
+    if (rating === undefined) {
+      updateDoc(doc(db, "ratedSeries", `${userId}`), {
+        [id]: deleteField(),
+      });
+      return;
+    }
+    updateDoc(doc(db, "ratedSeries", `${userId}`), { [id]: rating });
+  }
+
 };
 
 // Returns the Id if it was rated or undefined

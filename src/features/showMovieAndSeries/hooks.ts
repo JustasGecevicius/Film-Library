@@ -23,6 +23,7 @@ import { SingularPerson } from "features/people/types";
 import { filterCastInformation } from "features/people/functions";
 import { PersonObject } from "features/displayPostersSection/types";
 import { getCreditsOfPerson } from "features/credits/api";
+import { useCountry } from "features/location/hooks";
 
 // A hook to get the backdrop and poster images
 // for the showMovie and showSeries pages
@@ -167,11 +168,17 @@ export const useMovieSeriesCast = (
 
 export const useWatchProviders = (id : number | string | undefined, type : "movie" | "series") => {
   const [watchProviders, setWatchProviders] = useState();
-  const {data : config} = useQuery(["config"], getConfig);
   const {data : watchProvidersData} = useQuery(["watchProviders", type, id], () => {
     return getWatchProviders(id, type)
   }, {
     enabled:!!id && !!type,
   })
-  useEffect (() => {console.log(watchProvidersData, id, "watchProv")},[watchProvidersData]);
+  const country = useCountry();
+  useEffect (() => {console.log(watchProvidersData, country, "watchProv");
+  if(watchProvidersData && country){
+    setWatchProviders(watchProvidersData.results[country])
+  }
+},[watchProvidersData, country]);
+return watchProviders
 }
+

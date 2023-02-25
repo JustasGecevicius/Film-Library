@@ -9,7 +9,9 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 export const useBackground = () => {
   const storage = getStorage();
   const pathRef = ref(storage, "background.jpg");
-  const {data : background} = useQuery(["link", pathRef], () => getDownloadURL(pathRef))
+  const {data : background} = useQuery(["link"], () => getDownloadURL(pathRef), {
+    staleTime: Infinity
+  })
   return background
 }
 // A hook that returns only the first name of the user

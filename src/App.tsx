@@ -12,19 +12,18 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 // Styles
 import "css/app.css";
-// Config 
+// Config
 import config from "./features/services/config";
 import { ComponentTest } from "pages/ComponentTest";
 import { ShowPerson } from "pages/ShowPerson";
 import { useCountry } from "features/location/hooks";
-
-
+import { useFirebaseContext } from "features/context/FirebaseContext";
+import {ReactQueryDevtools} from "react-query/devtools";
 
 const App: React.FC = () => {
   initializeApp(config);
   const location = useLocation();
-  //const locationCode = useCountry();
-  //console.log(locationCode);
+
   return (
     <div className="App">
       <Routes location={location} key={location.pathname}>
@@ -36,9 +35,13 @@ const App: React.FC = () => {
         <Route path="/Film-Library/movie/:id" element={<ShowMovie />} />
         <Route path="/Film-Library/series/:id" element={<ShowSeries />} />
         <Route path="/Film-Library/all/:type/:section" element={<ShowAll />} />
-        <Route path="/Film-Library/all/:type/:section/:id" element={<ShowAll />} />
+        <Route
+          path="/Film-Library/all/:type/:section/:id"
+          element={<ShowAll />}
+        />
         <Route path="/Film-Library/person/:id" element={<ShowPerson />} />
       </Routes>
+      <ReactQueryDevtools/>
     </div>
   );
 };

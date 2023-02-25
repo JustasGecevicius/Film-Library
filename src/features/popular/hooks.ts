@@ -16,18 +16,20 @@ export const usePopular = (type: "movie" | "series", pageNumber : number = 1) =>
   const { userInfo, db } = useFirebaseContext();
   // Data Query
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: Infinity
   });
   const { data } = useQuery(["popularData", type, pageNumber], () => {
     return getPopular(type, pageNumber);
+  }, {
+    staleTime: Infinity
   });
   const { data: liked } = useQuery(
-    ["liked", userInfo, db, type],
+    ["liked", type],
     () => fetchLiked(db, userInfo?.uid, type),
     { enabled: !!userInfo && !!db }
   );
   const { data: rated } = useQuery(
-    ["rated", userInfo, db, type],
+    ["rated", type],
     () => fetchRated(db, userInfo?.uid, type),
     { enabled: !!userInfo && !!db }
   );

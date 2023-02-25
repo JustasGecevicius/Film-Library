@@ -8,6 +8,7 @@ export interface Context {
   setUserInfo?: React.Dispatch<React.SetStateAction<UserInfo | undefined>>;
 }
 export interface UserInfo {
+  countryCode?: string;
   displayName: string;
   profileURL: string;
   uid: string;

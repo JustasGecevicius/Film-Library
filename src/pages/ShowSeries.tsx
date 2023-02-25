@@ -27,12 +27,14 @@ export const ShowSeries = () => {
   const productionCompanies = useProductionCompanies(seriesData);
   const recommendations = useRecommended(seriesData?.id, 1, "series");
   const credits = useMovieSeriesCast("series", seriesData?.id);
+  console.log("showSeries");
+
   return (
     <>
       {backdropImages && seriesData ? (
         <Backdrop
-        backdrop={backdropImages.backdropURL}
-        poster={backdropImages.posterURL}
+          backdrop={backdropImages.backdropURL}
+          poster={backdropImages.posterURL}
           title={seriesData.name}
         />
       ) : null}
@@ -41,9 +43,7 @@ export const ShowSeries = () => {
           <Genres genres={seriesData.genres}></Genres>
           <LikeAndRate title={seriesData.name} type="series" />
           <Description overview={seriesData.overview} />
-          {seriesData.homepage && (
-            <VisitHomepage link={seriesData.homepage} />
-          )}
+          {seriesData.homepage && <VisitHomepage link={seriesData.homepage} />}
           <DataNumbers
             voteAverage={seriesData.vote_average}
             last_air_date={seriesData.last_air_date}
@@ -55,7 +55,7 @@ export const ShowSeries = () => {
           ) : null}
         </>
       ) : null}
-       {seriesData && (
+      {seriesData && (
         <Trailer name={seriesData?.name} year={seriesData.first_air_date} />
       )}
       {recommendations && (
@@ -70,10 +70,7 @@ export const ShowSeries = () => {
       )}
       {credits && credits.length !== 0 && (
         <div className="recommendationDiv">
-          <PosterDisplayPeople
-            arr={credits}
-            sectionName="Cast"
-          />
+          <PosterDisplayPeople arr={credits} sectionName="Cast" />
         </div>
       )}
     </>

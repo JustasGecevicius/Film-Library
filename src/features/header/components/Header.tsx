@@ -7,7 +7,9 @@ import { useQuery } from "react-query";
 
 export const Header = () => {
   const { userInfo } = useFirebaseContext();
-  const { data } = useQuery("icons", fetchHeaderIcons);
+  const { data } = useQuery("icons", fetchHeaderIcons, {
+    staleTime: Infinity
+  });
   
   return (
     <>

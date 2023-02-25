@@ -37,7 +37,7 @@ export const Friends = () => {
           <PosterDisplayMoviesSeries
             arr={friendRatedMovies.filteredMoviesList}
             sectionName="Rated by Friends"
-            type="series"
+            type="movie"
           />
         )}
         <h2 className="typeName"> Series </h2>

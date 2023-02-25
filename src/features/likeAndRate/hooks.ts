@@ -1,4 +1,7 @@
+import { signal } from "@preact/signals-react";
 import { useFirebaseContext } from "features/context/FirebaseContext";
+import { UserInfo } from "features/context/types";
+import { Firestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -13,11 +16,11 @@ import { LikedRatedData } from "./types";
 
 export const useLiked = (
   likeButtonClicked: boolean,
-  type: "movie" | "series"
+  type: "movie" | "series",
+  id: string | undefined,
+  userInfo: UserInfo | undefined,
+  db: Firestore
 ) => {
-  // Getting Context and id from the Router
-  const { userInfo, db } = useFirebaseContext();
-  const { id } = useParams();
   // Liked state for this specific movie/series
   const [liked, setLiked] = useState<boolean | undefined>(undefined);
   // Gets the liked movies/series for this user
@@ -44,12 +47,12 @@ export const useLiked = (
 export const useRating = (
   rateButtonClick: boolean | undefined,
   rateInput: string | undefined,
-  type: "movie" | "series"
+  type: "movie" | "series",
+  id: string | undefined,
+  userInfo: UserInfo | undefined,
+  db: Firestore
 ) => {
-  const { userInfo, db } = useFirebaseContext();
-  const { id } = useParams();
-
-  const [rating, setRating] = useState<string>();
+  const [rating, setRating] = useState<string | undefined>(undefined);
 
   const { data: ratedData } = useQuery<LikedRatedData | undefined>(
     ["ratedData", db, userInfo?.uid],
@@ -61,6 +64,7 @@ export const useRating = (
     }
   );
   useEffect(() => {
+    //console.log(ratedData, id, "otherLoop");
     if (!ratedData || !id) return;
     setRating(checkRating(ratedData, id));
   }, [ratedData, id]);
@@ -69,6 +73,7 @@ export const useRating = (
     setRating(rateInput);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rateButtonClick]);
+  //console.log(rating, "rating");
   return rating;
 };
 
@@ -95,5 +100,5 @@ export const useLikedPerson = (likeButtonClicked: boolean) => {
     setLiked(!liked);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [likeButtonClicked]);
-  return liked
+  return liked;
 };

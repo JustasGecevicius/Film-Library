@@ -13,18 +13,24 @@ import "features/likeAndRate/css/likeAndRate.css";
 // Types
 import { LikeAndRateType } from "features/movies/types";
 
-
 export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
+  //console.log("likeAndRate");
   // Route Parameters and Context
   const { id } = useParams();
   const { db, userInfo } = useFirebaseContext();
+  //console.log(id, db, userInfo, "trio");
   // Like functionality
   const [likeButtonClicked, setlikeButtonClicked] = useState(false);
-  const liked = useLiked(likeButtonClicked, type);
+  //console.log(likeButtonClicked, "likeButton");
+  const liked = useLiked(likeButtonClicked, type, id, userInfo, db);
+  //console.log(liked, "liked");
   // Rate functionality
   const [rateInput, setRateInput] = useState<string | undefined>(undefined);
+  //console.log(rateInput, "rateInput");
   const [rateButtonClick, setRateButtonClick] = useState(false);
-  const rating = useRating(rateButtonClick, rateInput, type);
+  //console.log(rateButtonClick, "rateButtonClick");
+  const rating = useRating(rateButtonClick, rateInput, type, id, userInfo, db);
+  //console.log(rating, "rating");
 
   return userInfo && id ? (
     <div className="likeAndRate">
@@ -49,16 +55,20 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
         <button
           className="rateButton"
           onClick={() => {
-            rate(db, id, userInfo.uid, rateInput);
+            rate(db, id, userInfo.uid, rateInput, type);
             setRateButtonClick(!rateButtonClick);
           }}
         >
           Rate
         </button>
         <div className="movieNumbersSymbol">
-          <p className="movieNumberSymbolText">{`Your Rating | ${rating ? rating : "none"}`}</p>
+          <p className="movieNumberSymbolText">{`Your Rating | ${
+            rating ? rating : "none"
+          }`}</p>
         </div>
       </div>
     </div>
-  ) : <div className="placeholder"></div>;
+  ) : (
+    <div className="placeholder"></div>
+  );
 };

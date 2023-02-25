@@ -132,14 +132,18 @@ export const useSearchPeople = (query: string, time: number) => {
 export const useSearchAreaImages = () => {
   // fetching config and movie data
   const [imageLinks, setImageLinks] = useState<string[]>([]);
-  const {data : config} = useQuery(["config"], getConfig)
-  const {data : trendingMovies} = useQuery(["trendingMovies"], () => getPopular("movie"));
+  const {data : config} = useQuery(["config"], getConfig, {
+    staleTime: Infinity
+  })
+  const {data : popularData} = useQuery(["popularData", "movie", 1], () => getPopular("movie"), {
+    staleTime: Infinity
+  });
   // creating the base url and
   useEffect (() => {
-    if(!config || !trendingMovies) return;
+    if(!config || !popularData) return;
     const baseUrl =
     config.images.base_url + config.images.backdrop_sizes[3];
-    trendingMovies.forEach((movie) => {
+    popularData.forEach((movie) => {
       if (movie.backdrop_path)
       setImageLinks((prev) => {
         const arr = [...prev];
@@ -147,7 +151,7 @@ export const useSearchAreaImages = () => {
         return arr
       })
     });
-  },[config, trendingMovies]);
+  },[config, popularData]);
 
   return imageLinks;
 };
