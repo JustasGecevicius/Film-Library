@@ -8,7 +8,7 @@ import { filterPeopleInformation } from "./functions";
 export const usePopularPeople = () => {
   const [popularPeople, setPopularPeople] = useState<PersonObject[]>();
   const {data : config} = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
   useQuery(["people", config], getPopularPeople, {
     enabled: !!config,

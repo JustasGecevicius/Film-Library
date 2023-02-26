@@ -6,10 +6,23 @@ header {
   height: 600px;
   background-position: top;
   background-size: cover;
+  transition: 200;
 }
 
 .search {
-  position: relative;
-  bottom: calc(-100% + 100px);
+  width: 600px;
+  position: absolute;
   flex-direction: column;
+  transform: translate(-50%, -100%);
+  bottom: 50px;
+  left: 50%;
+  z-index: 50;
+}
+
+.nav.default-nav {
+  display: none;
+}
+
+.slide-container {
+  position: relative;
 }

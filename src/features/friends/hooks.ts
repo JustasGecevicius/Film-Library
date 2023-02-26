@@ -23,7 +23,7 @@ import {
 export const useFetchFriendLikedSeries = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
 
   const { data: friendsList } = useQuery(
@@ -62,7 +62,7 @@ export const useFetchFriendLikedSeries = () => {
 export const useFetchFriendRatedSeries = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
 
   const { data: friendsList } = useQuery(
@@ -102,7 +102,7 @@ export const useFetchFriendRatedSeries = () => {
 export const useFetchFriendLikedMovies = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
 
   const { data: friendsList } = useQuery(
@@ -141,7 +141,7 @@ export const useFetchFriendLikedMovies = () => {
 export const useFetchFriendRatedMovies = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
 
   const { data: friendsList } = useQuery(

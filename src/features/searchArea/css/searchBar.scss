@@ -8,41 +8,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    button {
-        background-color: #76bfff;
-        color: #f2f2f2;
-        float: right;
-        padding: 5px;
-        font-size: 12px;
-        height: 37.5px;
-        border: none;
-        border-radius: 1rem;
-        margin-left: 5px;
-        cursor: pointer;
-        img {
-            max-width: 25px;
-        }
-    }
     input[type="text"] {
-        padding-left: 1rem;
         font-size: 1.5rem;
-        width: 500px;
+        width: 100%;
         height: 37.5px;
         border-radius: 1rem;
         border: none;
     }
     .searchField{
+        padding: 0px 10px;
         display: flex;
-        max-width: 600px;
+        width: 100%;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         background-color: white;
-        column-gap: 0.5rem;
-        padding-right: 0.5rem;
         border-radius: 1rem;
+        position: relative;
+        z-index: 20;
+        .searchSwitch{
+            margin: 0px 10px;
+        }
     }
     .searchResultsDisplay{
+        padding-top: 20px;
         display: flex;        
         flex-direction: column;
         justify-content: flex-start;
@@ -50,8 +39,9 @@
         max-height: 300px;
         width: 600px;
         overflow-y: auto;
-        position: relative;
-        z-index: 50;
+        position: absolute;
+        top: 15px;
+        z-index: 10;
         background-color: white;
         .foundUser{
             width: 600px;

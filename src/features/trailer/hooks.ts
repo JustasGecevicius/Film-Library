@@ -3,11 +3,13 @@ import { useQuery } from "react-query";
 import { getTrailer } from "./api";
 
 export const useTrailer = (name : string, year : string) => {
+  //console.log("useTrailer");
   const [trailerLink, setTrailerLink] = useState<string>();
   const {data : trailer} = useQuery(["trailer", name, year], () => {
     return getTrailer(`${name} ${year.split("-")[0]}`);
   }, {
     enabled:!! name && !!year,
+    staleTime: 300000
   })
   useEffect (() => {
     if(!trailer) return;

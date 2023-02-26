@@ -1,31 +1,31 @@
-// Hooks
-import { useQuery } from "react-query";
 // Components
 import { Header } from "../../../header/components/Header";
 import { SearchBarMoviesSeries } from "./SearchBarMoviesSeries";
+import 'react-slideshow-image/dist/styles.css'
 // Styles
 import "features/searchArea/css/searchArea.css";
-// Functions
-
-import { useIndex } from "features/searchArea/hooks";
+import { Fade } from "react-slideshow-image";
 
 export interface Props {
   links : string[]
 }
 
 export const SearchAreaMoviesSeries = ({links} : Props) => {
-const index = useIndex(links, 500000);
 
   if (!links) {
     return <div>Loading...</div>;
   }
   
   return (
-    <div
-      className="backgroundSearchImage"
-      style={{ backgroundImage: `url(${links[index]})` }}
-    >
+    <div className="slide-container">
       <Header/>
+      <Fade>
+        {links.map((imageLink, index) => (
+          <div key={index}>
+            <img style={{ width: '100%' }} src={imageLink} alt="backgroundImage"/>
+          </div>
+        ))}
+      </Fade>
       <SearchBarMoviesSeries/>
     </div>
   );

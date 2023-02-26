@@ -7,7 +7,7 @@ import { FoundSearch } from "./FoundSearch";
 
 export const SearchResultsSeries = ({ query } : SearchResultsPropsType) => {
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
   const results = useSearchSeries(query, 700);
   return (

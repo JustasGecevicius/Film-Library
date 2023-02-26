@@ -7,7 +7,7 @@ import { FoundSearch } from "features/searchArea/components/searchMoviesSeries/F
 
 export const SearchResultsMovies = ({ query }: SearchResultsPropsType) => {
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
   const results = useSearchMovies(query, 700);
   return (

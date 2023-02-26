@@ -31,7 +31,7 @@ export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
   const [backdropAndPoster, setBackdropAndPoster] =
     useState<BackdropAndPoster>();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000,
+    staleTime: 300000,
   });
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
 
 export const useBackdropPerson = (data: SingularPerson | undefined) => {
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000,
+    staleTime: 300000,
   });
   const [poster, setPoster] = useState<string | undefined>();
   useEffect(() => {
@@ -75,7 +75,7 @@ export const useProductionCompanies = (
   const [productionCompanies, setProductionCompanies] =
     useState<ProductionCompany[]>();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000,
+    staleTime: 300000,
   });
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export const useRecommended = (
   const [recommended, setRecommended] = useState<MovieObject[]>();
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000,
+    staleTime: 300000,
   });
   const { data } = useQuery(
     ["recommendations", id, type, page],
@@ -143,7 +143,7 @@ export const useMovieSeriesCast = (
 ) => {
   const [credits, setCredits] = useState<PersonObject[]>();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000,
+    staleTime: 300000,
   });
   const { data } = useQuery(
     ["movieCredits", type, id],

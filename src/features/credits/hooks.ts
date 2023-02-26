@@ -12,7 +12,7 @@ export const useMovieSeriesCredits = (type : "movie" | "series", id : number | s
   const [credits, setCredits] = useState<MovieObject[]>();
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 1800000
+    staleTime: 300000
   });
   const {data} = useQuery(["credits", id, type], () => {
     return getCreditsOfMovieSeries(id, type);

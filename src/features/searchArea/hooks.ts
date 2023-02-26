@@ -133,10 +133,10 @@ export const useSearchAreaImages = () => {
   // fetching config and movie data
   const [imageLinks, setImageLinks] = useState<string[]>([]);
   const {data : config} = useQuery(["config"], getConfig, {
-    staleTime: Infinity
+    staleTime: 300000
   })
   const {data : popularData} = useQuery(["popularData", "movie", 1], () => getPopular("movie"), {
-    staleTime: Infinity
+    staleTime: 300000
   });
   // creating the base url and
   useEffect (() => {
