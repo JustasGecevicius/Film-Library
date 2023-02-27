@@ -1,4 +1,5 @@
 import { GetMovies } from "features/movies/types";
+import { WatchProvidersData } from "features/showMovieAndSeries/types"
 import { FetchedSeriesObject } from "features/series/types";
 import { api } from "features/services/axios";
 
@@ -19,11 +20,11 @@ export const getWatchProviders = async (
   id: number | string | undefined,
   type: "movie" | "series"
 ) => {
-  return await api(
+  return await api<WatchProvidersData>(
     type === "movie"
       ? `/movie/${id}/watch/providers?api_key=2e1d9e703d345ef35e7a54d9ac882a26`
       : `/tv/${id}/watch/providers?api_key=2e1d9e703d345ef35e7a54d9ac882a26`
   ).then((response) => {
-    return response.data
+    return response.data.results
   });
 };

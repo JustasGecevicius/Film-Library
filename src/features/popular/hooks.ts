@@ -25,6 +25,7 @@ export const usePopular = (
   const { data: config } = useQuery("config", getConfig, {
     staleTime: 300000,
   });
+  
   const { data } = useQuery(
     ["popularData", type, pageNumber],
     () => {

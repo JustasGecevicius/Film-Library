@@ -48,15 +48,15 @@ export const likePerson = (
   liked: boolean | undefined
 ) => {
   if (liked) {
-      updateDoc(doc(db, "likedPeople", `${userId}`), {
-        [person_id]: deleteField(),
-      });
-      return;
-    }
-    updateDoc(doc(db, "likedPeople", `${userId}`), { [person_id]: name });
+    updateDoc(doc(db, "likedPeople", `${userId}`), {
+      [person_id]: deleteField(),
+    });
+    return;
+  }
+  updateDoc(doc(db, "likedPeople", `${userId}`), { [person_id]: name });
 };
 
-export const checkLike = (array: string[], value: string | undefined) => {
+export const checkIfLiked = (array: string[], value: string | undefined) => {
   // Returns true or false depending on if the movie was found in the liked list or not
   if (!value) return;
   return array.includes(value.toString());
@@ -95,11 +95,12 @@ export const rate = (
   id: string,
   userId: string,
   rating: string | undefined,
-  type : "movie" | "series"
+  type: "movie" | "series"
 ) => {
+  console.log(rating, "rating");
   // Delete or add the movie based on rate state
   console.log(rating, "rating");
-  if(type === "movie"){
+  if (type === "movie") {
     if (rating === undefined) {
       updateDoc(doc(db, "ratedMovies", `${userId}`), {
         [id]: deleteField(),
@@ -109,7 +110,7 @@ export const rate = (
     updateDoc(doc(db, "ratedMovies", `${userId}`), { [id]: rating });
   }
   // Delete or add the series based on rate state
-  else if(type === "series"){
+  else if (type === "series") {
     if (rating === undefined) {
       updateDoc(doc(db, "ratedSeries", `${userId}`), {
         [id]: deleteField(),
@@ -118,7 +119,6 @@ export const rate = (
     }
     updateDoc(doc(db, "ratedSeries", `${userId}`), { [id]: rating });
   }
-
 };
 
 // Returns the Id if it was rated or undefined
@@ -157,7 +157,7 @@ export const checkLikeAndRate = (
   ratedMovies: DocumentData | undefined
 ) => {
   moviesList.forEach((elem) => {
-    elem.liked = checkLike(likedMovieIds, elem.id.toString());
+    elem.liked = checkIfLiked(likedMovieIds, elem.id.toString());
     if (!ratedMovies) return;
     elem.rating = checkRating(ratedMovies, elem.id.toString());
   });

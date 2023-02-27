@@ -3,7 +3,12 @@ import { getConfig } from "features/config/api";
 // Types
 import { MovieData, MovieObject } from "features/movies/types";
 import { FetchedSeriesObjectResults, SeriesData } from "features/series/types";
-import { BackdropAndPoster, ProductionCompany } from "./types";
+import {
+  BackdropAndPoster,
+  ProductionCompany,
+  WatchProvidersDataResultsProvider,
+  WatchProvidersDataResultsSingle,
+} from "./types";
 // Hooks
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -24,7 +29,8 @@ import { filterCastInformation } from "features/people/functions";
 import { PersonObject } from "features/displayPostersSection/types";
 import { getCreditsOfPerson } from "features/credits/api";
 import { useCountry } from "features/location/hooks";
-
+import _ from "lodash";
+import { GetConfig } from "features/config/types";
 // A hook to get the backdrop and poster images
 // for the showMovie and showSeries pages
 export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
@@ -161,24 +167,52 @@ export const useMovieSeriesCast = (
       data.cast.splice(0, 19)
     );
     setCredits(filteredCredits);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   return credits;
 };
 
-export const useWatchProviders = (id : number | string | undefined, type : "movie" | "series") => {
-  const [watchProviders, setWatchProviders] = useState();
-  const {data : watchProvidersData} = useQuery(["watchProviders", type, id], () => {
-    return getWatchProviders(id, type)
-  }, {
-    enabled:!!id && !!type,
+const filterWatchProviders = (
+  watchProviders: WatchProvidersDataResultsSingle,
+  config : GetConfig | undefined
+) => {
+  if(!config) return;
+  const baseUrl = `${config.images.base_url}${config.images.logo_sizes[6]}`;
+  const { buy, flatrate, rent } = watchProviders;
+  const sorted = _.sortBy({ buy, flatrate, rent }, [
+    (option) => {
+      return _.size(option);
+    },
+  ]);
+  const filteredArray = sorted[2].map((elem) => {
+    return {...elem, logo_path : `${baseUrl}${elem.logo_path}`}
   })
-  const country = useCountry();
-  useEffect (() => {console.log(watchProvidersData, country, "watchProv");
-  if(watchProvidersData && country){
-    setWatchProviders(watchProvidersData.results[country])
-  }
-},[watchProvidersData, country]);
-return watchProviders
-}
+  return filteredArray;
+};
 
+export const useWatchProviders = (
+  id: number | string | undefined,
+  type: "movie" | "series"
+) => {
+  const [watchProviders, setWatchProviders] = useState<WatchProvidersDataResultsProvider[]>();
+  const {data : config} = useQuery(["config"], getConfig);
+  const { data: watchProvidersData } = useQuery(
+    ["watchProviders", type, id],
+    () => {
+      return getWatchProviders(id, type);
+    },
+    {
+      enabled: !!id && !!type,
+    }
+  );
+  const country = useCountry();
+  useEffect(() => {
+    if (watchProvidersData && country && config) {
+      const filteredWatchProviders = filterWatchProviders(
+        watchProvidersData[country], config
+      );
+      setWatchProviders(filteredWatchProviders);
+    }
+  }, [watchProvidersData, country, config]);
+  return watchProviders;
+};

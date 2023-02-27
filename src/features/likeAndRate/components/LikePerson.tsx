@@ -1,8 +1,7 @@
-import { useFirebaseContext } from "features/context/FirebaseContext";
+import { useContextAndParams } from "features/utils/ContextAndParams";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import { likePerson } from "../functions";
-import { useLiked, useLikedPerson } from "../hooks";
+import { useLikedPerson } from "../hooks";
 
 interface Props {
   name: string;
@@ -10,8 +9,7 @@ interface Props {
 
 export const LikePerson = ({ name }: Props) => {
   // Route Parameters and Context
-  const { id } = useParams();
-  const { db, userInfo } = useFirebaseContext();
+  const {id, db, userInfo} = useContextAndParams();
   // Like functionality
   const [likeButtonClicked, setlikeButtonClicked] = useState(false);
   const liked = useLikedPerson(likeButtonClicked);

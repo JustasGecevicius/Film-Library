@@ -21,6 +21,8 @@ import { useMovieData } from "features/movies/hooks";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
 import { Trailer } from "features/showMovieAndSeries/components/Trailer";
+import { WatchProviders } from "features/showMovieAndSeries/components/WatchProviders";
+import { PosterDisplayWatchProviders } from "features/displayPostersSection/components/PosterDisplayWatchProviders";
 
 export const ShowMovie = () => {
   // Getting the movie data, backdrop Images and production companies.
@@ -29,9 +31,8 @@ export const ShowMovie = () => {
   const productionCompanies = useProductionCompanies(movieData);
   const recommendations = useRecommended(movieData?.id, 1, "movie");
   const credits = useMovieSeriesCast("movie", movieData?.id);
-  const watchProviders = useWatchProviders(movieData?.id, "movie");
-  //console.log(watchProviders, "watch");
-
+  const watch = useWatchProviders(movieData?.id, "movie");
+  console.log(watch);
   return (
     <>
       {backdropImages && movieData && (
@@ -53,10 +54,10 @@ export const ShowMovie = () => {
             runtime={movieData.runtime}
             voteAverage={movieData.vote_average}
           />
-          {productionCompanies && productionCompanies.length !== 0 && (
-            <ProducedBy productionCompanies={productionCompanies} />
-          )}
         </>
+      )}
+      {productionCompanies && productionCompanies.length !== 0 && (
+        <ProducedBy productionCompanies={productionCompanies} />
       )}
       {movieData && (
         <Trailer name={movieData?.title} year={movieData.release_date} />
@@ -74,6 +75,14 @@ export const ShowMovie = () => {
       {credits && credits.length !== 0 && (
         <div className="recommendationDiv">
           <PosterDisplayPeople arr={credits} sectionName="Cast" />
+        </div>
+      )}
+      {watch && (
+        <div className="recommendationDiv">
+          <PosterDisplayWatchProviders
+            arr={watch}
+            sectionName="Service Providers"
+          />
         </div>
       )}
     </>

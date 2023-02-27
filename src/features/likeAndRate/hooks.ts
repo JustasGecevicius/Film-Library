@@ -1,12 +1,11 @@
-import { signal } from "@preact/signals-react";
-import { useFirebaseContext } from "features/context/FirebaseContext";
 import { UserInfo } from "features/context/types";
+import { useContextAndParams } from "features/utils/ContextAndParams";
 import { Firestore } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+
 import {
-  checkLike,
+  checkIfLiked,
   checkRating,
   fetchLiked,
   fetchLikedPeople,
@@ -32,7 +31,7 @@ export const useLiked = (
   // Setting liked to false or true based on if this series/movies was found in the list for this specific user
   useEffect(() => {
     if (!likedData || !id) return;
-    setLiked(checkLike(Object.keys(likedData), id));
+    setLiked(checkIfLiked(Object.keys(likedData), id));
   }, [likedData, id]);
   // Setting liked based on the like button click
   useEffect(() => {
@@ -64,23 +63,21 @@ export const useRating = (
     }
   );
   useEffect(() => {
-    //console.log(ratedData, id, "otherLoop");
     if (!ratedData || !id) return;
     setRating(checkRating(ratedData, id));
   }, [ratedData, id]);
   useEffect(() => {
+    console.log(rateInput);
     if (!rateInput) return;
     setRating(rateInput);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rateButtonClick]);
-  //console.log(rating, "rating");
   return rating;
 };
 
 export const useLikedPerson = (likeButtonClicked: boolean) => {
   // Getting Context and id from the Router
-  const { userInfo, db } = useFirebaseContext();
-  const { id } = useParams();
+  const {id, userInfo, db} = useContextAndParams();
   // Liked state for this specific movie/series
   const [liked, setLiked] = useState<boolean | undefined>(undefined);
   // Gets the liked movies/series for this user
@@ -92,7 +89,7 @@ export const useLikedPerson = (likeButtonClicked: boolean) => {
   // Setting liked to false or true based on if this series/movies was found in the list for this specific user
   useEffect(() => {
     if (!likedData || !id) return;
-    setLiked(checkLike(Object.keys(likedData), id));
+    setLiked(checkIfLiked(Object.keys(likedData), id));
   }, [likedData, id]);
   // Setting liked based on the like button click
   useEffect(() => {
