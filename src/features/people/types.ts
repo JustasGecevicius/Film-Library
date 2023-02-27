@@ -5,17 +5,6 @@ export interface People {
   total_results: number;
 }
 
-export interface Person {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for: KnownFor[];
-  known_for_department: string;
-  name: string;
-  popularity: number;
-  profile_path: string;
-}
-
 export interface KnownFor {
   adult: boolean;
   backdrop_path: string;
@@ -31,6 +20,17 @@ export interface KnownFor {
   video: boolean;
   vote_average: number;
   vote_count: number;
+}
+
+export interface Person {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for: KnownFor[];
+  known_for_department: string;
+  name: string;
+  popularity: number;
+  profile_path: string;
 }
 
 export interface SingularPerson {

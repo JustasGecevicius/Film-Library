@@ -8,9 +8,9 @@ export const getPopularPeople = () =>
     return response.data.results;
   });
 
-export const getPerson = (person_id: string | undefined) => {
+export const getPerson = (personId: string | undefined) => {
   return api<SingularPerson>(
-    `/person/${person_id}?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US`
+    `/person/${personId}?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US`
   ).then((response) => {
     return response.data;
   });
@@ -24,3 +24,5 @@ export const getPeopleDataSearch = (searchString: string | undefined) => {
     return response.data.results;
   });
 };
+
+

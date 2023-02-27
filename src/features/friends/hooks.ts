@@ -20,10 +20,10 @@ import {
 
 // SERIES RELATED HOOKS
 
-export const useFetchFriendLikedSeries = () => {
+export const useFriendLikedSeries = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000
+    staleTime: 300000,
   });
 
   const { data: friendsList } = useQuery(
@@ -36,7 +36,7 @@ export const useFetchFriendLikedSeries = () => {
     }
   );
 
-  const { data: seriesList } = useQuery(
+  const { data: friendLikedSeriesList } = useQuery(
     ["likedSeriesList", friendsList, db],
     () => {
       return fetchFriendLikedSeriesList(friendsList, db);
@@ -46,23 +46,23 @@ export const useFetchFriendLikedSeries = () => {
     }
   );
 
-  const { data: filteredSeriesList } = useQuery(
-    ["filteredLikedSeries", seriesList, config],
+  const { data: seriesDataList } = useQuery(
+    ["filteredLikedSeries", friendLikedSeriesList, config],
     () => {
-      return fetchSeriesFromList(seriesList, config);
+      return fetchSeriesFromList(friendLikedSeriesList, config);
     },
     {
-      enabled: !!seriesList && !!config,
+      enabled: !!friendLikedSeriesList && !!config,
     }
   );
 
-  return filteredSeriesList;
+  return seriesDataList;
 };
 
 export const useFetchFriendRatedSeries = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000
+    staleTime: 300000,
   });
 
   const { data: friendsList } = useQuery(
@@ -94,7 +94,7 @@ export const useFetchFriendRatedSeries = () => {
       enabled: !!seriesList && !!config,
     }
   );
-  return {filteredSeriesList, ratings : seriesList?.ratings};
+  return { filteredSeriesList, ratings: seriesList?.ratings };
 };
 
 // MOVIE RELATED HOOKS
@@ -102,7 +102,7 @@ export const useFetchFriendRatedSeries = () => {
 export const useFetchFriendLikedMovies = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000
+    staleTime: 300000,
   });
 
   const { data: friendsList } = useQuery(
@@ -141,7 +141,7 @@ export const useFetchFriendLikedMovies = () => {
 export const useFetchFriendRatedMovies = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000
+    staleTime: 300000,
   });
 
   const { data: friendsList } = useQuery(
@@ -173,7 +173,7 @@ export const useFetchFriendRatedMovies = () => {
       enabled: !!moviesList && !!config,
     }
   );
-  return {filteredMoviesList, ratings : moviesList?.ratings};
+  return { filteredMoviesList, ratings: moviesList?.ratings };
 };
 
 // FRIEND RELATED HOOKS
@@ -202,7 +202,7 @@ export const useActiveFriends = () => {
       const arrayResult = await Promise.all(promiseArray);
 
       const newArr = arrayResult.map((elem) => {
-        return {...elem.data(), name : elem.id};
+        return { ...elem.data(), name: elem.id };
       });
       setFriendsData(newArr);
     };

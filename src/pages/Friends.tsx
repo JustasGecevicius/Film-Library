@@ -5,7 +5,7 @@ import { SearchAreaFriends } from "features/searchArea/components/searchFriends/
 import {
   useActiveFriends,
   useFetchFriendLikedMovies,
-  useFetchFriendLikedSeries,
+  useFriendLikedSeries,
   useFetchFriendRatedMovies,
   useFetchFriendRatedSeries,
 } from "features/friends/hooks";
@@ -16,7 +16,7 @@ import { User } from "features/displayPostersSection/types";
 export const Friends = () => {
   // Getting movies liked by Friends
   const friendLikedMovies = useFetchFriendLikedMovies();
-  const friendLikedSeries = useFetchFriendLikedSeries();
+  const friendLikedSeries = useFriendLikedSeries();
   const friendRatedMovies = useFetchFriendRatedMovies();
   const friendRatedSeries = useFetchFriendRatedSeries();
   const activeFriends = useActiveFriends() as User[];

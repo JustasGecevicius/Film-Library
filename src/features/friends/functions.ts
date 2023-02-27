@@ -72,8 +72,8 @@ export const fetchSeriesFromList = async (
   config: GetConfig | undefined
 ) => {
   if (!list || !config) return;
-  const promiseArray = list.map((elem) => {
-    const movieData = getSeriesData(elem);
+  const promiseArray = list.map((id) => {
+    const movieData = getSeriesData(id);
     return movieData;
   });
   const filteredResponse = filterSeriesInformation(

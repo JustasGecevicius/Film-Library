@@ -7,7 +7,7 @@ export const PosterDisplayPeople = ({
   arr,
   sectionName,
 }: PeoplePosterDisplayType) => {
-  return (
+  return <>{arr.length !==0 &&
     <div className="section">
       <div className="sectionInfo">
         <h2 className="sectionName">{sectionName}</h2>
@@ -28,5 +28,5 @@ export const PosterDisplayPeople = ({
         })}
       </div>
     </div>
-  );
+}</>
 };

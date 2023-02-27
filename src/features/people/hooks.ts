@@ -1,20 +1,60 @@
 import { getConfig } from "features/config/api";
+import { useFirebaseContext } from "features/context/FirebaseContext";
 import { PersonObject } from "features/displayPostersSection/types";
+import { fetchFriends } from "features/friends/functions";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { getPopularPeople } from "./api";
-import { filterPeopleInformation } from "./functions";
+import { fetchFriendLikedPeopleList, fetchPeopleFromList, filterPeopleInformation } from "./functions";
 
 export const usePopularPeople = () => {
   const [popularPeople, setPopularPeople] = useState<PersonObject[]>();
-  const {data : config} = useQuery("config", getConfig, {
-    staleTime: 300000
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 300000,
   });
   useQuery(["people", config], getPopularPeople, {
     enabled: !!config,
-    onSuccess:(data) => {
+    onSuccess: (data) => {
       setPopularPeople(filterPeopleInformation(config, data));
+    },
+  });
+  return popularPeople;
+};
+
+export const usePeopleLikedByFriends = () => {
+  const { userInfo, db } = useFirebaseContext();
+  const [people, setPeople] = useState<PersonObject[]>();
+  const { data: config } = useQuery("config", getConfig, {
+    staleTime: 300000,
+  });
+  const { data: friendsList } = useQuery(
+    ["friends", userInfo, db],
+    () => {
+      return fetchFriends(userInfo, db);
+    },
+    {
+      enabled: !!userInfo && !!db,
     }
-  })
-return popularPeople;
-}
+  );
+
+  const { data: friendLikedPeopleList } = useQuery(
+    ["likedPeople", friendsList, db],
+    () => {
+      return fetchFriendLikedPeopleList(friendsList, db);
+    },
+    {
+      enabled: !!friendsList && !!db,
+    }
+  );
+  const { data: peopleDataList } = useQuery(
+    ["filteredLikedSeries", friendLikedPeopleList, config],
+    () => {
+      return fetchPeopleFromList(friendLikedPeopleList, config);
+    },
+    {
+      enabled: !!friendLikedPeopleList && !!config,
+    }
+  );
+
+  return peopleDataList;
+};

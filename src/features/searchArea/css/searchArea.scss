@@ -23,4 +23,11 @@ header{
 
 .slide-container{
         position: relative;
+        max-height: 550px;
+        .react-slideshow-container{
+                max-height: 550px;
+                .react-slideshow-fadezoom-wrapper {
+                        max-height: 550px;
+                }
+        } 
 }
