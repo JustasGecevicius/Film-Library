@@ -4,13 +4,19 @@ import { signInUser, signOutUser } from "../../firebase/functions";
 import { fetchHeaderIcons } from "features/header/api";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useQuery } from "react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  solid,
+  brands,
+  icon,
+} from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export const Header = () => {
   const { userInfo } = useFirebaseContext();
   const { data } = useQuery("icons", fetchHeaderIcons, {
-    staleTime: Infinity
+    staleTime: Infinity,
   });
-  
+
   return (
     <>
       {data ? (
@@ -18,36 +24,32 @@ export const Header = () => {
           <header>
             <Link to="/Film-Library">
               <div className="logoDiv">
-                <img src={data.logo} alt="logoImage" className="logo" />
                 <h2>Discoverisms</h2>
               </div>
             </Link>
             <ul className="navigationButtons">
               <li className="navigationButton">
                 <Link to="/Film-Library/Explore" className="navigationLink">
-                  <img
-                    alt="exploreIcon.png"
+                <FontAwesomeIcon
+                    icon={solid("film")}
                     className="navigationImage"
-                    src={data.exploreIcon}
-                  ></img>
+                  />
                   Explore
                 </Link>
               </li>
               <li className="navigationButton">
                 <Link to="/Film-Library/People" className="navigationLink">
-                  <img
-                    src={data.cameraIcon}
-                    alt="cameraIcon"
+                <FontAwesomeIcon
+                    icon={solid("camera")}
                     className="navigationImage"
                   />
                   People
                 </Link>
               </li>
               <li className="navigationButton">
-                <Link to="/Film-Library/Friends" className="navigationLink">
-                  <img
-                    src={data.friendsIcon}
-                    alt="friendsIcon"
+                <Link to="/Film-Library/Friends" className="navigationLink">              
+                  <FontAwesomeIcon
+                    icon={solid("users")}
                     className="navigationImage"
                   />
                   Friends
@@ -55,9 +57,8 @@ export const Header = () => {
               </li>
               <li className="navigationButton">
                 <Link to="/Film-Library/UserProfile" className="navigationLink">
-                  <img
-                    src={data.userIcon}
-                    alt="userIcon"
+                <FontAwesomeIcon
+                    icon={solid("user")}
                     className="navigationImage"
                   />
                   Account
@@ -71,11 +72,13 @@ export const Header = () => {
               </label>
               {userInfo ? (
                 <div className="userInformationDisplay">
-                  {userInfo.profileURL ? <img
-                    alt="userImage"
-                    className="userImage"
-                    src={userInfo.profileURL}
-                  /> : null}
+                  {userInfo.profileURL ? (
+                    <img
+                      alt="userImage"
+                      className="userImage"
+                      src={userInfo.profileURL}
+                    />
+                  ) : null}
                 </div>
               ) : null}
               {userInfo ? (
@@ -85,11 +88,10 @@ export const Header = () => {
                     signOutUser();
                   }}
                 >
-                  <img
-                    className="loginImage"
-                    src={data.loginIcon}
-                    alt="login"
-                  ></img>
+                  <FontAwesomeIcon
+                    icon={solid("key")}
+                    className="navigationImage"
+                  />
                   Sign Out
                 </button>
               ) : (
@@ -99,11 +101,10 @@ export const Header = () => {
                     signInUser();
                   }}
                 >
-                  <img
-                    className="loginImage"
-                    src={data.loginIcon}
-                    alt="login"
-                  ></img>
+                  <FontAwesomeIcon
+                    icon={solid("key")}
+                    className="navigationImage"
+                  />
                   Sign In
                 </button>
               )}
