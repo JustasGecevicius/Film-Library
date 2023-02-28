@@ -32,7 +32,6 @@ export const ShowMovie = () => {
   const recommendations = useRecommended(movieData?.id, 1, "movie");
   const credits = useMovieSeriesCast("movie", movieData?.id);
   const watch = useWatchProviders(movieData?.id, "movie");
-  console.log(watch);
   return (
     <>
       {backdropImages && movieData && (

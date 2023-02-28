@@ -1,0 +1,49 @@
+.userProfileBackdrop{
+  height: 300px;
+  background-color: grey;
+  background-blend-mode: multiply;
+  position: absolute;
+  width: 100vw;
+  .userStatsDivWidth{
+    max-width: 900px;
+  }
+  .userStatsDiv{
+    display: flex;
+    flex-direction: row;
+    column-gap: 3rem;
+    outline: solid red;
+    margin: 0 24px;
+    padding: 40px 0;
+    .userImage{
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+    }
+    .userStats{
+      color: white;
+      display: flex;
+      flex-direction: column;
+      .userName{
+        font-size: 2rem;
+      }
+    }
+  }
+  .userStatsNumbers{
+    height: 60px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    outline: solid red;
+    .CircularProgressbar-text {
+      font-size: 2rem;
+      fill: white;
+    }
+    .CircularProgressbar-path {
+      stroke: white;
+    }
+    .CircularProgressbar-trail {
+      stroke: rgb(63, 63, 63);
+    }
+  }
+}

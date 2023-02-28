@@ -19,6 +19,7 @@ import { ShowPerson } from "pages/ShowPerson";
 import { useCountry } from "features/location/hooks";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import {ReactQueryDevtools} from "react-query/devtools";
+import { UserProfile } from "pages/UserProfile";
 
 const App: React.FC = () => {
   initializeApp(config);
@@ -31,7 +32,7 @@ const App: React.FC = () => {
         <Route path="/Film-Library/Explore" element={<Explore />} />
         <Route path="/Film-Library/Friends" element={<Friends />} />
         <Route path="/Film-Library/People" element={<People />} />
-        <Route path="/Film-Library/UserProfile" element={<ComponentTest />} />
+        <Route path="/Film-Library/UserProfile" element={<UserProfile />} />
         <Route path="/Film-Library/movie/:id" element={<ShowMovie />} />
         <Route path="/Film-Library/series/:id" element={<ShowSeries />} />
         <Route path="/Film-Library/all/:type/:section" element={<ShowAll />} />

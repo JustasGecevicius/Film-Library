@@ -1,23 +1,20 @@
-import { Header } from "features/header/components/Header";
+import { useFirebaseContext } from "features/context/FirebaseContext";
+import { Backdrop } from "features/profile/backdrop/Backdrop";
+import { useUserInfo } from "features/profile/hooks";
+import { useSearchAreaImages } from "features/searchArea/hooks";
 
 export const UserProfile = () => {
+  const { userInfo, db } = useFirebaseContext();
+  const userNumbers = useUserInfo(userInfo, db);
+  const links = useSearchAreaImages();
   return (
     <div className="userProfile">
-      <Header></Header>
-      <label className="switch">
-        <input type="checkbox"></input>
-        <span className="slider round"></span>
-      </label>
-      {/* <div className="userSection">
-        <img className="userImage" src="" alt="userImage"></img>
-        <div className="userInfo">
-            <p><h3>name</h3> text</p>
-            <div className="userMetrics">
-                <div className="metric1"></div>
-                <div className="metric2"></div>
-            </div>
-        </div>
-      </div> */}
+      <Backdrop
+        links={links}
+        profileImage={userInfo?.profileURL}
+        userName={userInfo?.displayName}
+        userNumbers={userNumbers}
+      />
     </div>
   );
 };

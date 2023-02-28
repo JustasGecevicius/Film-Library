@@ -1,6 +1,6 @@
 // Components
-import { Header } from "../../../header/components/Header";
-import { SearchBarMoviesSeries } from "./SearchBarMoviesSeries";
+import { Header } from "features/header/components/Header";
+import { SearchBarMoviesSeries } from "features/searchArea/components/searchMoviesSeries/SearchBarMoviesSeries";
 import 'react-slideshow-image/dist/styles.css'
 // Styles
 import "features/searchArea/css/searchArea.css";
