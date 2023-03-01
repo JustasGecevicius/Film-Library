@@ -2,16 +2,18 @@
   width: 100%;
   position: absolute;
   padding: 0rem 1.5rem;
+  top: 0;
+  left: 0;
 }
 .headerWidth header {
   width: 100%;
+  max-width: 900px;
   background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0.3rem 2rem;
-  max-width: 900px;
   margin: 0 auto;
   border-radius: 0 0 10px 10px;
   position: relative;

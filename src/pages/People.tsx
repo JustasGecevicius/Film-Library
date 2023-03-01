@@ -9,7 +9,6 @@ export const People = () => {
   // Getting the popular people
   const popularPeople = usePopularPeople();
   const peopleLikedByFriends = usePeopleLikedByFriends();
-  console.log(peopleLikedByFriends);
 
   return (
     <>

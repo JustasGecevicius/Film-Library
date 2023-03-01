@@ -1,5 +1,5 @@
 export interface LikedRatedData {
-  [field: string]: string;
+  [field: string]: number;
 //Liked : MovieId : MovieName
 //Rated : MovieId : Rating
 }

@@ -41,34 +41,46 @@ export const Backdrop = ({ links, profileImage, userName, userNumbers }: Props) 
           <div className="userStats">
             <h3 className="userName">{userName}</h3>
             <div className="userStatsNumbers">
-              <CircularProgressbar
-                value={userNumbers.averageMovieRating ? userNumbers.averageMovieRating : 0}
-                minValue={0}
-                maxValue={10}
-                text={`${userNumbers.averageMovieRating}`}
-                strokeWidth={15}
-              />
-              <CircularProgressbar
-                value={userNumbers.averageSeriesRating ? userNumbers.averageSeriesRating : 0}
-                minValue={0}
-                maxValue={10}
-                text={`${userNumbers.averageSeriesRating}`}
-                strokeWidth={15}
-              />
-              <CircularProgressbar
-                value={userNumbers.numberOfLikedMovies ? userNumbers.numberOfLikedMovies : 0}
-                minValue={0}
-                maxValue={userNumbers.numberOfLikedMovies ? userNumbers.numberOfLikedMovies * 2 : 10}
-                text={`${userNumbers.numberOfLikedMovies}`}
-                strokeWidth={15}
-              />
-              <CircularProgressbar
-                value={userNumbers.numberOfLikedSeries ? userNumbers.numberOfLikedSeries : 0}
-                minValue={0}
-                maxValue={userNumbers.numberOfLikedSeries ? userNumbers.numberOfLikedSeries * 2 : 10}
-                text={`${userNumbers.numberOfLikedSeries}`}
-                strokeWidth={15}
-              />
+              <div className="progressBarWrap">
+                <CircularProgressbar
+                  value={userNumbers.averageMovieRating ? userNumbers.averageMovieRating : 0}
+                  minValue={0}
+                  maxValue={10}
+                  text={`${userNumbers.averageMovieRating}`}
+                  strokeWidth={15}
+                />
+                <p className="progressBarText">Average Movie Rating</p>
+              </div>
+              <div className="progressBarWrap">
+                <CircularProgressbar
+                  value={userNumbers.averageSeriesRating ? userNumbers.averageSeriesRating : 0}
+                  minValue={0}
+                  maxValue={10}
+                  text={`${userNumbers.averageSeriesRating}`}
+                  strokeWidth={15}
+                />
+                <p className="progressBarText">Average Series Rating</p> 
+              </div>
+              <div className="progressBarWrap">
+                <CircularProgressbar
+                  value={userNumbers.numberOfLikedMovies ? userNumbers.numberOfLikedMovies : 0}
+                  minValue={0}
+                  maxValue={userNumbers.numberOfLikedMovies ? userNumbers.numberOfLikedMovies * 2 : 10}
+                  text={`${userNumbers.numberOfLikedMovies}`}
+                  strokeWidth={15}
+                />
+                <p className="progressBarText">Movies Liked</p>
+              </div>
+              <div className="progressBarWrap">
+                <CircularProgressbar
+                  value={userNumbers.numberOfLikedSeries ? userNumbers.numberOfLikedSeries : 0}
+                  minValue={0}
+                  maxValue={userNumbers.numberOfLikedSeries ? userNumbers.numberOfLikedSeries * 2 : 10}
+                  text={`${userNumbers.numberOfLikedSeries}`}
+                  strokeWidth={15}
+                />
+                <p className="progressBarText">Series Liked</p>
+              </div>
             </div>
           </div>
         </div>

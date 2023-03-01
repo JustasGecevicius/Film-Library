@@ -1,18 +1,23 @@
+.userProfile{
+  position: relative;
+}
 .userProfileBackdrop{
   height: 300px;
   background-color: grey;
   background-blend-mode: multiply;
-  position: absolute;
+  position: relative;
   width: 100vw;
   .userStatsDivWidth{
     max-width: 900px;
+    margin: 0 auto;
   }
   .userStatsDiv{
     display: flex;
     flex-direction: row;
     column-gap: 3rem;
-    outline: solid red;
     margin: 0 24px;
+    margin-top: 60px;
+    height: 240px;
     padding: 40px 0;
     .userImage{
       border-radius: 50%;
@@ -23,18 +28,30 @@
       color: white;
       display: flex;
       flex-direction: column;
+      row-gap: 1rem;
       .userName{
         font-size: 2rem;
       }
     }
   }
   .userStatsNumbers{
-    height: 60px;
+    height: 100px;
     width: fit-content;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    outline: solid red;
+
+    .progressBarWrap{
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+       p{
+        min-height: 2rem;
+      }
+    }
     .CircularProgressbar-text {
       font-size: 2rem;
       fill: white;

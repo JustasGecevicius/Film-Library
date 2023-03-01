@@ -45,13 +45,13 @@ export const useLiked = (
 
 export const useRating = (
   rateButtonClick: boolean | undefined,
-  rateInput: string | undefined,
+  rateInput: number | undefined,
   type: "movie" | "series",
   id: string | undefined,
   userInfo: UserInfo | undefined,
   db: Firestore
 ) => {
-  const [rating, setRating] = useState<string | undefined>(undefined);
+  const [rating, setRating] = useState<number | undefined>(undefined);
 
   const { data: ratedData } = useQuery<LikedRatedData | undefined>(
     ["ratedData", db, userInfo?.uid],
@@ -67,7 +67,6 @@ export const useRating = (
     setRating(checkRating(ratedData, id));
   }, [ratedData, id]);
   useEffect(() => {
-    console.log(rateInput);
     if (!rateInput) return;
     setRating(rateInput);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -27,7 +27,6 @@ export const ShowSeries = () => {
   const productionCompanies = useProductionCompanies(seriesData);
   const recommendations = useRecommended(seriesData?.id, 1, "series");
   const credits = useMovieSeriesCast("series", seriesData?.id);
-  console.log("showSeries");
 
   return (
     <>

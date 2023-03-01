@@ -10,7 +10,6 @@ export const Home = () => {
   // Getting the background photo and the user name
   const background = useBackground();
   const displayName = useDisplayName();
-  console.log("home");
 
   return background ? (
     <div

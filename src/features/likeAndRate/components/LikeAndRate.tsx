@@ -20,7 +20,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
   const liked = useLiked(likeButtonClicked, type, id, userInfo, db);
 
   // Rate functionality
-  const userRating = useRef<string | undefined>(undefined);
+  const userRating = useRef<number | undefined>(undefined);
   const [rateButtonClick, setRateButtonClick] = useState(false);
   const rating = useRating(rateButtonClick, userRating.current, type, id, userInfo, db);
  
@@ -42,7 +42,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
           type="number"
           max="10"
           min="1"
-          onChange={(e) => userRating.current = e.target.value}
+          onChange={(e) => userRating.current = +e.target.value}
         />
         <button
           className="rateButton"

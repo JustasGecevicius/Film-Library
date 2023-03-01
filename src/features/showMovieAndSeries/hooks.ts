@@ -206,7 +206,6 @@ export const useWatchProviders = (
     }
   );
   const country = useCountry();
-  console.log(watchProvidersData,);
   useEffect(() => {
     if (watchProvidersData && country && config && watchProvidersData[country]) {
       const filteredWatchProviders = filterWatchProviders(

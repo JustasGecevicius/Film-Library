@@ -94,12 +94,11 @@ export const rate = (
   db: Firestore,
   id: string,
   userId: string,
-  rating: string | undefined,
+  rating: number | undefined,
   type: "movie" | "series"
 ) => {
-  console.log(rating, "rating");
+
   // Delete or add the movie based on rate state
-  console.log(rating, "rating");
   if (type === "movie") {
     if (rating === undefined) {
       updateDoc(doc(db, "ratedMovies", `${userId}`), {
