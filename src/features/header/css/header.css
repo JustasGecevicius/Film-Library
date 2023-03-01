@@ -6,14 +6,18 @@
   left: 0;
 }
 .headerWidth header {
+  container-type: inline-size;
+  container-name: header;
   width: 100%;
   max-width: 900px;
   background-color: white;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: 0.5rem;
   align-items: center;
-  padding: 0.3rem 2rem;
+  padding: 0.3rem 2%;
   margin: 0 auto;
   border-radius: 0 0 10px 10px;
   position: relative;
@@ -145,4 +149,15 @@
 }
 .headerWidth header .slider.round:before {
   border-radius: 50%;
+}
+
+@container header (max-width: 620px) {
+  .header :nth-child(2) {
+    order: 2;
+  }
+}
+@container header (max-width: 375px) {
+  .header :nth-child(2) {
+    order: 0;
+  }
 }

@@ -5,32 +5,51 @@ import { useFirebaseContext } from "features/context/FirebaseContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { NavigationIcon } from "./NavigationIcon";
+import { checkIfImageExists } from "../functions";
 
 export const Header = () => {
   const { userInfo } = useFirebaseContext();
 
+
+
   return (
     <div className="headerWidth">
-      <header>
+      <header className="header">
         <Link to="/Film-Library">
           <div className="logoDiv">
             <h2>Discoverisms</h2>
           </div>
         </Link>
         <ul className="navigationButtons">
-          <NavigationIcon iconName={"film"} link={"Explore"} sectionName="Explore"/>
-          <NavigationIcon iconName={"camera"} link={"People"} sectionName="People" />
-          <NavigationIcon iconName={"users"} link={"Friends"} sectionName="Friends" />
-          <NavigationIcon iconName={"user"} link={"UserProfile"} sectionName="Profile" />
+          <NavigationIcon
+            iconName={"film"}
+            link={"Explore"}
+            sectionName="Explore"
+          />
+          <NavigationIcon
+            iconName={"camera"}
+            link={"People"}
+            sectionName="People"
+          />
+          <NavigationIcon
+            iconName={"users"}
+            link={"Friends"}
+            sectionName="Friends"
+          />
+          <NavigationIcon
+            iconName={"user"}
+            link={"UserProfile"}
+            sectionName="Profile"
+          />
         </ul>
         <div className="userSignIn">
           <label className="switch">
-            <input type="checkbox"/>
+            <input type="checkbox" />
             <span className="slider round"></span>
           </label>
           {userInfo && (
             <div className="userInformationDisplay">
-              {userInfo.profileURL && (
+              {checkIfImageExists("http://website/images/img.png") && (
                 <img
                   alt="userImage"
                   className="userImage"

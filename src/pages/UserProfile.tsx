@@ -1,5 +1,6 @@
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
+import { Header } from "features/header/components/Header";
 import { Backdrop } from "features/profile/backdrop/Backdrop";
 import {
   useUserInfo,
@@ -19,6 +20,7 @@ export const UserProfile = () => {
 
   return (
     <div className="userProfile">
+      <Header />
       <Backdrop
         links={links}
         profileImage={userInfo?.profileURL}
@@ -39,7 +41,7 @@ export const UserProfile = () => {
           type={"series"}
         />
       )}
-      {userRatedMovies && userRatedMovies.length !==0 && (
+      {userRatedMovies && userRatedMovies.length !== 0 && (
         <PosterDisplayMoviesSeries
           arr={userRatedMovies}
           sectionName={"Rated Movies"}

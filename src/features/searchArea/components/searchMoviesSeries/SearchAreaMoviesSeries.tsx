@@ -18,7 +18,7 @@ export const SearchAreaMoviesSeries = ({links} : Props) => {
   
   return (
     <div className="slide-container">
-      <Header/>
+            <Header/>
       <Fade>
         {links.map((imageLink, index) => (
           <div key={index}>
