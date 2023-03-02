@@ -3,11 +3,11 @@
 }
 
 .search {
-  max-width: 600px;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: calc(100% - 3rem);
+  flex-direction: column;
 }
 .search input[type=text] {
   font-size: 1.5rem;
@@ -17,9 +17,8 @@
   border: none;
 }
 .search .searchField {
-  padding: 0px 10px;
+  padding: 0 10px;
   display: flex;
-  width: 100%;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -29,7 +28,7 @@
   z-index: 20;
 }
 .search .searchField .searchSwitch {
-  margin: 0px 10px;
+  min-width: 85px;
 }
 .search .searchResultsDisplay {
   padding-top: 20px;

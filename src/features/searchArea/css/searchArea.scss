@@ -1,33 +1,48 @@
-header{
-        position: absolute;
-}
-.backgroundSearchImage{
-        height: 600px;
-        background-position: top;
-        background-size: cover;
-        transition: 200
-}
-.search{
-        width: 600px;
-        position: absolute;
-        flex-direction: column;
-        transform: translate(-50%, -100%);
-        bottom: 50px;
-        left: 50%;
-        z-index: 50;
+.search {
+  position: absolute;
+  bottom: 50px;
 }
 
-.nav.default-nav{
- display: none;
-} 
+.nav.default-nav {
+  display: none;
+}
 
-.slide-container{
-        position: relative;
-        max-height: 550px;
-        .react-slideshow-container{
-                max-height: 550px;
-                .react-slideshow-fadezoom-wrapper {
-                        max-height: 550px;
-                }
-        } 
+.slide-container {
+  position: relative;
+  max-height: 550px;
+  min-height: 550px;
+  .react-slideshow-container {
+    max-height: 550px;
+    min-height: 550px;
+    .react-slideshow-fadezoom-wrapper {
+      max-height: 550px;
+      min-height: 550px;
+      div[aria-roledescription] {
+        min-height: 550px;
+        div {
+          min-height: 550px;
+          display: flex;
+          justify-content: center;
+          img{
+            min-height: 550px;
+            aspect-ratio: 1.7 / 1;
+            min-width: 950px;
+          }
+        }
+      }
+    }
+  }
+
+}
+.slideContainerElements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: solid red;
+  width: 100vw;
+  min-height: 550px;
+  padding: 0 1.5rem;
+  header {
+
+  }
 }

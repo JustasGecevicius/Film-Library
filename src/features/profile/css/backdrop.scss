@@ -7,7 +7,7 @@
   background-blend-mode: multiply;
   position: relative;
   width: 100vw;
-  padding: 0rem 1.5rem;
+  padding: 0 1.5rem;
   .userStatsDiv {
     display: flex;
     flex-direction: row;
@@ -66,4 +66,5 @@
 }
 
 @container screen and (screen : min-width) {
+  
 }

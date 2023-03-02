@@ -1,9 +1,5 @@
 .headerWidth {
   width: 100%;
-  position: absolute;
-  padding: 0rem 1.5rem;
-  top: 0;
-  left: 0;
   header {
     //min-width: 660px;
     container-type: inline-size;
@@ -57,7 +53,7 @@
         width: 50px;
       }
       .signInButton {
-        padding: 0px 5px;
+        padding: 0 5px;
         height: 30px;
         white-space: nowrap;
         display: flex;
@@ -114,7 +110,6 @@
     }
     /* The slider */
     .slider {
-      position: absolute;
       cursor: pointer;
       top: 0;
       left: 0;
