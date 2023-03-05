@@ -1,9 +1,11 @@
-
 // Components
 import { SearchAreaPeople } from "features/searchArea/components/searchPeople/SearchAreaPeople";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
 // Hooks
-import { usePeopleLikedByFriends, usePopularPeople } from "features/people/hooks";
+import {
+  usePeopleLikedByFriends,
+  usePopularPeople,
+} from "features/people/hooks";
 
 export const People = () => {
   // Getting the popular people
@@ -12,12 +14,20 @@ export const People = () => {
 
   return (
     <>
-      <SearchAreaPeople />
-      {popularPeople && (
-        <PosterDisplayPeople arr={popularPeople} sectionName="Popular People" />
-      )}
-      {peopleLikedByFriends && (
-        <PosterDisplayPeople arr={peopleLikedByFriends} sectionName="Your Friends Like..." />
+      {popularPeople && peopleLikedByFriends && (
+        <>
+          <SearchAreaPeople />
+          <div className="posterDisplaysWrapper">
+            <PosterDisplayPeople
+              arr={popularPeople}
+              sectionName="Popular People"
+            />
+            <PosterDisplayPeople
+              arr={peopleLikedByFriends}
+              sectionName="Your Friends Like..."
+            />
+          </div>
+        </>
       )}
     </>
   );

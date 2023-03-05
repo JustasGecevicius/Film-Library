@@ -8,39 +8,32 @@ import { SearchBarFriends } from "features/searchArea/components/searchFriends/S
 import "features/searchArea/css/searchArea.css";
 // Functions
 import { useSearchAreaImages } from "features/searchArea/hooks";
+import { Fade } from "react-slideshow-image";
 
 export const SearchAreaFriends = () => {
-  // State for the index of the image that switches on a timer
-  const [imageIndex, setImageIndex] = useState<number>(0);
-
   // Fetched links from firebase for the top movies
-const links = useSearchAreaImages();
-
-  // useEffect that sets the interval for image changes
-  const calledOnce = useRef(false);
-  useEffect(() => {
-    if (calledOnce.current) {
-      return;
-    } else {
-      if (links) {
-        setInterval(() => {
-          setImageIndex((prev) => (prev + 1) % links.length);
-        }, 50000);
-        calledOnce.current = true;
-      }
-    }
-  }, [links]);
+  const links = useSearchAreaImages();
 
   if (!links) {
     return <div>Loading...</div>;
   }
   return (
-    <div
-      className="backgroundSearchImage"
-      style={{ backgroundImage: `url(${links[imageIndex]})` }}
-    >
-      <Header/>
-      <SearchBarFriends/>
+    <div className="slide-container">
+      <Fade>
+        {links.map((imageLink, index) => (
+          <div key={index}>
+            <img
+              style={{ width: "100%" }}
+              src={imageLink}
+              alt="backgroundImage"
+            />
+          </div>
+        ))}
+      </Fade>
+      <div className="slideContainerElements">
+        <Header />
+        <SearchBarFriends />
+      </div>
     </div>
   );
 };

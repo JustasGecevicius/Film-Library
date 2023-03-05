@@ -1,7 +1,4 @@
-.headerWidth {
-  width: 100%;
-}
-.headerWidth header {
+header {
   container-type: inline-size;
   container-name: header;
   width: 100%;
@@ -16,52 +13,35 @@
   padding: 0.3rem 2%;
   margin: 0 auto;
   border-radius: 0 0 10px 10px;
-  position: relative;
-  left: 0;
-  right: 0;
-  z-index: 50;
+  min-width: 270px;
   /* The switch - the box around the slider */
+  /* The switch - the box around the slider */
+  /* Hide default HTML checkbox */
   /* The slider */
   /* Rounded sliders */
 }
-.headerWidth header .logoDiv {
-  display: flex;
-  flex-direction: row;
-  -moz-column-gap: 1rem;
-       column-gap: 1rem;
-  margin-right: 1rem;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-}
-.headerWidth header .logoDiv .logo {
-  max-width: 50px;
-}
-.headerWidth header .logoDiv h2 {
+header h2 {
   font-size: 1.7rem;
   font-family: "Noto Serif Display", serif;
 }
-.headerWidth header .userSignIn {
+header .userSignIn {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  -moz-column-gap: 0.5rem;
-       column-gap: 0.5rem;
+  -moz-column-gap: 0.3rem;
+       column-gap: 0.3rem;
 }
-.headerWidth header .userSignIn .userInformationDisplay {
+header .userSignIn .userInformationDisplay {
   display: flex;
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
 }
-.headerWidth header .userSignIn .userImage {
+header .userSignIn .userImage {
   border-radius: 2rem;
   width: 50px;
 }
-.headerWidth header .userSignIn .signInButton {
-  padding: 0 5px;
-  height: 30px;
-  white-space: nowrap;
+header .userSignIn .signInButton {
   display: flex;
   flex-direction: row;
   -moz-column-gap: 0.2rem;
@@ -70,22 +50,18 @@
   align-items: center;
   background-color: white;
   border-radius: 1rem;
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 100px;
 }
-.headerWidth header .userSignIn .signInButton .loginImage {
-  width: 20px;
-}
-.headerWidth header .navigationButtons {
+header .navigationButtons {
   display: flex;
   flex-direction: row;
   list-style-type: none;
   align-items: center;
   justify-content: flex-end;
-  -moz-column-gap: 1rem;
-       column-gap: 1rem;
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
 }
-.headerWidth header .navigationButtons .navigationLink {
+header .navigationButtons .navigationLink {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,55 +70,53 @@
   font-family: "Noto Serif Display", serif;
   font-style: italic;
 }
-.headerWidth header .navigationButtons * .navigationImage {
+header .navigationButtons * .navigationImage {
   max-width: 30px;
 }
-.headerWidth header .switch {
+header .switch {
   position: relative;
   display: inline-block;
-  width: 30px;
-  height: 25px;
-  /* Hide default HTML checkbox */
-  margin-right: 20px;
+  width: 50px;
+  height: 28px;
 }
-.headerWidth header .switch input {
+header .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
-.headerWidth header .slider {
+header .slider {
+  position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 40px;
   background-color: #ccc;
   transition: 0.4s;
 }
-.headerWidth header .slider::before {
+header .slider:before {
   position: absolute;
   content: "";
-  height: 17px;
-  width: 17px;
+  height: 20px;
+  width: 20px;
   left: 4px;
   bottom: 4px;
   background-color: white;
   transition: 0.4s;
 }
-.headerWidth header input:checked + .slider {
-  background-color: #2196f3;
+header input:checked + .slider {
+  background-color: #000000;
 }
-.headerWidth header input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+header input:focus + .slider {
+  box-shadow: 0 0 1px #000000;
 }
-.headerWidth header input:checked + .slider:before {
-  transform: translateX(15px);
+header input:checked + .slider:before {
+  transform: translateX(23px);
 }
-.headerWidth header .slider.round {
+header .slider.round {
   border-radius: 34px;
 }
-.headerWidth header .slider.round:before {
+header .slider.round:before {
   border-radius: 50%;
 }
 

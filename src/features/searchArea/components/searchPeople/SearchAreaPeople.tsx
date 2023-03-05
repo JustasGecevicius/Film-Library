@@ -20,15 +20,21 @@ export const SearchAreaPeople = () => {
   }
   return (
     <div className="slide-container">
-      <Header/>
       <Fade>
         {links.map((imageLink, index) => (
           <div key={index}>
-            <img style={{ width: '100%' }} src={imageLink} alt="backgroundImage"/>
+            <img
+              style={{ width: "100%" }}
+              src={imageLink}
+              alt="backgroundImage"
+            />
           </div>
         ))}
       </Fade>
-      <SearchBarPeople/>
+      <div className="slideContainerElements">
+        <Header />
+        <SearchBarPeople />
+      </div>
     </div>
   );
 };

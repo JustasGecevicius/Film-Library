@@ -1,8 +1,7 @@
 .section {
   position: relative;
-  margin: 0 auto;
   height: auto;
-  max-width: calc(100% - 4rem);
+  min-width: 270px;
 }
 .section .sectionInfo {
   display: flex;
@@ -16,7 +15,7 @@
 }
 
 .recommendationDiv .section {
-  max-width: 900px !important;
+  max-width: 900px;
 }
 
 .posterHolder {

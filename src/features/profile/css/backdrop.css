@@ -1,42 +1,26 @@
 .userProfile {
   position: relative;
 }
-
-.userProfileBackdrop {
-  height: 300px;
-  background-color: grey;
-  background-blend-mode: multiply;
+.userProfile .profileBackdrop {
   position: relative;
-  width: 100vw;
-  padding: 0 1.5rem;
 }
-.userProfileBackdrop .userStatsDiv {
+.userProfile .profileBackdrop .profileWrapper {
   display: flex;
   flex-direction: row;
-  -moz-column-gap: 3rem;
-       column-gap: 3rem;
-  max-width: 900px;
-  margin: 0 auto;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats {
+  width: 500px;
+}
+.userProfile .profileBackdrop .userProfileBackdrop {
+  height: 300px;
+}
+.userProfile .profileBackdrop .userStatsDiv {
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  position: relative;
-  top: 90px;
-  justify-content: flex-start;
 }
-.userProfileBackdrop .userStatsDiv .userImage {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-}
-.userProfileBackdrop .userStatsDiv .userStats {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
-}
-.userProfileBackdrop .userStatsDiv .userStats .userName {
-  font-size: 2rem;
-}
-.userProfileBackdrop .userStatsNumbers {
+.userProfile .profileBackdrop .userStatsNumbers {
   height: 100px;
   width: -moz-fit-content;
   width: fit-content;
@@ -46,7 +30,7 @@
   -moz-column-gap: 1rem;
        column-gap: 1rem;
 }
-.userProfileBackdrop .userStatsNumbers .progressBarWrap {
+.userProfile .profileBackdrop .userStatsNumbers .progressBarWrap {
   width: 100px;
   display: flex;
   flex-direction: column;
@@ -54,17 +38,22 @@
   align-items: center;
   text-align: center;
 }
-.userProfileBackdrop .userStatsNumbers .progressBarWrap p {
+.userProfile .profileBackdrop .userStatsNumbers .progressBarWrap p {
   min-height: 2rem;
 }
-.userProfileBackdrop .userStatsNumbers .CircularProgressbar-text {
+.userProfile .profileBackdrop .userImage {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+.userProfile .profileBackdrop .CircularProgressbar-text {
   font-size: 2rem;
   fill: white;
 }
-.userProfileBackdrop .userStatsNumbers .CircularProgressbar-path {
+.userProfile .profileBackdrop .CircularProgressbar-path {
   stroke: white;
 }
-.userProfileBackdrop .userStatsNumbers .CircularProgressbar-trail {
+.userProfile .profileBackdrop .CircularProgressbar-trail {
   stroke: rgb(63, 63, 63);
 }
 

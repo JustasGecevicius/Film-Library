@@ -1,164 +1,144 @@
-.headerWidth {
+header {
+  container-type: inline-size;
+  container-name: header;
   width: 100%;
-  header {
-    //min-width: 660px;
-    container-type: inline-size;
-    container-name: header;
-    width: 100%;
-    max-width: 900px;
-    background-color: white;
+  max-width: 900px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  row-gap: 0.5rem;
+  align-items: center;
+  padding: 0.3rem 2%;
+  margin: 0 auto;
+  border-radius: 0 0 10px 10px;
+  min-width: 270px;
+  h2 {
+    font-size: 1.7rem;
+    font-family: "Noto Serif Display", serif;
+  }
+  .userSignIn {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    row-gap: 0.5rem;
     align-items: center;
-    padding: 0.3rem 2%;
-    margin: 0 auto;
-    border-radius: 0 0 10px 10px;
-    position: relative;
-    left: 0;
-    right: 0;
-    z-index: 50;
-
-    .logoDiv {
+    justify-content: center;
+    column-gap: 0.3rem;
+    .userInformationDisplay {
       display: flex;
-      flex-direction: row;
-      column-gap: 1rem;
-      margin-right: 1rem;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      .logo {
-        max-width: 50px;
-      }
-      h2 {
-        font-size: 1.7rem;
-        font-family: "Noto Serif Display", serif;
-      }
-    }
-
-    .userSignIn {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
       column-gap: 0.5rem;
-      .userInformationDisplay {
-        display: flex;
-        column-gap: 0.5rem;
-      }
-      .userImage {
-        border-radius: 2rem;
-        width: 50px;
-      }
-      .signInButton {
-        padding: 0 5px;
-        height: 30px;
-        white-space: nowrap;
-        display: flex;
-        flex-direction: row;
-        column-gap: 0.2rem;
-        justify-content: flex-start;
-        align-items: center;
-        background-color: white;
-        border-radius: 1rem;
-        width: fit-content;
-        .loginImage {
-          width: 20px;
-        }
-      }
     }
-
-    .navigationButtons {
+    .userImage {
+      border-radius: 2rem;
+      width: 50px;
+    }
+    .signInButton {
       display: flex;
       flex-direction: row;
-      list-style-type: none;
+      column-gap: 0.2rem;
+      justify-content: flex-start;
       align-items: center;
-      justify-content: flex-end;
-      column-gap: 1rem;
-      .navigationLink {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        font-family: "Noto Serif Display", serif;
-        font-style: italic;
-      }
-      * {
-        .navigationImage {
-          max-width: 30px;
-        }
-      }
-    }
-
-    /* The switch - the box around the slider */
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 30px;
-      height: 25px;
-      /* Hide default HTML checkbox */
-      margin-right: 20px;
-
-      input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-    }
-    /* The slider */
-    .slider {
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 40px;
-      background-color: #ccc;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
-      &::before {
-        position: absolute;
-        content: "";
-        height: 17px;
-        width: 17px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-      }
-    }
-    input:checked + .slider {
-      background-color: #2196f3;
-    }
-    input:focus + .slider {
-      box-shadow: 0 0 1px #2196f3;
-    }
-    input:checked + .slider:before {
-      -webkit-transform: translateX(15px);
-      -ms-transform: translateX(15px);
-      transform: translateX(15px);
-    }
-    /* Rounded sliders */
-    .slider.round {
-      border-radius: 34px;
-    }
-    .slider.round:before {
-      border-radius: 50%;
+      background-color: white;
+      border-radius: 1rem;
+      width: 100px;
     }
   }
+
+  .navigationButtons {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: 0.5rem;
+    .navigationLink {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-family: "Noto Serif Display", serif;
+      font-style: italic;
+    }
+    * {
+      .navigationImage {
+        max-width: 30px;
+      }
+    }
+  }
+
+  /* The switch - the box around the slider */
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #000000;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #000000;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(23px);
+  -ms-transform: translateX(23px);
+  transform: translateX(23px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 }
 
 @container header (max-width: 620px) {
-    .header :nth-child(2){
-        order: 2
-    }
+  .header :nth-child(2) {
+    order: 2;
+  }
 }
 @container header (max-width: 375px) {
-    .header :nth-child(2){
-        order: 0
-    }
+  .header :nth-child(2) {
+    order: 0;
+  }
 }

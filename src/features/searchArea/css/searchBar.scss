@@ -8,6 +8,7 @@
     align-items: center;
     width: calc( 100% - 1.5rem * 2);
     flex-direction: column;
+    min-width: 270px;
     input[type="text"] {
         font-size: 1.5rem;
         width: 100%;
@@ -16,9 +17,10 @@
         border: none;
     }
     .searchField{
+        width: 100%;
+        max-width: 600px;
         padding: 0 10px;
         display: flex;
-
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -26,18 +28,97 @@
         border-radius: 1rem;
         position: relative;
         z-index: 20;
-        .searchSwitch{
-            min-width: 85px;
-        }
+        .searchSwitch {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 28px;
+          }
+          
+          /* Hide default HTML checkbox */
+          .searchSwitch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+          
+          /* The slider */
+          .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+          
+          .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+          .slider::after{
+            content: "Movie";
+            display: flex;
+            align-items: center;
+            left: 25px;
+            justify-content: center;
+            white-space: nowrap;
+            width: 50px;
+            position: absolute;
+            height: 28px;
+            overflow-x: hidden;
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+          
+          input:checked + .slider {
+            background-color: #000000;
+          }
+
+          input:checked + .slider:after {
+            content: "Series";
+            color: white;
+            left: 5px;
+          }
+          
+          input:focus + .slider {
+            box-shadow: 0 0 1px #000000;
+          }
+          
+          input:checked + .slider:before {
+            -webkit-transform: translateX(52px);
+            -ms-transform: translateX(52px);
+            transform: translateX(52px);
+          }
+          
+          /* Rounded sliders */
+          .slider.round {
+            border-radius: 34px;
+          }
+          
+          .slider.round:before {
+            border-radius: 50%;
+          }
     }
     .searchResultsDisplay{
         padding-top: 20px;
         display: flex;        
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         max-height: 300px;
-        width: 600px;
+        width: 100%;
+        max-width: 600px;
         overflow-y: auto;
         position: absolute;
         top: 15px;
@@ -52,6 +133,9 @@
             img{
                 max-width: 50px;
             }
+        }
+        .foundUser:nth-child(1){
+          margin-top: 1rem;
         }
         .foundMovie{
             width: 550px;

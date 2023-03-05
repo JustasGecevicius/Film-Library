@@ -5,5 +5,9 @@ a {
 
 .typeName {
   font-size: 2rem;
-  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.posterDisplaysWrapper {
+  padding: 0 1.5rem;
 }

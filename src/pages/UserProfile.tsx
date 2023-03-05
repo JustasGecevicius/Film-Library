@@ -8,6 +8,7 @@ import {
   useUserRated,
 } from "features/profile/hooks";
 import { useSearchAreaImages } from "features/searchArea/hooks";
+import "features/profile/css/backdrop.css";
 
 export const UserProfile = () => {
   const { userInfo, db } = useFirebaseContext();
@@ -19,42 +20,52 @@ export const UserProfile = () => {
   const userRatedSeries = useUserRated("series");
 
   return (
-    <div className="userProfile">
-      <Header />
-      <Backdrop
-        links={links}
-        profileImage={userInfo?.profileURL}
-        userName={userInfo?.displayName}
-        userNumbers={userNumbers}
-      />
-      {userLikedMovies && userLikedMovies.length !== 0 && (
-        <PosterDisplayMoviesSeries
-          arr={userLikedMovies}
-          sectionName={"Liked Movies"}
-          type={"movie"}
-        />
-      )}
-      {userLikedSeries && userLikedSeries.length !== 0 && (
-        <PosterDisplayMoviesSeries
-          arr={userLikedSeries}
-          sectionName={"Liked Series"}
-          type={"series"}
-        />
-      )}
-      {userRatedMovies && userRatedMovies.length !== 0 && (
-        <PosterDisplayMoviesSeries
-          arr={userRatedMovies}
-          sectionName={"Rated Movies"}
-          type={"movie"}
-        />
-      )}
-      {userRatedSeries && userRatedSeries.length !== 0 && (
-        <PosterDisplayMoviesSeries
-          arr={userRatedSeries}
-          sectionName={"Rated Series"}
-          type={"series"}
-        />
-      )}
-    </div>
+    <>
+      {userNumbers &&
+        links &&
+        userLikedMovies &&
+        userLikedSeries &&
+        userRatedMovies &&
+        userRatedSeries && (
+          <>
+            <div className="userProfile">
+              <Backdrop
+                links={links}
+                profileImage={userInfo?.profileURL}
+                userName={userInfo?.displayName}
+                userNumbers={userNumbers}
+              />
+              {/* {userLikedMovies && userLikedMovies.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userLikedMovies}
+                  sectionName={"Liked Movies"}
+                  type={"movie"}
+                />
+              )}
+              {userLikedSeries && userLikedSeries.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userLikedSeries}
+                  sectionName={"Liked Series"}
+                  type={"series"}
+                />
+              )}
+              {userRatedMovies && userRatedMovies.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userRatedMovies}
+                  sectionName={"Rated Movies"}
+                  type={"movie"}
+                />
+              )}
+              {userRatedSeries && userRatedSeries.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userRatedSeries}
+                  sectionName={"Rated Series"}
+                  type={"series"}
+                />
+              )} */}
+            </div>
+          </>
+        )}
+    </>
   );
 };

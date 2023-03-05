@@ -22,7 +22,7 @@ export const Explore = () => {
       {topMovies && trendingMovies && topSeries && popularSeries && links ? (
         <>
           <SearchAreaMoviesSeries links={links}/>
-          <div className="explore">
+          <div className="posterDisplaysWrapper">
             <h2 className="typeName">Movies</h2>
 
             <PosterDisplayMoviesSeries

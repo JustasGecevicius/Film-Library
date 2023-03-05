@@ -1,60 +1,57 @@
-/* The switch - the box around the slider */
-.searchSwitch {
+.switch {
   position: relative;
   display: inline-block;
-  width: 85px;
-  height: 25px;
-  /* Hide default HTML checkbox */
-  /* Rounded sliders */
+  width: 50px;
+  height: 28px;
 }
-.searchSwitch input {
-  display: none;
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
-.searchSwitch .slider {
-  opacity: 1;
+
+/* The slider */
+.slider {
   position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  width: 85px;
   background-color: #ccc;
+  transition: 0.4s;
 }
-.searchSwitch .slider::before {
-  opacity: 1;
+
+.slider:before {
   position: absolute;
   content: "";
-  height: 17px;
-  width: 17px;
+  height: 20px;
+  width: 20px;
   left: 4px;
   bottom: 4px;
   background-color: white;
   transition: 0.4s;
-  z-index: 20;
 }
-.searchSwitch .slider::after {
-  content: "Movies";
-  position: absolute;
-  left: 25px;
-  z-index: 10;
-  transition: 400ms;
+
+input:checked + .slider {
+  background-color: #000000;
 }
-.searchSwitch input:checked + .slider {
-  background-color: black;
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #000000;
 }
-.searchSwitch input:checked + .slider::before {
-  transform: translateX(60px);
+
+input:checked + .slider:before {
+  transform: translateX(23px);
 }
-.searchSwitch input:checked + .slider::after {
-  content: "Series";
-  transition: ease-out 400ms;
-  left: 8px;
-  color: white;
-}
-.searchSwitch .slider.round {
+
+/* Rounded sliders */
+.slider.round {
   border-radius: 34px;
 }
-.searchSwitch .slider.round::before {
+
+.slider.round:before {
   border-radius: 50%;
 }

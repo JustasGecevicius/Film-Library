@@ -23,46 +23,43 @@ export const Friends = () => {
 
   return (
     <>
-      <SearchAreaFriends></SearchAreaFriends>
-      <div className="friendsWrapper">
-        <h2 className="typeName"> Movies </h2>
-        {friendLikedMovies && (
-          <PosterDisplayMoviesSeries
-            arr={friendLikedMovies}
-            sectionName="Popular With Friends"
-            type="movie"
-          />
+      {friendLikedMovies &&
+        friendLikedSeries &&
+        friendRatedMovies.filteredMoviesList &&
+        friendRatedSeries.filteredSeriesList &&
+        activeFriends && (
+          <>
+            <SearchAreaFriends></SearchAreaFriends>
+            <div className="posterDisplaysWrapper">
+              <h2 className="typeName"> Movies </h2>
+              <PosterDisplayMoviesSeries
+                arr={friendLikedMovies}
+                sectionName="Popular With Friends"
+                type="movie"
+              />
+              <PosterDisplayMoviesSeries
+                arr={friendRatedMovies.filteredMoviesList}
+                sectionName="Rated by Friends"
+                type="movie"
+              />
+              <h2 className="typeName"> Series </h2>
+              <PosterDisplayMoviesSeries
+                arr={friendLikedSeries}
+                sectionName="Popular With Friends"
+                type="series"
+              />
+              <PosterDisplayMoviesSeries
+                arr={friendRatedSeries.filteredSeriesList}
+                sectionName="Rated by Friends"
+                type="series"
+              />
+              <PosterDisplayFriends
+                users={activeFriends}
+                sectionName="Active Friends"
+              />
+            </div>
+          </>
         )}
-        {friendRatedMovies.filteredMoviesList && (
-          <PosterDisplayMoviesSeries
-            arr={friendRatedMovies.filteredMoviesList}
-            sectionName="Rated by Friends"
-            type="movie"
-          />
-        )}
-        <h2 className="typeName"> Series </h2>
-        {friendLikedSeries && (
-          <PosterDisplayMoviesSeries
-            arr={friendLikedSeries}
-            sectionName="Popular With Friends"
-            type="series"
-          />
-        )}
-        {friendRatedSeries.filteredSeriesList &&
-          friendRatedSeries.filteredSeriesList.length !== 0 && (
-            <PosterDisplayMoviesSeries
-              arr={friendRatedSeries.filteredSeriesList}
-              sectionName="Rated by Friends"
-              type="series"
-            />
-          )}
-        {activeFriends && (
-          <PosterDisplayFriends
-            users={activeFriends}
-            sectionName="Active Friends"
-          />
-        )}
-      </div>
     </>
   );
 };
