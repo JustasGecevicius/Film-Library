@@ -1,0 +1,80 @@
+.userProfile .profileBackdrop {
+  position: relative;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 0 1.5rem;
+}
+.userProfile .profileBackdrop .profileWrapper {
+  container-type: inline-size;
+  container-name: stats;
+  display: flex;
+  flex-direction: row;
+  -moz-column-gap: 1.5rem;
+       column-gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+.userProfile .profileBackdrop .profileWrapper .userImage {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats {
+  width: 100%;
+  margin: 0 auto;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.6);
+}
+.userProfile .profileBackdrop .profileWrapper .userStats h3 {
+  color: white;
+  font-size: 2rem;
+  padding-left: 1rem;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats .userStatsNumbers {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+  margin-top: 1rem;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats .userStatsNumbers .progressBarWrap {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats .userStatsNumbers .progressBarWrap .progressBarWidthRestriction {
+  width: 70px;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats .userStatsNumbers .progressBarWrap p {
+  min-height: 65px;
+  color: white;
+  font-weight: bold;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats .userStatsNumbers .progressBarWrap .CircularProgressbar-text {
+  font-size: 2rem;
+  fill: white;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats .userStatsNumbers .progressBarWrap .CircularProgressbar-path {
+  stroke: white;
+}
+.userProfile .profileBackdrop .profileWrapper .userStats .userStatsNumbers .progressBarWrap .CircularProgressbar-trail {
+  stroke: rgb(63, 63, 63);
+}
+
+@container stats (max-width: 620px) {
+  .userImage {
+    display: none;
+  }
+  .userStatsNumbers {
+    flex-wrap: wrap;
+  }
+}

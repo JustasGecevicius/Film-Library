@@ -1,0 +1,77 @@
+.userProfile {
+  .profileBackdrop {
+    position: relative;
+    height: fit-content;
+    padding: 0 1.5rem;
+    .profileWrapper {
+      container-type:inline-size;
+      container-name:stats;
+      display: flex;
+      flex-direction: row;
+      column-gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 0;
+      .userImage {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+      }
+      .userStats {
+        width: 100%;
+        margin: 0 auto;
+        height: fit-content;
+        background-color: rgba(0, 0, 0, 0.6);
+        box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.6);
+        h3 {
+          color: white;
+          font-size: 2rem;
+          padding-left: 1rem;
+        }
+        .userStatsNumbers {
+          width: fit-content;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          column-gap: 1rem;
+          margin-top: 1rem;
+          .progressBarWrap {
+            width: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            .progressBarWidthRestriction{
+              width: 70px;
+            }
+            p {
+              min-height: 65px;
+              color: white;
+              font-weight: bold;
+            }
+            .CircularProgressbar-text {
+              font-size: 2rem;
+              fill: white;
+            }
+            .CircularProgressbar-path {
+              stroke: white;
+            }
+            .CircularProgressbar-trail {
+              stroke: rgb(63, 63, 63);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@container stats (max-width: 620px) {
+  .userImage{
+    display:none;
+  }
+  .userStatsNumbers{
+    flex-wrap:wrap;
+  }
+}

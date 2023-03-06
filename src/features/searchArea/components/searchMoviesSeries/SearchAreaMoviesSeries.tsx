@@ -28,7 +28,7 @@ export const SearchAreaMoviesSeries = ({ links }: Props) => {
           </div>
         ))}
       </Fade>
-      <div className="slideContainerElements">
+      <div className="slideOverlay">
         <Header />
         <SearchBarMoviesSeries />
       </div>

@@ -7,6 +7,7 @@ import { useBackground } from "features/welcomeScreen/hooks";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { checkIfImageExists } from "features/header/functions";
+import { CircularProgressBarAverages, CircularProgressBarNumbers } from "./CircularProgressBars";
 
 export interface Props {
   links: string[];
@@ -33,87 +34,33 @@ export const Backdrop = ({
   }
 
   return (
-    <div className="profileBackdrop">
-      <div
-        className="userProfileBackdrop"
-        style={{ backgroundImage: `url(${background})` }}
-      ></div>
-      <div className="userStatsDiv">
-        <Header />
-        <div className="profileWrapper">
-          {profileImage && checkIfImageExists(profileImage) && (
-            <div className="userImage">
-              <img src={profileImage} alt="userImage" className="userImage" />
-            </div>
-          )}
-          <div className="userStats">
-            <h3 className="userName">{userName}</h3>
-            <div className="userStatsNumbers">
-              <div className="progressBarWrap">
-                <CircularProgressbar
-                  value={
-                    userNumbers.averageMovieRating
-                      ? userNumbers.averageMovieRating
-                      : 0
-                  }
-                  minValue={0}
-                  maxValue={10}
-                  text={`${userNumbers.averageMovieRating}`}
-                  strokeWidth={15}
-                />
-                <p className="progressBarText">Average Movie Rating</p>
-              </div>
-              <div className="progressBarWrap">
-                <CircularProgressbar
-                  value={
-                    userNumbers.averageSeriesRating
-                      ? userNumbers.averageSeriesRating
-                      : 0
-                  }
-                  minValue={0}
-                  maxValue={10}
-                  text={`${userNumbers.averageSeriesRating}`}
-                  strokeWidth={15}
-                />
-                <p className="progressBarText">Average Series Rating</p>
-              </div>
-              <div className="progressBarWrap">
-                <CircularProgressbar
-                  value={
-                    userNumbers.numberOfLikedMovies
-                      ? userNumbers.numberOfLikedMovies
-                      : 0
-                  }
-                  minValue={0}
-                  maxValue={
-                    userNumbers.numberOfLikedMovies
-                      ? userNumbers.numberOfLikedMovies * 2
-                      : 10
-                  }
-                  text={`${userNumbers.numberOfLikedMovies}`}
-                  strokeWidth={15}
-                />
-                <p className="progressBarText">Movies Liked</p>
-              </div>
-              <div className="progressBarWrap">
-                <CircularProgressbar
-                  value={
-                    userNumbers.numberOfLikedSeries
-                      ? userNumbers.numberOfLikedSeries
-                      : 0
-                  }
-                  minValue={0}
-                  maxValue={
-                    userNumbers.numberOfLikedSeries
-                      ? userNumbers.numberOfLikedSeries * 2
-                      : 10
-                  }
-                  text={`${userNumbers.numberOfLikedSeries}`}
-                  strokeWidth={15}
-                />
-                <p className="progressBarText">Series Liked</p>
-              </div>
-            </div>
+    <div className="profileBackdrop" style={{ backgroundImage: `url(${background})` }}>
+      <Header />
+      <div className="profileWrapper">
+        {profileImage && checkIfImageExists(profileImage) && (
+          <div className="userImage">
+            <img src={profileImage} alt="userImage" className="userImage" />
+          </div>
+        )}
+        <div className="userStats">
+          <h3 className="userName">{userName}</h3>
+          <div className="userStatsNumbers">
+            <CircularProgressBarAverages
+              average={userNumbers.averageMovieRating}
+              text="Average Movie Rating"
+            />
+            <CircularProgressBarAverages
+              average={userNumbers.averageSeriesRating}
+              text="Average Series Rating"
+            />
+            <CircularProgressBarNumbers
+              number={userNumbers.numberOfLikedMovies}
+              text="Movies Liked"
+            />
+            <CircularProgressBarNumbers
+              number={userNumbers.numberOfLikedSeries}
+              text="Series Liked"
+            />
           </div>
         </div>
       </div>

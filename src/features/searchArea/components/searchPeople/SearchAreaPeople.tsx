@@ -31,7 +31,7 @@ export const SearchAreaPeople = () => {
           </div>
         ))}
       </Fade>
-      <div className="slideContainerElements">
+      <div className="slideOverlay">
         <Header />
         <SearchBarPeople />
       </div>

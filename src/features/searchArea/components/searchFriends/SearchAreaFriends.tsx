@@ -30,7 +30,7 @@ export const SearchAreaFriends = () => {
           </div>
         ))}
       </Fade>
-      <div className="slideContainerElements">
+      <div className="slideOverlay">
         <Header />
         <SearchBarFriends />
       </div>

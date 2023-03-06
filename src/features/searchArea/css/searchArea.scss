@@ -9,37 +9,23 @@
 
 .slide-container {
   position: relative;
-  max-height: 550px;
-  min-height: 550px;
-  .react-slideshow-container {
-    max-height: 550px;
-    min-height: 550px;
-    .react-slideshow-fadezoom-wrapper {
-      max-height: 550px;
-      min-height: 550px;
-      div[aria-roledescription] {
-        min-height: 550px;
-        div {
-          min-height: 550px;
-          display: flex;
-          justify-content: center;
-          img{
-            min-height: 550px;
-            aspect-ratio: 1.7 / 1;
-            min-width: 950px;
-          }
-        }
+  .react-slideshow-fadezoom-wrapper {
+    height: 550px;
+    div[aria-roledescription] div {
+      display: flex;
+      justify-content: center;
+      img {
+        min-width: 950px;
       }
     }
   }
-
 }
-.slideContainerElements {
+.slideOverlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
-  min-height: 550px;
+  height: 100%;
   padding: 0 1.5rem;
   z-index: 50;
 }
