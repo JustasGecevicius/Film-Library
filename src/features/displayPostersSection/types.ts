@@ -9,6 +9,7 @@ export interface MoviesPosterDisplayType {
 export interface PeoplePosterDisplayType {
   arr: PersonObject[];
   sectionName: string;
+  link : string
 }
 
 export interface PersonObject{

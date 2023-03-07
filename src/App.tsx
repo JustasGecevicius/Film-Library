@@ -14,12 +14,10 @@ import { initializeApp } from "firebase/app";
 import "css/app.css";
 // Config
 import config from "./features/services/config";
-import { ComponentTest } from "pages/ComponentTest";
 import { ShowPerson } from "pages/ShowPerson";
-import { useCountry } from "features/location/hooks";
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import {ReactQueryDevtools} from "react-query/devtools";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { UserProfile } from "pages/UserProfile";
+import { ShowAllPeople } from "pages/ShowAllPeople";
 
 const App: React.FC = () => {
   initializeApp(config);
@@ -41,8 +39,12 @@ const App: React.FC = () => {
           element={<ShowAll />}
         />
         <Route path="/Film-Library/person/:id" element={<ShowPerson />} />
+        <Route
+          path="/Film-Library/allPeople/:section"
+          element={<ShowAllPeople />}
+        />
       </Routes>
-      <ReactQueryDevtools/>
+      <ReactQueryDevtools />
     </div>
   );
 };

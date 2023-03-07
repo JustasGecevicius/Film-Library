@@ -69,7 +69,7 @@ export const ShowSeries = () => {
       )}
       {credits && credits.length !== 0 && (
         <div className="recommendationDiv">
-          <PosterDisplayPeople arr={credits} sectionName="Cast" />
+          <PosterDisplayPeople arr={credits} sectionName="Cast" link="Cast"/>
         </div>
       )}
     </>

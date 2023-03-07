@@ -3,8 +3,8 @@ import { api } from "features/services/axios";
 import { GET_TRENDING_PEOPLE_URL } from "./constants";
 import { People, SingularPerson } from "./types";
 
-export const getPopularPeople = () =>
-  api<People>(GET_TRENDING_PEOPLE_URL).then((response) => {
+export const getPopularPeople = (page = 1) =>
+  api<People>(`/person/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`).then((response) => {
     return response.data.results;
   });
 

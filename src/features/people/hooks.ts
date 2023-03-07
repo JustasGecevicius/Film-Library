@@ -7,12 +7,13 @@ import { useQuery } from "react-query";
 import { getPopularPeople } from "./api";
 import { fetchFriendLikedPeopleList, fetchPeopleFromList, filterPeopleInformation } from "./functions";
 
-export const usePopularPeople = () => {
+export const usePopularPeople = (page = 1) => {
   const [popularPeople, setPopularPeople] = useState<PersonObject[]>();
   const { data: config } = useQuery("config", getConfig, {
     staleTime: 300000,
   });
-  useQuery(["people", config], getPopularPeople, {
+  useQuery(["people", page], () => {
+    return getPopularPeople(page)}, {
     enabled: !!config,
     onSuccess: (data) => {
       setPopularPeople(filterPeopleInformation(config, data));
@@ -23,7 +24,6 @@ export const usePopularPeople = () => {
 
 export const usePeopleLikedByFriends = () => {
   const { userInfo, db } = useFirebaseContext();
-  const [people, setPeople] = useState<PersonObject[]>();
   const { data: config } = useQuery("config", getConfig, {
     staleTime: 300000,
   });

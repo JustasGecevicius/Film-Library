@@ -21,10 +21,12 @@ export const People = () => {
             <PosterDisplayPeople
               arr={popularPeople}
               sectionName="Popular People"
+              link="Popular"
             />
             <PosterDisplayPeople
               arr={peopleLikedByFriends}
               sectionName="Your Friends Like..."
+              link="FriendLiked"
             />
           </div>
         </>

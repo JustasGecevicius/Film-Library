@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 export const PosterDisplayPeople = ({
   arr,
   sectionName,
+  link
 }: PeoplePosterDisplayType) => {
   return <>{arr.length !==0 &&
     <div className="section">
       <div className="sectionInfo">
         <h2 className="sectionName">{sectionName}</h2>
-        <Link to={`/Film-Library/allPeople/popular`}>
+        <Link to={`/Film-Library/allPeople/${link}`}>
           <button className="viewAllButton">View All</button>
         </Link>
       </div>
