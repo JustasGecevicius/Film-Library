@@ -18,7 +18,7 @@ export const ShowAll = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const links = useSearchAreaImages();
   const { section, type, id } = useParams<keyof Params>() as Params;
-
+  console.log(section, type, id, "x");
   return (
     <div className="showAll">
       <SearchAreaMoviesSeries links={links} />
@@ -29,7 +29,7 @@ export const ShowAll = () => {
         {section === "Popular" && type && (
           <PosterDisplayAllPopular type={type} page={pageNumber} />
         )}
-        {section === "Top Rated" && type && id && (
+        {section === "Top Rated" && type && (
           <PosterDisplayAllTop type={type} page={pageNumber} />
         )}
         {section === "Recommended" && type && (

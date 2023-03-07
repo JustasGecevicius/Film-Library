@@ -18,23 +18,27 @@ export const PosterDisplayAllTop = ({ type, page }: Props) => {
       return prev ? [...prev, ...results] : [...results];
     });
   }, [results]);
-
-  return combinedResults ? (
-    <div className="movieHolderAll">
-      {combinedResults.map((elem, index) => {
-        return (
-          <PosterMovieSeries
-            key={index}
-            imageURL={elem.imageURL}
-            title={elem.title}
-            release_date={elem.release_date}
-            id={elem.id}
-            liked={elem.liked}
-            rating={elem.rating}
-            type={type}
-          ></PosterMovieSeries>
-        );
-      })}
-    </div>
-  ) : null;
+  console.log(results);
+  return (
+    <>
+      {combinedResults && (
+        <div className="movieHolderAll">
+          {combinedResults.map((elem, index) => {
+            return (
+              <PosterMovieSeries
+                key={index}
+                imageURL={elem.imageURL}
+                title={elem.title}
+                release_date={elem.release_date}
+                id={elem.id}
+                liked={elem.liked}
+                rating={elem.rating}
+                type={type}
+              />
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
 };

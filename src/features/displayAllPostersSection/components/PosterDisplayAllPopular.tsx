@@ -31,7 +31,7 @@ export const PosterDisplayAllPopular = ({ type, page }: Props) => {
             liked={elem.liked}
             rating={elem.rating}
             type={type}
-          ></PosterMovieSeries>
+          />
         );
       })}
     </div>
