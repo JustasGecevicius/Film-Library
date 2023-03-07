@@ -68,6 +68,7 @@ export const ShowMovie = () => {
             sectionName="Recommended"
             type="movie"
             id={movieData?.id}
+            link={`all/movie/Recommended/${movieData?.id}`}
           />
         </div>
       )}

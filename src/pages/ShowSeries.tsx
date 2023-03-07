@@ -64,6 +64,7 @@ export const ShowSeries = () => {
             sectionName="Recommended"
             type="series"
             id={seriesData?.id}
+            link={`all/series/Recommended/${seriesData?.id}`}
           />
         </div>
       )}

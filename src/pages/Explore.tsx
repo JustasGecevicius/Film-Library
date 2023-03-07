@@ -29,12 +29,14 @@ export const Explore = () => {
               arr={trendingMovies}
               sectionName="Popular"
               type="movie"
+              link="all/movie/Popular"
             />
 
             <PosterDisplayMoviesSeries
               arr={topMovies}
               sectionName="Top Rated"
               type="movie"
+              link="all/movie/Top Rated"
             />
 
             <h2 className="typeName">Series</h2>
@@ -43,12 +45,14 @@ export const Explore = () => {
               arr={popularSeries}
               sectionName="Popular"
               type="series"
+              link="all/series/Popular"
             />
 
             <PosterDisplayMoviesSeries
               arr={topSeries}
               sectionName="Top Rated"
               type="series"
+              link="all/series/Top Rated"
             />
           </div>
         </>

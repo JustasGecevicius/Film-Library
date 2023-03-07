@@ -3,21 +3,21 @@ import { Link } from "react-router-dom";
 import { MoviesPosterDisplayType, PosterType } from "../types";
 import "features/displayPostersSection/css/posterDisplay.css";
 
+interface Link {
+  link: string;
+}
 export const PosterDisplayMoviesSeries = ({
   arr,
   sectionName,
   type,
   id,
-}: MoviesPosterDisplayType & PosterType) => {
+  link,
+}: MoviesPosterDisplayType & PosterType & Link) => {
   return (
     <div className="section">
       <div className="sectionInfo">
         <h2 className="sectionName">{sectionName}</h2>
-        <Link
-          to={`/Film-Library/all/${type}/${sectionName}${
-            id ? "/" + id.toString() : ""
-          }`}
-        >
+        <Link to={`/Film-Library/${link}`}>
           <button className="viewAllButton">View All</button>
         </Link>
       </div>

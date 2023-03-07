@@ -19,6 +19,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { UserProfile } from "pages/UserProfile";
 import { ShowAllPeople } from "pages/ShowAllPeople";
 import { ShowAllFriends } from "pages/ShowAllFriends";
+import { ShowAllUserLikedRated } from "pages/ShowAllUserLikedRated";
 
 
 const App: React.FC = () => {
@@ -48,6 +49,10 @@ const App: React.FC = () => {
         <Route
           path="/Film-Library/allFriends"
           element={<ShowAllFriends />}
+        />
+        <Route
+          path="/Film-Library/User/:type/:section"
+          element={<ShowAllUserLikedRated />}
         />
       </Routes>
       <ReactQueryDevtools />

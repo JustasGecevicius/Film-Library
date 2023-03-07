@@ -36,22 +36,26 @@ export const Friends = () => {
                 arr={friendLikedMovies}
                 sectionName="Popular With Friends"
                 type="movie"
+                link="all/movie/Popular With Friends"
               />
               <PosterDisplayMoviesSeries
                 arr={friendRatedMovies.filteredMoviesList}
                 sectionName="Rated by Friends"
                 type="movie"
+                link="all/movie/Rated by Friends"
               />
               <h2 className="typeName"> Series </h2>
               <PosterDisplayMoviesSeries
                 arr={friendLikedSeries}
                 sectionName="Popular With Friends"
                 type="series"
+                link="all/series/Popular With Friends"
               />
               <PosterDisplayMoviesSeries
                 arr={friendRatedSeries.filteredSeriesList}
                 sectionName="Rated by Friends"
                 type="series"
+                link="all/series/Rated by Friends"
               />
               <PosterDisplayFriends
                 users={activeFriends}

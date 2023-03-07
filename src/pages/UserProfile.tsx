@@ -42,6 +42,7 @@ export const UserProfile = () => {
                     arr={userLikedMovies}
                     sectionName={"Movies"}
                     type={"movie"}
+                    link="User/movie/Liked"
                   />
                 )}
                 {userLikedSeries && userLikedSeries.length !== 0 && (
@@ -49,6 +50,7 @@ export const UserProfile = () => {
                     arr={userLikedSeries}
                     sectionName={"Series"}
                     type={"series"}
+                    link="User/series/Liked"
                   />
                 )}
                 <h2 className="typeName">Rated</h2>
@@ -57,6 +59,7 @@ export const UserProfile = () => {
                     arr={userRatedMovies}
                     sectionName={"Movies"}
                     type={"movie"}
+                    link="User/movie/Rated"
                   />
                 )}
                 {userRatedSeries && userRatedSeries.length !== 0 && (
@@ -64,6 +67,7 @@ export const UserProfile = () => {
                     arr={userRatedSeries}
                     sectionName={"Series"}
                     type={"series"}
+                    link="User/series/Rated"
                   />
                 )}
               </div>
