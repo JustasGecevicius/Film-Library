@@ -179,10 +179,11 @@ export const useFetchFriendRatedMovies = () => {
 // FRIEND RELATED HOOKS
 
 export const useActiveFriends = () => {
+
   const [friendsData, setFriendsData] =
     useState<(DocumentData | undefined)[]>();
-  const promiseArray: Promise<DocumentSnapshot<DocumentData>>[] = [];
   const { userInfo, db } = useFirebaseContext();
+
   const { data: friendsList } = useQuery(
     ["friends", userInfo, db],
     () => {
@@ -192,19 +193,21 @@ export const useActiveFriends = () => {
       enabled: !!userInfo && !!db,
     }
   );
+
   useEffect(() => {
+    if(friendsList && friendsData?.length === Object.keys(friendsList).length) return
+    const promiseArray: Promise<DocumentSnapshot<DocumentData>>[] = [];
     let fetch = async () => {
       if (!friendsList) return;
       Object.keys(friendsList).forEach((elem) => {
-        const result = getDoc(doc(db, `userNames/${elem}`));
-        promiseArray.push(result);
+        const friend = getDoc(doc(db, `userNames/${elem}`));
+        promiseArray.push(friend);
       });
-      const arrayResult = await Promise.all(promiseArray);
-
-      const newArr = arrayResult.map((elem) => {
+      const friends = await Promise.all(promiseArray);
+      const friendsDataArray = friends.map((elem) => {
         return { ...elem.data(), name: elem.id };
-      });
-      setFriendsData(newArr);
+      });      
+      setFriendsData(friendsDataArray);
     };
     fetch();
     // eslint-disable-next-line react-hooks/exhaustive-deps

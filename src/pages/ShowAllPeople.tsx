@@ -14,7 +14,6 @@ export const ShowAllPeople = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const { section } = useParams<keyof Params>() as Params;
-  console.log(section, "x");
   return (
     <div className="showAll">
       <SearchAreaPeople />

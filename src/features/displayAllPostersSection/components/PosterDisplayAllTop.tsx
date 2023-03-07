@@ -18,7 +18,6 @@ export const PosterDisplayAllTop = ({ type, page }: Props) => {
       return prev ? [...prev, ...results] : [...results];
     });
   }, [results]);
-  console.log(results);
   return (
     <>
       {combinedResults && (

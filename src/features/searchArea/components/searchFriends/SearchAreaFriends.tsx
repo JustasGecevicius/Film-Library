@@ -1,6 +1,4 @@
-// Hooks
-import { useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
+
 // Components
 import { Header } from "../../../header/components/Header";
 import { SearchBarFriends } from "features/searchArea/components/searchFriends/SearchBarFriends";
