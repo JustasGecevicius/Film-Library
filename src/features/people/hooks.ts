@@ -56,5 +56,5 @@ export const usePeopleLikedByFriends = () => {
     }
   );
 
-  return peopleDataList;
+  return peopleDataList || [];
 };

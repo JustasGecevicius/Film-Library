@@ -21,7 +21,6 @@ import { useMovieData } from "features/movies/hooks";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
 import { Trailer } from "features/showMovieAndSeries/components/Trailer";
-import { WatchProviders } from "features/showMovieAndSeries/components/WatchProviders";
 import { PosterDisplayWatchProviders } from "features/displayPostersSection/components/PosterDisplayWatchProviders";
 
 export const ShowMovie = () => {
@@ -30,6 +29,7 @@ export const ShowMovie = () => {
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);
   const recommendations = useRecommended(movieData?.id, 1, "movie");
+  console.log(recommendations);
   const credits = useMovieSeriesCast("movie", movieData?.id);
   const watch = useWatchProviders(movieData?.id, "movie");
   return (

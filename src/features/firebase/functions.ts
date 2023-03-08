@@ -48,11 +48,13 @@ export async function initializeUser(
 
 // Sign in function from Firebase using popup auth and Google as the identity provider.
 export async function signInUser() {
+  console.log("signIn");
   var provider = new GoogleAuthProvider();
   await signInWithPopup(getAuth(), provider);
 }
 
 // Sign out function.
 export function signOutUser() {
+  console.log("signOut");
   signOut(getAuth());
 }

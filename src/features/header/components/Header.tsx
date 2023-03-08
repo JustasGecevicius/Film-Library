@@ -59,7 +59,8 @@ export const Header = () => {
         <button
           className="signInButton"
           onClick={() => {
-            userInfo ? signInUser() : signOutUser();
+            console.log(userInfo);
+            userInfo ? signOutUser() : signInUser();
           }}
         >
           <FontAwesomeIcon icon={solid("key")} className="navigationImage" />

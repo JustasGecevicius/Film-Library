@@ -20,6 +20,7 @@ import { UserProfile } from "pages/UserProfile";
 import { ShowAllPeople } from "pages/ShowAllPeople";
 import { ShowAllFriends } from "pages/ShowAllFriends";
 import { ShowAllUserLikedRated } from "pages/ShowAllUserLikedRated";
+import "pages/css/noUser.css";
 
 
 const App: React.FC = () => {
@@ -55,7 +56,6 @@ const App: React.FC = () => {
           element={<ShowAllUserLikedRated />}
         />
       </Routes>
-      <ReactQueryDevtools />
     </div>
   );
 };

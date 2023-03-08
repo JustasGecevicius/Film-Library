@@ -9,6 +9,7 @@ import { useSearchAreaImages } from "features/searchArea/hooks";
 import "features/profile/css/backdrop.css";
 import "pages/css/userProfile.css";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
+import { NoUser } from "./NoUser";
 
 export const UserProfile = () => {
   const { userInfo, db } = useFirebaseContext();
@@ -26,7 +27,7 @@ export const UserProfile = () => {
         userLikedMovies &&
         userLikedSeries &&
         userRatedMovies &&
-        userRatedSeries && (
+        userRatedSeries ? (
           <>
             <div className="userProfile">
               <Backdrop
@@ -73,7 +74,7 @@ export const UserProfile = () => {
               </div>
             </div>
           </>
-        )}
+        ) : <NoUser/>}
     </>
   );
 };
