@@ -174,3 +174,26 @@ export const useUserRated = (type: "movie" | "series") => {
 
   return data;
 };
+
+// export const useChartUserRatedData = () => {
+//   const {db, userInfo} = useFirebaseContext();
+//   const { data: userRatedMovies } = useQuery(
+//     ["userRated", "movie", db],
+//     () => {
+//       return fetchUserRated(userInfo?.uid, db, "movie");
+//     },
+//     {
+//       enabled: !!userInfo && !!db,
+//     }
+//   );
+//   const { data: userRatedSeries } = useQuery(
+//     ["userRated", "series", db],
+//     () => {
+//       return fetchUserRated(userInfo?.uid, db, "series");
+//     },
+//     {
+//       enabled: !!userInfo && !!db,
+//     }
+//   );
+//  // console.log(userRatedMovies, userRatedSeries);
+// }

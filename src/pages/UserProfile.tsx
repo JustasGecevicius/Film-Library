@@ -19,7 +19,7 @@ export const UserProfile = () => {
   const userLikedSeries = useUserLiked("series");
   const userRatedMovies = useUserRated("movie");
   const userRatedSeries = useUserRated("series");
-
+  console.log(userNumbers);
   return (
     <>
       {userNumbers &&
@@ -38,6 +38,7 @@ export const UserProfile = () => {
               />
               <div className="posterDisplaysWrapper">
               <h2 className="typeName">Liked</h2>
+              {}
                 {userLikedMovies && userLikedMovies.length !== 0 && (
                   <PosterDisplayMoviesSeries
                     arr={userLikedMovies}
@@ -71,6 +72,7 @@ export const UserProfile = () => {
                     link="User/series/Rated"
                   />
                 )}
+                
               </div>
             </div>
           </>
