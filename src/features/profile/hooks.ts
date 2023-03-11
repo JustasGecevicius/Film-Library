@@ -20,9 +20,9 @@ export const useUserInfo = (userInfo: UserInfo | undefined, db: Firestore) => {
   const [numberOfLikedMovies, setNumberOfLikedMovies] = useState<number>();
   const [numberOfLikedSeries, setNumberOfLikedSeries] = useState<number>();
   const [differentMoviesRatings, setDifferentMoviesRatings] =
-    useState<number[]>();
+    useState<{ x: number; y: number; }[]>();
   const [differentSeriesRatings, setDifferentSeriesRatings] =
-    useState<number[]>();
+    useState<{ x: number; y: number; }[]>();
   useQuery<LikedRatedData | undefined>(
     ["ratedMovieData", db, userInfo?.uid],
     () => {

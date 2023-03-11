@@ -1,5 +1,6 @@
 import { useFirebaseContext } from "features/context/FirebaseContext";
-import { Backdrop } from "features/profile/backdrop/Backdrop";
+import { Backdrop } from "features/profile/components/backdrop/Backdrop";
+import {Chart} from "features/profile/components/chart/Chart";
 import {
   useUserInfo,
   useUserLiked,
@@ -23,60 +24,61 @@ export const UserProfile = () => {
   return (
     <>
       {userNumbers &&
-        links &&
-        userLikedMovies &&
-        userLikedSeries &&
-        userRatedMovies &&
-        userRatedSeries ? (
-          <>
-            <div className="userProfile">
-              <Backdrop
-                links={links}
-                profileImage={userInfo?.profileURL}
-                userName={userInfo?.displayName}
-                userNumbers={userNumbers}
-              />
-              <div className="posterDisplaysWrapper">
+      links &&
+      userLikedMovies &&
+      userLikedSeries &&
+      userRatedMovies &&
+      userRatedSeries ? (
+        <>
+          <div className="userProfile">
+            <Backdrop
+              links={links}
+              profileImage={userInfo?.profileURL}
+              userName={userInfo?.displayName}
+              userNumbers={userNumbers}
+            />
+            <div className="posterDisplaysWrapper">
               <h2 className="typeName">Liked</h2>
-              {}
-                {userLikedMovies && userLikedMovies.length !== 0 && (
-                  <PosterDisplayMoviesSeries
-                    arr={userLikedMovies}
-                    sectionName={"Movies"}
-                    type={"movie"}
-                    link="User/movie/Liked"
-                  />
-                )}
-                {userLikedSeries && userLikedSeries.length !== 0 && (
-                  <PosterDisplayMoviesSeries
-                    arr={userLikedSeries}
-                    sectionName={"Series"}
-                    type={"series"}
-                    link="User/series/Liked"
-                  />
-                )}
-                <h2 className="typeName">Rated</h2>
-                {userRatedMovies && userRatedMovies.length !== 0 && (
-                  <PosterDisplayMoviesSeries
-                    arr={userRatedMovies}
-                    sectionName={"Movies"}
-                    type={"movie"}
-                    link="User/movie/Rated"
-                  />
-                )}
-                {userRatedSeries && userRatedSeries.length !== 0 && (
-                  <PosterDisplayMoviesSeries
-                    arr={userRatedSeries}
-                    sectionName={"Series"}
-                    type={"series"}
-                    link="User/series/Rated"
-                  />
-                )}
-                
-              </div>
+              <div className="chart"><Chart/></div>
+              {userLikedMovies && userLikedMovies.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userLikedMovies}
+                  sectionName={"Movies"}
+                  type={"movie"}
+                  link="User/movie/Liked"
+                />
+              )}
+              {userLikedSeries && userLikedSeries.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userLikedSeries}
+                  sectionName={"Series"}
+                  type={"series"}
+                  link="User/series/Liked"
+                />
+              )}
+              <h2 className="typeName">Rated</h2>
+              {userRatedMovies && userRatedMovies.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userRatedMovies}
+                  sectionName={"Movies"}
+                  type={"movie"}
+                  link="User/movie/Rated"
+                />
+              )}
+              {userRatedSeries && userRatedSeries.length !== 0 && (
+                <PosterDisplayMoviesSeries
+                  arr={userRatedSeries}
+                  sectionName={"Series"}
+                  type={"series"}
+                  link="User/series/Rated"
+                />
+              )}
             </div>
-          </>
-        ) : <NoUser/>}
+          </div>
+        </>
+      ) : (
+        <NoUser />
+      )}
     </>
   );
 };

@@ -15,13 +15,13 @@ import "css/app.css";
 // Config
 import config from "./features/services/config";
 import { ShowPerson } from "pages/ShowPerson";
-import { ReactQueryDevtools } from "react-query/devtools";
 import { UserProfile } from "pages/UserProfile";
 import { ShowAllPeople } from "pages/ShowAllPeople";
 import { ShowAllFriends } from "pages/ShowAllFriends";
 import { ShowAllUserLikedRated } from "pages/ShowAllUserLikedRated";
 import "pages/css/noUser.css";
 import { ComponentTest } from "pages/ComponentTest";
+import "pages/css/componentTest.css";
 
 const App: React.FC = () => {
   initializeApp(config);

@@ -5,8 +5,9 @@ export const calculateRatings = (numbersArr: number[]) => {
   const numberOfDigits = [];
   for (let i = 1; i <= 10; i++) {
     const digitArr = numbersArr.filter((number) => number === i);
-    numberOfDigits.push(digitArr.length);
+    numberOfDigits.push({x : i, y : digitArr.length});
   }
+  console.log(numberOfDigits);
   return numberOfDigits;
 };
 
