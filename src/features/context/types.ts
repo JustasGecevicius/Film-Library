@@ -6,6 +6,8 @@ export interface Context {
   app?: FirebaseApp;
   userInfo: UserInfo | undefined;
   setUserInfo?: React.Dispatch<React.SetStateAction<UserInfo | undefined>>;
+  darkTheme: boolean;
+  setDarkTheme: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface UserInfo {
   countryCode?: string;

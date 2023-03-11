@@ -16,6 +16,7 @@
   height: 37.5px;
   border-radius: 1rem;
   border: none;
+  padding: 0 1rem;
 }
 .search .searchField {
   width: 100%;
@@ -111,6 +112,7 @@
   top: 15px;
   z-index: 10;
   background-color: white;
+  border-radius: 0 0 20px 20px;
 }
 .search .searchResultsDisplay .foundUser {
   width: 600px;
@@ -139,4 +141,4 @@
 }
 .search .searchResultsDisplay .foundMovie img {
   max-width: 50px;
-}/*# sourceMappingURL=searchBar.css.map */
+}

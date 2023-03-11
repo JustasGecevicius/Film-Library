@@ -49,7 +49,7 @@ export const useSearchFriends = (
   setIndexToRemove: React.Dispatch<React.SetStateAction<number>>
 ) => {
   // Context for Firebase
-  const { db } = useFirebaseContext();
+  const { userInfo, db } = useFirebaseContext();
   // State for the answers fetched from Firebase
   const [answers, setAnswers] = useState<Friend[]>();
   // Debouce Hook
@@ -62,7 +62,7 @@ export const useSearchFriends = (
   // Function to set search results
   const handleSearch = async () => {
     const query = await getDocs(collection(db, "userNames"));
-    const friends = searchUsers(query, seachString);
+    const friends = searchUsers(query, userInfo?.uid,  seachString);
     friends ? setAnswers(friends) : setAnswers(undefined);
   };
   // Hook to handle removing users from the list

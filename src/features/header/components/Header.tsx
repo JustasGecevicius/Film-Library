@@ -7,12 +7,11 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { NavigationIcon } from "./NavigationIcon";
 import { checkIfImageExists } from "../functions";
 import { ToggleDarkLightSwitch } from "features/utils/ToggleDarkLightSwitch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Header = () => {
-  const { userInfo } = useFirebaseContext();
-  const [ theme, setTheme ] = useState<"dark" | "light">("light");
-
+  const { userInfo, setDarkTheme, darkTheme } = useFirebaseContext();
+  useEffect (() => {console.log(darkTheme)},[darkTheme]);
 
   return (
     <header className="header">
@@ -44,7 +43,7 @@ export const Header = () => {
         />
       </ul>
       <div className="userSignIn">
-        <ToggleDarkLightSwitch  setTheme={setTheme}></ToggleDarkLightSwitch>
+        <ToggleDarkLightSwitch  setDarkTheme={setDarkTheme}/>
         {userInfo && (
           <div className="userInformationDisplay">
             {checkIfImageExists("http://website/images/img.png") && (

@@ -1,21 +1,18 @@
 // API
-import { getConfig } from "features/config/api";
-import { getPopular } from "features/popular/api";
 // Types 
 import { UserInfo } from "features/context/types";
 import { Friend } from "./types";
 // Firebase
 import { doc, DocumentData, Firestore, QuerySnapshot, updateDoc } from "firebase/firestore";
 // Hooks
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
 
 // A function to search for certain users
-export const searchUsers = (allUsers : QuerySnapshot<DocumentData>, searchString : string) => {
+export const searchUsers = (allUsers : QuerySnapshot<DocumentData>, currentUserId : string | undefined, searchString : string) => {
   const matchedUsers : Friend[] = [];
   allUsers.forEach((user) => {
     if(user.id.toLowerCase().includes(searchString)){
       const {profileURL, uid} = user.data();
+      if(uid === currentUserId) return;
       matchedUsers.push({friendName : user.id, uid, profileURL});
     }
   })
