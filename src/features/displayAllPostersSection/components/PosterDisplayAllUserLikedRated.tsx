@@ -1,4 +1,3 @@
-import { useFetchFriendLikedMovies, useFriendLikedSeries } from "features/friends/hooks";
 import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
 import { useUserLiked, useUserRated } from "features/profile/hooks";
 

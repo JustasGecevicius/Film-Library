@@ -38,8 +38,8 @@ export const UserProfile = () => {
               userNumbers={userNumbers}
             />
             <div className="posterDisplaysWrapper">
-              <h2 className="typeName">Liked</h2>
               <div className="chart"><Chart/></div>
+              <h2 className="typeName">Liked</h2>
               {userLikedMovies && userLikedMovies.length !== 0 && (
                 <PosterDisplayMoviesSeries
                   arr={userLikedMovies}

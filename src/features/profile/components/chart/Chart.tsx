@@ -1,6 +1,7 @@
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useUserInfo } from "features/profile/hooks";
-import { Bar } from "react-chartjs-2"
+import { Bar } from "react-chartjs-2";
+import "features/profile/css/chart.css";
 
 export const Chart = () => {
 const {userInfo, db} = useFirebaseContext();
@@ -52,5 +53,7 @@ const options = {
       },
     ],
   };
-    return <Bar options={options} data={data} />
+    return <div className="chartWrapper">
+      <Bar options={options} data={data} />
+    </div>
 }
