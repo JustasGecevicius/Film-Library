@@ -4,16 +4,18 @@ import "pages/css/home.css";
 import { useBackground, useDisplayName } from "features/welcomeScreen/hooks";
 // Components
 import { Header } from "features/header/components/Header";
+import { useFirebaseContext } from "features/context/FirebaseContext";
 
 export const Home = () => {
 
   // Getting the background photo and the user name
   const background = useBackground();
   const displayName = useDisplayName();
+  const {darkTheme} = useFirebaseContext();
 
   return background ? (
     <div
-      className="background"
+      className={darkTheme ? "backgroundDark" : "background"}
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="backgroundCover">

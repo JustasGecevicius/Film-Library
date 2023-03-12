@@ -21,5 +21,6 @@ export interface IconsObject {
 export interface NavigationIconType {
   iconName: "film" | "camera" | "users" | "user";
   link: string;
-  sectionName : string
+  sectionName : string;
+  darkTheme : true | false
 }

@@ -7,7 +7,7 @@ import { NavigationIconType } from "../types";
 
 
 
-export const NavigationIcon = ({ iconName, link, sectionName }: NavigationIconType) => {
+export const NavigationIcon = ({ iconName, link, sectionName, darkTheme }: NavigationIconType) => {
 
   const icons = {
     film : faFilm,
@@ -19,7 +19,7 @@ export const NavigationIcon = ({ iconName, link, sectionName }: NavigationIconTy
   return (
     <li className="navigationButton">
       <Link to={`/Film-Library/${link}`} className="navigationLink">
-        <FontAwesomeIcon icon={icons[iconName]} className="navigationImage" />
+        <FontAwesomeIcon icon={icons[iconName]} className="navigationImage" color={darkTheme ? "white" : "black"}/>
         {sectionName}
       </Link>
     </li>
