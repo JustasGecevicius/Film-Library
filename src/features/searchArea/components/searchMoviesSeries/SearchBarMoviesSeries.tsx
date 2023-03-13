@@ -16,7 +16,7 @@ export const SearchBarMoviesSeries = () => {
   const [type, setType] = useState<"movie" | "series">("movie");
   // Check whether user clicked inside/outside of the search bar
   const focus = useFocus();
-
+  
   return (
     <div className="search" id="search">
       <div className="searchField">

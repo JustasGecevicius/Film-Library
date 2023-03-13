@@ -34,6 +34,7 @@ export interface WatchProvidersDataResultsSingle {
     flatrate: WatchProvidersDataResultsProvider[];
     rent: WatchProvidersDataResultsProvider[];
     buy: WatchProvidersDataResultsProvider[];
+    free: WatchProvidersDataResultsProvider[];
 }
 
 export interface WatchProvidersDataResultsProvider {

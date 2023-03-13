@@ -32,3 +32,9 @@
   width: 100%;
   overflow-x: auto;
 }
+
+.darkTheme .viewAllButton {
+  color: white;
+  background-color: black;
+  border: solid white 2px;
+}

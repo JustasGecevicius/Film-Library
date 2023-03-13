@@ -4,7 +4,7 @@ interface Props {
 
 export const SearchTypeSwitch = ({ setType }: Props) => {
   return (
-    <label className="searchSwitch">
+    <label className="switch">
       <input
         type="checkbox"
         onChange={(e) => {

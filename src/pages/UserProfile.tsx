@@ -20,7 +20,7 @@ export const UserProfile = () => {
   const userLikedSeries = useUserLiked("series");
   const userRatedMovies = useUserRated("movie");
   const userRatedSeries = useUserRated("series");
-  console.log(userNumbers);
+  const {darkTheme} = useFirebaseContext();
   return (
     <>
       {userNumbers &&
@@ -29,7 +29,7 @@ export const UserProfile = () => {
       userLikedSeries &&
       userRatedMovies &&
       userRatedSeries ? (
-        <>
+        <div className={darkTheme ? "darkTheme" : "theme"}>
           <div className="userProfile">
             <Backdrop
               links={links}
@@ -75,7 +75,7 @@ export const UserProfile = () => {
               )}
             </div>
           </div>
-        </>
+        </div>
       ) : (
         <NoUser />
       )}

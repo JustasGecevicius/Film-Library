@@ -6,16 +6,17 @@ import {
   usePeopleLikedByFriends,
   usePopularPeople,
 } from "features/people/hooks";
+import { useFirebaseContext } from "features/context/FirebaseContext";
 
 export const People = () => {
   // Getting the popular people
   const popularPeople = usePopularPeople();
   const peopleLikedByFriends = usePeopleLikedByFriends();
-  console.log(peopleLikedByFriends);
+  const {darkTheme} = useFirebaseContext();
   return (
     <>
       {popularPeople && peopleLikedByFriends && (
-        <>
+        <div className={darkTheme ? "darkTheme" : "theme"}>
           <SearchAreaPeople />
           <div className="posterDisplaysWrapper">
             <PosterDisplayPeople
@@ -29,7 +30,7 @@ export const People = () => {
               link="FriendLiked"
             />
           </div>
-        </>
+        </div>
       )}
     </>
   );

@@ -13,6 +13,7 @@ import {
 import { PosterDisplayFriends } from "features/displayPostersSection/components/PosterDisplayFriends";
 import { User } from "features/displayPostersSection/types";
 import { NoUser } from "./NoUser";
+import { useFirebaseContext } from "features/context/FirebaseContext";
 
 export const Friends = () => {
   // Getting movies liked by Friends
@@ -21,6 +22,7 @@ export const Friends = () => {
   const friendRatedMovies = useFetchFriendRatedMovies();
   const friendRatedSeries = useFetchFriendRatedSeries();
   const activeFriends = useActiveFriends() as User[];
+  const {darkTheme} = useFirebaseContext();
   return (
     <>
       {friendLikedMovies &&
@@ -28,7 +30,7 @@ export const Friends = () => {
       friendRatedMovies.filteredMoviesList &&
       friendRatedSeries.filteredSeriesList &&
       activeFriends ? (
-        <>
+        <div className={darkTheme ? "darkTheme" : "theme"}>
           <SearchAreaFriends></SearchAreaFriends>
           <div className="posterDisplaysWrapper">
             <h2 className="typeName"> Movies </h2>
@@ -62,7 +64,7 @@ export const Friends = () => {
               sectionName="Active Friends"
             />
           </div>
-        </>
+        </div>
       ) : <NoUser />
       }
     </>

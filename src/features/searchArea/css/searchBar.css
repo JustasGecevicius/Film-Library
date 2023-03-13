@@ -1,8 +1,14 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 .search {
+  max-width: 600px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +27,6 @@
 .search .searchField {
   width: 100%;
   max-width: 600px;
-  padding: 0 10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -30,42 +35,30 @@
   border-radius: 1rem;
   position: relative;
   z-index: 20;
-  /* Hide default HTML checkbox */
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
   /* The slider */
-  /* Rounded sliders */
 }
-.search .searchField .searchSwitch {
-  position: relative;
-  display: inline-block;
+.search .searchField .switch {
+  min-width: 80px;
+}
+.search .searchField .switch {
   width: 100px;
-  height: 28px;
 }
-.search .searchField .searchSwitch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.search .searchField .switch input:checked + .slider::after {
+  content: "Series";
 }
-.search .searchField .slider {
+.search .searchField .switch input:checked + .slider::before {
+  transform: translateX(53px);
+}
+.search .searchField .switch input:checked + .slider::after {
   position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
+  left: 5px;
 }
-.search .searchField .slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
+.search .searchField .switch .slider {
+  width: 100%;
 }
-.search .searchField .slider::after {
+.search .searchField .switch .slider::after {
   content: "Movie";
   display: flex;
   align-items: center;
@@ -78,67 +71,57 @@
   overflow-x: hidden;
   transition: 0.4s;
 }
-.search .searchField input:checked + .slider {
-  background-color: #000000;
-}
-.search .searchField input:checked + .slider:after {
-  content: "Series";
-  color: white;
-  left: 5px;
-}
-.search .searchField input:focus + .slider {
-  box-shadow: 0 0 1px #000000;
-}
-.search .searchField input:checked + .slider:before {
-  transform: translateX(52px);
-}
-.search .searchField .slider.round {
-  border-radius: 34px;
-}
-.search .searchField .slider.round:before {
-  border-radius: 50%;
-}
 .search .searchResultsDisplay {
-  padding-top: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  max-height: 300px;
   width: 100%;
-  max-width: 600px;
-  overflow-y: auto;
   position: absolute;
-  top: 15px;
-  z-index: 10;
+  top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
   background-color: white;
+  padding-top: 1rem;
   border-radius: 0 0 20px 20px;
 }
-.search .searchResultsDisplay .foundUser {
-  width: 600px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: white;
-}
-.search .searchResultsDisplay .foundUser img {
+.search .searchResultsDisplay img {
   max-width: 50px;
 }
-.search .searchResultsDisplay .foundUser:nth-child(1) {
-  margin-top: 1rem;
-}
 .search .searchResultsDisplay .foundMovie {
-  width: 550px;
-  box-sizing: border-box;
+  margin-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  -moz-column-gap: 2rem;
-       column-gap: 2rem;
   align-items: center;
-  background-color: white;
-  margin-top: 15px;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
 }
-.search .searchResultsDisplay .foundMovie img {
-  max-width: 50px;
+.search .searchResultsDisplay .foundUser {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+}
+.search .searchResultsDisplay .foundUser button {
+  position: absolute;
+  right: 5px;
+}
+
+.darkTheme .search input[type=text] {
+  background-color: black;
+  color: white;
+}
+.darkTheme .search .searchField {
+  background-color: black;
+}
+.darkTheme .search .slider {
+  background-color: black;
+  outline: solid white 2px;
+  color: white;
+}
+.darkTheme .search .searchResultsDisplay {
+  background-color: black;
+}
+.darkTheme .search .searchResultsDisplay p {
+  color: white;
 }

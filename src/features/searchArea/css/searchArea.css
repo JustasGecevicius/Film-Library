@@ -12,6 +12,10 @@
 }
 .slide-container .react-slideshow-fadezoom-wrapper {
   height: 550px;
+  min-height: 550px;
+}
+.slide-container .react-slideshow-fadezoom-wrapper .react-slideshow-fadezoom-images-wrap > div > div {
+  min-height: 550px;
 }
 .slide-container .react-slideshow-fadezoom-wrapper div[aria-roledescription] div {
   display: flex;
@@ -29,4 +33,8 @@
   height: 100%;
   padding: 0 1.5rem;
   z-index: 50;
-}/*# sourceMappingURL=searchArea.css.map */
+}
+
+.darkTheme .slideOverlay {
+  background-color: rgba(0, 0, 0, 0.4);
+}

@@ -176,15 +176,16 @@ const filterWatchProviders = (
   watchProviders: WatchProvidersDataResultsSingle,
   config : GetConfig | undefined
 ) => {
+  console.log(watchProviders, "watch");
   if(!config) return;
   const baseUrl = `${config.images.base_url}${config.images.logo_sizes[6]}`;
-  const { buy, flatrate, rent } = watchProviders;
-  const sorted = _.sortBy({ buy, flatrate, rent }, [
+  const { buy, flatrate, rent, free } = watchProviders;
+  const sorted = _.sortBy({ buy, flatrate, rent, free }, [
     (option) => {
       return _.size(option);
     },
   ]);
-  const filteredArray = sorted[2].map((elem) => {
+  const filteredArray = sorted[3].map((elem) => {
     return {...elem, logo_path : `${baseUrl}${elem.logo_path}`}
   })
   return filteredArray;

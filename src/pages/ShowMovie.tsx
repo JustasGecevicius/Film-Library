@@ -22,6 +22,7 @@ import { PosterDisplayMoviesSeries } from "features/displayPostersSection/compon
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
 import { Trailer } from "features/showMovieAndSeries/components/Trailer";
 import { PosterDisplayWatchProviders } from "features/displayPostersSection/components/PosterDisplayWatchProviders";
+import { useFirebaseContext } from "features/context/FirebaseContext";
 
 export const ShowMovie = () => {
   // Getting the movie data, backdrop Images and production companies.
@@ -29,11 +30,12 @@ export const ShowMovie = () => {
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);
   const recommendations = useRecommended(movieData?.id, 1, "movie");
-  console.log(recommendations);
   const credits = useMovieSeriesCast("movie", movieData?.id);
   const watch = useWatchProviders(movieData?.id, "movie");
+  const {darkTheme} = useFirebaseContext();
   return (
-    <>
+    
+    <div className={darkTheme ? "darkTheme" : "theme"}>
       {backdropImages && movieData && (
         <Backdrop
           backdrop={backdropImages.backdropURL}
@@ -85,6 +87,6 @@ export const ShowMovie = () => {
           />
         </div>
       )}
-    </>
+    </div>
   );
 };

@@ -1,12 +1,37 @@
 $max-width: 900px;
-
+.darkTheme {
+  background-color: black;
+  .overview {
+    color: white;
+  }
+  .visitHomepage > .visitHomepageWidth > a {
+    color: white;
+  }
+  .dataNumbersSymbol{
+    color: white;
+    outline: solid white 2px;
+  }
+  .producedByWidth{
+    h3{
+      color: white;
+    }
+    .cards{
+      margin-top: 2rem;
+      color: white;
+      .producerCard > .producerLogo{
+        background-color: white;
+        border-radius: 50%;
+      }
+    }
+  }
+}
 .backdrop {
   height: 500px;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   padding: 1.5rem;
-  box-shadow: inset 0px -200px 100px -50px black;
+  box-shadow: inset 0 -200px 100px -50px black;
   .width {
     height: 100%;
     max-width: $max-width;
@@ -40,14 +65,14 @@ $max-width: 900px;
 }
 .genres {
   background-color: black;
-  padding: 0rem 1.5rem;
+  padding: 0 1.5rem;
   .genreItems {
     margin: 0 auto;
     max-width: $max-width;
     display: flex;
     flex-direction: row;
     column-gap: 1rem;
-    padding: 1rem 0rem;
+    padding: 1rem 0;
     background-color: black;
     color: white;
   }
@@ -73,9 +98,19 @@ $max-width: 900px;
   .likeAndRateWidth {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     column-gap: 2rem;
     max-width: $max-width;
     width: 100%;
+    .rateInput::-webkit-outer-spin-button{
+      
+        -webkit-appearance: none;
+        margin: 0;
+      
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
     button {
       padding: 0.5rem;
     }
@@ -151,12 +186,28 @@ $max-width: 900px;
   }
 }
 
-.trailerDiv{
+.trailerDiv {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  .trailer {
     height: 500px;
-    display: flex;
-    justify-content: center;    
-    .trailer{
-        height: 500px;
-        width: 900px;
+    width: 900px;
+  }
+}
+
+.darkTheme{
+  .likeAndRate{
+    color: white;
+    button{
+      color: white;
+      background-color: black;
+      border: solid white 2px;
     }
+    button:hover{
+      color: black;
+      background-color: white;
+      border: solid black 2px;
+    }
+  }
 }

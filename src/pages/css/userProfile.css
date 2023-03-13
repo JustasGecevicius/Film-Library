@@ -1,10 +1,24 @@
+.userProfile .chartWrapper {
+  margin-top: 0;
+  padding-top: 2rem;
+}
+.userProfile .posterDisplaysWrapper {
+  position: relative;
+  z-index: 10;
+}
 .userProfile .profileBackdrop {
+  overflow-y: hidden;
   position: relative;
   height: -moz-fit-content;
   height: fit-content;
   padding: 0 1.5rem;
+  z-index: 5;
 }
 .userProfile .profileBackdrop .profileWrapper {
+  position: relative;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.6);
   container-type: inline-size;
   container-name: stats;
   display: flex;
@@ -25,8 +39,6 @@
   margin: 0 auto;
   height: -moz-fit-content;
   height: fit-content;
-  background-color: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.6);
 }
 .userProfile .profileBackdrop .profileWrapper .userStats h3 {
   color: white;
@@ -70,6 +82,25 @@
   stroke: rgb(63, 63, 63);
 }
 
+.darkTheme .profileBackdrop:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(#000000, #000000);
+  opacity: 0.8;
+}
+.darkTheme .userProfile > .profileBackdrop > .profileWrapper > .userStats {
+  background-color: transparent;
+  box-shadow: none;
+}
+.darkTheme .userProfile > .profileBackdrop > .profileWrapper {
+  background-color: transparent;
+  box-shadow: none;
+}
+
 @container stats (max-width: 620px) {
   .userImage {
     display: none;
@@ -77,4 +108,4 @@
   .userStatsNumbers {
     flex-wrap: wrap;
   }
-}/*# sourceMappingURL=userProfile.css.map */
+}

@@ -43,6 +43,8 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
           max="10"
           min="1"
           onChange={(e) => userRating.current = +e.target.value}
+          placeholder="Rating"
+          
         />
         <button
           className="rateButton"

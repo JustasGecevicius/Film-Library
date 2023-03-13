@@ -4,8 +4,19 @@ a {
 }
 .typeName {
   font-size: 2rem;
-  margin-top: 2rem;
+  padding-top: 2rem;
 }
 .posterDisplaysWrapper {
   padding: 0 1.5rem;
+}
+
+.theme{
+  
+}
+
+.darkTheme{
+  .posterDisplaysWrapper{
+    background-color: black;
+    color: white;
+  }
 }
