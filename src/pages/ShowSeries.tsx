@@ -19,6 +19,7 @@ import { useSeriesData } from "features/series/hooks";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
 import { Trailer } from "features/showMovieAndSeries/components/Trailer";
+import { useFirebaseContext } from "features/context/FirebaseContext";
 
 export const ShowSeries = () => {
   // Getting series data, backdrop images and the production companies
@@ -27,9 +28,10 @@ export const ShowSeries = () => {
   const productionCompanies = useProductionCompanies(seriesData);
   const recommendations = useRecommended(seriesData?.id, 1, "series");
   const credits = useMovieSeriesCast("series", seriesData?.id);
-
+  const {darkTheme} = useFirebaseContext();
+  
   return (
-    <>
+    <div className={darkTheme ? "darkTheme" : "theme"}>
       {backdropImages && seriesData ? (
         <Backdrop
           backdrop={backdropImages.backdropURL}
@@ -39,7 +41,7 @@ export const ShowSeries = () => {
       ) : null}
       {seriesData ? (
         <>
-          <Genres genres={seriesData.genres}></Genres>
+          <Genres genres={seriesData.genres}/>
           <LikeAndRate title={seriesData.name} type="series" />
           <Description overview={seriesData.overview} />
           {seriesData.homepage && <VisitHomepage link={seriesData.homepage} />}
@@ -73,6 +75,6 @@ export const ShowSeries = () => {
           <PosterDisplayPeople arr={credits} sectionName="Cast" link="Cast"/>
         </div>
       )}
-    </>
+    </div>
   );
 };

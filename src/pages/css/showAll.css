@@ -6,4 +6,15 @@
 .showAll .moreMovies {
   margin: 0 auto;
   margin-top: 2rem;
-}/*# sourceMappingURL=showAll.css.map */
+}
+
+.darkTheme .moreMovies {
+  background-color: black;
+  color: white;
+  outline: solid white 2px;
+}
+.darkTheme .moreMovies:hover {
+  background-color: white;
+  color: black;
+  outline: solid black 2px;
+}

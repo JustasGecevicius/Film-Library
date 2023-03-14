@@ -45,7 +45,7 @@ export const ShowMovie = () => {
       )}
       {movieData && (
         <>
-          <Genres genres={movieData.genres}></Genres>
+          <Genres genres={movieData.genres}/>
           <LikeAndRate title={movieData.title} type="movie" />
           <Description overview={movieData.overview} />
           {movieData.homepage && <VisitHomepage link={movieData.homepage} />}

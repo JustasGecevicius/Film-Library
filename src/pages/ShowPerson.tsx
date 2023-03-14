@@ -1,3 +1,4 @@
+import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useMovieSeriesCredits } from "features/credits/hooks";
 import { PosterDisplayCredits } from "features/displayPostersSection/components/PosterDisplayCredits";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
@@ -14,7 +15,7 @@ import { useParams } from "react-router-dom";
 
 export const ShowPerson = () => {
   const { id } = useParams();
-
+  const {darkTheme} = useFirebaseContext();
   const { data: person } = useQuery(
     ["person", id],
     () => {
@@ -30,7 +31,7 @@ export const ShowPerson = () => {
 
   const backdrop = useBackdropPerson(person);
   return (
-    <>
+    <div className={darkTheme ? "darkTheme" : "theme"}>
       {backdrop && person && (
         <BackdropPerson backdrop={""} poster={backdrop} title={person.name} />
       )}
@@ -60,6 +61,6 @@ export const ShowPerson = () => {
           <PosterDisplayCredits id={id} arr={seriesCredits} sectionName="Series Credits" type="series" />
         )}
       </div>
-    </>
+    </div>
   );
 };

@@ -8,3 +8,15 @@
   }
 }
   
+.darkTheme{
+  .moreMovies{
+    background-color: black;
+    color: white;
+    outline: solid white 2px;
+    &:hover{
+      background-color: white;
+      color: black;
+      outline: solid black 2px;
+    }
+  }
+}

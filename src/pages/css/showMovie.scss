@@ -102,15 +102,6 @@ $max-width: 900px;
     column-gap: 2rem;
     max-width: $max-width;
     width: 100%;
-    .rateInput::-webkit-outer-spin-button{
-      
-        -webkit-appearance: none;
-        margin: 0;
-      
-    }
-    input[type=number] {
-      -moz-appearance: textfield;
-    }
     button {
       padding: 0.5rem;
     }
@@ -196,6 +187,12 @@ $max-width: 900px;
   }
 }
 
+.recommendationDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .darkTheme{
   .likeAndRate{
     color: white;
@@ -208,6 +205,21 @@ $max-width: 900px;
       color: black;
       background-color: white;
       border: solid black 2px;
+    }
+  }
+}
+
+.darkTheme{
+  .backdrop{
+    button{
+      background-color: black;
+      color: white;
+      outline: solid white 2px;
+      &:hover{
+        background-color: white;
+        color: black;
+        outline: solid black 1px;
+      }
     }
   }
 }
