@@ -44,7 +44,7 @@ const App: React.FC = () => {
         />
         <Route path="/Film-Library/person/:id" element={<ShowPerson />} />
         <Route
-          path="/Film-Library/allPeople/:section"
+          path="/Film-Library/allPeople/:type/:section/:id"
           element={<ShowAllPeople />}
         />
         <Route path="/Film-Library/allFriends" element={<ShowAllFriends />} />

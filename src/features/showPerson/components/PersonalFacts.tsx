@@ -10,13 +10,17 @@ export const PersonalFacts = ({
     <div className="dataNumbers">
       <div className="dataNumbersWidth">
         <div className="dataNumbersSymbol">
-          <p className="movieNumberSymbolText">{`Birthday | ${birthday}`}</p>
+          {birthday && (
+            <p className="movieNumberSymbolText">{`Birthday | ${birthday}`}</p>
+          )}
         </div>
         {also_known_as.map((nickname, index) => {
           return (
-            <div className="dataNumbersSymbol" key={index}>
-              <p className="movieNumberSymbolText">{`Known as | ${nickname}`}</p>
-            </div>
+            nickname && (
+              <div className="dataNumbersSymbol" key={index}>
+                <p className="movieNumberSymbolText">{`Known as | ${nickname}`}</p>
+              </div>
+            )
           );
         })}
         {deathday && (
@@ -24,9 +28,11 @@ export const PersonalFacts = ({
             <p className="movieNumberSymbolText">{`Deathday | ${deathday}`}</p>
           </div>
         )}
-        <div className="dataNumbersSymbol">
-          <p className="movieNumberSymbolText">{`Birth place | ${place_of_birth}`}</p>
-        </div>
+        {place_of_birth && (
+          <div className="dataNumbersSymbol">
+            <p className="movieNumberSymbolText">{`Birth place | ${place_of_birth}`}</p>
+          </div>
+        )}
       </div>
     </div>
   );

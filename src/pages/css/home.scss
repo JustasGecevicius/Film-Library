@@ -1,88 +1,95 @@
-.background{
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        z-index: 10;
-        .backgroundCover{
-                padding:0 2rem;
-                position: fixed;
-                background-color: rgba(0, 0, 0, 0.205);
-                width: 100%;
-                height: 100vh;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                box-shadow: inset 0 0 100px 100px;
-                z-index: 15;
-        }
-        .textWrap{
-                padding:0 2rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                row-gap: 3rem;
-                background-color: rgba(0, 0, 0, 0.7);
-                border-radius: 20px;
-                box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.7);
-                h2{
-                        font-size: 7rem;
-                        color: white;
-                }
-                h3{
-                        text-align: center;
-                        color: white;
-                        font-size: 4rem;position: relative;
-                        z-index: 50;
-                }
-        }
+.background {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 10;
+  .backgroundCover {
+    padding: 0 2rem;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.205);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 0 0 100px 100px black;
+    z-index: 15;
+  }
+  .textWrap {
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 3rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.7);
+    h2 {
+      font-size: 7rem;
+      color: white;
+    }
+    h3 {
+      text-align: center;
+      color: white;
+      font-size: 4rem;
+      position: relative;
+      z-index: 50;
+    }
+  }
 }
 
-.backgroundDark{
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        z-index: 10;
-        .backgroundCover{
-                padding:0 2rem;
-                position: fixed;
-                background-color: rgba(0, 0, 0, 0.805);
-                width: 100%;
-                height: 100vh;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                box-shadow: inset 0 0 100px 100px;
-                z-index: 15;
-        }
-        .textWrap{
-                padding:0 2rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                row-gap: 3rem;
-                background-color: rgba(0, 0, 0, 0.8);
-                border-radius: 20px;
-                box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.8);
-                h2{
-                        font-size: 7rem;
-                        color: white;
-                }
-                h3{
-                        text-align: center;
-                        color: white;
-                        font-size: 4rem;position: relative;
-                        z-index: 50;
-                }
-        }
+.darkTheme {
+  .backgroundCover {
+    box-shadow: inset 0 0 200px 200px black;
+  }
+}
 
+.backgroundDark {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 10;
+  .backgroundCover {
+    padding: 0 2rem;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.805);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 0 0 100px 100px;
+    z-index: 15;
+  }
+  .textWrap {
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 3rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.8);
+    h2 {
+      font-size: 7rem;
+      color: white;
+    }
+    h3 {
+      text-align: center;
+      color: white;
+      font-size: 4rem;
+      position: relative;
+      z-index: 50;
+    }
+  }
 }

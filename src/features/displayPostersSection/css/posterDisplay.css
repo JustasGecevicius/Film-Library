@@ -21,6 +21,7 @@
 }
 .recommendationDiv .section {
   max-width: 900px;
+  width: 100%;
 }
 
 .posterHolder {
@@ -31,8 +32,15 @@
        column-gap: 2rem;
   width: 100%;
   overflow-x: auto;
+  padding-bottom: 1rem;
+}
+.posterHolder:matches([data-scroll="0"]) {
+  background-color: red;
 }
 
+.darkTheme {
+  color: white;
+}
 .darkTheme .viewAllButton {
   color: white;
   background-color: black;

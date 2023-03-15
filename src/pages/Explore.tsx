@@ -3,6 +3,7 @@ import { PosterDisplayMoviesSeries } from "features/displayPostersSection/compon
 import { SearchAreaMoviesSeries } from "features/searchArea/components/searchMoviesSeries/SearchAreaMoviesSeries";
 // Styles
 import "pages/css/explore.css";
+import "css/app.css";
 // Hooks
 import { useTop } from "features/topRated/hooks";
 import { usePopular } from "features/popular/hooks";
@@ -58,7 +59,9 @@ export const Explore = () => {
             />
           </div>
         </div>
-      ) : <BounceLoader color="rgba(0, 0, 0, 1)" />}
+      ) : <div className="spinner">
+        <BounceLoader color="rgba(0, 0, 0, 1)"/>
+      </div>}
     </>
   );
 };

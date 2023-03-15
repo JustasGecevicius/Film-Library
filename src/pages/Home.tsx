@@ -14,21 +14,23 @@ export const Home = () => {
   const {darkTheme} = useFirebaseContext();
 
   return background ? (
-    <div
-      className={darkTheme ? "backgroundDark" : "background"}
-      style={{ backgroundImage: `url(${background})` }}
-    >
-      <div className="backgroundCover">
-        <Header/>
-      </div>
-      <div className="textWrap">
-        {displayName ? (
-          <h3>
-            Welcome back <br /> {displayName}{" "}
-          </h3>
-        ) : (
-          <h2>Discover</h2>
-        )}
+    <div className={darkTheme ? "darkTheme" : "theme"}>
+      <div
+        className="background"
+        style={{ backgroundImage: `url(${background})` }}
+      >
+        <div className="backgroundCover">
+          <Header/>
+        </div>
+        <div className="textWrap">
+          {displayName ? (
+            <h3>
+              Welcome back <br /> {displayName}{" "}
+            </h3>
+          ) : (
+            <h2>Discover</h2>
+          )}
+        </div>
       </div>
     </div>
   ) : null;

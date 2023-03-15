@@ -76,7 +76,7 @@ export const ShowMovie = () => {
       )}
       {credits && credits.length !== 0 && (
         <div className="recommendationDiv">
-          <PosterDisplayPeople arr={credits} sectionName="Cast" link="Cast"/>
+          <PosterDisplayPeople arr={credits} sectionName="Cast" link={`movie/Cast/${movieData?.id}`}/>
         </div>
       )}
       {watch && (

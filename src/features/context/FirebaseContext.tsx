@@ -19,10 +19,14 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
   const app = initializeApp(config);
   const db = getFirestore(app);
 
-  //const {data : location} = useQuery(["location"], getCurrentPosition)
+
   // User information state
   const [userInfo, setUserInfo] = useState<UserInfo>();
   const [darkTheme, setDarkTheme] = useState<boolean>(false);
+  useEffect (() => {
+    const darkTheme = localStorage.getItem("theme");
+    setDarkTheme(darkTheme === "true" ? true : false);
+  },[]);
   // Initializing firebase auth
   useEffect(() => {
     function initFirebaseAuth() {

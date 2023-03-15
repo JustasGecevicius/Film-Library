@@ -4,13 +4,19 @@ interface Props {
 }
 
 export const ToggleDarkLightSwitch = ({ setDarkTheme, darkTheme }: Props) => {
+
+  const handleThemeChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setDarkTheme(e.target.checked ? true : false);
+    localStorage.setItem("theme", e.target.checked.toString())
+  }
+
   return (
     <label className="switch">
       <input
         checked={darkTheme}
         type="checkbox"
-        onChange={(e) => {
-          setDarkTheme(e.target.checked ? true : false);
+        onChange={(e) => {          
+          handleThemeChange(e);
         }}
       />
       <span className="slider round"></span>

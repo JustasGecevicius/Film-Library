@@ -152,7 +152,7 @@ export const useMovieSeriesCast = (
     staleTime: 300000,
   });
   const { data } = useQuery(
-    ["movieCredits", type, id],
+    ["movieSeriesCredits", type, id],
     () => {
       return getCreditsOfPerson(id, type);
     },

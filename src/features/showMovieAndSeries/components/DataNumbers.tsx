@@ -32,7 +32,7 @@ export const DataNumbers = ({
     <div className="dataNumbers">
       <div className="dataNumbersWidth">
         {fixedNumbers.map((elem, index) => {
-          if (elem[1] !== undefined) {
+          if (elem[1]) {
             return (
               <div className="dataNumbersSymbol" key={index}>
                 <p className="movieNumberSymbolText">{`${elem[0]} | ${elem[1]}`}</p>

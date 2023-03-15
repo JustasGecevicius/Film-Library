@@ -7,18 +7,18 @@ $max-width: 900px;
   .visitHomepage > .visitHomepageWidth > a {
     color: white;
   }
-  .dataNumbersSymbol{
+  .dataNumbersSymbol {
     color: white;
     outline: solid white 2px;
   }
-  .producedByWidth{
-    h3{
+  .producedByWidth {
+    h3 {
       color: white;
     }
-    .cards{
+    .cards {
       margin-top: 2rem;
       color: white;
-      .producerCard > .producerLogo{
+      .producerCard > .producerLogo {
         background-color: white;
         border-radius: 50%;
       }
@@ -187,35 +187,32 @@ $max-width: 900px;
   }
 }
 
-.recommendationDiv{
+.recommendationDiv {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.darkTheme{
-  .likeAndRate{
+.darkTheme {
+  .likeAndRate {
     color: white;
-    button{
+    button {
       color: white;
       background-color: black;
       border: solid white 2px;
     }
-    button:hover{
+    button:hover {
       color: black;
       background-color: white;
       border: solid black 2px;
     }
   }
-}
-
-.darkTheme{
-  .backdrop{
-    button{
+  .backdrop {
+    button {
       background-color: black;
       color: white;
       outline: solid white 2px;
-      &:hover{
+      &:hover {
         background-color: white;
         color: black;
         outline: solid black 1px;
