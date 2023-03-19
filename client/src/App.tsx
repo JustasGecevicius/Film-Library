@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 // Pages
 import { Home } from "./pages/Home";
 import { Explore } from "pages/Explore";
@@ -23,9 +25,20 @@ import "pages/css/noUser.css";
 import { ComponentTest } from "pages/ComponentTest";
 import "pages/css/componentTest.css";
 
+import { serverApi } from "features/services/axios";
+
 const App: React.FC = () => {
   initializeApp(config);
   const location = useLocation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await serverApi.get("/test");
+      console.log(data);
+    };
+
+    fetchData();
+  });
 
   return (
     <div className="App">
@@ -53,10 +66,7 @@ const App: React.FC = () => {
           element={<ShowAllUserLikedRated />}
         />
 
-        <Route
-          path="/Film-Library/test"
-          element={<ComponentTest />}
-        />
+        <Route path="/Film-Library/test" element={<ComponentTest />} />
       </Routes>
     </div>
   );

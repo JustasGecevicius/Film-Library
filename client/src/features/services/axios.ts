@@ -6,9 +6,8 @@ export const api = axios.create({
 
 export const youtubeApi = axios.create({
   baseURL: "https://youtube.googleapis.com/youtube/v3/",
-})
+});
 
-
-
-
-
+export const serverApi = axios.create({
+  baseURL: "/api",
+});
