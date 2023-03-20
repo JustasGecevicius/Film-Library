@@ -3,9 +3,9 @@ const app = express();
 const port = 8080;
 require("dotenv").config();
 
-const apiRoutes = require("./routes/api");
+const generalRoute = require("./routes/generalRoute");
 
-app.use("/api", apiRoutes);
+app.use("/general", generalRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
