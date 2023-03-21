@@ -14,11 +14,6 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-// app.use("/", (req, res) => {
-//   console.log("default page");
-//   res.send("Server Running (Default page)");
-// })
-
 app.use("/general", generalRoute);
 
 app.listen(port, () => {
