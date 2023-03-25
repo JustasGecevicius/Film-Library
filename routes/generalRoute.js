@@ -3,8 +3,9 @@ const moviedbApi = require("../axios");
 const axios = require("axios");
 const admin = require("firebase-admin");
 const { doc, getDoc } = require("firebase-admin/firestore");
-const { checkIfLiked, checkIfRated } = require("./utils");
+const { checkIfLiked, checkIfRated } = require("../utils");
 const generalRoute = express.Router();
+const base_url = require("../baseURL");
 
 generalRoute.get("/", async (req, res) => {
   // Initialising the Firestore app
@@ -14,9 +15,6 @@ generalRoute.get("/", async (req, res) => {
   const { type, id, option, page, userId } = req.query;
 
   // TMDB promises
-  configPromise = moviedbApi.get(
-    `/configuration?api_key=${process.env.MOVIEDB_API_KEY}`
-  );
   dataPromise = id
     ? type
       ? moviedbApi.get(
@@ -30,60 +28,59 @@ generalRoute.get("/", async (req, res) => {
     : undefined;
 
   // Gets all the movies/series
-  if (type && option && page && userId && !id) {
+  if (type && option && page && !id) {
     try {
-
       // Promises of user liked/rated movies/series
-      const userLikedPromise = db
-        .doc(`${type === "movie" ? "likedMovies/" : "likedSeries/"}${userId}`)
-        .get();
-      const userRatedPromise = db
-        .doc(`${type === "movie" ? "ratedMovies/" : "ratedSeries/"}${userId}`)
-        .get();
+      const userLikedPromise = userId
+        ? db
+            .doc(
+              `${type === "movie" ? "likedMovies/" : "likedSeries/"}${userId}`
+            )
+            .get()
+        : undefined;
+      const userRatedPromise = userId
+        ? db
+            .doc(
+              `${type === "movie" ? "ratedMovies/" : "ratedSeries/"}${userId}`
+            )
+            .get()
+        : undefined;
 
       // An array of all promises
-      const allPromises = [
-        configPromise,
-        dataPromise,
-        userLikedPromise,
-        userRatedPromise,
-      ];
+      const allPromises = userId
+        ? [dataPromise, userLikedPromise, userRatedPromise]
+        : [dataPromise];
 
       // Resolved promises
       const resolvedPromises = await axios.all(allPromises);
 
       // Variables for the fetched data
-      const config = resolvedPromises[0].data;
-      const data = resolvedPromises[1].data;
-      const userLiked = resolvedPromises[2].data();
-      const userRated = resolvedPromises[3].data();
-
-      // Base URL of pictures from TMDB config
-      const baseURL = config.images.base_url + config.images.poster_sizes[6];
+      const data = resolvedPromises[0].data.results;
+      const userLiked = userId ? resolvedPromises[1].data() : undefined;
+      const userRated = userId ? resolvedPromises[2].data() : undefined;
 
       // The configured data ready to be returned
-      const configuredData = data.results.map((elem) => {
+      const configuredData = data.map((elem) => {
         return {
-          title: elem.title,
-          imageURL: baseURL + elem.poster_path,
-          releaseDate: elem.release_date,
+          title: elem.title || elem.name,
+          poster_path: base_url + elem.poster_path,
+          release_date: elem.release_date || elem.first_air_date,
           id: elem.id,
-          liked: checkIfLiked(elem.id, userLiked),
-          rating: checkIfRated(elem.id, userRated),
+          liked: userLiked ? checkIfLiked(elem.id, userLiked) : null,
+          rating: userRated ? checkIfRated(elem.id, userRated) : null,
         };
       });
 
       // Response
       res.status(200).json(configuredData);
       res.end();
-    } 
-    catch (error){
+    } catch (error) {
       console.log("Error encountered", error);
       res.status(500).json({
-        params: req.params,
+        params: req.query,
         status: "failed",
         reason: "internal server error",
-        error: error
+        error: error,
       });
     }
 
@@ -91,22 +88,53 @@ generalRoute.get("/", async (req, res) => {
   }
 
   // Gets a specific movie/series
-  if (type && id && userId && !option && !page) {
+  if (type && id && !option && !page) {
     // Data about the specific movie ready to be returned
     try {
-      const data = await moviedbApi.get(
-        `/${type}/${id}?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`
-      );
-      res.status(200).json(data.data);
+      const userLikedPromise = userId
+        ? db
+            .doc(`${type === "movie" ? "likedMovie" : "likedSeries"}/${userId}`)
+            .get()
+        : undefined;
+
+      const userRatedPromise = userId
+        ? db
+            .doc(
+              `${type === "movie" ? "ratedMovies/" : "ratedSeries/"}${userId}`
+            )
+            .get()
+        : undefined;
+
+      const allPromises = userId
+        ? [dataPromise, userLikedPromise, userRatedPromise]
+        : [dataPromise];
+
+      // The data from all promises
+      const resolvedPromises = await axios.all(allPromises);
+
+      // Variables for the fetched data
+      const data = resolvedPromises[0].data;
+      const userLiked = userId ? resolvedPromises[1].data() : undefined;
+      const userRated = userId ? resolvedPromises[2].data() : undefined;
+
+      // The configured data ready to be returned
+      const configuredData = {
+        ...data,
+        liked: userLiked ? checkIfLiked(data.id, userLiked) : null,
+        rating: userRated ? checkIfRated(data.id, userRated) : null,
+        base_url
+      };
+
+      res.status(200).json(configuredData);
       res.end();
-    } 
-    catch (error){
+    } catch (error) {
+
       console.log("Error encountered", error);
       res.status(500).json({
-        params: req.params,
+        params: req.query,
         status: "failed",
         reason: "internal server error",
-        error: error
+        error: error,
       });
     }
 
@@ -116,7 +144,7 @@ generalRoute.get("/", async (req, res) => {
   // No parameters case
   if (!userId && !type && !id && !page && !option) {
     res.status(404).json({
-      params: req.params,
+      params: req.query,
       status: "failed",
       reason: "No parameters in the URL",
     });
@@ -126,7 +154,7 @@ generalRoute.get("/", async (req, res) => {
 
   // Default case
   res.status(404).json({
-    params: req.params,
+    params: req.query,
     status: "failed",
     reason: "Wrong search parameters or server error",
   });

@@ -3,8 +3,9 @@ const moviedbApi = require("../axios");
 const axios = require("axios");
 const admin = require("firebase-admin");
 const { doc, getDoc } = require("firebase-admin/firestore");
-const { checkIfLiked, checkIfRated } = require("./utils");
+const { checkIfLiked, checkIfRated } = require("../utils");
 const peopleRoute = express.Router();
+const base_url = require("../baseURL");
 
 peopleRoute.get("/", async (req, res) => {
   // Initialising the Firestore app
@@ -14,11 +15,7 @@ peopleRoute.get("/", async (req, res) => {
   const { id, userId, page } = req.query;
 
   // TMDB Promises
-  configPromise = moviedbApi.get(
-    `/configuration?api_key=${process.env.MOVIEDB_API_KEY}`
-  );
-
-  dataPromise =
+  const dataPromise =
     id === "all"
       ? page
         ? moviedbApi.get(
@@ -32,7 +29,7 @@ peopleRoute.get("/", async (req, res) => {
       : undefined;
 
   // Gets all the people
-  if (id && page) {
+  if (id === "all" && page) {
     try {
       // Promises of user liked/rated movies/series
       const userLikedPromise = userId
@@ -41,27 +38,25 @@ peopleRoute.get("/", async (req, res) => {
 
       // An array of all promises
       const allPromises = userId
-        ? [configPromise, dataPromise, userLikedPromise]
-        : [configPromise, dataPromise];
+        ? [dataPromise, userLikedPromise]
+        : [dataPromise];
 
       // Resolved promises
       const resolvedPromises = await axios.all(allPromises);
 
       // Variables for the fetched data
-      const config = resolvedPromises[0].data;
-      const data = resolvedPromises[1].data;
-      const userLiked = userId ? resolvedPromises[2].data() : undefined;
-
-      // Base URL of pictures from TMDB config
-      const baseURL = config.images.base_url + config.images.profile_sizes[3];
+      const data = resolvedPromises[0].data;
+      const userLiked = resolvedPromises[1]
+        ? resolvedPromises[1].data()
+        : undefined;
 
       // The configured data ready to be returned
       const configuredData = data.results.map((elem) => {
         return {
           title: elem.name,
-          imageURL: baseURL + elem.profile_path,
+          imageURL: base_url + elem.profile_path,
           id: elem.id,
-          liked: userId ? checkIfLiked(elem.id, userLiked) : null,
+          liked: userLiked ? checkIfLiked(elem.id, userLiked) : null,
         };
       });
 
@@ -80,7 +75,8 @@ peopleRoute.get("/", async (req, res) => {
   }
 
   // Gets details of a single person
-  if (id && id !== "all") {
+  if (id && id !== "all" && !page) {
+    console.log(page);
     try {
       // Promises for user liked people and people
       const userLikedPromise = userId
@@ -93,22 +89,28 @@ peopleRoute.get("/", async (req, res) => {
 
       // An array of all promises
       const allPromises = userId
-        ? [configPromise, dataPromise, userLikedPromise]
-        : [configPromise, dataPromise];
+        ? [dataPromise, userLikedPromise]
+        : [dataPromise];
 
       // The data from all promises
       const resolvedPromises = await axios.all(allPromises);
 
       // Variables for the fetched data
-      const config = resolvedPromises[0].data;
-      const data = resolvedPromises[1].data;
-      const userLiked = userId ? resolvedPromises[2].data() : undefined;
+      const data = resolvedPromises[0].data;
+      const userLiked = resolvedPromises[1]
+        ? resolvedPromises[1].data()
+        : undefined;
 
-      // Base URL for pictures from TMDB config
-      const baseURL = config.images.base_url + config.images.profile_sizes[3];
+      const configuredData = {
+        ...data,
+        profile_path: base_url + data.profile_path,
+        liked: userLiked ? checkIfLiked(data.id, userLiked) : null,
+        title: data.name
+      };
 
+      delete configuredData.name
       // Response
-      res.status(200).json({ ...data, imageURL: baseURL + data.profile_path });
+      res.status(200).json(configuredData);
       res.end();
     } catch (error) {
       console.log("Error encountered", error);
