@@ -31,14 +31,14 @@ generalRoute.get("/", async (req, res) => {
   if (type && option && page && !id) {
     try {
       // Promises of user liked/rated movies/series
-      const userLikedPromise = userId
+      const userLikedPromise = userId && type
         ? db
             .doc(
               `${type === "movie" ? "likedMovies/" : "likedSeries/"}${userId}`
             )
             .get()
         : undefined;
-      const userRatedPromise = userId
+      const userRatedPromise = userId && type
         ? db
             .doc(
               `${type === "movie" ? "ratedMovies/" : "ratedSeries/"}${userId}`

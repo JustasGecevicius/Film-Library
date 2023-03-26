@@ -25,3 +25,4 @@ http://localhost:8080/friends?type=movie&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 BAD
 http://localhost:8080/friends?type=movie BAD
 
 // Recommended
+
