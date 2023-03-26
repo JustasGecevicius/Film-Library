@@ -1,3 +1,5 @@
+userId=3udgIIGGDYPm4th5zJ22MR3ba9J2
+
 // General
 http://localhost:8080/general?type=movie&id=315162&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 GOOD
 http://localhost:8080/general?type=tv&id=100088&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 GOOD
@@ -8,7 +10,7 @@ http://localhost:8080/general?id=100088
 http://localhost:8080/general
 
 // Person
-http://localhost:8080/person?id=all GOOD
+http://localhost:8080/person?id=all&page=1 GOOD
 http://localhost:8080/person?id=1253360 GOOD
 http://localhost:8080/person?id=1253360&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 GOOD
 http://localhost:8080/person?id=all&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 GOOD
@@ -17,4 +19,9 @@ http://localhost:8080/person?page=1 BAD
 http://localhost:8080/person BAD
 
 // Friends
+http://localhost:8080/friends?type=movie&option=liked&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 GOOD
+http://localhost:8080/friends?type=movie&option=liked BAD
+http://localhost:8080/friends?type=movie&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 BAD
+http://localhost:8080/friends?type=movie BAD
+
 // Recommended

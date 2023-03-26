@@ -1,6 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const generalRoute = require("./routes/generalRoute");
+const friendsRoute = require("./routes/friendsRoute");
 
 const app = express();
 const port = 8080;
@@ -18,6 +19,8 @@ admin.initializeApp({
 app.use("/general", generalRoute);
 
 app.use("/person", peopleRoute);
+
+app.use("/friends", friendsRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
