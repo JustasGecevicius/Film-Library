@@ -174,10 +174,10 @@ export const useMovieSeriesCast = (
 
 const filterWatchProviders = (
   watchProviders: WatchProvidersDataResultsSingle,
-  config : GetConfig | undefined
+  config: GetConfig | undefined
 ) => {
   console.log(watchProviders, "watch");
-  if(!config) return;
+  if (!config) return;
   const baseUrl = `${config.images.base_url}${config.images.logo_sizes[6]}`;
   const { buy, flatrate, rent, free } = watchProviders;
   const sorted = _.sortBy({ buy, flatrate, rent, free }, [
@@ -186,8 +186,8 @@ const filterWatchProviders = (
     },
   ]);
   const filteredArray = sorted[3].map((elem) => {
-    return {...elem, logo_path : `${baseUrl}${elem.logo_path}`}
-  })
+    return { ...elem, logo_path: `${baseUrl}${elem.logo_path}` };
+  });
   return filteredArray;
 };
 
@@ -195,8 +195,9 @@ export const useWatchProviders = (
   id: number | string | undefined,
   type: "movie" | "series"
 ) => {
-  const [watchProviders, setWatchProviders] = useState<WatchProvidersDataResultsProvider[]>();
-  const {data : config} = useQuery(["config"], getConfig);
+  const [watchProviders, setWatchProviders] =
+    useState<WatchProvidersDataResultsProvider[]>();
+  const { data: config } = useQuery(["config"], getConfig);
   const { data: watchProvidersData } = useQuery(
     ["watchProviders", type, id],
     () => {
@@ -208,9 +209,15 @@ export const useWatchProviders = (
   );
   const country = useCountry();
   useEffect(() => {
-    if (watchProvidersData && country && config && watchProvidersData[country]) {
+    if (
+      watchProvidersData &&
+      country &&
+      config &&
+      watchProvidersData[country]
+    ) {
       const filteredWatchProviders = filterWatchProviders(
-        watchProvidersData[country], config
+        watchProvidersData[country],
+        config
       );
       setWatchProviders(filteredWatchProviders);
     }

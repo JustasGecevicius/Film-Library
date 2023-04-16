@@ -15,7 +15,7 @@ generalRoute.get("/", async (req, res) => {
   const { type, id, option, page, userId } = req.query;
 
   // TMDB promises
-  dataPromise = id
+  const dataPromise = id
     ? type
       ? moviedbApi.get(
           `/${type}/${id}?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`
@@ -31,20 +31,22 @@ generalRoute.get("/", async (req, res) => {
   if (type && option && page && !id) {
     try {
       // Promises of user liked/rated movies/series
-      const userLikedPromise = userId && type
-        ? db
-            .doc(
-              `${type === "movie" ? "likedMovies/" : "likedSeries/"}${userId}`
-            )
-            .get()
-        : undefined;
-      const userRatedPromise = userId && type
-        ? db
-            .doc(
-              `${type === "movie" ? "ratedMovies/" : "ratedSeries/"}${userId}`
-            )
-            .get()
-        : undefined;
+      const userLikedPromise =
+        userId && type
+          ? db
+              .doc(
+                `${type === "movie" ? "likedMovies/" : "likedSeries/"}${userId}`
+              )
+              .get()
+          : undefined;
+      const userRatedPromise =
+        userId && type
+          ? db
+              .doc(
+                `${type === "movie" ? "ratedMovies/" : "ratedSeries/"}${userId}`
+              )
+              .get()
+          : undefined;
 
       // An array of all promises
       const allPromises = userId
@@ -122,13 +124,12 @@ generalRoute.get("/", async (req, res) => {
         ...data,
         liked: userLiked ? checkIfLiked(data.id, userLiked) : null,
         rating: userRated ? checkIfRated(data.id, userRated) : null,
-        base_url
+        base_url,
       };
 
       res.status(200).json(configuredData);
       res.end();
     } catch (error) {
-
       console.log("Error encountered", error);
       res.status(500).json({
         params: req.query,

@@ -25,4 +25,17 @@ http://localhost:8080/friends?type=movie&userId=3udgIIGGDYPm4th5zJ22MR3ba9J2 BAD
 http://localhost:8080/friends?type=movie BAD
 
 // Recommended
+http://localhost:8080/recommendations?type=movie&id=804150&page=1 GOOD
+http://localhost:8080/recommendations?type=movie&id=804150 BAD 
+http://localhost:8080/recommendations?type=movie BAD
+http://localhost:8080/recommendations?id=804150 BAD
+
+// Credits
+http://localhost:8080/credits?type=person&id=1253360&option=tv GOOD
+http://localhost:8080/credits?type=person&id=1253360&option=movie GOOD
+http://localhost:8080/credits?type=movie&id=505642 GOOD
+http://localhost:8080/credits?type=person&id=1253360 BAD
+http://localhost:8080/credits?type=person BAD
+http://localhost:8080/credits?id=1253360 BAD
+http://localhost:8080/credits BAD
 
