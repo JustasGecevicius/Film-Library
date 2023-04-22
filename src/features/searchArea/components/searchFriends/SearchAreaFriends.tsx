@@ -1,7 +1,6 @@
-
 // Components
 import { Header } from "../../../header/components/Header";
-import { SearchBarFriends } from "features/searchArea/components/searchFriends/SearchBarFriends";
+import { SearchBarFriends } from "features/searchArea/components/searchBars/SearchBarFriends";
 // Styles
 import "features/searchArea/css/searchArea.css";
 // Functions

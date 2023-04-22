@@ -1,14 +1,33 @@
+import { PersonObject } from "features/displayPostersSection/types";
 import { usePeopleLikedByFriends} from "features/people/hooks";
 import { PeoplePoster } from "features/poster/components/PeoplePoster";
+import { useEffect, useState } from "react";
 
+interface Props {
+  page : number;
+}
 
-
-export const PosterDisplayAllFriendLikedPeople = () => {
+export const PosterDisplayAllFriendLikedPeople = ({page} : Props) => {
   const results = usePeopleLikedByFriends();
+  const [combinedResults, setCombinedResults] = useState<PersonObject[]>([]);
+  const [multiplier, setMultiplier] = useState(0);
+
+  useEffect(() => {
+    page !== 1 && setMultiplier(prevCount => prevCount + 20);
+  }, [page]);
+
+  useEffect(() => {
+    const slice = results.slice(0 + multiplier, 19 + multiplier);
+    if (slice.length === 0) return;
+
+    setCombinedResults((prev) => {
+      return multiplier !== 0 ? [...prev, ...slice] : [...slice];
+    });
+  }, [multiplier])
 
   return <>{results && (
     <div className="movieHolderAll">
-      {results.map((elem, index) => {
+      {combinedResults.map((elem, index) => {
         return (
           <PeoplePoster
             key={index}

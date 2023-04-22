@@ -5,15 +5,16 @@ import "react-slideshow-image/dist/styles.css";
 // Styles
 import "features/searchArea/css/searchArea.css";
 import { Fade } from "react-slideshow-image";
-import { SearchBarFriends } from "../searchBars/SearchBarFriends";
-import { SearchBarPeople } from "../searchBars/SearchBarPeople";
+import { SearchBarFriends } from "./searchBars/SearchBarFriends";
+import { SearchBarPeople } from "./searchBars/SearchBarPeople";
 
 export interface Props {
   links: string[];
   type: "movieSeries" | "friends" | "cast" | "people";
+  SearchBar?: JSX.Element;
 }
 
-export const SearchAreaMoviesSeries = ({ links, type }: Props) => {
+export const SearchArea = ({ links, type }: Props) => {
   if (!links) {
     return <div>Loading...</div>;
   }
@@ -34,7 +35,7 @@ export const SearchAreaMoviesSeries = ({ links, type }: Props) => {
       <div className="slideOverlay">
         <Header />
         <>
-          {() => {
+          {(() => {
             switch (type) {
               case "movieSeries":
                 return <SearchBarMoviesSeries />;
@@ -47,7 +48,7 @@ export const SearchAreaMoviesSeries = ({ links, type }: Props) => {
               default:
                 return <></>;
             }
-          }}
+          })()}
         </>
       </div>
     </div>

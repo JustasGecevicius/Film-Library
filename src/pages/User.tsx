@@ -1,6 +1,6 @@
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { Backdrop } from "features/profile/components/backdrop/Backdrop";
-import { Chart } from "features/profile/components/chart/Chart";
+import {Chart} from "features/profile/components/chart/Chart";
 import {
   useUserInfo,
   useUserLiked,
@@ -11,16 +11,20 @@ import "features/profile/css/backdrop.css";
 import "pages/css/userProfile.css";
 import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
 import { NoUser } from "./NoUser";
+import { useParams } from "react-router-dom";
+import { useGetUser } from "features/utils/user";
 
-export const UserProfile = () => {
-  const { userInfo, db } = useFirebaseContext();
-  const userNumbers = useUserInfo(userInfo?.uid, db);
+export const ShowUser = () => {
+  const { db } = useFirebaseContext();
+  const {id} = useParams();
+  const userInfo = useGetUser(id);
+  const userNumbers = useUserInfo(id, db);
   const links = useSearchAreaImages();
-  const userLikedMovies = useUserLiked("movie", userInfo?.uid);
-  const userLikedSeries = useUserLiked("series", userInfo?.uid);
-  const userRatedMovies = useUserRated("movie", userInfo?.uid);
-  const userRatedSeries = useUserRated("series", userInfo?.uid);
-  const { darkTheme } = useFirebaseContext();
+  const userLikedMovies = useUserLiked("movie", id);
+  const userLikedSeries = useUserLiked("series", id);
+  const userRatedMovies = useUserRated("movie", id);
+  const userRatedSeries = useUserRated("series", id);
+  const {darkTheme} = useFirebaseContext();
   return (
     <>
       {userNumbers &&
@@ -28,7 +32,7 @@ export const UserProfile = () => {
       userLikedMovies &&
       userLikedSeries &&
       userRatedMovies &&
-      userRatedSeries && userInfo ? (
+      userRatedSeries ? (
         <div className={darkTheme ? "darkTheme" : "theme"}>
           <div className="userProfile">
             <Backdrop

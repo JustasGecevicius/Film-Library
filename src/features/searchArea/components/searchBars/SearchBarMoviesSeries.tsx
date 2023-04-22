@@ -5,9 +5,10 @@ import { useFocus } from "../../hooks";
 // Styles
 import "features/searchArea/css/searchBar.css";
 import "features/searchArea/css/searchSwitch.css";
-import { SearchResultsMovies } from "./SearchResultsMovies";
-import { SearchResultsSeries } from "./SearchResultsSeries";
+import { SearchResultsMovies } from "../searchMoviesSeries/SearchResultsMovies";
+import { SearchResultsSeries } from "../searchMoviesSeries/SearchResultsSeries";
 import { SearchTypeSwitch } from "../SearchTypeSwitch";
+import { useParams } from "react-router-dom";
 
 // HAVE TO FIX THE SEARCH ISSUE HERE, THE CODE LOOKS DISCUSTING
 export const SearchBarMoviesSeries = () => {
@@ -16,7 +17,8 @@ export const SearchBarMoviesSeries = () => {
   const [type, setType] = useState<"movie" | "series">("movie");
   // Check whether user clicked inside/outside of the search bar
   const focus = useFocus();
-  
+  const {section} = useParams();
+  console.log(section);
   return (
     <div className="search" id="search">
       <div className="searchField">
@@ -29,7 +31,7 @@ export const SearchBarMoviesSeries = () => {
             setQuery(e.target.value);
           }}
         />
-        <SearchTypeSwitch setType={setType}/>
+        <SearchTypeSwitch setType={setType} />
       </div>
       {focus && query !== "" && (
         <div className="searchResultsDisplay">

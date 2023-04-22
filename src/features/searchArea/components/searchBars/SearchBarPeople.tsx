@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFocus } from "../../hooks";
 // Styles
 import "features/searchArea/css/searchBar.css";
-import { SearchResultsPeople } from "./SearchResultsPeople";
+import { SearchResultsPeople } from "../searchPeople/SearchResultsPeople";
 
 export const SearchBarPeople = () => {
   // State to track user input
@@ -20,13 +20,15 @@ export const SearchBarPeople = () => {
           name="search"
           value={query}
           onChange={(e) => {
-            setQuery(e.target.value)
+            setQuery(e.target.value);
           }}
         />
       </div>
-      {focus && query !== "" && <div className="searchResultsDisplay">
-        <SearchResultsPeople query={query}/>
-      </div>}
+      {focus && query !== "" && (
+        <div className="searchResultsDisplay">
+          <SearchResultsPeople query={query} />
+        </div>
+      )}
     </div>
   );
 };

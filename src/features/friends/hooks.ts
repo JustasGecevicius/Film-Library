@@ -20,7 +20,7 @@ import {
 
 // SERIES RELATED HOOKS
 
-export const useFriendLikedSeries = () => {
+export const useFetchFriendLikedSeries = () => {
   const { userInfo, db } = useFirebaseContext();
   const { data: config } = useQuery("config", getConfig, {
     staleTime: 300000,
@@ -179,7 +179,6 @@ export const useFetchFriendRatedMovies = () => {
 // FRIEND RELATED HOOKS
 
 export const useActiveFriends = () => {
-
   const [friendsData, setFriendsData] =
     useState<(DocumentData | undefined)[]>();
   const { userInfo, db } = useFirebaseContext();
@@ -195,7 +194,8 @@ export const useActiveFriends = () => {
   );
 
   useEffect(() => {
-    if(friendsList && friendsData?.length === Object.keys(friendsList).length) return
+    if (friendsList && friendsData?.length === Object.keys(friendsList).length)
+      return;
     const promiseArray: Promise<DocumentSnapshot<DocumentData>>[] = [];
     let fetch = async () => {
       if (!friendsList) return;
@@ -206,7 +206,7 @@ export const useActiveFriends = () => {
       const friends = await Promise.all(promiseArray);
       const friendsDataArray = friends.map((elem) => {
         return { ...elem.data(), name: elem.id };
-      });      
+      });
       setFriendsData(friendsDataArray);
     };
     fetch();

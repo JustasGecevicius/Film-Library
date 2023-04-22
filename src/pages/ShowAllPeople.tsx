@@ -7,12 +7,15 @@ import { PosterDisplayAllPopularPeople } from "features/displayAllPostersSection
 import { PosterDisplayAllFriendLikedPeople } from "features/displayAllPostersSection/components/PosterDisplayAllFriendLikedPeople";
 import { PosterDisplayAllCast } from "features/displayAllPostersSection/components/PosterDisplayAllCast";
 import { useFirebaseContext } from "features/context/FirebaseContext";
+import { SearchArea } from "features/searchArea/components/SearchArea";
+import { useSearchAreaImages } from "features/searchArea/hooks";
 
 interface Params {
   section: "Popular" | "FriendLiked" | "Cast";
 }
 
-export const ShowAllPeople = () => {
+export const 
+ShowAllPeople = () => {
 
 const sectionNames = {
   "Popular" : "Popular People",
@@ -22,14 +25,16 @@ const sectionNames = {
 
   const [pageNumber, setPageNumber] = useState(1);
 
-
+  const links = useSearchAreaImages();
   const { section } = useParams<keyof Params>() as Params;
-  const {darkTheme} = useFirebaseContext();
+  const { darkTheme } = useFirebaseContext();
+
+  console.log(section);
 
   return (
     <div className={darkTheme ?  "darkTheme" : "theme"}>
       <div className="showAll">
-        <SearchAreaPeople />
+        <SearchArea links={links} type={"people"}  />
         <div className="posterDisplayAllWrapper">
           <h2 className="sectionName">
             {sectionNames[section]}
@@ -37,7 +42,7 @@ const sectionNames = {
           {section === "Popular" && (
             <PosterDisplayAllPopularPeople page={pageNumber} />
           )}
-          {section === "FriendLiked" && <PosterDisplayAllFriendLikedPeople />}
+          {section === "FriendLiked" && <PosterDisplayAllFriendLikedPeople page={pageNumber}/>}
           {section === "Cast" && <PosterDisplayAllCast />}
           <button
             className="moreMovies"

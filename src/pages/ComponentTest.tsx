@@ -65,7 +65,7 @@ ChartJS.register(Colors);
 
 export const ComponentTest = () => {
   const {userInfo, db} = useFirebaseContext();
-  const {differentMoviesRatings, differentSeriesRatings} = useUserInfo(userInfo, db);
+  const {differentMoviesRatings, differentSeriesRatings} = useUserInfo(userInfo?.uid, db);
   const data = {
     labels : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     datasets: [

@@ -3,9 +3,13 @@ import { useUserInfo } from "features/profile/hooks";
 import { Bar } from "react-chartjs-2";
 import "features/profile/css/chart.css";
 
-export const Chart = () => {
-const {userInfo, db} = useFirebaseContext();
-const {differentMoviesRatings, differentSeriesRatings} = useUserInfo(userInfo, db);
+interface Props {
+  id: string | undefined
+}
+
+export const Chart = ({id} : Props) => {
+const {db} = useFirebaseContext();
+const {differentMoviesRatings, differentSeriesRatings} = useUserInfo(id, db);
 const options = {
     responsive: true,
     plugins: {

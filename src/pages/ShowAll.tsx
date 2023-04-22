@@ -10,6 +10,8 @@ import { useSearchAreaImages } from "features/searchArea/hooks";
 import { PosterDisplayAllFriendLiked } from "features/displayAllPostersSection/components/PosterDisplayAllFriendLiked";
 import { PosterDisplayAllFriendRated } from "features/displayAllPostersSection/components/PosterDisplayAllFriendRated";
 import { useFirebaseContext } from "features/context/FirebaseContext";
+import { SearchArea } from "features/searchArea/components/SearchArea";
+import { useFetchFriendLikedMovies, useFetchFriendLikedSeries } from "features/friends/hooks";
 
 interface Params {
   section: "Top Rated" | "Popular" | "Recommended" | "Credits" | "Popular With Friends" | "Rated by Friends" | undefined;
@@ -22,10 +24,11 @@ export const ShowAll = () => {
   const links = useSearchAreaImages();
   const { section, type, id } = useParams<keyof Params>() as Params;
   const {darkTheme} = useFirebaseContext();
+
   return (
     <div className={darkTheme ? "darkTheme" : "theme"}>
       <div className="showAll">
-        <SearchAreaMoviesSeries links={links} />
+        <SearchArea links={links} type={"movieSeries"} />
         <div className="posterDisplayAllWrapper">
           <h2 className="sectionName">{`${section} ${
             type === "movie" ? "movies" : "series"

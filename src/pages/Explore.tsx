@@ -10,6 +10,7 @@ import { usePopular } from "features/popular/hooks";
 import { BounceLoader } from "react-spinners";
 import { useSearchAreaImages } from "features/searchArea/hooks";
 import { useFirebaseContext } from "features/context/FirebaseContext";
+import { SearchArea } from "features/searchArea/components/SearchArea";
 
 export const Explore = () => {
   // Getting all the movie information to display
@@ -24,7 +25,7 @@ export const Explore = () => {
     <>
       {topMovies && trendingMovies && topSeries && popularSeries && links ? (
         <div className={darkTheme? "darkTheme" : "theme"}>
-          <SearchAreaMoviesSeries links={links}/>
+          <SearchArea links={links} type={"movieSeries"}/>
           <div className="posterDisplaysWrapper">
             <h2 className="typeName">Movies</h2>
 

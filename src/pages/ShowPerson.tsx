@@ -48,7 +48,7 @@ export const ShowPerson = () => {
           <PersonalFacts
             birthday={person.birthday}
             deathday={person.deathday}
-            also_known_as={person.also_known_as}
+            also_known_as={person.also_known_as.slice(0, 3)}
             place_of_birth={person.place_of_birth}
           />
         </>

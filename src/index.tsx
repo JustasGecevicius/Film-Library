@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import { App } from "./App";
+import {ReactQueryDevtools} from "react-query/devtools";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -17,6 +18,7 @@ root.render(
       <FirebaseContextComponent>
         <QueryClientProvider client={queryClient}>
           <App />
+          <ReactQueryDevtools/>
         </QueryClientProvider>
       </FirebaseContextComponent>
     </BrowserRouter>

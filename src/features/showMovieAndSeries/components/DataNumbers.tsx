@@ -21,7 +21,7 @@ export const DataNumbers = ({
   const fixedNumbers = [
     ["Budget", fixedBudget],
     ["Revenue", fixedRevenue],
-    ["Runtime", `${runtime} minutes`],
+    ["Runtime", runtime ? `${runtime} minutes` : undefined],
     ["Average Rating", voteAverage ? _.round(voteAverage, 2) : undefined],
     ["Last Episode", last_air_date],
     ["Episodes", number_of_episodes],

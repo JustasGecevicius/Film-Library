@@ -3,7 +3,7 @@ import { useState } from "react";
 // Styles
 import "features/searchArea/css/searchBar.css";
 // Components
-import { UserFound } from "./UserFound";
+import { UserFound } from "../searchFriends/UserFound";
 import { useFocus, useSearchFriends } from "../../hooks";
 
 export const SearchBarFriends = () => {
@@ -35,9 +35,10 @@ export const SearchBarFriends = () => {
         />
       </div>
       <div className="searchResultsDisplay">
-        {searchResults
-          && searchResults.map((elem, index) => {
-              return focus && (
+        {searchResults &&
+          searchResults.map((elem, index) => {
+            return (
+              focus && (
                 <UserFound
                   key={index}
                   friendIndex={index}
@@ -47,7 +48,8 @@ export const SearchBarFriends = () => {
                   setIndexToRemove={setIndexToRemove}
                 />
               )
-            })}
+            );
+          })}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import "pages/css/showAll.css";
 import { useSearchAreaImages } from "features/searchArea/hooks";
 import { PosterDisplayAllUserLikedRated } from "features/displayAllPostersSection/components/PosterDisplayAllUserLikedRated";
 import { useFirebaseContext } from "features/context/FirebaseContext";
+import { SearchArea } from "features/searchArea/components/SearchArea";
 
 interface Params {
   section: "Liked" | "Rated" | undefined;
@@ -19,7 +20,7 @@ export const ShowAllUserLikedRated = () => {
   return (
     <div className={darkTheme ? "darkTheme" : "theme"}>
       <div className="showAll">
-        <SearchAreaMoviesSeries links={links} />
+        <SearchArea links={links} type={"movieSeries"} />
         <div className="posterDisplayAllWrapper">
           <h2 className="sectionName">{`${section} ${
             type === "movie" ? "Movies" : "Series"

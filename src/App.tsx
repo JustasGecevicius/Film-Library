@@ -22,6 +22,7 @@ import { ShowAllUserLikedRated } from "pages/ShowAllUserLikedRated";
 import "pages/css/noUser.css";
 import { ComponentTest } from "pages/ComponentTest";
 import "pages/css/componentTest.css";
+import { ShowUser } from "pages/User";
 
 const App: React.FC = () => {
   initializeApp(config);
@@ -47,10 +48,18 @@ const App: React.FC = () => {
           path="/Film-Library/allPeople/:type/:section/:id"
           element={<ShowAllPeople />}
         />
+        <Route
+          path="/Film-Library/allPeople/:section"
+          element={<ShowAllPeople />}
+        />
         <Route path="/Film-Library/allFriends" element={<ShowAllFriends />} />
         <Route
           path="/Film-Library/User/:type/:section"
           element={<ShowAllUserLikedRated />}
+        />
+        <Route
+          path="/Film-Library/User/:id"
+          element={<ShowUser />}
         />
 
         <Route

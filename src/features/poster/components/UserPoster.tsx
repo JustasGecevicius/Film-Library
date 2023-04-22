@@ -5,7 +5,7 @@ import {
 
 export const UserPoster = ({ imageURL, name, id }: UserPosterType) => {
   return id ? (
-    <Link to={`user/${id}`}>
+    <Link to={`/Film-Library/User/${id}`}>
       <div className="imagePoster" data-id={`${id}`}>
         <div
           className="posterImage"

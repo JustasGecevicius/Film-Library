@@ -31,8 +31,10 @@ export const useMovieSeriesCredits = (type : "movie" | "series", id : number | s
   );
    // Filtering information and Checking for Like and Rate
    useEffect(() => {
-    if (!config || !data || !liked || !rated) return;
-    const creditsData = filterPersonCreditsCastInformation(config, data.cast.slice(0, 19 * page))
+    if (!config || !data) return;
+    const creditsData = filterPersonCreditsCastInformation(config, data.cast.slice(0, 19 * page));
+    if(!liked || !rated){ setCredits(creditsData); return }
+    
     const likeAndRateCheckedData = checkLikeAndRate(
       creditsData,
       Object.keys(liked),

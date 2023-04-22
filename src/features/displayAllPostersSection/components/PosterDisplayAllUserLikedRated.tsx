@@ -1,3 +1,4 @@
+import { useFirebaseContext } from "features/context/FirebaseContext";
 import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
 import { useUserLiked, useUserRated } from "features/profile/hooks";
 
@@ -16,8 +17,8 @@ interface TypeType {
 }
 
 export const PosterDisplayAllUserLikedMoviesSeries = ({type} : TypeType) => {
-
-    const results = useUserLiked(type); 
+    const {userInfo} = useFirebaseContext();
+    const results = useUserLiked(type, userInfo?.uid); 
     return <>{
       results && <div className="movieHolderAll">
       {results.map((elem, index) => {
@@ -40,7 +41,8 @@ export const PosterDisplayAllUserLikedMoviesSeries = ({type} : TypeType) => {
 }
 
 export const PosterDisplayAllUserRatedMoviesSeries = ({type} : TypeType) => {
-  const results = useUserRated(type); 
+  const {userInfo} = useFirebaseContext();
+  const results = useUserRated(type, userInfo?.uid); 
   return <>{
     results && <div className="movieHolderAll">
     {results.map((elem, index) => {

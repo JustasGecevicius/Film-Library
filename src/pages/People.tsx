@@ -25,7 +25,7 @@ export const People = () => {
               link="Popular"
             />
             <PosterDisplayPeople
-              arr={peopleLikedByFriends}
+              arr={peopleLikedByFriends.slice(0, 19)}
               sectionName="Your Friends Like..."
               link="FriendLiked"
             />

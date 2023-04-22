@@ -5,7 +5,7 @@ import { SearchAreaFriends } from "features/searchArea/components/searchFriends/
 import {
   useActiveFriends,
   useFetchFriendLikedMovies,
-  useFriendLikedSeries,
+  useFetchFriendLikedSeries,
   useFetchFriendRatedMovies,
   useFetchFriendRatedSeries,
 } from "features/friends/hooks";
@@ -18,11 +18,11 @@ import { useFirebaseContext } from "features/context/FirebaseContext";
 export const Friends = () => {
   // Getting movies liked by Friends
   const friendLikedMovies = useFetchFriendLikedMovies();
-  const friendLikedSeries = useFriendLikedSeries();
+  const friendLikedSeries = useFetchFriendLikedSeries();
   const friendRatedMovies = useFetchFriendRatedMovies();
   const friendRatedSeries = useFetchFriendRatedSeries();
   const activeFriends = useActiveFriends() as User[];
-  const {darkTheme} = useFirebaseContext();
+  const { darkTheme } = useFirebaseContext();
   return (
     <>
       {friendLikedMovies &&
@@ -35,7 +35,7 @@ export const Friends = () => {
           <div className="posterDisplaysWrapper">
             <h2 className="typeName"> Movies </h2>
             <PosterDisplayMoviesSeries
-              arr={friendLikedMovies}
+              arr={friendLikedMovies.slice(0, 19)}
               sectionName="Popular With Friends"
               type="movie"
               link="all/movie/Popular With Friends"
@@ -65,8 +65,9 @@ export const Friends = () => {
             />
           </div>
         </div>
-      ) : <NoUser />
-      }
+      ) : (
+        <NoUser />
+      )}
     </>
   );
 };

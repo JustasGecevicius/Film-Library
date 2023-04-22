@@ -6,12 +6,11 @@ import { Header } from "../../../header/components/Header";
 import "features/searchArea/css/searchArea.css";
 // Functions
 
-import { SearchBarPeople } from "./SearchBarPeople";
+import { SearchBarPeople } from "../searchBars/SearchBarPeople";
 import { useSearchAreaImages } from "features/searchArea/hooks";
 import { Fade } from "react-slideshow-image";
 
 export const SearchAreaPeople = () => {
-
   //fetched links from firebase for the top movies
   const links = useSearchAreaImages();
 
