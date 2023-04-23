@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Film-Library/static/css/main.1b71d9a8.css",
-    "main.js": "/Film-Library/static/js/main.748fb2bc.js",
+    "main.js": "/Film-Library/static/js/main.06efc607.js",
     "static/media/starIcon.png": "/Film-Library/static/media/starIcon.d0cbd94e0a4a62fc2bf4.png",
     "index.html": "/Film-Library/index.html",
     "main.1b71d9a8.css.map": "/Film-Library/static/css/main.1b71d9a8.css.map",
-    "main.748fb2bc.js.map": "/Film-Library/static/js/main.748fb2bc.js.map"
+    "main.06efc607.js.map": "/Film-Library/static/js/main.06efc607.js.map"
   },
   "entrypoints": [
     "static/css/main.1b71d9a8.css",
-    "static/js/main.748fb2bc.js"
+    "static/js/main.06efc607.js"
   ]
 }
