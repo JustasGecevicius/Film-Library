@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/Film-Library">
       <FirebaseContextComponent>
         <QueryClientProvider client={queryClient}>
           <App />
