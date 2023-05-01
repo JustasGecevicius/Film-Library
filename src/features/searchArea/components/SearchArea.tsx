@@ -39,8 +39,8 @@ export const SearchArea = ({ links, type }: Props) => {
             switch (type) {
               case "movieSeries":
                 return <SearchBarMoviesSeries />;
-              // case 'cast':
-              //   return //<SearchBarCast>
+              case 'cast':
+                return <SearchBarPeople />;
               case "friends":
                 return <SearchBarFriends />;
               case "people":

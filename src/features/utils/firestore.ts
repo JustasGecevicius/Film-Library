@@ -20,7 +20,7 @@ export const fetchFirestoreCount = async (
   if(!document) return;
   const docRef = doc(db, collection, document);
   const result = await getDoc(docRef);
-  return result.data()?.count();
+  return Object.keys(result.data() || {}).length;
 }
 
   export const getMovieOrSeriesCollectionName = (type: 'movie' | 'series', option: 'rated' | 'liked') => {
