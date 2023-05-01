@@ -1,5 +1,3 @@
-import { UserInfo } from "features/context/types";
-import { fetchLiked, fetchRated } from "features/likeAndRate/functions";
 import { LikedRatedData } from "features/likeAndRate/types";
 import { Firestore } from "firebase/firestore";
 import { useState } from "react";
@@ -7,29 +5,38 @@ import { useQuery } from "react-query";
 import _ from "lodash";
 import { calculateRatings, fetchUserLiked, fetchUserRated } from "./functions";
 import { useFirebaseContext } from "features/context/FirebaseContext";
-import { getConfig } from "features/config/api";
 import {
   fetchMoviesFromList,
   fetchSeriesFromList,
 } from "features/friends/functions";
 import { MovieObject } from "features/movies/types";
+import {
+  fetchFirestore,
+  fetchFirestoreCount,
+  getMovieOrSeriesCollectionName,
+} from "features/utils/firestore";
+import { useConfig } from "features/utils/moviedb";
 
-export const useUserInfo = (id: string | undefined, db: Firestore) => {
+export const useUserInfo = (userId: string | undefined, db: Firestore) => {
   const [averageMovieRating, setAverageMovieRating] = useState<number>();
   const [averageSeriesRating, setAverageSeriesRating] = useState<number>();
   const [numberOfLikedMovies, setNumberOfLikedMovies] = useState<number>();
   const [numberOfLikedSeries, setNumberOfLikedSeries] = useState<number>();
   const [differentMoviesRatings, setDifferentMoviesRatings] =
-    useState<{ x: number; y: number; }[]>();
+    useState<{ x: number; y: number }[]>();
   const [differentSeriesRatings, setDifferentSeriesRatings] =
-    useState<{ x: number; y: number; }[]>();
+    useState<{ x: number; y: number }[]>();
   useQuery<LikedRatedData | undefined>(
-    ["ratedMovieData", db, id],
+    ["ratedMovieData", db, userId],
     () => {
-      return fetchRated(db, id, "movie");
+      return fetchFirestore(
+        db,
+        getMovieOrSeriesCollectionName("movie", "rated"),
+        userId
+      );
     },
     {
-      enabled: !!id && !!db,
+      enabled: !!userId && !!db,
       onSuccess(data) {
         if (!data) return;
         const average = _.round(_.mean(Object.values(data)), 1);
@@ -39,12 +46,16 @@ export const useUserInfo = (id: string | undefined, db: Firestore) => {
     }
   );
   useQuery<LikedRatedData | undefined>(
-    ["ratedSeriesData", db, id],
+    ["ratedSeriesData", db, userId],
     () => {
-      return fetchRated(db, id, "series");
+      return fetchFirestore(
+        db,
+        getMovieOrSeriesCollectionName("series", "rated"),
+        userId
+      );
     },
     {
-      enabled: !!id && !!db,
+      enabled: !!userId && !!db,
       onSuccess(data) {
         if (!data) return;
         const average = _.round(_.mean(Object.values(data)), 1);
@@ -53,29 +64,37 @@ export const useUserInfo = (id: string | undefined, db: Firestore) => {
       },
     }
   );
-  useQuery<LikedRatedData | undefined>(
-    ["likedMoviesData", db, id],
+  useQuery<number | undefined>(
+    ["likedMoviesData", db, userId],
     () => {
-      return fetchLiked(db, id, "movie");
+      return fetchFirestoreCount(
+        db,
+        getMovieOrSeriesCollectionName("movie", "liked"),
+        userId
+      );
     },
     {
-      enabled: !!id && !!db,
+      enabled: !!userId && !!db,
       onSuccess(data) {
         if (!data) return;
-        setNumberOfLikedMovies(Object.keys(data).length);
+        setNumberOfLikedMovies(data);
       },
     }
   );
-  useQuery<LikedRatedData | undefined>(
-    ["likedSeriesData", db, id],
+  useQuery<number | undefined>(
+    ["likedSeriesData", db, userId],
     () => {
-      return fetchLiked(db, id, "series");
+      return fetchFirestoreCount(
+        db,
+        getMovieOrSeriesCollectionName("series", "liked"),
+        userId
+      );
     },
     {
-      enabled: !!id && !!db,
+      enabled: !!userId && !!db,
       onSuccess(data) {
         if (!data) return;
-        setNumberOfLikedSeries(Object.keys(data).length);
+        setNumberOfLikedSeries(data);
       },
     }
   );
@@ -89,12 +108,13 @@ export const useUserInfo = (id: string | undefined, db: Firestore) => {
   };
 };
 
-export const useUserLiked = (type: "movie" | "series", id: string | undefined) => {
+export const useUserLiked = (
+  type: "movie" | "series",
+  id: string | undefined
+) => {
   const [data, setData] = useState<MovieObject[]>();
   const { db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
 
   const { data: userLiked } = useQuery(
     ["userLiked", type, db],
@@ -129,27 +149,31 @@ export const useUserLiked = (type: "movie" | "series", id: string | undefined) =
   return data;
 };
 
-export const useUserRated = (type: "movie" | "series", id: string | undefined) => {
+export const useUserRated = (
+  type: "movie" | "series",
+  userId: string | undefined
+) => {
   const [data, setData] = useState<MovieObject[]>();
   const { db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   const { data: userRated } = useQuery(
     ["userRated", type, db],
     () => {
-      return fetchUserRated(id, db, type);
+      return fetchUserRated(userId, db, type);
     },
     {
-      enabled: !!id && !!db && !!type,
+      enabled: !!userId && !!db && !!type,
     }
   );
   const { data: rated } = useQuery(
     ["rated", type],
-    () => fetchRated(db, id, type),
-    { enabled: !!id && !!db }
+    () => fetchFirestore(
+      db,
+      getMovieOrSeriesCollectionName(type, 'rated'),
+      userId,
+    ),
+    { enabled: !!userId && !!db }
   );
-
 
   useQuery(
     ["filteredRated", userRated, config, type],
@@ -162,7 +186,7 @@ export const useUserRated = (type: "movie" | "series", id: string | undefined) =
     {
       enabled: !!userRated && !!config && !!rated,
       onSuccess: (data) => {
-        if(!rated) return
+        if (!rated) return;
         setData(
           data?.map((elem) => {
             return { ...elem, rating: rated[elem.id] };

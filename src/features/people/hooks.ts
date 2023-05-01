@@ -1,4 +1,3 @@
-import { getConfig } from "features/config/api";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { PersonObject } from "features/displayPostersSection/types";
 import { fetchFriends } from "features/friends/functions";
@@ -6,12 +5,11 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { getPopularPeople } from "./api";
 import { fetchFriendLikedPeopleList, fetchPeopleFromList, filterPeopleInformation } from "./functions";
+import { useConfig } from "features/utils/moviedb";
 
 export const usePopularPeople = (page = 1) => {
   const [popularPeople, setPopularPeople] = useState<PersonObject[]>();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   useQuery(["people", page], () => {
     return getPopularPeople(page)}, {
     enabled: !!config,
@@ -24,9 +22,7 @@ export const usePopularPeople = (page = 1) => {
 
 export const usePeopleLikedByFriends = () => {
   const { userInfo, db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   const { data: friendsList } = useQuery(
     ["friends", userInfo, db],
     () => {

@@ -17,8 +17,6 @@ import { filterProductionCompanies } from "./functions";
 import { getRecommendations, getWatchProviders } from "./api";
 import {
   checkLikeAndRate,
-  fetchLiked,
-  fetchRated,
 } from "features/likeAndRate/functions";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { filterMovieInformation } from "features/movies/functions";
@@ -31,14 +29,14 @@ import { getCreditsOfPerson } from "features/credits/api";
 import { useCountry } from "features/location/hooks";
 import _ from "lodash";
 import { GetConfig } from "features/config/types";
+import { useLikedAndRated } from "features/utils/firestore";
+import { useConfig } from "features/utils/moviedb";
 // A hook to get the backdrop and poster images
 // for the showMovie and showSeries pages
 export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
   const [backdropAndPoster, setBackdropAndPoster] =
     useState<BackdropAndPoster>();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+    const { config } = useConfig();
 
   useEffect(() => {
     if (data && config) {
@@ -57,9 +55,7 @@ export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
 };
 
 export const useBackdropPerson = (data: SingularPerson | undefined) => {
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   const [poster, setPoster] = useState<string | undefined>();
   useEffect(() => {
     if (config && data) {
@@ -80,9 +76,7 @@ export const useProductionCompanies = (
 ) => {
   const [productionCompanies, setProductionCompanies] =
     useState<ProductionCompany[]>();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+    const { config } = useConfig();
 
   useEffect(() => {
     if (data && config) {
@@ -103,9 +97,7 @@ export const useRecommended = (
 ) => {
   const [recommended, setRecommended] = useState<MovieObject[]>();
   const { userInfo, db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   const { data } = useQuery(
     ["recommendations", id, type, page],
     () => {
@@ -115,16 +107,9 @@ export const useRecommended = (
       enabled: !!id,
     }
   );
-  const { data: liked } = useQuery(
-    ["liked", userInfo, db, type],
-    () => fetchLiked(db, userInfo?.uid, type),
-    { enabled: !!userInfo && !!db }
-  );
-  const { data: rated } = useQuery(
-    ["rated", userInfo, db, type],
-    () => fetchRated(db, userInfo?.uid, type),
-    { enabled: !!userInfo && !!db }
-  );
+  
+  const {liked, rated} = useLikedAndRated(db, type, userInfo?.uid);
+
   // Filtering information and Checking for Like and Rate
   useEffect(() => {
     if (!config || !data || !liked || !rated) return;
@@ -148,9 +133,7 @@ export const useMovieSeriesCast = (
   id: string | number | undefined
 ) => {
   const [credits, setCredits] = useState<PersonObject[]>();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   const { data } = useQuery(
     ["movieSeriesCredits", type, id],
     () => {

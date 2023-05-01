@@ -1,10 +1,10 @@
 import { MovieObject } from "features/movies/types";
+import { getMovieOrSeriesCollectionName } from "features/utils/firestore";
 import {
   deleteField,
   doc,
   DocumentData,
   Firestore,
-  getDoc,
   updateDoc,
 } from "firebase/firestore";
 
@@ -19,25 +19,12 @@ export const like = (
   type: "movie" | "series"
 ) => {
   // Delete or add the movie to firebase based on liked state
-  if (liked) {
-    if (type === "movie") {
-      updateDoc(doc(db, "likedMovies", `${userId}`), {
-        [movieId]: deleteField(),
-      });
-      return;
-    } else {
-      updateDoc(doc(db, "likedSeries", `${userId}`), {
-        [movieId]: deleteField(),
-      });
-      return;
+  updateDoc(
+    doc(db, getMovieOrSeriesCollectionName(type, "liked"), `${userId}`),
+    {
+      [movieId]: liked ? deleteField() : title,
     }
-  } else {
-    if (type === "movie") {
-      updateDoc(doc(db, "likedMovies", `${userId}`), { [movieId]: title });
-    } else {
-      updateDoc(doc(db, "likedSeries", `${userId}`), { [movieId]: title });
-    }
-  }
+  );
 };
 
 export const likePerson = (
@@ -47,45 +34,17 @@ export const likePerson = (
   name: string,
   liked: boolean | undefined
 ) => {
-  if (liked) {
-    updateDoc(doc(db, "likedPeople", `${userId}`), {
-      [person_id]: deleteField(),
-    });
-    return;
-  }
-  updateDoc(doc(db, "likedPeople", `${userId}`), { [person_id]: name });
+  // Delete or add the movie to firebase based on liked state
+  updateDoc(doc(db, "likedPeople", `${userId}`), 
+  {
+    [person_id]: liked ? deleteField() : name,
+  });
 };
 
 export const checkIfLiked = (array: string[], value: string | undefined) => {
   // Returns true or false depending on if the movie was found in the liked list or not
   if (!value) return;
   return array.includes(value.toString());
-};
-
-// Returns the list of liked movies for a specific user from Firebase
-export const fetchLiked = async (
-  db: Firestore,
-  userId: string | undefined,
-  type: "movie" | "series"
-) => {
-  const docRef = doc(
-    db,
-    type === "movie" ? "likedMovies" : "likedSeries",
-    `${userId}`
-  );
-  const document = await getDoc(docRef);
-  const liked = document.data();
-  return liked;
-};
-
-export const fetchLikedPeople = async (
-  db: Firestore,
-  userId: string | undefined
-) => {
-  const docRef = doc(db, "likedPeople", `${userId}`);
-  const document = await getDoc(docRef);
-  const liked = document.data();
-  return liked;
 };
 
 // RATING RELATED FUNCTIONS
@@ -97,30 +56,13 @@ export const rate = (
   rating: number | undefined,
   type: "movie" | "series"
 ) => {
-
-  // Delete or add the movie based on rate state
-  if (type === "movie") {
-    if (rating === undefined) {
-      updateDoc(doc(db, "ratedMovies", `${userId}`), {
-        [id]: deleteField(),
-      });
-      return;
-    }
-    updateDoc(doc(db, "ratedMovies", `${userId}`), { [id]: rating });
-  }
-  // Delete or add the series based on rate state
-  else if (type === "series") {
-    if (rating === undefined) {
-      updateDoc(doc(db, "ratedSeries", `${userId}`), {
-        [id]: deleteField(),
-      });
-      return;
-    }
-    updateDoc(doc(db, "ratedSeries", `${userId}`), { [id]: rating });
-  }
+  updateDoc(
+    doc(db, `${getMovieOrSeriesCollectionName(type, "rated")}`, `${userId}`),
+    { [id]: rating ? rating : deleteField() }
+  );
 };
 
-// Returns the Id if it was rated or undefined
+// Returns the rating if it was rated or undefined
 export const checkRating = (
   ratedMovies: DocumentData,
   currentMovieId: string | undefined
@@ -129,22 +71,6 @@ export const checkRating = (
   if (Object.keys(ratedMovies).includes(currentMovieId)) {
     return ratedMovies[currentMovieId];
   } else return undefined;
-};
-
-// Gets a list of rated movies from Firebase
-export const fetchRated = async (
-  db: Firestore,
-  userId: string | undefined,
-  type: "movie" | "series"
-) => {
-  const docRef = doc(
-    db,
-    type === "movie" ? "ratedMovies" : "ratedSeries",
-    `${userId}`
-  );
-  const document = await getDoc(docRef);
-  const allFields = document.data();
-  return allFields;
 };
 
 // FUNCTIONS RELATED TO BOTH

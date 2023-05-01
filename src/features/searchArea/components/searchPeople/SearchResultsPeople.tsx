@@ -1,14 +1,11 @@
-import { getConfig } from "features/config/api";
 import { useSearchPeople } from "features/searchArea/hooks";
 import { SearchResultsPropsType } from "features/searchArea/types";
-import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { FoundSearch } from "features/searchArea/components/searchMoviesSeries/FoundSearch";
+import { useConfig } from "features/utils/moviedb";
 
 export const SearchResultsPeople = ({ query }: SearchResultsPropsType) => {
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000
-  });
+  const { config } = useConfig();
   const results = useSearchPeople(query, 700);
   return (
     <>

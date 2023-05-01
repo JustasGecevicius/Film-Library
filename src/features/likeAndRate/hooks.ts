@@ -7,11 +7,12 @@ import { useQuery } from "react-query";
 import {
   checkIfLiked,
   checkRating,
-  fetchLiked,
-  fetchLikedPeople,
-  fetchRated,
 } from "./functions";
 import { LikedRatedData } from "./types";
+import {
+  fetchFirestore,
+  getMovieOrSeriesCollectionName,
+} from "features/utils/firestore";
 
 export const useLiked = (
   likeButtonClicked: boolean,
@@ -25,7 +26,12 @@ export const useLiked = (
   // Gets the liked movies/series for this user
   const { data: likedData } = useQuery<LikedRatedData | undefined>(
     ["likedData", userInfo, db],
-    () => fetchLiked(db, userInfo?.uid, type),
+    () =>
+      fetchFirestore(
+        db,
+        getMovieOrSeriesCollectionName(type, "liked"),
+        userInfo?.uid
+      ),
     { enabled: !!userInfo && !!db }
   );
   // Setting liked to false or true based on if this series/movies was found in the list for this specific user
@@ -56,7 +62,11 @@ export const useRating = (
   const { data: ratedData } = useQuery<LikedRatedData | undefined>(
     ["ratedData", db, userInfo?.uid],
     () => {
-      return fetchRated(db, userInfo?.uid, type);
+      return fetchFirestore(
+        db,
+        getMovieOrSeriesCollectionName(type, "rated"),
+        userInfo?.uid
+      );
     },
     {
       enabled: !!userInfo && !!db,
@@ -76,13 +86,13 @@ export const useRating = (
 
 export const useLikedPerson = (likeButtonClicked: boolean) => {
   // Getting Context and id from the Router
-  const {id, userInfo, db} = useContextAndParams();
+  const { id, userInfo, db } = useContextAndParams();
   // Liked state for this specific movie/series
   const [liked, setLiked] = useState<boolean | undefined>(undefined);
   // Gets the liked movies/series for this user
   const { data: likedData } = useQuery<LikedRatedData | undefined>(
     ["likedDataPeople", userInfo, db],
-    () => fetchLikedPeople(db, userInfo?.uid),
+    () => fetchFirestore(db, 'likedPeople', userInfo?.uid),
     { enabled: !!userInfo && !!db }
   );
   // Setting liked to false or true based on if this series/movies was found in the list for this specific user

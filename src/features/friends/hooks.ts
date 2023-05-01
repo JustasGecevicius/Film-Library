@@ -1,4 +1,3 @@
-import { getConfig } from "features/config/api";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import {
   doc,
@@ -17,14 +16,13 @@ import {
   fetchMoviesFromList,
   fetchSeriesFromList,
 } from "./functions";
+import { useConfig } from "features/utils/moviedb";
 
 // SERIES RELATED HOOKS
 
 export const useFetchFriendLikedSeries = () => {
   const { userInfo, db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
     ["friends", userInfo, db],
@@ -61,9 +59,7 @@ export const useFetchFriendLikedSeries = () => {
 
 export const useFetchFriendRatedSeries = () => {
   const { userInfo, db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
     ["friends", userInfo, db],
@@ -101,9 +97,7 @@ export const useFetchFriendRatedSeries = () => {
 
 export const useFetchFriendLikedMovies = () => {
   const { userInfo, db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
     ["friends", userInfo, db],
@@ -140,9 +134,7 @@ export const useFetchFriendLikedMovies = () => {
 
 export const useFetchFriendRatedMovies = () => {
   const { userInfo, db } = useFirebaseContext();
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
     ["friends", userInfo, db],

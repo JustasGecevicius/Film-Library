@@ -1,5 +1,3 @@
-// API
-import { getConfig } from "features/config/api";
 // Hooks
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import { useEffect, useState } from "react";
@@ -7,8 +5,6 @@ import { useQuery } from "react-query";
 // Functions
 import {
   checkLikeAndRate,
-  fetchLiked,
-  fetchRated,
 } from "features/likeAndRate/functions";
 import { filterMovieInformation } from "features/movies/functions";
 import { filterSeriesInformation } from "features/series/functions";
@@ -17,6 +13,8 @@ import { MovieData, MovieObject } from "features/movies/types";
 import { FetchedSeriesObjectResults } from "features/series/types";
 // API
 import { getTopRated } from "./api";
+import { useLikedAndRated } from "features/utils/firestore";
+import { useConfig } from "features/utils/moviedb";
 
 // A hook that returns the Top Rated movies or series
 export const useTop = (type: "movie" | "series", pageNumber: number = 1) => {
@@ -25,9 +23,7 @@ export const useTop = (type: "movie" | "series", pageNumber: number = 1) => {
   // Context
   const { userInfo, db } = useFirebaseContext();
   // Data Query
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   const { data } = useQuery(
     ["topData", type, pageNumber],
     () => {
@@ -37,16 +33,8 @@ export const useTop = (type: "movie" | "series", pageNumber: number = 1) => {
       staleTime: 300000,
     }
   );
-  const { data: liked } = useQuery(
-    ["liked", type],
-    () => fetchLiked(db, userInfo?.uid, type),
-    { enabled: !!userInfo && !!db }
-  );
-  const { data: rated } = useQuery(
-    ["rated", type],
-    () => fetchRated(db, userInfo?.uid, type),
-    { enabled: !!userInfo && !!db }
-  );
+  
+  const {liked, rated} = useLikedAndRated(db, type, userInfo?.uid)
 
   // Filtering information and Checking for Like and Rate
   useEffect(() => {

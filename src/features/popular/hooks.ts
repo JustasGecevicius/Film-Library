@@ -1,9 +1,6 @@
-import { getConfig } from "features/config/api";
 import { useFirebaseContext } from "features/context/FirebaseContext";
 import {
   checkLikeAndRate,
-  fetchLiked,
-  fetchRated,
 } from "features/likeAndRate/functions";
 import { filterMovieInformation } from "features/movies/functions";
 import { MovieData, MovieObject } from "features/movies/types";
@@ -12,6 +9,8 @@ import { FetchedSeriesObjectResults } from "features/series/types";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getPopular } from "./api";
+import { useLikedAndRated } from "features/utils/firestore";
+import { useConfig } from "features/utils/moviedb";
 
 export const usePopular = (
   type: "movie" | "series",
@@ -22,9 +21,7 @@ export const usePopular = (
   // Context
   const { userInfo, db } = useFirebaseContext();
   // Data Query
-  const { data: config } = useQuery("config", getConfig, {
-    staleTime: 300000,
-  });
+  const { config } = useConfig();
   
   const { data } = useQuery(
     ["popularData", type, pageNumber],
@@ -35,16 +32,8 @@ export const usePopular = (
       staleTime: 300000,
     }
   );
-  const { data: liked } = useQuery(
-    ["liked", type],
-    () => fetchLiked(db, userInfo?.uid, type),
-    { enabled: !!userInfo && !!db }
-  );
-  const { data: rated } = useQuery(
-    ["rated", type],
-    () => fetchRated(db, userInfo?.uid, type),
-    { enabled: !!userInfo && !!db }
-  );
+  
+  const {liked, rated} = useLikedAndRated(db, type, userInfo?.uid);
 
   // Filtering information and Checking for Like and Rate
   useEffect(() => {
