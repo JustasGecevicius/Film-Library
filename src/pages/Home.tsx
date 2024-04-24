@@ -1,10 +1,10 @@
 // Styles
-import "pages/css/home.css";
+import './css/home.css';
 // Hooks
-import { useBackground, useDisplayName } from "features/welcomeScreen/hooks";
+import { useBackground, useDisplayName } from '../features/welcomeScreen/hooks';
 // Components
-import { Header } from "features/header/components/Header";
-import { useFirebaseContext } from "features/context/FirebaseContext";
+import { Header } from '../features/header/components/Header';
+import { useFirebaseContext } from '../features/context/FirebaseContext';
 
 export const Home = () => {
 

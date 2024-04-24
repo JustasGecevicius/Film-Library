@@ -1,19 +1,15 @@
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import { getCreditsOfMovieSeries } from "features/credits/api";
-import {
-  checkLikeAndRate,
-} from "features/likeAndRate/functions";
-import { MovieObject } from "features/movies/types";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { filterPersonCreditsCastInformation } from "./functions";
-import {
-  useLikedAndRated,
-} from "features/utils/firestore";
-import { useConfig } from "features/utils/moviedb";
+import { useFirebaseContext } from '../context/FirebaseContext';
+import { getCreditsOfMovieSeries } from '../credits/api';
+import { checkLikeAndRate } from '../likeAndRate/functions';
+import { MovieObject } from '../movies/types';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
+import { filterPersonCreditsCastInformation } from './functions';
+import { useLikedAndRated } from '../utils/firestore';
+import { useConfig } from '../utils/moviedb';
 
 export const useMovieSeriesCredits = (
-  type: "movie" | "series",
+  type: 'movie' | 'series',
   id: number | string | undefined,
   page = 1
 ) => {
@@ -21,7 +17,7 @@ export const useMovieSeriesCredits = (
   const { userInfo, db } = useFirebaseContext();
   const { config } = useConfig();
   const { data } = useQuery(
-    ["credits", id, type],
+    ['credits', id, type],
     () => {
       return getCreditsOfMovieSeries(id, type);
     },
@@ -29,8 +25,8 @@ export const useMovieSeriesCredits = (
       enabled: !!id && !!type,
     }
   );
-  
-  const {liked, rated} = useLikedAndRated(db, type, userInfo?.uid);
+
+  const { liked, rated } = useLikedAndRated(db, type, userInfo?.uid);
 
   // Filtering information and Checking for Like and Rate
   useEffect(() => {
@@ -53,4 +49,4 @@ export const useMovieSeriesCredits = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config, data, liked, rated, page]);
   return credits;
-}
+};

@@ -1,8 +1,8 @@
 // Base axios api
-import { api } from "features/services/axios";
+import { api } from '../services/axios';
 
 // Types
-import { MovieCreditsType, PersonCreditsType } from "features/people/types";
+import { MovieCreditsType, PersonCreditsType } from '../people/types';
 
 // Returns the people that have acted in a movie/series
 

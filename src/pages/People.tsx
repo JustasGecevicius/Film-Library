@@ -1,12 +1,9 @@
 // Components
-import { SearchAreaPeople } from "features/searchArea/components/searchPeople/SearchAreaPeople";
-import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
+import { SearchAreaPeople } from '../features/searchArea/components/searchPeople/SearchAreaPeople';
+import { PosterDisplayPeople } from '../features/displayPostersSection/components/PosterDisplayPeople';
 // Hooks
-import {
-  usePeopleLikedByFriends,
-  usePopularPeople,
-} from "features/people/hooks";
-import { useFirebaseContext } from "features/context/FirebaseContext";
+import { usePeopleLikedByFriends, usePopularPeople } from '../features/people/hooks';
+import { useFirebaseContext } from '../features/context/FirebaseContext';
 
 export const People = () => {
   // Getting the popular people

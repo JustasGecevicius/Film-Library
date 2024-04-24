@@ -1,9 +1,6 @@
-import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
-import {
-  MoviesPosterDisplayType,
-  PosterType,
-} from "features/displayPostersSection/types";
-import { Link } from "react-router-dom";
+import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
+import { MoviesPosterDisplayType, PosterType } from '../../displayPostersSection/types';
+import { Link } from 'react-router-dom';
 
 export const PosterDisplayCredits = ({
   arr,
@@ -12,14 +9,14 @@ export const PosterDisplayCredits = ({
   type,
 }: MoviesPosterDisplayType & PosterType) => {
   return (
-    <div className="section">
-      <div className="sectionInfo">
-        <h2 className="sectionName">{sectionName}</h2>
+    <div className='section'>
+      <div className='sectionInfo'>
+        <h2 className='sectionName'>{sectionName}</h2>
         <Link to={`/Film-Library/all/${type}/Credits/${id}`}>
-          <button className="viewAllButton">View All</button>
+          <button className='viewAllButton'>View All</button>
         </Link>
       </div>
-      <div className="posterHolder">
+      <div className='posterHolder'>
         {arr.map((elem, index) => {
           return (
             <PosterMovieSeries
@@ -30,8 +27,7 @@ export const PosterDisplayCredits = ({
               id={elem.id}
               liked={elem.liked}
               rating={elem.rating}
-              type={type}
-            ></PosterMovieSeries>
+              type={type}></PosterMovieSeries>
           );
         })}
       </div>

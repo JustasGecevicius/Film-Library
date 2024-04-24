@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useFocus } from "../../hooks";
 
 // Styles
-import "features/searchArea/css/searchBar.css";
-import "features/searchArea/css/searchSwitch.css";
+import '../../css/searchBar.css';
+import '../../css/searchSwitch.css';
 import { SearchResultsMovies } from "../searchMoviesSeries/SearchResultsMovies";
 import { SearchResultsSeries } from "../searchMoviesSeries/SearchResultsSeries";
 import { SearchTypeSwitch } from "../SearchTypeSwitch";

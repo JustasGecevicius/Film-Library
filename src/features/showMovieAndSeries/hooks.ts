@@ -1,36 +1,34 @@
 // API
-import { getConfig } from "features/config/api";
+import { getConfig } from '../config/api';
 // Types
-import { MovieData, MovieObject } from "features/movies/types";
-import { FetchedSeriesObjectResults, SeriesData } from "features/series/types";
+import { MovieData, MovieObject } from '../movies/types';
+import { FetchedSeriesObjectResults, SeriesData } from '../series/types';
 import {
   BackdropAndPoster,
   ProductionCompany,
   WatchProvidersDataResultsProvider,
   WatchProvidersDataResultsSingle,
-} from "./types";
+} from './types';
 // Hooks
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 // Functions
-import { filterProductionCompanies } from "./functions";
-import { getRecommendations, getWatchProviders } from "./api";
-import {
-  checkLikeAndRate,
-} from "features/likeAndRate/functions";
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import { filterMovieInformation } from "features/movies/functions";
-import { filterSeriesInformation } from "features/series/functions";
-import { SingularPerson } from "features/people/types";
+import { filterProductionCompanies } from './functions';
+import { getRecommendations, getWatchProviders } from './api';
+import { checkLikeAndRate } from '../likeAndRate/functions';
+import { useFirebaseContext } from '../context/FirebaseContext';
+import { filterMovieInformation } from '../movies/functions';
+import { filterSeriesInformation } from '../series/functions';
+import { SingularPerson } from '../people/types';
 
-import { filterCastInformation } from "features/people/functions";
-import { PersonObject } from "features/displayPostersSection/types";
-import { getCreditsOfPerson } from "features/credits/api";
-import { useCountry } from "features/location/hooks";
-import _ from "lodash";
-import { GetConfig } from "features/config/types";
-import { useLikedAndRated } from "features/utils/firestore";
-import { useConfig } from "features/utils/moviedb";
+import { filterCastInformation } from '../people/functions';
+import { PersonObject } from '../displayPostersSection/types';
+import { getCreditsOfPerson } from '../credits/api';
+import { useCountry } from '../location/hooks';
+import _ from 'lodash';
+import { GetConfig } from '../config/types';
+import { useLikedAndRated } from '../utils/firestore';
+import { useConfig } from '../utils/moviedb';
 // A hook to get the backdrop and poster images
 // for the showMovie and showSeries pages
 export const useBackdrop = (data: SeriesData | MovieData | undefined) => {

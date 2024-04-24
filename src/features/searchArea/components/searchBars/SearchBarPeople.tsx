@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useFocus } from "../../hooks";
 // Styles
-import "features/searchArea/css/searchBar.css";
+import '../../css/searchBar.css';
 import { SearchResultsPeople } from "../searchPeople/SearchResultsPeople";
 
 export const SearchBarPeople = () => {

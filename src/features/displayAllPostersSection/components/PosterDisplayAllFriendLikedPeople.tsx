@@ -1,19 +1,19 @@
-import { PersonObject } from "features/displayPostersSection/types";
-import { usePeopleLikedByFriends} from "features/people/hooks";
-import { PeoplePoster } from "features/poster/components/PeoplePoster";
-import { useEffect, useState } from "react";
+import { PersonObject } from '../../displayPostersSection/types';
+import { usePeopleLikedByFriends } from '../../people/hooks';
+import { PeoplePoster } from '../../poster/components/PeoplePoster';
+import { useEffect, useState } from 'react';
 
 interface Props {
-  page : number;
+  page: number;
 }
 
-export const PosterDisplayAllFriendLikedPeople = ({page} : Props) => {
+export const PosterDisplayAllFriendLikedPeople = ({ page }: Props) => {
   const results = usePeopleLikedByFriends();
   const [combinedResults, setCombinedResults] = useState<PersonObject[]>([]);
   const [multiplier, setMultiplier] = useState(0);
 
   useEffect(() => {
-    page !== 1 && setMultiplier(prevCount => prevCount + 20);
+    page !== 1 && setMultiplier((prevCount) => prevCount + 20);
   }, [page]);
 
   useEffect(() => {
@@ -23,20 +23,24 @@ export const PosterDisplayAllFriendLikedPeople = ({page} : Props) => {
     setCombinedResults((prev) => {
       return multiplier !== 0 ? [...prev, ...slice] : [...slice];
     });
-  }, [multiplier])
+  }, [multiplier]);
 
-  return <>{results && (
-    <div className="movieHolderAll">
-      {combinedResults.map((elem, index) => {
-        return (
-          <PeoplePoster
-            key={index}
-            imageURL={elem.imageURL}
-            name={elem.name}          
-            id={elem.id}
-          />
-        );
-      })}
-    </div>
-  )}</>
+  return (
+    <>
+      {results && (
+        <div className='movieHolderAll'>
+          {combinedResults.map((elem, index) => {
+            return (
+              <PeoplePoster
+                key={index}
+                imageURL={elem.imageURL}
+                name={elem.name}
+                id={elem.id}
+              />
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
 };

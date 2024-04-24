@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { usePopularPeople } from "features/people/hooks";
-import { PersonObject } from "features/displayPostersSection/types";
-import { PeoplePoster } from "features/poster/components/PeoplePoster";
+import { usePopularPeople } from '../../people/hooks';
+import { PersonObject } from '../../displayPostersSection/types';
+import { PeoplePoster } from '../../poster/components/PeoplePoster';
 
 interface Props {
   page: number;

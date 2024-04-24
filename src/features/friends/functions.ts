@@ -1,20 +1,17 @@
-import { GetConfig } from "features/config/types";
-import { UserInfo } from "features/context/types";
-import { getMovieData } from "features/movies/api";
-import { filterMovieInformation } from "features/movies/functions";
-import { getSeriesData } from "features/series/api";
-import { filterSeriesInformation } from "features/series/functions";
-import { doc, Firestore, getDoc } from "firebase/firestore";
-import { Data, MoviesListRated, SeriesListRated } from "./types";
+import { GetConfig } from '../config/types';
+import { UserInfo } from '../context/types';
+import { getMovieData } from '../movies/api';
+import { filterMovieInformation } from '../movies/functions';
+import { getSeriesData } from '../series/api';
+import { filterSeriesInformation } from '../series/functions';
+import { doc, Firestore, getDoc } from 'firebase/firestore';
+import { Data, MoviesListRated, SeriesListRated } from './types';
 
 // A FUNCTION TO FETCH THE LIST OF FRIENDS OF THE USER
 
-export const fetchFriends = async (
-  userInfo: UserInfo | undefined,
-  db: Firestore
-) => {
+export const fetchFriends = async (userInfo: UserInfo | undefined, db: Firestore) => {
   if (!userInfo) return;
-  const friends = await getDoc(doc(db, "friends", userInfo.uid));
+  const friends = await getDoc(doc(db, 'friends', userInfo.uid));
   const data = friends.data() as Data;
   return data;
 };
@@ -28,7 +25,7 @@ export const fetchFriendLikedSeriesList = async (
   if (!friendsList) return;
   const seriesList: string[] = [];
   const promiseArray = Object.values(friendsList).map((elem) =>
-    getDoc(doc(db, "likedSeries", elem))
+    getDoc(doc(db, 'likedSeries', elem))
   );
   const responses = await Promise.all(promiseArray);
   responses.forEach((likedSeriesList) => {
@@ -47,7 +44,7 @@ export const fetchFriendRatedSeriesList = async (
   if (!friendsList) return;
   const seriesList: SeriesListRated = { ratings: [], series: [] };
   const promiseArray = Object.values(friendsList).map((friend) =>
-    getDoc(doc(db, "ratedSeries", friend))
+    getDoc(doc(db, 'ratedSeries', friend))
   );
   const response = await Promise.all(promiseArray);
   response.forEach((ratedSeriesList) => {
@@ -92,7 +89,7 @@ export const fetchFriendLikedMoviesList = async (
   if (!friendsList) return;
   const moviesList: string[] = [];
   const promiseArray = Object.values(friendsList).map((elem) =>
-    getDoc(doc(db, "likedMovies", elem))
+    getDoc(doc(db, 'likedMovies', elem))
   );
   const responses = await Promise.all(promiseArray);
   responses.forEach((likedMoviesList) => {
@@ -111,7 +108,7 @@ export const fetchFriendRatedMoviesList = async (
   if (!friendsList) return;
   const moviesList: MoviesListRated = { ratings: [], movies: [] };
   const promiseArray = Object.values(friendsList).map((friend) =>
-    getDoc(doc(db, "ratedMovies", friend))
+    getDoc(doc(db, 'ratedMovies', friend))
   );
   const response = await Promise.all(promiseArray);
   response.forEach((ratedMoviesList) => {
@@ -146,4 +143,3 @@ export const fetchMoviesFromList = async (
   );
   return filteredResponse;
 };
-

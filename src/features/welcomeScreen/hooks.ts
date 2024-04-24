@@ -1,5 +1,5 @@
 // Hooks
-import { useFirebaseContext } from "features/context/FirebaseContext";
+import { useFirebaseContext } from '../context/FirebaseContext';
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 // Firebase

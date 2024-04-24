@@ -1,5 +1,5 @@
 // API
-import { api } from "features/services/axios";
+import { api } from '../services/axios';
 // Types
 import { GetSeriesSearchType, SeriesData } from "./types";
 

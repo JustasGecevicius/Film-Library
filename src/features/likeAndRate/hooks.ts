@@ -1,22 +1,16 @@
-import { UserInfo } from "features/context/types";
-import { useContextAndParams } from "features/utils/ContextAndParams";
-import { Firestore } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { UserInfo } from '../context/types';
+import { useContextAndParams } from '../utils/ContextAndParams';
+import { Firestore } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
-import {
-  checkIfLiked,
-  checkRating,
-} from "./functions";
-import { LikedRatedData } from "./types";
-import {
-  fetchFirestore,
-  getMovieOrSeriesCollectionName,
-} from "features/utils/firestore";
+import { checkIfLiked, checkRating } from './functions';
+import { LikedRatedData } from './types';
+import { fetchFirestore, getMovieOrSeriesCollectionName } from '../utils/firestore';
 
 export const useLiked = (
   likeButtonClicked: boolean,
-  type: "movie" | "series",
+  type: 'movie' | 'series',
   id: string | undefined,
   userInfo: UserInfo | undefined,
   db: Firestore
@@ -25,13 +19,9 @@ export const useLiked = (
   const [liked, setLiked] = useState<boolean | undefined>(undefined);
   // Gets the liked movies/series for this user
   const { data: likedData } = useQuery<LikedRatedData | undefined>(
-    ["likedData", userInfo, db],
+    ['likedData', userInfo, db],
     () =>
-      fetchFirestore(
-        db,
-        getMovieOrSeriesCollectionName(type, "liked"),
-        userInfo?.uid
-      ),
+      fetchFirestore(db, getMovieOrSeriesCollectionName(type, 'liked'), userInfo?.uid),
     { enabled: !!userInfo && !!db }
   );
   // Setting liked to false or true based on if this series/movies was found in the list for this specific user
@@ -52,7 +42,7 @@ export const useLiked = (
 export const useRating = (
   rateButtonClick: boolean | undefined,
   rateInput: number | undefined,
-  type: "movie" | "series",
+  type: 'movie' | 'series',
   id: string | undefined,
   userInfo: UserInfo | undefined,
   db: Firestore
@@ -60,11 +50,11 @@ export const useRating = (
   const [rating, setRating] = useState<number | undefined>(undefined);
 
   const { data: ratedData } = useQuery<LikedRatedData | undefined>(
-    ["ratedData", db, userInfo?.uid],
+    ['ratedData', db, userInfo?.uid],
     () => {
       return fetchFirestore(
         db,
-        getMovieOrSeriesCollectionName(type, "rated"),
+        getMovieOrSeriesCollectionName(type, 'rated'),
         userInfo?.uid
       );
     },
@@ -91,7 +81,7 @@ export const useLikedPerson = (likeButtonClicked: boolean) => {
   const [liked, setLiked] = useState<boolean | undefined>(undefined);
   // Gets the liked movies/series for this user
   const { data: likedData } = useQuery<LikedRatedData | undefined>(
-    ["likedDataPeople", userInfo, db],
+    ['likedDataPeople', userInfo, db],
     () => fetchFirestore(db, 'likedPeople', userInfo?.uid),
     { enabled: !!userInfo && !!db }
   );

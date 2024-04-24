@@ -1,8 +1,8 @@
 import {
   useFetchFriendLikedMovies,
   useFetchFriendLikedSeries,
-} from "features/friends/hooks";
-import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
+} from '../../friends/hooks';
+import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
 
 interface Props {
   type: "movie" | "series" | undefined;

@@ -1,5 +1,5 @@
 // Base axios api
-import { api } from "features/services/axios";
+import { api } from '../services/axios';
 // Types
 import { GetMovies, MovieData } from "./types";
 

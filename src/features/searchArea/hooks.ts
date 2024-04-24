@@ -1,19 +1,19 @@
 // Hooks
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import { useEffect, useRef, useState } from "react";
-import { useQuery } from "react-query";
+import { useFirebaseContext } from '../context/FirebaseContext';
+import { useEffect, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 // API
-import { getMovieDataSearch } from "features/movies/api";
+import { getMovieDataSearch } from '../movies/api';
 // Firestore
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from 'firebase/firestore';
 // Functions
-import { removeFriendFromDOM, searchUsers } from "./functions";
+import { removeFriendFromDOM, searchUsers } from './functions';
 // Types
-import { Friend } from "./types";
-import { getSeriesDataSearch } from "features/series/api";
-import { getPeopleDataSearch } from "features/people/api";
-import { getConfig } from "features/config/api";
-import { getPopular } from "features/popular/api";
+import { Friend } from './types';
+import { getSeriesDataSearch } from '../series/api';
+import { getPeopleDataSearch } from '../people/api';
+import { getConfig } from '../config/api';
+import { getPopular } from '../popular/api';
 
 // A function to close to search results window if the user clicks outside it
 export const useFocus = () => {

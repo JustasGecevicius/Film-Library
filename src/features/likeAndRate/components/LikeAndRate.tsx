@@ -1,16 +1,16 @@
 // Hooks
 import { useRef, useState } from "react";
-import { useLiked, useRating } from "features/likeAndRate/hooks";
+import { useLiked, useRating } from '../../likeAndRate/hooks';
 
 // Functions
-import { like, rate } from "../functions";
+import { like, rate } from '../functions';
 
 // Styles
-import "features/likeAndRate/css/likeAndRate.css";
+import '../../likeAndRate/css/likeAndRate.css';
 
 // Types
-import { LikeAndRateType } from "features/movies/types";
-import { useContextAndParams } from "features/utils/ContextAndParams";
+import { LikeAndRateType } from '../../movies/types';
+import { useContextAndParams } from '../../utils/ContextAndParams';
 
 export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
   // Route Parameters and Context

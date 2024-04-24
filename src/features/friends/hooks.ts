@@ -1,12 +1,7 @@
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import {
-  doc,
-  DocumentData,
-  DocumentSnapshot,
-  getDoc,
-} from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useFirebaseContext } from '../context/FirebaseContext';
+import { doc, DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import {
   fetchFriendLikedMoviesList,
   fetchFriendLikedSeriesList,
@@ -15,8 +10,8 @@ import {
   fetchFriends,
   fetchMoviesFromList,
   fetchSeriesFromList,
-} from "./functions";
-import { useConfig } from "features/utils/moviedb";
+} from './functions';
+import { useConfig } from '../utils/moviedb';
 
 // SERIES RELATED HOOKS
 
@@ -25,7 +20,7 @@ export const useFetchFriendLikedSeries = () => {
   const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
-    ["friends", userInfo, db],
+    ['friends', userInfo, db],
     () => {
       return fetchFriends(userInfo, db);
     },
@@ -35,7 +30,7 @@ export const useFetchFriendLikedSeries = () => {
   );
 
   const { data: friendLikedSeriesList } = useQuery(
-    ["likedSeriesList", friendsList, db],
+    ['likedSeriesList', friendsList, db],
     () => {
       return fetchFriendLikedSeriesList(friendsList, db);
     },
@@ -45,7 +40,7 @@ export const useFetchFriendLikedSeries = () => {
   );
 
   const { data: seriesDataList } = useQuery(
-    ["filteredLikedSeries", friendLikedSeriesList, config],
+    ['filteredLikedSeries', friendLikedSeriesList, config],
     () => {
       return fetchSeriesFromList(friendLikedSeriesList, config);
     },
@@ -62,7 +57,7 @@ export const useFetchFriendRatedSeries = () => {
   const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
-    ["friends", userInfo, db],
+    ['friends', userInfo, db],
     () => {
       return fetchFriends(userInfo, db);
     },
@@ -72,7 +67,7 @@ export const useFetchFriendRatedSeries = () => {
   );
 
   const { data: seriesList } = useQuery(
-    ["ratedSeriesList", friendsList, db],
+    ['ratedSeriesList', friendsList, db],
     () => {
       return fetchFriendRatedSeriesList(friendsList, db);
     },
@@ -82,7 +77,7 @@ export const useFetchFriendRatedSeries = () => {
   );
 
   const { data: filteredSeriesList } = useQuery(
-    ["filteredRatedMovies", seriesList, config],
+    ['filteredRatedMovies', seriesList, config],
     () => {
       return fetchSeriesFromList(seriesList?.series, config);
     },
@@ -100,7 +95,7 @@ export const useFetchFriendLikedMovies = () => {
   const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
-    ["friends", userInfo, db],
+    ['friends', userInfo, db],
     () => {
       return fetchFriends(userInfo, db);
     },
@@ -110,7 +105,7 @@ export const useFetchFriendLikedMovies = () => {
   );
 
   const { data: moviesList } = useQuery(
-    ["likedList", friendsList, db],
+    ['likedList', friendsList, db],
     () => {
       return fetchFriendLikedMoviesList(friendsList, db);
     },
@@ -120,7 +115,7 @@ export const useFetchFriendLikedMovies = () => {
   );
 
   const { data: filteredMoviesList } = useQuery(
-    ["filteredLikedMovies", moviesList, config],
+    ['filteredLikedMovies', moviesList, config],
     () => {
       return fetchMoviesFromList(moviesList, config);
     },
@@ -137,7 +132,7 @@ export const useFetchFriendRatedMovies = () => {
   const { config } = useConfig();
 
   const { data: friendsList } = useQuery(
-    ["friends", userInfo, db],
+    ['friends', userInfo, db],
     () => {
       return fetchFriends(userInfo, db);
     },
@@ -147,7 +142,7 @@ export const useFetchFriendRatedMovies = () => {
   );
 
   const { data: moviesList } = useQuery(
-    ["ratedList", friendsList, db],
+    ['ratedList', friendsList, db],
     () => {
       return fetchFriendRatedMoviesList(friendsList, db);
     },
@@ -157,7 +152,7 @@ export const useFetchFriendRatedMovies = () => {
   );
 
   const { data: filteredMoviesList } = useQuery(
-    ["filteredRatedMovies", moviesList, config],
+    ['filteredRatedMovies', moviesList, config],
     () => {
       return fetchMoviesFromList(moviesList?.movies, config);
     },
@@ -171,12 +166,11 @@ export const useFetchFriendRatedMovies = () => {
 // FRIEND RELATED HOOKS
 
 export const useActiveFriends = () => {
-  const [friendsData, setFriendsData] =
-    useState<(DocumentData | undefined)[]>();
+  const [friendsData, setFriendsData] = useState<(DocumentData | undefined)[]>();
   const { userInfo, db } = useFirebaseContext();
 
   const { data: friendsList } = useQuery(
-    ["friends", userInfo, db],
+    ['friends', userInfo, db],
     () => {
       return fetchFriends(userInfo, db);
     },
@@ -186,8 +180,7 @@ export const useActiveFriends = () => {
   );
 
   useEffect(() => {
-    if (friendsList && friendsData?.length === Object.keys(friendsList).length)
-      return;
+    if (friendsList && friendsData?.length === Object.keys(friendsList).length) return;
     const promiseArray: Promise<DocumentSnapshot<DocumentData>>[] = [];
     let fetch = async () => {
       if (!friendsList) return;

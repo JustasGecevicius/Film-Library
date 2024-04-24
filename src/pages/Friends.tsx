@@ -1,6 +1,6 @@
 // Components
-import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
-import { SearchAreaFriends } from "features/searchArea/components/searchFriends/SearchAreaFriends";
+import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
+import { SearchAreaFriends } from '../features/searchArea/components/searchFriends/SearchAreaFriends';
 // Hooks
 import {
   useActiveFriends,
@@ -8,12 +8,12 @@ import {
   useFetchFriendLikedSeries,
   useFetchFriendRatedMovies,
   useFetchFriendRatedSeries,
-} from "features/friends/hooks";
+} from '../features/friends/hooks';
 // Styles
-import { PosterDisplayFriends } from "features/displayPostersSection/components/PosterDisplayFriends";
-import { User } from "features/displayPostersSection/types";
-import { NoUser } from "./NoUser";
-import { useFirebaseContext } from "features/context/FirebaseContext";
+import { PosterDisplayFriends } from '../features/displayPostersSection/components/PosterDisplayFriends';
+import { User } from '../features/displayPostersSection/types';
+import { NoUser } from './NoUser';
+import { useFirebaseContext } from '../features/context/FirebaseContext';
 
 export const Friends = () => {
   // Getting movies liked by Friends

@@ -5,10 +5,10 @@ import { Description } from "../features/showMovieAndSeries/components/Descripti
 import { LikeAndRate } from "../features/likeAndRate/components/LikeAndRate";
 import { VisitHomepage } from "../features/showMovieAndSeries/components/VisitHomepage";
 import { ProducedBy } from "../features/showMovieAndSeries/components/ProducedBy";
-import { DataNumbers } from "features/showMovieAndSeries/components/DataNumbers";
+import { DataNumbers } from '../features/showMovieAndSeries/components/DataNumbers';
 
 // Styles
-import "pages/css/showMovie.css";
+import './css/showMovie.css';
 // Hooks
 import {
   useBackdrop,
@@ -16,13 +16,13 @@ import {
   useProductionCompanies,
   useRecommended,
   useWatchProviders,
-} from "features/showMovieAndSeries/hooks";
-import { useMovieData } from "features/movies/hooks";
-import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
-import { PosterDisplayPeople } from "features/displayPostersSection/components/PosterDisplayPeople";
-import { Trailer } from "features/showMovieAndSeries/components/Trailer";
-import { PosterDisplayWatchProviders } from "features/displayPostersSection/components/PosterDisplayWatchProviders";
-import { useFirebaseContext } from "features/context/FirebaseContext";
+} from '../features/showMovieAndSeries/hooks';
+import { useMovieData } from '../features/movies/hooks';
+import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
+import { PosterDisplayPeople } from '../features/displayPostersSection/components/PosterDisplayPeople';
+import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
+import { PosterDisplayWatchProviders } from '../features/displayPostersSection/components/PosterDisplayWatchProviders';
+import { useFirebaseContext } from '../features/context/FirebaseContext';
 
 export const ShowMovie = () => {
   // Getting the movie data, backdrop Images and production companies.

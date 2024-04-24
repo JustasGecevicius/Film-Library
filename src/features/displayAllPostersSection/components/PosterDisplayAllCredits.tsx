@@ -1,16 +1,16 @@
-import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
-import { useMovieSeriesCredits } from "features/credits/hooks";
+import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
+import { useMovieSeriesCredits } from '../../credits/hooks';
 
 interface Props {
-  type: "movie" | "series";
+  type: 'movie' | 'series';
   id: number | undefined;
-  page : number
+  page: number;
 }
 
 export const PosterDisplayAllCredits = ({ type, id, page }: Props) => {
   const results = useMovieSeriesCredits(type, id, page);
   return results ? (
-    <div className="movieHolderAll">
+    <div className='movieHolderAll'>
       {results.map((elem, index) => {
         return (
           <PosterMovieSeries
@@ -21,8 +21,7 @@ export const PosterDisplayAllCredits = ({ type, id, page }: Props) => {
             id={elem.id}
             liked={elem.liked}
             rating={elem.rating}
-            type={type}
-          ></PosterMovieSeries>
+            type={type}></PosterMovieSeries>
         );
       })}
     </div>

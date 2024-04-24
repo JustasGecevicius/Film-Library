@@ -1,7 +1,7 @@
-import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
-import { Link } from "react-router-dom";
-import { MoviesPosterDisplayType, PosterType } from "../types";
-import "features/displayPostersSection/css/posterDisplay.css";
+import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
+import { Link } from 'react-router-dom';
+import { MoviesPosterDisplayType, PosterType } from '../types';
+import '../css/posterDisplay.css';
 
 interface Link {
   link: string;
@@ -14,14 +14,14 @@ export const PosterDisplayMoviesSeries = ({
   link,
 }: MoviesPosterDisplayType & PosterType & Link) => {
   return (
-    <div className="section">
-      <div className="sectionInfo">
-        <h2 className="sectionName">{sectionName}</h2>
+    <div className='section'>
+      <div className='sectionInfo'>
+        <h2 className='sectionName'>{sectionName}</h2>
         <Link to={`/Film-Library/${link}`}>
-          <button className="viewAllButton">View All</button>
+          <button className='viewAllButton'>View All</button>
         </Link>
       </div>
-      <div className="posterHolder">
+      <div className='posterHolder'>
         {arr.map((elem, index) => {
           return (
             <PosterMovieSeries
@@ -32,8 +32,7 @@ export const PosterDisplayMoviesSeries = ({
               id={elem.id}
               liked={elem.liked}
               rating={elem.rating}
-              type={type}
-            ></PosterMovieSeries>
+              type={type}></PosterMovieSeries>
           );
         })}
       </div>

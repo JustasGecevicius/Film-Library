@@ -1,5 +1,5 @@
 // Hooks
-import { useFirebaseContext } from "features/context/FirebaseContext";
+import { useFirebaseContext } from '../../../context/FirebaseContext';
 // Functions
 import { handleAddFriend } from "../../functions";
 // Types

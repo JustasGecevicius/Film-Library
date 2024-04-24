@@ -1,5 +1,5 @@
 // Base axios api
-import { api } from "features/services/axios";
+import { api } from '../services/axios';
 
 // Constants
 import { GET_CONFIG_URL } from "./constants";

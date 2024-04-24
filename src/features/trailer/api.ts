@@ -1,5 +1,5 @@
-import { youtubeApi } from "features/services/axios";
-import { YoutubeApi } from "./types";
+import { youtubeApi } from '../services/axios';
+import { YoutubeApi } from './types';
 
 export const getTrailer = async (movieName: string) => {
   return await youtubeApi<YoutubeApi>(

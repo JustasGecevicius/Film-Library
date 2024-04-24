@@ -1,7 +1,7 @@
 // Types
-import { MovieBackdropType } from "features/movies/types";
+import { MovieBackdropType } from '../../movies/types';
 // Styles
-import "features/showPerson/css/backdropPerson.css";
+import '../../showPerson/css/backdropPerson.css';
 
 export const BackdropPerson = ({ backdrop, poster, title }: MovieBackdropType) => {
   return (

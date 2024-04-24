@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 // Components
 import { Header } from "../../../header/components/Header";
 // Styles
-import "features/searchArea/css/searchArea.css";
+import '../../../searchArea/css/searchArea.css';
 // Functions
 
-import { SearchBarPeople } from "../searchBars/SearchBarPeople";
-import { useSearchAreaImages } from "features/searchArea/hooks";
+import { SearchBarPeople } from '../searchBars/SearchBarPeople';
+import { useSearchAreaImages } from '../../../searchArea/hooks';
 import { Fade } from "react-slideshow-image";
 
 export const SearchAreaPeople = () => {

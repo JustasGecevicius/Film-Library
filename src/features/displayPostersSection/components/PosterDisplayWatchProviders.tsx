@@ -1,11 +1,11 @@
-import "features/displayPostersSection/css/posterDisplay.css";
-import { WatchProviderPoster } from "features/poster/components/WatchProviderPoster";
-import { WatchProvidersDataResultsProvider } from "features/showMovieAndSeries/types";
-import "features/displayPostersSection/css/posterDisplay.css"
+import '../../displayPostersSection/css/posterDisplay.css';
+import { WatchProviderPoster } from '../../poster/components/WatchProviderPoster';
+import { WatchProvidersDataResultsProvider } from '../../showMovieAndSeries/types';
+import '../../displayPostersSection/css/posterDisplay.css';
 
 export interface PosterDisplayWatchProvidersType {
-  arr : WatchProvidersDataResultsProvider[]
-  sectionName : string
+  arr: WatchProvidersDataResultsProvider[];
+  sectionName: string;
 }
 
 export const PosterDisplayWatchProviders = ({
@@ -13,11 +13,11 @@ export const PosterDisplayWatchProviders = ({
   sectionName,
 }: PosterDisplayWatchProvidersType) => {
   return (
-    <div className="section">
-      <div className="sectionInfo">
-        <h2 className="sectionName">{sectionName}</h2>
+    <div className='section'>
+      <div className='sectionInfo'>
+        <h2 className='sectionName'>{sectionName}</h2>
       </div>
-      <div className="posterHolder">
+      <div className='posterHolder'>
         {arr.map((elem, index) => {
           return (
             <WatchProviderPoster

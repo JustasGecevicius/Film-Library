@@ -1,8 +1,8 @@
 // Types
-import { GetMovies } from "features/movies/types";
-import { FetchedSeriesObject } from "features/series/types";
+import { GetMovies } from '../movies/types';
+import { FetchedSeriesObject } from '../series/types';
 // API
-import { api } from "features/services/axios";
+import { api } from '../services/axios';
 
 // A function the returns information about the top rated movies or series
 export const getTopRated = async (type: "movie" | "series", page = 1) =>

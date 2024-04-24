@@ -1,12 +1,6 @@
-import { MovieObject } from "features/movies/types";
-import { getMovieOrSeriesCollectionName } from "features/utils/firestore";
-import {
-  deleteField,
-  doc,
-  DocumentData,
-  Firestore,
-  updateDoc,
-} from "firebase/firestore";
+import { MovieObject } from '../movies/types';
+import { getMovieOrSeriesCollectionName } from '../utils/firestore';
+import { deleteField, doc, DocumentData, Firestore, updateDoc } from 'firebase/firestore';
 
 // LIKING RELATED FUNCTIONS
 
@@ -16,15 +10,12 @@ export const like = (
   userId: string,
   title: string,
   liked: boolean | undefined,
-  type: "movie" | "series"
+  type: 'movie' | 'series'
 ) => {
   // Delete or add the movie to firebase based on liked state
-  updateDoc(
-    doc(db, getMovieOrSeriesCollectionName(type, "liked"), `${userId}`),
-    {
-      [movieId]: liked ? deleteField() : title,
-    }
-  );
+  updateDoc(doc(db, getMovieOrSeriesCollectionName(type, 'liked'), `${userId}`), {
+    [movieId]: liked ? deleteField() : title,
+  });
 };
 
 export const likePerson = (
@@ -35,8 +26,7 @@ export const likePerson = (
   liked: boolean | undefined
 ) => {
   // Delete or add the movie to firebase based on liked state
-  updateDoc(doc(db, "likedPeople", `${userId}`), 
-  {
+  updateDoc(doc(db, 'likedPeople', `${userId}`), {
     [person_id]: liked ? deleteField() : name,
   });
 };
@@ -54,12 +44,11 @@ export const rate = (
   id: string,
   userId: string,
   rating: number | undefined,
-  type: "movie" | "series"
+  type: 'movie' | 'series'
 ) => {
-  updateDoc(
-    doc(db, `${getMovieOrSeriesCollectionName(type, "rated")}`, `${userId}`),
-    { [id]: rating ? rating : deleteField() }
-  );
+  updateDoc(doc(db, `${getMovieOrSeriesCollectionName(type, 'rated')}`, `${userId}`), {
+    [id]: rating ? rating : deleteField(),
+  });
 };
 
 // Returns the rating if it was rated or undefined

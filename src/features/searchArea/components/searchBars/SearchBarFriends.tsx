@@ -1,7 +1,7 @@
 // Hooks
 import { useState } from "react";
 // Styles
-import "features/searchArea/css/searchBar.css";
+import '../../css/searchBar.css';
 // Components
 import { UserFound } from "../searchFriends/UserFound";
 import { useFocus, useSearchFriends } from "../../hooks";

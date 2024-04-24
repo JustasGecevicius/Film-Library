@@ -1,11 +1,11 @@
-import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
-import { MovieObject } from "features/movies/types";
-import { useEffect, useState } from "react";
-import { useTop } from "features/topRated/hooks";
-import "features/displayAllPostersSection/css/posterDisplayAll.css";
+import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
+import { MovieObject } from '../../movies/types';
+import { useEffect, useState } from 'react';
+import { useTop } from '../../topRated/hooks';
+import '../../displayAllPostersSection/css/posterDisplayAll.css';
 
 interface Props {
-  type: "movie" | "series";
+  type: 'movie' | 'series';
   page: number;
 }
 
@@ -21,7 +21,7 @@ export const PosterDisplayAllTop = ({ type, page }: Props) => {
   return (
     <>
       {combinedResults && (
-        <div className="movieHolderAll">
+        <div className='movieHolderAll'>
           {combinedResults.map((elem, index) => {
             return (
               <PosterMovieSeries

@@ -1,21 +1,18 @@
-import { LikedRatedData } from "features/likeAndRate/types";
-import { Firestore } from "firebase/firestore";
-import { useState } from "react";
-import { useQuery } from "react-query";
-import _ from "lodash";
-import { calculateRatings, fetchUserLiked, fetchUserRated } from "./functions";
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import {
-  fetchMoviesFromList,
-  fetchSeriesFromList,
-} from "features/friends/functions";
-import { MovieObject } from "features/movies/types";
+import { LikedRatedData } from '../likeAndRate/types';
+import { Firestore } from 'firebase/firestore';
+import { useState } from 'react';
+import { useQuery } from 'react-query';
+import _ from 'lodash';
+import { calculateRatings, fetchUserLiked, fetchUserRated } from './functions';
+import { useFirebaseContext } from '../context/FirebaseContext';
+import { fetchMoviesFromList, fetchSeriesFromList } from '../friends/functions';
+import { MovieObject } from '../movies/types';
 import {
   fetchFirestore,
   fetchFirestoreCount,
   getMovieOrSeriesCollectionName,
-} from "features/utils/firestore";
-import { useConfig } from "features/utils/moviedb";
+} from '../utils/firestore';
+import { useConfig } from '../utils/moviedb';
 
 export const useUserInfo = (userId: string | undefined, db: Firestore) => {
   const [averageMovieRating, setAverageMovieRating] = useState<number>();
@@ -27,13 +24,9 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
   const [differentSeriesRatings, setDifferentSeriesRatings] =
     useState<{ x: number; y: number }[]>();
   useQuery<LikedRatedData | undefined>(
-    ["ratedMovieData", db, userId],
+    ['ratedMovieData', db, userId],
     () => {
-      return fetchFirestore(
-        db,
-        getMovieOrSeriesCollectionName("movie", "rated"),
-        userId
-      );
+      return fetchFirestore(db, getMovieOrSeriesCollectionName('movie', 'rated'), userId);
     },
     {
       enabled: !!userId && !!db,
@@ -46,11 +39,11 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
     }
   );
   useQuery<LikedRatedData | undefined>(
-    ["ratedSeriesData", db, userId],
+    ['ratedSeriesData', db, userId],
     () => {
       return fetchFirestore(
         db,
-        getMovieOrSeriesCollectionName("series", "rated"),
+        getMovieOrSeriesCollectionName('series', 'rated'),
         userId
       );
     },
@@ -65,11 +58,11 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
     }
   );
   useQuery<number | undefined>(
-    ["likedMoviesData", db, userId],
+    ['likedMoviesData', db, userId],
     () => {
       return fetchFirestoreCount(
         db,
-        getMovieOrSeriesCollectionName("movie", "liked"),
+        getMovieOrSeriesCollectionName('movie', 'liked'),
         userId
       );
     },
@@ -82,11 +75,11 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
     }
   );
   useQuery<number | undefined>(
-    ["likedSeriesData", db, userId],
+    ['likedSeriesData', db, userId],
     () => {
       return fetchFirestoreCount(
         db,
-        getMovieOrSeriesCollectionName("series", "liked"),
+        getMovieOrSeriesCollectionName('series', 'liked'),
         userId
       );
     },
@@ -108,16 +101,13 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
   };
 };
 
-export const useUserLiked = (
-  type: "movie" | "series",
-  id: string | undefined
-) => {
+export const useUserLiked = (type: 'movie' | 'series', id: string | undefined) => {
   const [data, setData] = useState<MovieObject[]>();
   const { db } = useFirebaseContext();
   const { config } = useConfig();
 
   const { data: userLiked } = useQuery(
-    ["userLiked", type, db],
+    ['userLiked', type, db],
     () => {
       return fetchUserLiked(id, db, type);
     },
@@ -127,10 +117,10 @@ export const useUserLiked = (
   );
 
   useQuery(
-    ["filteredLiked", userLiked, config, type],
+    ['filteredLiked', userLiked, config, type],
     () => {
       if (!userLiked) return;
-      return type === "movie"
+      return type === 'movie'
         ? fetchMoviesFromList(Object.keys(userLiked), config)
         : fetchSeriesFromList(Object.keys(userLiked), config);
     },
@@ -149,15 +139,12 @@ export const useUserLiked = (
   return data;
 };
 
-export const useUserRated = (
-  type: "movie" | "series",
-  userId: string | undefined
-) => {
+export const useUserRated = (type: 'movie' | 'series', userId: string | undefined) => {
   const [data, setData] = useState<MovieObject[]>();
   const { db } = useFirebaseContext();
   const { config } = useConfig();
   const { data: userRated } = useQuery(
-    ["userRated", type, db],
+    ['userRated', type, db],
     () => {
       return fetchUserRated(userId, db, type);
     },
@@ -166,20 +153,16 @@ export const useUserRated = (
     }
   );
   const { data: rated } = useQuery(
-    ["rated", type],
-    () => fetchFirestore(
-      db,
-      getMovieOrSeriesCollectionName(type, 'rated'),
-      userId,
-    ),
+    ['rated', type],
+    () => fetchFirestore(db, getMovieOrSeriesCollectionName(type, 'rated'), userId),
     { enabled: !!userId && !!db }
   );
 
   useQuery(
-    ["filteredRated", userRated, config, type],
+    ['filteredRated', userRated, config, type],
     () => {
       if (!userRated) return;
-      return type === "movie"
+      return type === 'movie'
         ? fetchMoviesFromList(Object.keys(userRated), config)
         : fetchSeriesFromList(Object.keys(userRated), config);
     },

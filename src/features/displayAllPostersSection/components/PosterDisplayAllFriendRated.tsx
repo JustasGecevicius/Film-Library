@@ -1,19 +1,17 @@
 import {
-  useFetchFriendLikedMovies,
   useFetchFriendRatedMovies,
   useFetchFriendRatedSeries,
-  useFetchFriendLikedSeries,
-} from "features/friends/hooks";
-import { PosterMovieSeries } from "features/poster/components/PosterMovieSeries";
+} from '../../friends/hooks';
+import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
 
 interface Props {
-  type: "movie" | "series" | undefined;
+  type: 'movie' | 'series' | undefined;
 }
 
 export const PosterDisplayAllFriendRated = ({ type }: Props) => {
   return (
     <>
-      {type === "movie" ? (
+      {type === 'movie' ? (
         <PosterDisplayAllFriendRatedMovies />
       ) : (
         <PosterDisplayAllFriendRatedSeries />
@@ -27,7 +25,7 @@ export const PosterDisplayAllFriendRatedMovies = () => {
   return (
     <>
       {results && results.filteredMoviesList && (
-        <div className="movieHolderAll">
+        <div className='movieHolderAll'>
           {results.filteredMoviesList.map((elem, index) => {
             return (
               <PosterMovieSeries
@@ -38,7 +36,7 @@ export const PosterDisplayAllFriendRatedMovies = () => {
                 id={elem.id}
                 liked={elem.liked}
                 rating={elem.rating}
-                type={"movie"}
+                type={'movie'}
               />
             );
           })}
@@ -53,7 +51,7 @@ export const PosterDisplayAllFriendRatedSeries = () => {
   return (
     <>
       {results && results.filteredSeriesList && (
-        <div className="movieHolderAll">
+        <div className='movieHolderAll'>
           {results.filteredSeriesList.map((elem, index) => {
             return (
               <PosterMovieSeries
@@ -64,7 +62,7 @@ export const PosterDisplayAllFriendRatedSeries = () => {
                 id={elem.id}
                 liked={elem.liked}
                 rating={elem.rating}
-                type={"series"}
+                type={'series'}
               />
             );
           })}

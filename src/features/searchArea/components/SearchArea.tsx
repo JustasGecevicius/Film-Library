@@ -1,9 +1,9 @@
 // Components
-import { Header } from "features/header/components/Header";
-import { SearchBarMoviesSeries } from "features/searchArea/components/searchBars/SearchBarMoviesSeries";
-import "react-slideshow-image/dist/styles.css";
+import { Header } from '../../header/components/Header';
+import { SearchBarMoviesSeries } from '../../searchArea/components/searchBars/SearchBarMoviesSeries';
+import 'react-slideshow-image/dist/styles.css';
 // Styles
-import "features/searchArea/css/searchArea.css";
+import '../../searchArea/css/searchArea.css';
 import { Fade } from "react-slideshow-image";
 import { SearchBarFriends } from "./searchBars/SearchBarFriends";
 import { SearchBarPeople } from "./searchBars/SearchBarPeople";

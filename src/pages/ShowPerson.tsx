@@ -1,23 +1,21 @@
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import { useMovieSeriesCredits } from "features/credits/hooks";
-import { PosterDisplayCredits } from "features/displayPostersSection/components/PosterDisplayCredits";
-import { PosterDisplayMoviesSeries } from "features/displayPostersSection/components/PosterDisplayMoviesSeries";
-import { LikePerson } from "features/likeAndRate/components/LikePerson";
-import { getPerson } from "features/people/api";
-import { Backdrop } from "features/showMovieAndSeries/components/Backdrop";
-import { Description } from "features/showMovieAndSeries/components/Description";
-import { VisitHomepage } from "features/showMovieAndSeries/components/VisitHomepage";
-import { useBackdropPerson } from "features/showMovieAndSeries/hooks";
-import { BackdropPerson } from "features/showPerson/components/BackdropPerson";
-import { PersonalFacts } from "features/showPerson/components/PersonalFacts";
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useFirebaseContext } from '../features/context/FirebaseContext';
+import { useMovieSeriesCredits } from '../features/credits/hooks';
+import { PosterDisplayCredits } from '../features/displayPostersSection/components/PosterDisplayCredits';
+import { LikePerson } from '../features/likeAndRate/components/LikePerson';
+import { getPerson } from '../features/people/api';
+import { Description } from '../features/showMovieAndSeries/components/Description';
+import { VisitHomepage } from '../features/showMovieAndSeries/components/VisitHomepage';
+import { useBackdropPerson } from '../features/showMovieAndSeries/hooks';
+import { BackdropPerson } from '../features/showPerson/components/BackdropPerson';
+import { PersonalFacts } from '../features/showPerson/components/PersonalFacts';
+import { useQuery } from 'react-query';
+import { useParams } from 'react-router-dom';
 
 export const ShowPerson = () => {
   const { id } = useParams();
-  const {darkTheme} = useFirebaseContext();
+  const { darkTheme } = useFirebaseContext();
   const { data: person } = useQuery(
-    ["person", id],
+    ['person', id],
     () => {
       return getPerson(id);
     },
@@ -26,20 +24,20 @@ export const ShowPerson = () => {
     }
   );
 
-  const movieCredits = useMovieSeriesCredits("movie", id);
-  const seriesCredits = useMovieSeriesCredits("series", id);
+  const movieCredits = useMovieSeriesCredits('movie', id);
+  const seriesCredits = useMovieSeriesCredits('series', id);
 
   const backdrop = useBackdropPerson(person);
   return (
-    <div className={darkTheme ? "darkTheme" : "theme"}>
+    <div className={darkTheme ? 'darkTheme' : 'theme'}>
       {backdrop && person && (
-        <BackdropPerson backdrop={""} poster={backdrop} title={person.name} />
+        <BackdropPerson backdrop={''} poster={backdrop} title={person.name} />
       )}
       {person && (
         <>
-          <div className="genres">
-            <div className="genreItems">
-              <div className="genreSymbol">{person.known_for_department}</div>
+          <div className='genres'>
+            <div className='genreItems'>
+              <div className='genreSymbol'>{person.known_for_department}</div>
             </div>
           </div>
           <LikePerson name={person.name} />
@@ -53,12 +51,22 @@ export const ShowPerson = () => {
           />
         </>
       )}
-      <div className="recommendationDiv">
+      <div className='recommendationDiv'>
         {movieCredits && (
-          <PosterDisplayCredits id={id} arr={movieCredits} sectionName="Movie Credits" type="movie" />
+          <PosterDisplayCredits
+            id={id}
+            arr={movieCredits}
+            sectionName='Movie Credits'
+            type='movie'
+          />
         )}
         {seriesCredits && (
-          <PosterDisplayCredits id={id} arr={seriesCredits} sectionName="Series Credits" type="series" />
+          <PosterDisplayCredits
+            id={id}
+            arr={seriesCredits}
+            sectionName='Series Credits'
+            type='series'
+          />
         )}
       </div>
     </div>

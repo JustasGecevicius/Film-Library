@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import "pages/css/showAll.css";
+import './css/showAll.css';
 
-import { SearchAreaPeople } from "features/searchArea/components/searchPeople/SearchAreaPeople";
-import { PosterDisplayAllPopularPeople } from "features/displayAllPostersSection/components/PosterDisplayAllPopularPeople";
-import { PosterDisplayAllFriendLikedPeople } from "features/displayAllPostersSection/components/PosterDisplayAllFriendLikedPeople";
-import { PosterDisplayAllCast } from "features/displayAllPostersSection/components/PosterDisplayAllCast";
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import { SearchArea } from "features/searchArea/components/SearchArea";
-import { useSearchAreaImages } from "features/searchArea/hooks";
+import { PosterDisplayAllPopularPeople } from '../features/displayAllPostersSection/components/PosterDisplayAllPopularPeople';
+import { PosterDisplayAllFriendLikedPeople } from '../features/displayAllPostersSection/components/PosterDisplayAllFriendLikedPeople';
+import { PosterDisplayAllCast } from '../features/displayAllPostersSection/components/PosterDisplayAllCast';
+import { useFirebaseContext } from '../features/context/FirebaseContext';
+import { SearchArea } from '../features/searchArea/components/SearchArea';
+import { useSearchAreaImages } from '../features/searchArea/hooks';
 
 interface Params {
   section: "Popular" | "FriendLiked" | "Cast";

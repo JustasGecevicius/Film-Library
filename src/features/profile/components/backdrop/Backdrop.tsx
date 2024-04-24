@@ -1,13 +1,12 @@
-// Components
-import { Header } from "features/header/components/Header";
-// Styles
-import "features/searchArea/css/searchArea.css";
-import { useBackground } from "features/welcomeScreen/hooks";
-
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import { checkIfImageExists } from "features/header/functions";
-import { CircularProgressBarAverages, CircularProgressBarNumbers } from "./CircularProgressBars";
+import { Header } from '../../../header/components/Header';
+import '../../../searchArea/css/searchArea.css';
+import { useBackground } from '../../../welcomeScreen/hooks';
+import 'react-circular-progressbar/dist/styles.css';
+import { checkIfImageExists } from '../../../header/functions';
+import {
+  CircularProgressBarAverages,
+  CircularProgressBarNumbers,
+} from './CircularProgressBars';
 
 export interface Props {
   links: string[];
@@ -21,12 +20,7 @@ export interface Props {
   };
 }
 
-export const Backdrop = ({
-  links,
-  profileImage,
-  userName,
-  userNumbers,
-}: Props) => {
+export const Backdrop = ({ links, profileImage, userName, userNumbers }: Props) => {
   const background = useBackground();
 
   if (!links) {
@@ -34,32 +28,32 @@ export const Backdrop = ({
   }
 
   return (
-    <div className="profileBackdrop" style={{ backgroundImage: `url(${background})` }}>
+    <div className='profileBackdrop' style={{ backgroundImage: `url(${background})` }}>
       <Header />
-      <div className="profileWrapper">
+      <div className='profileWrapper'>
         {profileImage && checkIfImageExists(profileImage) && (
-          <div className="userImage">
-            <img src={profileImage} alt="userImage" className="userImage" />
+          <div className='userImage'>
+            <img src={profileImage} alt='userImage' className='userImage' />
           </div>
         )}
-        <div className="userStats">
-          <h3 className="userName">{userName}</h3>
-          <div className="userStatsNumbers">
+        <div className='userStats'>
+          <h3 className='userName'>{userName}</h3>
+          <div className='userStatsNumbers'>
             <CircularProgressBarAverages
               average={userNumbers.averageMovieRating}
-              text="Average Movie Rating"
+              text='Average Movie Rating'
             />
             <CircularProgressBarAverages
               average={userNumbers.averageSeriesRating}
-              text="Average Series Rating"
+              text='Average Series Rating'
             />
             <CircularProgressBarNumbers
               number={userNumbers.numberOfLikedMovies}
-              text="Movies Liked"
+              text='Movies Liked'
             />
             <CircularProgressBarNumbers
               number={userNumbers.numberOfLikedSeries}
-              text="Series Liked"
+              text='Series Liked'
             />
           </div>
         </div>

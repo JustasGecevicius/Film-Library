@@ -1,20 +1,18 @@
 // Hooks
-import { useFirebaseContext } from "features/context/FirebaseContext";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useFirebaseContext } from '../context/FirebaseContext';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 // Functions
-import {
-  checkLikeAndRate,
-} from "features/likeAndRate/functions";
-import { filterMovieInformation } from "features/movies/functions";
-import { filterSeriesInformation } from "features/series/functions";
+import { checkLikeAndRate } from '../likeAndRate/functions';
+import { filterMovieInformation } from '../movies/functions';
+import { filterSeriesInformation } from '../series/functions';
 // Types
-import { MovieData, MovieObject } from "features/movies/types";
-import { FetchedSeriesObjectResults } from "features/series/types";
+import { MovieData, MovieObject } from '../movies/types';
+import { FetchedSeriesObjectResults } from '../series/types';
 // API
-import { getTopRated } from "./api";
-import { useLikedAndRated } from "features/utils/firestore";
-import { useConfig } from "features/utils/moviedb";
+import { getTopRated } from './api';
+import { useLikedAndRated } from '../utils/firestore';
+import { useConfig } from '../utils/moviedb';
 
 // A hook that returns the Top Rated movies or series
 export const useTop = (type: "movie" | "series", pageNumber: number = 1) => {

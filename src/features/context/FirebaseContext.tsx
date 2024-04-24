@@ -1,9 +1,9 @@
 // Firebase
 import { initializeApp } from "firebase/app";
-import { initializeUser } from "features/firebase/functions";
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
-import config from "features/services/config";
+import { initializeUser } from '../../features/firebase/functions';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import config from '../../features/services/config';
 
 // Hooks
 import { createContext, useContext, useEffect, useState } from "react";
