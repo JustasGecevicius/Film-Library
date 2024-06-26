@@ -1,6 +1,5 @@
 import { MovieObject } from '../../movies/types';
 import { Link } from 'react-router-dom';
-import '../../poster/css/poster.css';
 import star from '../../../assets/starIcon.png';
 import { PosterType } from '../../displayPostersSection/types';
 
@@ -13,7 +12,6 @@ export const PosterMovieSeries = ({
   rating,
   type,
 }: MovieObject & PosterType) => {
-  // Changes the Link based on whether the Poster is for a Movie or for a Series
   return (
     <>
       {id && (
@@ -21,7 +19,7 @@ export const PosterMovieSeries = ({
           to={
             type === 'movie' ? `/Film-Library/movie/${id}` : `/Film-Library/series/${id}`
           }
-          className='posterLink'>
+          className='min-w-fit'>
           <div className='imagePoster'>
             <img src={imageURL} alt='posterImage' className='posterImage' />
             {liked ? <img className='star' src={star} alt='starIcon' /> : null}

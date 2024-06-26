@@ -1,9 +1,6 @@
-/* eslint-disable array-callback-return */
-// Types
-import { DataNumbersType } from "features/showMovieAndSeries/types";
-// Functions
-import { symbolChecker } from "../functions";
-import _ from "lodash";
+import { DataNumbersType } from 'features/showMovieAndSeries/types';
+import { symbolChecker } from '../functions';
+import _ from 'lodash';
 
 export const DataNumbers = ({
   budget,
@@ -14,33 +11,30 @@ export const DataNumbers = ({
   number_of_episodes,
   number_of_seasons,
 }: DataNumbersType) => {
-
   const fixedBudget = budget ? symbolChecker(budget) : undefined;
   const fixedRevenue = revenue ? symbolChecker(revenue) : undefined;
 
   const fixedNumbers = [
-    ["Budget", fixedBudget],
-    ["Revenue", fixedRevenue],
-    ["Runtime", runtime ? `${runtime} minutes` : undefined],
-    ["Average Rating", voteAverage ? _.round(voteAverage, 2) : undefined],
-    ["Last Episode", last_air_date],
-    ["Episodes", number_of_episodes],
-    ["Seasons", number_of_seasons],
+    ['Budget', fixedBudget],
+    ['Revenue', fixedRevenue],
+    ['Runtime', runtime ? `${runtime} minutes` : undefined],
+    ['Average Rating', voteAverage ? _.round(voteAverage, 2) : undefined],
+    ['Last Episode', last_air_date],
+    ['Episodes', number_of_episodes],
+    ['Seasons', number_of_seasons],
   ];
 
   return (
-    <div className="dataNumbers">
-      <div className="dataNumbersWidth">
-        {fixedNumbers.map((elem, index) => {
-          if (elem[1]) {
-            return (
-              <div className="dataNumbersSymbol" key={index}>
-                <p className="movieNumberSymbolText">{`${elem[0]} | ${elem[1]}`}</p>
-              </div>
-            );
-          }
-        })}
-      </div>
+    <div className='flex-row flex-wrap max-w-4xl mx-auto gap-x-2'>
+      {fixedNumbers.map((elem, index) => {
+        if (elem[1]) {
+          return (
+            <div className='px-2 py-1 border border-black rounded-full' key={index}>
+              <p>{`${elem[0]} | ${elem[1]}`}</p>
+            </div>
+          );
+        }
+      })}
     </div>
   );
 };

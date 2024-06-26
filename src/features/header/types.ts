@@ -19,8 +19,7 @@ export interface IconsObject {
 }
 
 export interface NavigationIconType {
-  iconName: "film" | "camera" | "users" | "user";
+  iconName: 'film' | 'camera' | 'users' | 'user';
   link: string;
-  sectionName : string;
-  darkTheme : true | false
+  sectionName: string;
 }

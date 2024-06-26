@@ -29,15 +29,15 @@ export const ShowPerson = () => {
 
   const backdrop = useBackdropPerson(person);
   return (
-    <div className={darkTheme ? 'darkTheme' : 'theme'}>
+    <div className='dark:bg-black px-6'>
       {backdrop && person && (
         <BackdropPerson backdrop={''} poster={backdrop} title={person.name} />
       )}
       {person && (
         <>
-          <div className='genres'>
-            <div className='genreItems'>
-              <div className='genreSymbol'>{person.known_for_department}</div>
+          <div className='mx-auto max-w-4xl flex-row gap-4 py-4 '>
+            <div className='border-[1px] rounded-2xl px-2'>
+              {person.known_for_department}
             </div>
           </div>
           <LikePerson name={person.name} />
@@ -51,7 +51,7 @@ export const ShowPerson = () => {
           />
         </>
       )}
-      <div className='recommendationDiv'>
+      <div className='pt-4 flex-col gap-y-2'>
         {movieCredits && (
           <PosterDisplayCredits
             id={id}

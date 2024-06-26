@@ -24,8 +24,8 @@ export const PosterDisplayAllFriendLikedMovies = () => {
   const results = useFetchFriendLikedMovies();
   return (
     <>
-      {results && (
-        <div className="movieHolderAll">
+      {!!results && (
+        <div className='flex-row gap-x-4'>
           {results.map((elem, index) => {
             return (
               <PosterMovieSeries
@@ -36,7 +36,7 @@ export const PosterDisplayAllFriendLikedMovies = () => {
                 id={elem.id}
                 liked={elem.liked}
                 rating={elem.rating}
-                type={"movie"}
+                type={'movie'}
               />
             );
           })}
@@ -51,7 +51,7 @@ export const PosterDisplayAllFriendLikedSeries = () => {
   return (
     <>
       {results && (
-        <div className="movieHolderAll">
+        <div className='flex-row gap-x-4'>
           {results.map((elem, index) => {
             return (
               <PosterMovieSeries
@@ -62,7 +62,7 @@ export const PosterDisplayAllFriendLikedSeries = () => {
                 id={elem.id}
                 liked={elem.liked}
                 rating={elem.rating}
-                type={"series"}
+                type={'series'}
               />
             );
           })}

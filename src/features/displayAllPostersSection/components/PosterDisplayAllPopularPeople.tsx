@@ -18,13 +18,13 @@ export const PosterDisplayAllPopularPeople = ({ page }: Props) => {
   }, [results]);
 
   return combinedResults ? (
-    <div className="movieHolderAll">
+    <div className='flex-row gap-4'>
       {combinedResults.map((elem, index) => {
         return (
           <PeoplePoster
             key={index}
             imageURL={elem.imageURL}
-            name={elem.name}          
+            name={elem.name}
             id={elem.id}
           />
         );

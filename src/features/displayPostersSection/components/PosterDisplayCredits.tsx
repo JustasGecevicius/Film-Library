@@ -9,14 +9,16 @@ export const PosterDisplayCredits = ({
   type,
 }: MoviesPosterDisplayType & PosterType) => {
   return (
-    <div className='section'>
-      <div className='sectionInfo'>
-        <h2 className='sectionName'>{sectionName}</h2>
+    <div className='flex-col gap-4 w-full'>
+      <div className='flex-row justify-between'>
+        <h2 className='text-2xl font-bold'>{sectionName}</h2>
         <Link to={`/Film-Library/all/${type}/Credits/${id}`}>
-          <button className='viewAllButton'>View All</button>
+          <button className='rounded-xl border-2 px-2 hover:bg-white hover:text-black hover:border-black dark:hover:border-inherit'>
+            View All
+          </button>
         </Link>
       </div>
-      <div className='posterHolder'>
+      <div className='flex-row gap-4 overflow-x-auto'>
         {arr.map((elem, index) => {
           return (
             <PosterMovieSeries

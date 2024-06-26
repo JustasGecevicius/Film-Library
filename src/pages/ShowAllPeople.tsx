@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import './css/showAll.css';
+// import './css/showAll.css';
 
 import { PosterDisplayAllPopularPeople } from '../features/displayAllPostersSection/components/PosterDisplayAllPopularPeople';
 import { PosterDisplayAllFriendLikedPeople } from '../features/displayAllPostersSection/components/PosterDisplayAllFriendLikedPeople';

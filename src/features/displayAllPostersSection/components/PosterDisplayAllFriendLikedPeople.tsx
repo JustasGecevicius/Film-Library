@@ -28,7 +28,7 @@ export const PosterDisplayAllFriendLikedPeople = ({ page }: Props) => {
   return (
     <>
       {results && (
-        <div className='movieHolderAll'>
+        <div className='flex-row gap-x-4'>
           {combinedResults.map((elem, index) => {
             return (
               <PeoplePoster

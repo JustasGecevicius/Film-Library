@@ -45,7 +45,6 @@ export const Chart = ({ id }: Props) => {
       {
         label: 'Movies',
         data: differentMoviesRatings,
-        //backgroundColor: 'rgba(255, 99, 132, 0.5)',
         borderColor: 'rgba(0, 0, 0, 1)',
         color: 'rgba(255, 255, 0, 1)',
         borderWidth: 1,
@@ -53,12 +52,11 @@ export const Chart = ({ id }: Props) => {
       {
         label: 'Series',
         data: differentSeriesRatings,
-        //backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],
   };
   return (
-    <div className='chartWrapper'>
+    <div className='flex-row justify-center max-w-4xl mx-auto'>
       <Bar options={options} data={data} />
     </div>
   );

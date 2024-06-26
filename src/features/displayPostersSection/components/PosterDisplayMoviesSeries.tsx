@@ -1,7 +1,6 @@
 import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
 import { Link } from 'react-router-dom';
 import { MoviesPosterDisplayType, PosterType } from '../types';
-import '../css/posterDisplay.css';
 
 interface Link {
   link: string;
@@ -14,14 +13,16 @@ export const PosterDisplayMoviesSeries = ({
   link,
 }: MoviesPosterDisplayType & PosterType & Link) => {
   return (
-    <div className='section'>
-      <div className='sectionInfo'>
-        <h2 className='sectionName'>{sectionName}</h2>
+    <div className='overflow-x-auto py-8'>
+      <div className='flex flex-row justify-between items-center'>
+        <h2 className='font-bold text-2xl italic'>{sectionName}</h2>
         <Link to={`/Film-Library/${link}`}>
-          <button className='viewAllButton'>View All</button>
+          <button className='px-2 border border-black rounded-full dark:border-white dark:bg-black h-7'>
+            View All
+          </button>
         </Link>
       </div>
-      <div className='posterHolder'>
+      <div className='flex flex-row gap-x-4 overflow-auto py-4'>
         {arr.map((elem, index) => {
           return (
             <PosterMovieSeries

@@ -25,7 +25,7 @@ export const PosterDisplayAllFriendRatedMovies = () => {
   return (
     <>
       {results && results.filteredMoviesList && (
-        <div className='movieHolderAll'>
+        <div className='flex-row gap-4'>
           {results.filteredMoviesList.map((elem, index) => {
             return (
               <PosterMovieSeries

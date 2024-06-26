@@ -40,18 +40,3 @@
   align-items: center;
   justify-content: center;
 }
-.posterDisplayAllWrapper .movieHolderAll .imagePoster .posterImage {
-  border-radius: 10px;
-  min-height: 278px;
-  max-height: 278px;
-}
-.posterDisplayAllWrapper .movieHolderAll .imagePoster .movieText {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 4rem;
-}
-.posterDisplayAllWrapper .movieHolderAll .imagePoster .movieText p {
-  text-align: center;
-}/*# sourceMappingURL=posterDisplayAll.css.map */

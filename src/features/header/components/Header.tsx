@@ -1,69 +1,57 @@
 import { Link } from "react-router-dom";
-import '../../header/css/header.css';
+// import '../../header/css/header.css';
 import { signInUser, signOutUser } from '../../firebase/functions';
 import { useFirebaseContext } from '../../context/FirebaseContext';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { NavigationIcon } from './NavigationIcon';
 import { checkIfImageExists } from '../functions';
 import { ToggleDarkLightSwitch } from '../../utils/ToggleDarkLightSwitch';
-import { useEffect } from 'react';
 
 export const Header = () => {
   const { userInfo, setDarkTheme, darkTheme } = useFirebaseContext();
-  useEffect(() => {
-    console.log(darkTheme);
-  }, [darkTheme]);
 
   return (
-    <header className={darkTheme ? 'headerDark' : 'header'}>
+    <header className='flex flex-row flex-wrap items-center justify-around w-full max-w-4xl p-2 mx-auto bg-white dark:bg-black rounded-b-md gap-y-1'>
       <Link to='/Film-Library'>
-        <div className='logoDiv'>
-          <h2>Discoverisms</h2>
-        </div>
+        <h2 className="text-3xl font-bold font-noto dark:text-white">Discoverisms</h2>
       </Link>
-      <ul className='navigationButtons'>
+      <ul className='flex-row items-center gap-x-4'>
         <NavigationIcon
           iconName={'film'}
           link={'Explore'}
           sectionName='Explore'
-          darkTheme={darkTheme}
         />
         <NavigationIcon
           iconName={'camera'}
           link={'People'}
           sectionName='People'
-          darkTheme={darkTheme}
         />
         <NavigationIcon
           iconName={'users'}
           link={'Friends'}
           sectionName='Friends'
-          darkTheme={darkTheme}
         />
         <NavigationIcon
           iconName={'user'}
           link={'UserProfile'}
           sectionName='Profile'
-          darkTheme={darkTheme}
         />
       </ul>
-      <div className='userSignIn'>
+      <div className='flex-row items-center gap-x-4'>
         <ToggleDarkLightSwitch setDarkTheme={setDarkTheme} darkTheme={darkTheme} />
         {userInfo && (
-          <div className='userInformationDisplay'>
+          <div>
             {checkIfImageExists('http://website/images/img.png') && (
               <img alt='userImage' className='userImage' src={userInfo.profileURL} />
             )}
           </div>
         )}
         <button
-          className='signInButton'
+          className='px-2 border border-black rounded-full dark:border-white dark:bg-black dark:text-white h-7'
           onClick={() => {
-            console.log(userInfo);
             userInfo ? signOutUser() : signInUser();
           }}>
-          {/* <FontAwesomeIcon icon={solid("key")} className="navigationImage" /> */}
           {userInfo ? 'Sign Out' : 'Sign In'}
         </button>
       </div>

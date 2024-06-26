@@ -19,17 +19,17 @@ import { UserProfile } from './pages/UserProfile';
 import { ShowAllPeople } from './pages/ShowAllPeople';
 import { ShowAllFriends } from './pages/ShowAllFriends';
 import { ShowAllUserLikedRated } from './pages/ShowAllUserLikedRated';
-import './pages/css/noUser.css';
 import { ComponentTest } from './pages/ComponentTest';
-import './pages/css/componentTest.css';
 import { ShowUser } from './pages/User';
+import { useFirebaseContext } from './features/context/FirebaseContext';
 
 const App: React.FC = () => {
   initializeApp(config);
   const location = useLocation();
-  console.log(location, 'LOCATION');
+  const { darkTheme } = useFirebaseContext();
+  console.log(darkTheme);
   return (
-    <div className='App'>
+    <div className={`App ${darkTheme ? 'dark' : 'light'} dark:text-white`}>
       <Routes location={location} key={location.pathname}>
         <Route path='/Film-Library' element={<Home />} />
         <Route path='/Film-Library/Explore' element={<Explore />} />

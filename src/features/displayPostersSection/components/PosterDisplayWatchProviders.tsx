@@ -13,11 +13,11 @@ export const PosterDisplayWatchProviders = ({
   sectionName,
 }: PosterDisplayWatchProvidersType) => {
   return (
-    <div className='section'>
-      <div className='sectionInfo'>
-        <h2 className='sectionName'>{sectionName}</h2>
+    <div className=''>
+      <div className=''>
+        <h2 className=''>{sectionName}</h2>
       </div>
-      <div className='posterHolder'>
+      <div className=''>
         {arr.map((elem, index) => {
           return (
             <WatchProviderPoster

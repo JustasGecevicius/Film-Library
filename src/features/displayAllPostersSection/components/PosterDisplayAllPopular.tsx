@@ -19,7 +19,7 @@ export const PosterDisplayAllPopular = ({ type, page }: Props) => {
   }, [results]);
 
   return combinedResults ? (
-    <div className='movieHolderAll'>
+    <div className='flex-row gap-4'>
       {combinedResults.map((elem, index) => {
         return (
           <PosterMovieSeries

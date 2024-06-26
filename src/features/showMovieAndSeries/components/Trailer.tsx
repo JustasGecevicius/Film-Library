@@ -1,5 +1,4 @@
 import { useTrailer } from '../../trailer/hooks';
-
 interface Props {
   name: string;
   year: string;
@@ -14,7 +13,7 @@ export const Trailer = ({ name, year }: Props) => {
           <iframe
             title='trailer'
             src={`${trailerLink}`}
-            className='trailer'
+            className='w-[900px]'
             allowFullScreen={true}
           />
         </div>

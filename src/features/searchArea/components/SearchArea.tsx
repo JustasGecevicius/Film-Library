@@ -20,36 +20,30 @@ export const SearchArea = ({ links, type }: Props) => {
   }
 
   return (
-    <div className="slide-container">
+    <div className='slide-container'>
       <Fade>
         {links.map((imageLink, index) => (
           <div key={index}>
-            <img
-              style={{ width: "100%" }}
-              src={imageLink}
-              alt="backgroundImage"
-            />
+            <img style={{ width: '100%' }} src={imageLink} alt='backgroundImage' />
           </div>
         ))}
       </Fade>
-      <div className="slideOverlay">
+      <div className='slideOverlay'>
         <Header />
-        <>
-          {(() => {
-            switch (type) {
-              case "movieSeries":
-                return <SearchBarMoviesSeries />;
-              case 'cast':
-                return <SearchBarPeople />;
-              case "friends":
-                return <SearchBarFriends />;
-              case "people":
-                return <SearchBarPeople />;
-              default:
-                return <></>;
-            }
-          })()}
-        </>
+        {(() => {
+          switch (type) {
+            case 'movieSeries':
+              return <SearchBarMoviesSeries />;
+            case 'cast':
+              return <SearchBarPeople />;
+            case 'friends':
+              return <SearchBarFriends />;
+            case 'people':
+              return <SearchBarPeople />;
+            default:
+              return <></>;
+          }
+        })()}
       </div>
     </div>
   );

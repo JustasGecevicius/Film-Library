@@ -2,7 +2,6 @@ import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
 import { MovieObject } from '../../movies/types';
 import { useEffect, useState } from 'react';
 import { useTop } from '../../topRated/hooks';
-import '../../displayAllPostersSection/css/posterDisplayAll.css';
 
 interface Props {
   type: 'movie' | 'series';
@@ -21,7 +20,7 @@ export const PosterDisplayAllTop = ({ type, page }: Props) => {
   return (
     <>
       {combinedResults && (
-        <div className='movieHolderAll'>
+        <div className='flex-row gap-4'>
           {combinedResults.map((elem, index) => {
             return (
               <PosterMovieSeries

@@ -5,17 +5,12 @@ import {
 
 export const UserPoster = ({ imageURL, name, id }: UserPosterType) => {
   return id ? (
-    <Link to={`/Film-Library/User/${id}`}>
-      <div className="imagePoster" data-id={`${id}`}>
-        <div
-          className="posterImage"
-          style={{ backgroundImage: `url(${imageURL})` }}
-        ></div>
-        {/* <img src={imageURL} alt="posterImage" className="posterImage" /> */}
-        <div className="movieText">
-          <p className="title">{name}</p>
-        </div>
-      </div>
+    <Link to={`/Film-Library/User/${id}`} className='flex-col gap-y-2'>
+      <div
+        className='h-64 bg-center bg-no-repeat bg-cover rounded-xl w-44'
+        style={{ backgroundImage: `url(${imageURL})` }}
+      />
+      <p className='text-center'>{name}</p>
     </Link>
   ) : null;
 };

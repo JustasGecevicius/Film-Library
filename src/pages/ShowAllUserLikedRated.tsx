@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import './css/showAll.css';
+// import './css/showAll.css';
 import { useSearchAreaImages } from '../features/searchArea/hooks';
 import { PosterDisplayAllUserLikedRated } from '../features/displayAllPostersSection/components/PosterDisplayAllUserLikedRated';
 import { useFirebaseContext } from '../features/context/FirebaseContext';

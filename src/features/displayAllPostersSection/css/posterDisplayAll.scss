@@ -36,21 +36,6 @@
             align-items: center;
             justify-content: center;
         }
-            .posterImage {
-                border-radius: 10px;
-                min-height: 278px;
-                max-height: 278px;
-            }
-            .movieText {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                min-height: 4rem;
-                p{
-                        text-align: center;
-                }
-            }
         }
       }
 }

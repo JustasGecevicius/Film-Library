@@ -20,7 +20,7 @@ export const PosterDisplayAllRecommended = ({ id, type, page }: Props) => {
   }, [results]);
 
   return combinedResults ? (
-    <div className='movieHolderAll'>
+    <div className='flex-row gap-4 flex-wrap center'>
       {combinedResults.map((elem, index) => {
         return (
           <PosterMovieSeries

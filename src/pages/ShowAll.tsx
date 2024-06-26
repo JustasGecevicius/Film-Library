@@ -2,7 +2,7 @@ import { PosterDisplayAllPopular } from '../features/displayAllPostersSection/co
 import { PosterDisplayAllTop } from '../features/displayAllPostersSection/components/PosterDisplayAllTop';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './css/showAll.css';
+// import './css/showAll.css';
 import { PosterDisplayAllRecommended } from '../features/displayAllPostersSection/components/PosterDisplayAllRecommended';
 import { PosterDisplayAllCredits } from '../features/displayAllPostersSection/components/PosterDisplayAllCredits';
 import { useSearchAreaImages } from '../features/searchArea/hooks';

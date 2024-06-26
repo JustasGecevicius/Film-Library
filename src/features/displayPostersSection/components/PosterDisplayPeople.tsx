@@ -11,14 +11,14 @@ export const PosterDisplayPeople = ({
   return (
     <>
       {arr.length !== 0 && (
-        <div className='section'>
-          <div className='sectionInfo'>
-            <h2 className='sectionName'>{sectionName}</h2>
+        <div className='overflow-x-auto'>
+          <div className='flex flex-row justify-between items-center'>
+            <h2 className='font-bold text-2xl italic'>{sectionName}</h2>
             <Link to={`/Film-Library/allPeople/${link}`}>
-              <button className='viewAllButton'>View All</button>
+              <button className='p-2 border border-black'>View All</button>
             </Link>
           </div>
-          <div className='posterHolder'>
+          <div className='flex flex-row gap-x-4 overflow-auto py-4'>
             {arr.map((elem, index) => {
               return (
                 <PeoplePoster

@@ -11,15 +11,15 @@ export const ToggleDarkLightSwitch = ({ setDarkTheme, darkTheme }: Props) => {
   }
 
   return (
-    <label className="switch">
+    <label className='mode-switch'>
       <input
         checked={darkTheme}
-        type="checkbox"
-        onChange={(e) => {          
+        type='checkbox'
+        onChange={(e) => {
           handleThemeChange(e);
         }}
       />
-      <span className="slider round"></span>
+      <span className='slider round'></span>
     </label>
   );
 };
