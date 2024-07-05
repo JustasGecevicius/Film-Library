@@ -1,7 +1,7 @@
 // Hooks
 import { useFirebaseContext } from '../context/FirebaseContext';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 // Functions
 import { checkLikeAndRate } from '../likeAndRate/functions';
 import { filterMovieInformation } from '../movies/functions';
@@ -12,39 +12,42 @@ import { FetchedSeriesObjectResults } from '../series/types';
 // API
 import { getTopRated } from './api';
 import { useLikedAndRated } from '../utils/firestore';
-import { useConfig } from '../utils/moviedb';
+import { useConfig } from '../../hooks';
 
 // A hook that returns the Top Rated movies or series
-export const useTop = (type: "movie" | "series", pageNumber: number = 1) => {
+export const useTop = (type: 'movie' | 'series') => {
   // State
   const [top, setTop] = useState<MovieObject[]>();
   // Context
   const { userInfo, db } = useFirebaseContext();
   // Data Query
   const { config } = useConfig();
-  const { data } = useQuery(
-    ["topData", type, pageNumber],
-    () => {
-      return getTopRated(type, pageNumber);
-    },
+
+  const { data: { pages: responses } = {}, fetchNextPage } = useInfiniteQuery(
+    ['topData', type],
+    ({ pageParam = 1 }) => getTopRated(type, pageParam, true),
     {
-      staleTime: 300000,
+      getNextPageParam: (lastResponse) =>
+        !Array.isArray(lastResponse) &&
+        lastResponse.total_pages > lastResponse.page
+          ? lastResponse.page + 1
+          : undefined,
     }
   );
-  
-  const {liked, rated} = useLikedAndRated(db, type, userInfo?.uid)
+
+  const { liked, rated } = useLikedAndRated(db, type, userInfo?.uid);
 
   // Filtering information and Checking for Like and Rate
   useEffect(() => {
-    if (!config || !data) return;
+    if (!config || !responses) return;
+    const data = responses.flatMap(({ results }) => results);
     const trendingData =
-      type === "movie"
+      type === 'movie'
         ? filterMovieInformation(config, data as MovieData[])
         : filterSeriesInformation(config, data as FetchedSeriesObjectResults[]);
     if (!liked || !rated) {
       setTop(trendingData);
-    } 
-    else if (liked && rated) {
+    } else if (liked && rated) {
       const likeAndRateCheckedTrendingData = checkLikeAndRate(
         trendingData,
         Object.keys(liked),
@@ -53,6 +56,6 @@ export const useTop = (type: "movie" | "series", pageNumber: number = 1) => {
       setTop(likeAndRateCheckedTrendingData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, data, liked, rated]);
-  return top;
+  }, [config, responses, liked, rated]);
+  return { results: top, fetchNextPage };
 };

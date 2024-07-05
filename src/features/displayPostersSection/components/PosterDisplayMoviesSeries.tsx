@@ -1,29 +1,59 @@
 import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
 import { Link } from 'react-router-dom';
 import { MoviesPosterDisplayType, PosterType } from '../types';
+import { useState } from 'react';
+import {
+  HOOKS_FOR_SECTIONS,
+  SECTION_NAMES,
+  TYPE_NAMES,
+} from '../constants/sections';
+import { useRecommended } from '../../showMovieAndSeries/hooks';
+import { useMemoDebounce } from '../../../hooks';
+import {
+  useElementScrollListener,
+  useHorizontalScrollListenerCallback,
+} from '../../displayAllPostersSection/hooks/scrollHooks';
 
-interface Link {
+type LinkType = {
   link: string;
-}
+};
+
 export const PosterDisplayMoviesSeries = ({
-  arr,
-  sectionName,
+  section,
   type,
-  id,
   link,
-}: MoviesPosterDisplayType & PosterType & Link) => {
+  id,
+}: MoviesPosterDisplayType & PosterType & LinkType) => {
+  const [divElement, setDivElement] = useState<HTMLDivElement>();
+  const useSectionHook =
+    section === 'recommended' ? useRecommended : HOOKS_FOR_SECTIONS[section];
+
+  const { results: data, fetchNextPage } = useSectionHook(type, id);
+
+  const debouncedFetchNextPage = useMemoDebounce(fetchNextPage, 100);
+  const listener = useHorizontalScrollListenerCallback(
+    debouncedFetchNextPage,
+    200,
+    divElement
+  );
+  useElementScrollListener(listener, divElement);
+
   return (
-    <div className='overflow-x-auto py-8'>
-      <div className='flex flex-row justify-between items-center'>
-        <h2 className='font-bold text-2xl italic'>{sectionName}</h2>
-        <Link to={`/Film-Library/${link}`}>
-          <button className='px-2 border border-black rounded-full dark:border-white dark:bg-black h-7'>
-            View All
-          </button>
+    <div className='py-8 overflow-x-auto'>
+      <div className='flex flex-row items-center justify-between'>
+        <h2 className='text-2xl italic font-bold'>{`${SECTION_NAMES[section]} ${TYPE_NAMES[type]}`}</h2>
+        <Link
+          to={`/Film-Library/${link}`}
+          className='border border-black rounded-full hover:outline-2 hover:outline-black hover:outline dark:border-white h-7'
+        >
+          <button className='h-full px-2 hover:font-bold'>View All</button>
         </Link>
       </div>
-      <div className='flex flex-row gap-x-4 overflow-auto py-4'>
-        {arr.map((elem, index) => {
+      <div
+        className='flex flex-row py-4 overflow-auto gap-x-4'
+        ref={(ref) => setDivElement(ref || undefined)}
+      >
+        {data?.map((elem, index) => {
           return (
             <PosterMovieSeries
               key={index}
@@ -33,7 +63,8 @@ export const PosterDisplayMoviesSeries = ({
               id={elem.id}
               liked={elem.liked}
               rating={elem.rating}
-              type={type}></PosterMovieSeries>
+              type={type}
+            ></PosterMovieSeries>
           );
         })}
       </div>

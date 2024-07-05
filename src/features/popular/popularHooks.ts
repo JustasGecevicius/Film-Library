@@ -5,12 +5,12 @@ import { MovieData, MovieObject } from '../movies/types';
 import { filterSeriesInformation } from '../series/functions';
 import { FetchedSeriesObjectResults } from '../series/types';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import { getPopular } from './api';
 import { useLikedAndRated } from '../utils/firestore';
-import { useConfig } from '../utils/moviedb';
+import { useConfig } from '../../hooks';
 
-export const usePopular = (type: 'movie' | 'series', pageNumber: number = 1) => {
+export const usePopular = (type: 'movie' | 'series') => {
   // State
   const [popular, setPopular] = useState<MovieObject[]>();
   // Context
@@ -18,13 +18,15 @@ export const usePopular = (type: 'movie' | 'series', pageNumber: number = 1) => 
   // Data Query
   const { config } = useConfig();
 
-  const { data } = useQuery(
-    ['popularData', type, pageNumber],
-    () => {
-      return getPopular(type, pageNumber);
-    },
+  const { data: { pages: responses } = {}, fetchNextPage } = useInfiniteQuery(
+    ['popularData', type],
+    ({ pageParam }) => getPopular(type, pageParam, true),
     {
-      staleTime: 300000,
+      getNextPageParam: (lastResponse) =>
+        !Array.isArray(lastResponse) &&
+        lastResponse.total_pages > lastResponse.page
+          ? lastResponse.page + 1
+          : undefined,
     }
   );
 
@@ -32,7 +34,8 @@ export const usePopular = (type: 'movie' | 'series', pageNumber: number = 1) => 
 
   // Filtering information and Checking for Like and Rate
   useEffect(() => {
-    if (!config || !data) return;
+    if (!config || !responses) return;
+    const data = responses.flatMap(({ results }) => results);
     const trendingData =
       type === 'movie'
         ? filterMovieInformation(config, data as MovieData[])
@@ -47,7 +50,6 @@ export const usePopular = (type: 'movie' | 'series', pageNumber: number = 1) => 
       );
       setPopular(likeAndRateCheckedTrendingData);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, data, liked, rated]);
-  return popular;
+  }, [config, responses, liked, rated, type]);
+  return { results: popular, fetchNextPage };
 };

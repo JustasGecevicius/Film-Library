@@ -12,7 +12,7 @@ import {
   fetchFirestoreCount,
   getMovieOrSeriesCollectionName,
 } from '../utils/firestore';
-import { useConfig } from '../utils/moviedb';
+import { useConfig } from '../../hooks';
 
 export const useUserInfo = (userId: string | undefined, db: Firestore) => {
   const [averageMovieRating, setAverageMovieRating] = useState<number>();

@@ -1,4 +1,3 @@
-import { useFirebaseContext } from '../features/context/FirebaseContext';
 import { useMovieSeriesCredits } from '../features/credits/hooks';
 import { PosterDisplayCredits } from '../features/displayPostersSection/components/PosterDisplayCredits';
 import { LikePerson } from '../features/likeAndRate/components/LikePerson';
@@ -10,10 +9,10 @@ import { BackdropPerson } from '../features/showPerson/components/BackdropPerson
 import { PersonalFacts } from '../features/showPerson/components/PersonalFacts';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { Departments } from '../features/showPerson/components/Departments';
 
 export const ShowPerson = () => {
   const { id } = useParams();
-  const { darkTheme } = useFirebaseContext();
   const { data: person } = useQuery(
     ['person', id],
     () => {
@@ -29,29 +28,25 @@ export const ShowPerson = () => {
 
   const backdrop = useBackdropPerson(person);
   return (
-    <div className='dark:bg-black px-6'>
+    <div className='px-6 dark:bg-black'>
       {backdrop && person && (
         <BackdropPerson backdrop={''} poster={backdrop} title={person.name} />
       )}
-      {person && (
-        <>
-          <div className='mx-auto max-w-4xl flex-row gap-4 py-4 '>
-            <div className='border-[1px] rounded-2xl px-2'>
-              {person.known_for_department}
-            </div>
-          </div>
-          <LikePerson name={person.name} />
-          <Description overview={person.biography} />
-          {person.homepage && <VisitHomepage link={person.homepage} />}
-          <PersonalFacts
-            birthday={person.birthday}
-            deathday={person.deathday}
-            also_known_as={person.also_known_as.slice(0, 3)}
-            place_of_birth={person.place_of_birth}
-          />
-        </>
-      )}
-      <div className='pt-4 flex-col gap-y-2'>
+      <div className='flex-col max-w-4xl pt-4 mx-auto gap-y-4'>
+        {person && (
+          <>
+            <Departments departments={[person.known_for_department]} />
+            <LikePerson name={person.name} />
+            <Description overview={person.biography} />
+            {person.homepage && <VisitHomepage link={person.homepage} />}
+            <PersonalFacts
+              birthday={person.birthday}
+              deathday={person.deathday}
+              also_known_as={person.also_known_as.slice(0, 3)}
+              place_of_birth={person.place_of_birth}
+            />
+          </>
+        )}
         {movieCredits && (
           <PosterDisplayCredits
             id={id}

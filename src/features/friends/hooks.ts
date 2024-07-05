@@ -11,7 +11,7 @@ import {
   fetchMoviesFromList,
   fetchSeriesFromList,
 } from './functions';
-import { useConfig } from '../utils/moviedb';
+import { useConfig } from '../../hooks';
 
 // SERIES RELATED HOOKS
 

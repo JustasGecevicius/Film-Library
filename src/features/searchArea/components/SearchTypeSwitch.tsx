@@ -1,13 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
-interface Props {
+type Props = {
   setType: React.Dispatch<React.SetStateAction<'series' | 'movie'>>;
-}
+};
+
+const contentVariants = {
+  moviesSeries: ['after:content-["Series"]', 'after:content-["Movies"]'],
+  '': '',
+};
+
+type SwitchToggleType = {
+  checked: boolean;
+  content?: keyof typeof contentVariants;
+};
 
 export const SearchTypeSwitch = ({ setType }: Props) => {
   const [checked, setChecked] = useState(false);
   return (
-    <label className='min-w-20 relative inline-block h-7 rounded-xl border-white border-2'>
+    <label className='min-w-24 relative inline-block h-8 rounded-2xl border-black dark:border-white border-2'>
       <input
         className='opacity-0 w-0 h-0'
         type='checkbox'
@@ -18,49 +28,41 @@ export const SearchTypeSwitch = ({ setType }: Props) => {
       />
       <SwitchToggle
         checked={checked}
-        switchSize={50}
-        beforeContent=''
-        afterContent={checked ? 'Movies' : 'Series'}
+        content='moviesSeries'
       />
     </label>
   );
 };
 
-type SwitchToggleType = {
-  checked: boolean;
-  switchSize: number;
-  beforeContent: string;
-  afterContent: string;
-};
+export const SwitchToggle = (props: SwitchToggleType) => {
+  const { checked, content } = props;
 
-const SwitchToggle = (props: SwitchToggleType) => {
-  const { checked, switchSize, beforeContent, afterContent } = props;
-  const [parentSize, setParentSize] = useState(0);
-  const switchComponent = useRef<any>(null);
-  useEffect(() => {
-    if (!switchComponent?.current?.offsetParent?.offsetWidth) return;
-    setParentSize(switchComponent.current.offsetParent.offsetWidth);
-  }, [switchComponent]);
   return (
     <span
-      ref={switchComponent}
       className={`
-        w-[${switchSize}px]
-        dark:bg-black
-        dark:before:bg-white
-        dark:after:text-white
-        rounded-xl
+        w-full
+        h-full
         absolute
-        before:h-6
-        before:w-6
+        before:duration-300
+        after:duration-300
+        before:h-5/6
+        after:h-5/6
+        before:aspect-square
         before:absolute
+        after:absolute
         before:rounded-xl
-        before:left-[${checked ? parentSize + 2 - 30 : 2}px]
-        `}></span>
+        before:top-[2px]
+        after:top-[2px]
+        before:bg-black
+        dark:before:bg-white
+        ${
+          checked
+            ? contentVariants[content || ''][0]
+            : contentVariants[content || ''][1]
+        }
+        ${checked ? 'before:right-[4px]' : 'before:left-[4px]'}
+        ${checked ? 'after:left-[6px]' : 'after:right-[6px]'}
+      `}
+    />
   );
 };
-
-// after:content-['${afterContent}']
-// after:absolute
-// after:left-${checked ? '2' : '6'}
-// before:left-${checked ? '6' : '2'}

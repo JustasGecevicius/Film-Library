@@ -9,7 +9,7 @@ import {
   fetchPeopleFromList,
   filterPeopleInformation,
 } from './functions';
-import { useConfig } from '../utils/moviedb';
+import { useConfig } from '../../hooks';
 
 export const usePopularPeople = (page = 1) => {
   const [popularPeople, setPopularPeople] = useState<PersonObject[]>();

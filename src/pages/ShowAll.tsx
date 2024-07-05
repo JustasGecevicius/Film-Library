@@ -28,42 +28,38 @@ export const ShowAll = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const links = useSearchAreaImages();
   const { section, type, id } = useParams<keyof Params>() as Params;
-  const { darkTheme } = useFirebaseContext();
 
   return (
-    <div className={darkTheme ? 'darkTheme' : 'theme'}>
-      <div className='showAll'>
-        <SearchArea links={links} type={'movieSeries'} />
-        <div className='posterDisplayAllWrapper'>
-          <h2 className='sectionName'>{`${section} ${
-            type === 'movie' ? 'movies' : 'series'
-          }`}</h2>
-          {section === 'Popular' && type && (
-            <PosterDisplayAllPopular type={type} page={pageNumber} />
-          )}
-          {section === 'Top Rated' && type && (
-            <PosterDisplayAllTop type={type} page={pageNumber} />
-          )}
-          {section === 'Recommended' && type && (
-            <PosterDisplayAllRecommended type={type} page={pageNumber} id={id} />
-          )}
-          {section === 'Credits' && type && (
-            <PosterDisplayAllCredits type={type} id={id} page={pageNumber} />
-          )}
-          {section === 'Popular With Friends' && type && (
-            <PosterDisplayAllFriendLiked type={type} />
-          )}
-          {section === 'Rated by Friends' && type && (
-            <PosterDisplayAllFriendRated type={type} />
-          )}
-          <button
-            className='moreMovies'
-            onClick={() => {
-              setPageNumber((prev) => prev + 1);
-            }}>
-            More
-          </button>
-        </div>
+    <div className='dark:bg-black'>
+      <SearchArea links={links} type={'movieSeries'} />
+      <div className='flex-col gap-4 p-8'>
+        <h2 className='text-2xl font-bold'>{`${section} ${
+          type === 'movie' ? 'movies' : 'series'
+        }`}</h2>
+        {section === 'Popular' && type && (
+          <PosterDisplayAllPopular type={type} />
+        )}
+        {section === 'Top Rated' && type && <PosterDisplayAllTop type={type} />}
+        {section === 'Recommended' && type && (
+          <PosterDisplayAllRecommended type={type} page={pageNumber} id={id} />
+        )}
+        {section === 'Credits' && type && (
+          <PosterDisplayAllCredits type={type} id={id} page={pageNumber} />
+        )}
+        {section === 'Popular With Friends' && type && (
+          <PosterDisplayAllFriendLiked type={type} />
+        )}
+        {section === 'Rated by Friends' && type && (
+          <PosterDisplayAllFriendRated type={type} />
+        )}
+        <button
+          className='moreMovies'
+          onClick={() => {
+            setPageNumber((prev) => prev + 1);
+          }}
+        >
+          More
+        </button>
       </div>
     </div>
   );

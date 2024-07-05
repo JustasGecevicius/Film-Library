@@ -11,14 +11,12 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const queryClient = new QueryClient();
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <FirebaseContextComponent>
-        <QueryClientProvider client={queryClient}>
-          <App />
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </FirebaseContextComponent>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <FirebaseContextComponent>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </FirebaseContextComponent>
+  </BrowserRouter>
 );

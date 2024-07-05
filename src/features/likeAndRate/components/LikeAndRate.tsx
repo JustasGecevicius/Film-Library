@@ -14,13 +14,14 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
   const rating = useRating(rateButtonClick, userRating.current, type, id, userInfo, db);
 
   return userInfo && id ? (
-    <div className='flex-row h-full max-w-4xl py-4 mx-auto gap-x-2'>
+    <div className='flex-row h-full py-4 gap-x-2'>
       <button
         className='px-2 py-1 border border-black rounded-full'
         onClick={() => {
           like(db, id, userInfo.uid, title, liked, type);
           setlikeButtonClicked(!likeButtonClicked);
-        }}>
+        }}
+      >
         {liked ? 'Unlike' : 'Like'}
       </button>
       <div className='border border-black rounded-full'>
@@ -38,7 +39,8 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
           onClick={() => {
             rate(db, id, userInfo.uid, userRating.current, type);
             setRateButtonClick(!rateButtonClick);
-          }}>
+          }}
+        >
           Rate
         </button>
       </div>

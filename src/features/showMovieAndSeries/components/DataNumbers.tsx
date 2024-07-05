@@ -25,15 +25,16 @@ export const DataNumbers = ({
   ];
 
   return (
-    <div className='flex-row flex-wrap max-w-4xl mx-auto gap-x-2'>
+    <div className='flex-row flex-wrap justify-start w-full max-w-4xl mx-auto gap-x-2'>
       {fixedNumbers.map((elem, index) => {
-        if (elem[1]) {
-          return (
-            <div className='px-2 py-1 border border-black rounded-full' key={index}>
-              <p>{`${elem[0]} | ${elem[1]}`}</p>
-            </div>
-          );
-        }
+        return elem[1] ? (
+          <div
+            className='px-2 py-1 border border-black rounded-full'
+            key={index}
+          >
+            <p>{`${elem[0]} | ${elem[1]}`}</p>
+          </div>
+        ) : null;
       })}
     </div>
   );

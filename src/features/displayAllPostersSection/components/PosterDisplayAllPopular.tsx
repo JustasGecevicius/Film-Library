@@ -1,26 +1,33 @@
 import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
-import { MovieObject } from '../../movies/types';
-import { usePopular } from '../../popular/hooks';
-import { useEffect, useState } from 'react';
+import { usePopular } from '../../popular/popularHooks';
+import { useState } from 'react';
+import { useMemoDebounce } from '../../../hooks';
+import {
+  useDocumentScrollListener,
+  useVerticalScrollListenerCallback,
+} from '../hooks/scrollHooks';
 
-interface Props {
+type PropsType = {
   type: 'movie' | 'series';
-  page: number;
-}
+};
 
-export const PosterDisplayAllPopular = ({ type, page }: Props) => {
-  const results = usePopular(type, page);
-  const [combinedResults, setCombinedResults] = useState<MovieObject[]>();
-  useEffect(() => {
-    if (!results) return;
-    setCombinedResults((prev) => {
-      return prev ? [...prev, ...results] : [...results];
-    });
-  }, [results]);
+export const PosterDisplayAllPopular = ({ type }: PropsType) => {
+  const { results, fetchNextPage } = usePopular(type);
+  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
 
-  return combinedResults ? (
-    <div className='flex-row gap-4'>
-      {combinedResults.map((elem, index) => {
+  const debouncedFetchNextPage = useMemoDebounce(fetchNextPage, 100);
+  const listener = useVerticalScrollListenerCallback(
+    debouncedFetchNextPage,
+    divElement
+  );
+  useDocumentScrollListener(listener, divElement);
+
+  return (
+    <div
+      className='flex-row flex-wrap justify-between gap-4'
+      ref={(elem) => setDivElement(elem)}
+    >
+      {results?.map((elem, index) => {
         return (
           <PosterMovieSeries
             key={index}
@@ -35,5 +42,5 @@ export const PosterDisplayAllPopular = ({ type, page }: Props) => {
         );
       })}
     </div>
-  ) : null;
+  );
 };

@@ -9,11 +9,11 @@ export const PosterDisplayCredits = ({
   type,
 }: MoviesPosterDisplayType & PosterType) => {
   return (
-    <div className='flex-col gap-4 w-full'>
+    <div className='flex-col gap-4'>
       <div className='flex-row justify-between'>
         <h2 className='text-2xl font-bold'>{sectionName}</h2>
         <Link to={`/Film-Library/all/${type}/Credits/${id}`}>
-          <button className='rounded-xl border-2 px-2 hover:bg-white hover:text-black hover:border-black dark:hover:border-inherit'>
+          <button className='px-2 border-2 rounded-xl hover:bg-white hover:text-black hover:border-black dark:hover:border-inherit'>
             View All
           </button>
         </Link>
@@ -29,7 +29,8 @@ export const PosterDisplayCredits = ({
               id={elem.id}
               liked={elem.liked}
               rating={elem.rating}
-              type={type}></PosterMovieSeries>
+              type={type}
+            ></PosterMovieSeries>
           );
         })}
       </div>

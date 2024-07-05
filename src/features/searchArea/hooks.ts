@@ -132,26 +132,30 @@ export const useSearchPeople = (query: string, time: number) => {
 export const useSearchAreaImages = () => {
   // fetching config and movie data
   const [imageLinks, setImageLinks] = useState<string[]>([]);
-  const {data : config} = useQuery(["config"], getConfig, {
-    staleTime: 300000
-  })
-  const {data : popularData} = useQuery(["popularData", "movie", 1], () => getPopular("movie"), {
-    staleTime: 300000
+  const { data: config } = useQuery(['config'], getConfig, {
+    staleTime: 300000,
   });
+  const { data: popularData } = useQuery(
+    ['popularData', 'movie', 1],
+    () => getPopular('movie'),
+    {
+      staleTime: 300000,
+    }
+  );
   // creating the base url and
-  useEffect (() => {
-    if(!config || !popularData) return;
-    const baseUrl =
-    config.images.base_url + config.images.backdrop_sizes[3];
-    popularData.forEach((movie) => {
-      if (movie.backdrop_path)
-      setImageLinks((prev) => {
-        const arr = [...prev];
-        arr.push(`${baseUrl}${movie.backdrop_path}`)
-        return arr
-      })
-    });
-  },[config, popularData]);
+  useEffect(() => {
+    if (!config || !popularData) return;
+    const baseUrl = config.images.base_url + config.images.backdrop_sizes[3];
+    Array.isArray(popularData) &&
+      popularData?.forEach((movie) => {
+        if (movie.backdrop_path)
+          setImageLinks((prev) => {
+            const arr = [...prev];
+            arr.push(`${baseUrl}${movie.backdrop_path}`);
+            return arr;
+          });
+      });
+  }, [config, popularData]);
 
   return imageLinks;
 };

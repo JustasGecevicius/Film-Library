@@ -2,7 +2,7 @@ import { useSearchMovies } from '../../../searchArea/hooks';
 import { SearchResultsPropsType } from '../../../searchArea/types';
 import { Link } from 'react-router-dom';
 import { FoundSearch } from '../../../searchArea/components/searchMoviesSeries/FoundSearch';
-import { useConfig } from '../../../utils/moviedb';
+import { useConfig } from '../../../../hooks';
 
 export const SearchResultsMovies = ({ query }: SearchResultsPropsType) => {
   const { config } = useConfig();

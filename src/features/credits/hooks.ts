@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { filterPersonCreditsCastInformation } from './functions';
 import { useLikedAndRated } from '../utils/firestore';
-import { useConfig } from '../utils/moviedb';
+import { useConfig } from '../../hooks';
 
 export const useMovieSeriesCredits = (
   type: 'movie' | 'series',

@@ -1,27 +1,18 @@
 import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
-import { MovieObject } from '../../movies/types';
 import { useRecommended } from '../../showMovieAndSeries/hooks';
-import { useEffect, useState } from 'react';
 
-interface Props {
+type PropsType = {
   type: 'movie' | 'series';
   page: number;
   id: number | undefined;
-}
+};
 
-export const PosterDisplayAllRecommended = ({ id, type, page }: Props) => {
-  const results = useRecommended(id, page, type);
-  const [combinedResults, setCombinedResults] = useState<MovieObject[]>();
-  useEffect(() => {
-    if (!results) return;
-    setCombinedResults((prev) => {
-      return prev ? [...prev, ...results] : [...results];
-    });
-  }, [results]);
+export const PosterDisplayAllRecommended = ({ id, type }: PropsType) => {
+  const { results, fetchNextPage } = useRecommended(type, id);
 
-  return combinedResults ? (
-    <div className='flex-row gap-4 flex-wrap center'>
-      {combinedResults.map((elem, index) => {
+  return (
+    <div className='flex-row flex-wrap gap-4 center'>
+      {results?.map((elem, index) => {
         return (
           <PosterMovieSeries
             key={index}
@@ -31,9 +22,10 @@ export const PosterDisplayAllRecommended = ({ id, type, page }: Props) => {
             id={elem.id}
             liked={elem.liked}
             rating={elem.rating}
-            type={type}></PosterMovieSeries>
+            type={type}
+          ></PosterMovieSeries>
         );
       })}
     </div>
-  ) : null;
+  );
 };

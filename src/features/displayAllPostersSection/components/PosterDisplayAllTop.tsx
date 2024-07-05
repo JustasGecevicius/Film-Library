@@ -1,42 +1,46 @@
 import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
-import { MovieObject } from '../../movies/types';
-import { useEffect, useState } from 'react';
-import { useTop } from '../../topRated/hooks';
+import { useState } from 'react';
+import { useTop } from '../../topRated/topRatedHooks';
+import {
+  useDocumentScrollListener,
+  useVerticalScrollListenerCallback,
+} from '../hooks/scrollHooks';
+import { useMemoDebounce } from '../../../hooks';
 
-interface Props {
+type PropsType = {
   type: 'movie' | 'series';
-  page: number;
-}
+};
 
-export const PosterDisplayAllTop = ({ type, page }: Props) => {
-  const results = useTop(type, page);
-  const [combinedResults, setCombinedResults] = useState<MovieObject[]>();
-  useEffect(() => {
-    if (!results) return;
-    setCombinedResults((prev) => {
-      return prev ? [...prev, ...results] : [...results];
-    });
-  }, [results]);
+export const PosterDisplayAllTop = ({ type }: PropsType) => {
+  const { results, fetchNextPage } = useTop(type);
+  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
+
+  const debouncedFetchNextPage = useMemoDebounce(fetchNextPage, 100);
+  const listener = useVerticalScrollListenerCallback(
+    debouncedFetchNextPage,
+    divElement
+  );
+  useDocumentScrollListener(listener, divElement);
+
   return (
-    <>
-      {combinedResults && (
-        <div className='flex-row gap-4'>
-          {combinedResults.map((elem, index) => {
-            return (
-              <PosterMovieSeries
-                key={index}
-                imageURL={elem.imageURL}
-                title={elem.title}
-                release_date={elem.release_date}
-                id={elem.id}
-                liked={elem.liked}
-                rating={elem.rating}
-                type={type}
-              />
-            );
-          })}
-        </div>
-      )}
-    </>
+    <div
+      className='flex-row flex-wrap justify-between gap-4'
+      ref={(elem) => setDivElement(elem)}
+    >
+      {results?.map((elem, index) => {
+        return (
+          <PosterMovieSeries
+            key={index}
+            imageURL={elem.imageURL}
+            title={elem.title}
+            release_date={elem.release_date}
+            id={elem.id}
+            liked={elem.liked}
+            rating={elem.rating}
+            type={type}
+          />
+        );
+      })}
+    </div>
   );
 };

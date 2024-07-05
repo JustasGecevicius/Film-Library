@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { likePerson } from '../functions';
 import { useLikedPerson } from '../hooks';
 
-interface Props {
+type PropsType = {
   name: string;
-}
+};
 
-export const LikePerson = ({ name }: Props) => {
+export const LikePerson = ({ name }: PropsType) => {
   // Route Parameters and Context
   const { id, db, userInfo } = useContextAndParams();
   // Like functionality
@@ -16,14 +16,15 @@ export const LikePerson = ({ name }: Props) => {
 
   return (
     <>
-      {userInfo && id && (
-        <div className='flex items-center justify-start gap-x-8 max-w-4xl w-full py-2 mx-auto'>
+      {!!userInfo && !!id && (
+        <div>
           <button
-            className='border-[1px] dark:hover:bg-white dark:hover:text-black px-2 rounded-xl hover:border-black dark:hover:border-inherit'
+            className='border-[1px] dark:hover:bg-white dark:hover:text-black px-2 rounded-xl'
             onClick={() => {
               likePerson(db, id, userInfo.uid, name, liked);
               setlikeButtonClicked(!likeButtonClicked);
-            }}>
+            }}
+          >
             {liked ? 'Unlike' : 'Like'}
           </button>
         </div>

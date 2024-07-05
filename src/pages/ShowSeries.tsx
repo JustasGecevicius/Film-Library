@@ -26,12 +26,11 @@ export const ShowSeries = () => {
   const seriesData = useSeriesData();
   const backdropImages = useBackdrop(seriesData);
   const productionCompanies = useProductionCompanies(seriesData);
-  const recommendations = useRecommended(seriesData?.id, 1, "series");
-  const credits = useMovieSeriesCast("series", seriesData?.id);
-  const {darkTheme} = useFirebaseContext();
-  
+  const credits = useMovieSeriesCast('series', seriesData?.id);
+  const { darkTheme } = useFirebaseContext();
+
   return (
-    <div className={darkTheme ? "darkTheme" : "theme"}>
+    <div className={darkTheme ? 'darkTheme' : 'theme'}>
       {backdropImages && seriesData ? (
         <Backdrop
           backdrop={backdropImages.backdropURL}
@@ -41,8 +40,8 @@ export const ShowSeries = () => {
       ) : null}
       {seriesData ? (
         <>
-          <Genres genres={seriesData.genres}/>
-          <LikeAndRate title={seriesData.name} type="series" />
+          <Genres genres={seriesData.genres} />
+          <LikeAndRate title={seriesData.name} type='series' />
           <Description overview={seriesData.overview} />
           {seriesData.homepage && <VisitHomepage link={seriesData.homepage} />}
           <DataNumbers
@@ -59,20 +58,19 @@ export const ShowSeries = () => {
       {seriesData && (
         <Trailer name={seriesData?.name} year={seriesData.first_air_date} />
       )}
-      {recommendations && (
-        <div className="recommendationDiv">
+      {seriesData?.id && (
+        <div className='recommendationDiv'>
           <PosterDisplayMoviesSeries
-            arr={recommendations}
-            sectionName="Recommended"
-            type="series"
+            section='recommended'
+            type='series'
             id={seriesData?.id}
             link={`all/series/Recommended/${seriesData?.id}`}
           />
         </div>
       )}
       {credits && credits.length !== 0 && (
-        <div className="recommendationDiv">
-          <PosterDisplayPeople arr={credits} sectionName="Cast" link="Cast"/>
+        <div className='recommendationDiv'>
+          <PosterDisplayPeople arr={credits} sectionName='Cast' link='Cast' />
         </div>
       )}
     </div>

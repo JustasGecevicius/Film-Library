@@ -8,7 +8,6 @@ import {
   useBackdrop,
   useMovieSeriesCast,
   useProductionCompanies,
-  useRecommended,
   useWatchProviders,
 } from '../features/showMovieAndSeries/hooks';
 import { useMovieData } from '../features/movies/hooks';
@@ -16,18 +15,15 @@ import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/com
 import { PosterDisplayPeople } from '../features/displayPostersSection/components/PosterDisplayPeople';
 import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
 import { PosterDisplayWatchProviders } from '../features/displayPostersSection/components/PosterDisplayWatchProviders';
-import { useFirebaseContext } from '../features/context/FirebaseContext';
 
 export const ShowMovie = () => {
   const movieData = useMovieData();
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);
-  const recommendations = useRecommended(movieData?.id, 1, 'movie');
   const credits = useMovieSeriesCast('movie', movieData?.id);
   const watch = useWatchProviders(movieData?.id, 'movie');
-  const { darkTheme } = useFirebaseContext();
   return (
-    <div className={darkTheme ? 'darkTheme' : 'theme'}>
+    <div className='dark:bg-black'>
       {backdropImages && movieData && (
         <Backdrop
           backdrop={backdropImages.backdropURL}
@@ -36,48 +32,48 @@ export const ShowMovie = () => {
           genres={movieData.genres}
         />
       )}
-      {movieData && (
-        <>
-          <LikeAndRate title={movieData.title} type='movie' />
-          <Description overview={movieData.overview} />
-          {movieData.homepage && <VisitHomepage link={movieData.homepage} />}
-          <DataNumbers
-            budget={movieData.budget}
-            revenue={movieData.revenue}
-            runtime={movieData.runtime}
-            voteAverage={movieData.vote_average}
-          />
-        </>
-      )}
-      {productionCompanies && productionCompanies.length !== 0 && (
-        <ProducedBy productionCompanies={productionCompanies} />
-      )}
-      {movieData && <Trailer name={movieData?.title} year={movieData.release_date} />}
-      {recommendations && recommendations.length !== 0 && (
-        <div className='recommendationDiv'>
+      <div className='flex-col max-w-4xl gap-4 mx-auto'>
+        {movieData && (
+          <>
+            <LikeAndRate title={movieData.title} type='movie' />
+            <Description overview={movieData.overview} />
+            {movieData.homepage && <VisitHomepage link={movieData.homepage} />}
+            <DataNumbers
+              budget={movieData.budget}
+              revenue={movieData.revenue}
+              runtime={movieData.runtime}
+              voteAverage={movieData.vote_average}
+            />
+          </>
+        )}
+        {productionCompanies?.length && (
+          <ProducedBy productionCompanies={productionCompanies} />
+        )}
+        {movieData && (
+          <Trailer name={movieData?.title} year={movieData.release_date} />
+        )}
+        {movieData?.id && (
           <PosterDisplayMoviesSeries
-            arr={recommendations}
-            sectionName='Recommended'
+            section='recommended'
             type='movie'
             id={movieData?.id}
             link={`all/movie/Recommended/${movieData?.id}`}
           />
-        </div>
-      )}
-      {credits && credits.length !== 0 && (
-        <div className='recommendationDiv'>
+        )}{' '}
+        {credits && credits.length !== 0 && (
           <PosterDisplayPeople
             arr={credits}
             sectionName='Cast'
             link={`movie/Cast/${movieData?.id}`}
           />
-        </div>
-      )}
-      {watch && (
-        <div className='recommendationDiv'>
-          <PosterDisplayWatchProviders arr={watch} sectionName='Service Providers' />
-        </div>
-      )}
+        )}
+        {watch && (
+          <PosterDisplayWatchProviders
+            arr={watch}
+            sectionName='Service Providers'
+          />
+        )}
+      </div>
     </div>
   );
 };

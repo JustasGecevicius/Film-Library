@@ -11,7 +11,7 @@ import {
 } from './types';
 // Hooks
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 // Functions
 import { filterProductionCompanies } from './functions';
 import { getRecommendations, getWatchProviders } from './api';
@@ -28,13 +28,13 @@ import { useCountry } from '../location/hooks';
 import _ from 'lodash';
 import { GetConfig } from '../config/types';
 import { useLikedAndRated } from '../utils/firestore';
-import { useConfig } from '../utils/moviedb';
+import { useConfig } from '../../hooks';
 // A hook to get the backdrop and poster images
 // for the showMovie and showSeries pages
 export const useBackdrop = (data: SeriesData | MovieData | undefined) => {
   const [backdropAndPoster, setBackdropAndPoster] =
     useState<BackdropAndPoster>();
-    const { config } = useConfig();
+  const { config } = useConfig();
 
   useEffect(() => {
     if (data && config) {
@@ -74,7 +74,7 @@ export const useProductionCompanies = (
 ) => {
   const [productionCompanies, setProductionCompanies] =
     useState<ProductionCompany[]>();
-    const { config } = useConfig();
+  const { config } = useConfig();
 
   useEffect(() => {
     if (data && config) {
@@ -88,42 +88,44 @@ export const useProductionCompanies = (
   return productionCompanies;
 };
 
-export const useRecommended = (
-  id: number | undefined,
-  page = 1,
-  type: "movie" | "series"
-) => {
+export const useRecommended = (type: 'movie' | 'series', id?: number) => {
   const [recommended, setRecommended] = useState<MovieObject[]>();
   const { userInfo, db } = useFirebaseContext();
   const { config } = useConfig();
-  const { data } = useQuery(
-    ["recommendations", id, type, page],
-    () => {
-      return getRecommendations(page, id, type);
-    },
+
+  const { data: { pages: responses } = {}, fetchNextPage } = useInfiniteQuery(
+    ['recommendationData', type, id],
+    ({ pageParam = 1 }) => getRecommendations(pageParam, id, type, true),
     {
-      enabled: !!id,
+      getNextPageParam: (lastResponse) =>
+        !Array.isArray(lastResponse) &&
+        lastResponse.total_pages > lastResponse.page
+          ? lastResponse.page + 1
+          : undefined,
     }
   );
-  
-  const {liked, rated} = useLikedAndRated(db, type, userInfo?.uid);
+
+  const { liked, rated } = useLikedAndRated(db, type, userInfo?.uid);
 
   // Filtering information and Checking for Like and Rate
   useEffect(() => {
-    if (!config || !data || !liked || !rated) return;
-    const trendingData =
-      type === "movie"
+    if (!config || !responses) return;
+    const data = responses.flatMap(({ results }) => results);
+    const recommendedData =
+      type === 'movie'
         ? filterMovieInformation(config, data as MovieData[])
         : filterSeriesInformation(config, data as FetchedSeriesObjectResults[]);
+    if (!liked) {
+      return setRecommended(recommendedData);
+    }
     const likeAndRateCheckedData = checkLikeAndRate(
-      trendingData,
+      recommendedData,
       Object.keys(liked),
       rated
     );
     setRecommended(likeAndRateCheckedData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [config, data, liked, rated]);
-  return recommended;
+  }, [config, responses, type, liked, rated]);
+  return { results: recommended, fetchNextPage };
 };
 
 export const useMovieSeriesCast = (
