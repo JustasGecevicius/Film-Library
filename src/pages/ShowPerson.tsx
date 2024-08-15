@@ -11,7 +11,7 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { Departments } from '../features/showPerson/components/Departments';
 
-export const ShowPerson = () => {
+export default function ShowPerson() {
   const { id } = useParams();
   const { data: person } = useQuery(
     ['person', id],

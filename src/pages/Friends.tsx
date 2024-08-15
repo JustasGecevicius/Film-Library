@@ -12,7 +12,7 @@ import { User } from '../features/displayPostersSection/types';
 import { NoUser } from './NoUser';
 import { useFirebaseContext } from '../features/context/FirebaseContext';
 
-export const Friends = () => {
+export default function Friends() {
   // const friendLikedMovies = useFetchFriendLikedMovies();
   // const friendLikedSeries = useFetchFriendLikedSeries();
   // const friendRatedMovies = useFetchFriendRatedMovies();

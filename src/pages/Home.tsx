@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { DarkBackground } from '../features/utils/DarkBackground';
 
-export const Home = () => {
+export default function Home() {
   const background = useBackground();
   const displayName = useDisplayName();
 

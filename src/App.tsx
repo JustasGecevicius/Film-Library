@@ -1,22 +1,27 @@
-import { Home } from '././pages/Home';
-import { Explore } from './pages/Explore';
-import { Friends } from './pages/Friends';
-import { People } from './pages/People';
-import { ShowMovie } from './pages/ShowMovie';
-import { ShowSeries } from './pages/ShowSeries';
-import { ShowAll, ShowAllPeople } from './pages/ShowAll';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import './css/app.css';
 import './features/searchArea/css/searchArea.css';
 import config from './features/services/config';
-import { ShowPerson } from './pages/ShowPerson';
-import { UserProfile } from './pages/UserProfile';
-import { ShowAllFriends } from './pages/ShowAllFriends';
-import { ShowAllUserLikedRated } from './pages/ShowAllUserLikedRated';
-import { ComponentTest } from './pages/ComponentTest';
-import { ShowUser } from './pages/User';
+// import { ShowAllFriends } from './pages/ShowAllFriends';
 import { useFirebaseContext } from './features/context/FirebaseContext';
+import { lazy, Suspense } from 'react';
+
+const Home = lazy(() => import('././pages/Home'));
+const Explore = lazy(() => import('././pages/Explore'));
+const Friends = lazy(() => import('././pages/Friends'));
+const People = lazy(() => import('././pages/People'));
+const ShowMovie = lazy(() => import('././pages/ShowMovie'));
+const ShowSeries = lazy(() => import('././pages/ShowSeries'));
+const ShowPerson = lazy(() => import('././pages/ShowPerson'));
+const UserProfile = lazy(() => import('././pages/UserProfile'));
+const ShowUser = lazy(() => import('././pages/User'));
+const ShowAll = lazy(() => import('././pages/ShowAll'));
+const ShowAllPeople = lazy(() => import('././pages/ShowAllPeople'));
+const ShowAllUserLikedRated = lazy(
+  () => import('././pages/ShowAllUserLikedRated')
+);
+const ComponentTest = lazy(() => import('././pages/ComponentTest'));
 
 export type AvailableElements = 'movie' | 'series' | 'people';
 export type AvailableTypes = '';
@@ -44,7 +49,7 @@ export type BasicType = (typeof BASIC_TYPES)[number];
 export type PeopleType = (typeof PEOPLE_TYPES)[number];
 export type SubElement = (typeof SUB_ELEMENTS)[number];
 
-const App = () => {
+export const App = () => {
   initializeApp(config);
   const location = useLocation();
   const { darkTheme } = useFirebaseContext();
@@ -54,41 +59,136 @@ const App = () => {
       className={`App ${darkTheme ? 'dark' : 'light'} dark:text-white min-h-screen h-screen`}
     >
       <Routes location={location} key={location.pathname}>
-        <Route path='/Film-Library' element={<Home />} />
-        <Route path='/Film-Library/explore' element={<Explore />} />
-        <Route path='/Film-Library/friends' element={<Friends />} />
-        <Route path='/Film-Library/people' element={<People />} />
-        <Route path='/Film-Library/user_profile' element={<UserProfile />} />
-        <Route path='/Film-Library/movie/:id' element={<ShowMovie />} />
-        <Route path='/Film-Library/series/:id' element={<ShowSeries />} />
-        <Route path='/Film-Library/person/:id' element={<ShowPerson />} />
+        <Route
+          path='/Film-Library'
+          element={
+            <Suspense fallback={null}>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/explore'
+          element={
+            <Suspense>
+              <Explore />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/friends'
+          element={
+            <Suspense>
+              <Friends />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/people'
+          element={
+            <Suspense>
+              <People />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/user_profile'
+          element={
+            <Suspense>
+              <UserProfile />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/movie/:id'
+          element={
+            <Suspense>
+              <ShowMovie />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/series/:id'
+          element={
+            <Suspense>
+              <ShowSeries />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/person/:id'
+          element={
+            <Suspense>
+              <ShowPerson />
+            </Suspense>
+          }
+        />
         <Route
           path='/Film-Library/all/:element/:type/:id'
-          element={<ShowAll />}
+          element={
+            <Suspense>
+              <ShowAll />
+            </Suspense>
+          }
         />
-        <Route path='/Film-Library/all/:element/:type' element={<ShowAll />} />
+        <Route
+          path='/Film-Library/all/:element/:type'
+          element={
+            <Suspense>
+              <ShowAll />
+            </Suspense>
+          }
+        />
         <Route
           path='/Film-Library/all/people/:type/:subElement/:id'
-          element={<ShowAllPeople />}
+          element={
+            <Suspense>
+              <ShowAllPeople />
+            </Suspense>
+          }
         />
         <Route
           path='/Film-Library/all/people/:type/:id'
-          element={<ShowAllPeople />}
+          element={
+            <Suspense>
+              <ShowAllPeople />
+            </Suspense>
+          }
         />
         <Route
           path='/Film-Library/all/people/:type'
-          element={<ShowAllPeople />}
+          element={
+            <Suspense>
+              <ShowAllPeople />
+            </Suspense>
+          }
         />
         {/* <Route path='/Film-Library/all/:element' element={<ShowAllFriends />} /> */}
         <Route
           path='/Film-Library/user/:element/:type'
-          element={<ShowAllUserLikedRated />}
+          element={
+            <Suspense>
+              <ShowAllUserLikedRated />
+            </Suspense>
+          }
         />
-        <Route path='/Film-Library/user/:id' element={<ShowUser />} />
-        <Route path='/Film-Library/test' element={<ComponentTest />} />
+        <Route
+          path='/Film-Library/user/:id'
+          element={
+            <Suspense>
+              <ShowUser />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/Film-Library/test'
+          element={
+            <Suspense>
+              <ComponentTest />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
   );
 };
-
-export { App };

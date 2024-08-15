@@ -50,7 +50,7 @@ const DisplayAllSwitch = (props: MovieSeriesProps & { pageNumber: number }) => {
   }
 };
 
-export const ShowAll = () => {
+export default function ShowAll() {
   const [pageNumber, setPageNumber] = useState(1);
   const links = useSearchAreaImages();
   const { element = '', type = '', id = '' } = useParams();
@@ -87,62 +87,4 @@ export const ShowAll = () => {
   );
 };
 
-type PeopleRouterProps = {
-  type: string;
-};
 
-const DisplayAllPeopleSwitch = (
-  props: PeopleRouterProps & { pageNumber: number }
-) => {
-  const { type } = props;
-
-  if (!type) return null;
-
-  switch (type) {
-    case 'popular':
-      return <PosterDisplayAllPopularPeople />;
-    case 'cast':
-      return <PosterDisplayAllCast />;
-    // case 'friends':
-    //   return <PosterDisplayAllFriendLiked type={element} />;
-    default:
-      return null;
-  }
-};
-
-export const ShowAllPeople = () => {
-  const [pageNumber, setPageNumber] = useState(1);
-  const links = useSearchAreaImages();
-  const { type = '' } = useParams<{ [key: string]: string }>();
-
-  if (!type) return null;
-
-  const getSectionName = () => {
-    if (!Object.keys(SECTION_NAMES).includes(type)) return '';
-    else return SECTION_NAMES[type as keyof typeof SECTION_NAMES];
-  };
-
-  const getTypeName = () => {
-    return '';
-    // if (!Object.keys(TYPE_NAMES).includes(element)) return '';
-    // else return TYPE_NAMES[element as keyof typeof TYPE_NAMES];
-  };
-
-  return (
-    <div className='min-h-screen dark:bg-black'>
-      <SearchArea links={links} type={'movieSeries'} />
-      <div className='flex-col gap-4 p-8'>
-        <h2 className='text-2xl font-bold'>{`${getSectionName()} ${getTypeName()}`}</h2>
-        <DisplayAllPeopleSwitch type={type} pageNumber={pageNumber} />
-        <button
-          className='moreMovies'
-          onClick={() => {
-            setPageNumber((prev) => prev + 1);
-          }}
-        >
-          More
-        </button>
-      </div>
-    </div>
-  );
-};

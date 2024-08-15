@@ -19,7 +19,7 @@ import {
 import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
 import { PosterDisplayWatchProviders } from '../features/displayPostersSection/components/PosterDisplayWatchProviders';
 
-export const ShowMovie = () => {
+export default function ShowMovie() {
   const movieData = useMovieData();
   const backdropImages = useBackdrop(movieData);
   const productionCompanies = useProductionCompanies(movieData);

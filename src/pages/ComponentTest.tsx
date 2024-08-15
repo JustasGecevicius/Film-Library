@@ -57,7 +57,7 @@ ChartJS.defaults.datasets.bar.borderColor = 'rgba(0, 0, 0, 1)';
 ChartJS.defaults.datasets.bar.borderWidth = 1;
 ChartJS.register(Colors);
 
-export const ComponentTest = () => {
+export default function ComponentTest() {
   const { userInfo, db } = useFirebaseContext();
   const { differentMoviesRatings, differentSeriesRatings } = useUserInfo(
     userInfo?.uid,

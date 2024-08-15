@@ -14,7 +14,7 @@ import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/com
 import { PosterDisplayPeopleNoFetch } from '../features/displayPostersSection/components/PosterDisplayPeople';
 import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
 
-export const ShowSeries = () => {
+export default function ShowSeries() {
   const seriesData = useSeriesData();
   const backdropImages = useBackdrop(seriesData);
   const productionCompanies = useProductionCompanies(seriesData);

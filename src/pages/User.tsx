@@ -8,7 +8,7 @@ import { NoUser } from './NoUser';
 import { useParams } from 'react-router-dom';
 import { useGetUser } from '../features/utils/user';
 
-export const ShowUser = () => {
+export default function ShowUser() {
   const { db } = useFirebaseContext();
   const { id } = useParams();
   const userInfo = useGetUser(id);

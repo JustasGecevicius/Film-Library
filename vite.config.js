@@ -6,7 +6,7 @@ export default defineConfig(() => {
     build: {
       outDir: 'build',
     },
-    base: '/repo/',
+    base: '/Film-Library/',
     plugins: [react()],
     server: {
       host: true,

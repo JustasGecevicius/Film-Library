@@ -7,7 +7,7 @@ import './css/userProfile.css';
 import { PosterDisplayMoviesSeriesNoFetch } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
 import { NoUser } from './NoUser';
 
-export const UserProfile = () => {
+export default function UserProfile() {
   const { userInfo, db } = useFirebaseContext();
   const userNumbers = useUserInfo(userInfo?.uid, db);
   const links = useSearchAreaImages();

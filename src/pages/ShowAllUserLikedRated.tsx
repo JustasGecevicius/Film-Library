@@ -9,7 +9,7 @@ interface Params {
   // id?: number;
 }
 
-export const ShowAllUserLikedRated = () => {
+export default function ShowAllUserLikedRated() {
   const links = useSearchAreaImages();
   const { type, element } = useParams<keyof Params>() as Params;
   return (

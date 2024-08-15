@@ -3,7 +3,7 @@ import { BounceLoader } from 'react-spinners';
 import { useSearchAreaImages } from '../features/searchArea/hooks';
 import { SearchArea } from '../features/searchArea/components/SearchArea';
 
-export const Explore = () => {
+export default function Explore() {
   const links = useSearchAreaImages();
 
   return links ? (

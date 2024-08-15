@@ -1,15 +1,10 @@
-// Firebase
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import { initializeUser } from '../../features/firebase/functions';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import config from '../../features/services/config';
-
-// Hooks
-import { createContext, useContext, useEffect, useState } from "react";
-
-// Types
-import { ContainerProps, Context, UserInfo } from "./types";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { ContainerProps, Context, UserInfo } from './types';
 
 // Create Firebase and User Context
 export const FirebaseContext = createContext<Context | undefined>(undefined);
@@ -19,14 +14,13 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
   const app = initializeApp(config);
   const db = getFirestore(app);
 
-
   // User information state
   const [userInfo, setUserInfo] = useState<UserInfo>();
   const [darkTheme, setDarkTheme] = useState<boolean>(false);
-  useEffect (() => {
-    const darkTheme = localStorage.getItem("theme");
-    setDarkTheme(darkTheme === "true" ? true : false);
-  },[]);
+  useEffect(() => {
+    const darkTheme = localStorage.getItem('theme');
+    setDarkTheme(darkTheme === 'true' ? true : false);
+  }, []);
   // Initializing firebase auth
   useEffect(() => {
     function initFirebaseAuth() {
@@ -64,13 +58,13 @@ export const FirebaseContextComponent = (props: ContainerProps) => {
     </FirebaseContext.Provider>
   );
 };
-// A function to check if the context is used inside the Provider
+
 export const useFirebaseContext = () => {
   const context = useContext(FirebaseContext);
 
-  if (context === undefined) {
+  if (!context) {
     throw new Error(
-      "useFirebaseContext must be used withing a UserContextProvider"
+      'useFirebaseContext must be used withing a UserContextProvider'
     );
   }
 

@@ -11,7 +11,7 @@ import {
 import { useMemoDebounce } from '../hooks';
 import { useState } from 'react';
 
-export const People = () => {
+export default function People() {
   // Getting the popular people
   // const peopleLikedByFriends = usePeopleLikedByFriends();
 
