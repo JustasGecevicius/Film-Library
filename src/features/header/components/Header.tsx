@@ -10,7 +10,7 @@ export const Header = () => {
 
   return (
     <header className='relative z-50 flex flex-row flex-wrap items-center justify-around w-full max-w-4xl p-2 mx-auto bg-white dark:bg-black rounded-b-md gap-y-1'>
-      <Link to='/film_library'>
+      <Link to='/Film-Library'>
         <h2 className='text-3xl font-bold font-noto dark:text-white'>
           Discoverisms
         </h2>

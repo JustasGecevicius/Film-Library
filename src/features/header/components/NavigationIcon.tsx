@@ -14,7 +14,7 @@ export const NavigationIcon = ({ iconName, link, sectionName }: NavigationIconTy
   return (
     <li>
       <Link
-        to={`/film_library/${link}`}
+        to={`/Film-Library/${link}`}
         className='flex flex-col font-noto dark:text-white gap-y-1'
       >
         <FontAwesomeIcon icon={icons[iconName]} />

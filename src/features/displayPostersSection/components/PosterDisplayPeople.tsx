@@ -39,7 +39,7 @@ export const PosterDisplayPeople = ({
       {data?.length !== 0 && (
         <div className='overflow-x-auto'>
           <DisplayPosterHeader
-            link={`/film_library/all/people/${link}`}
+            link={`/Film-Library/all/people/${link}`}
             title={DISPLAY_PEOPLE_TYPES[type]}
           />
           <div
@@ -79,7 +79,7 @@ export const PosterDisplayPeopleNoFetch = ({
       {!!arr?.length && (
         <div className='overflow-x-auto'>
           <DisplayPosterHeader
-            link={`/film_library/all/people/${link}`}
+            link={`/Film-Library/all/people/${link}`}
             title={DISPLAY_PEOPLE_TYPES[type]}
           />
           <div className='flex flex-row py-4 overflow-auto gap-x-4'>

@@ -3,7 +3,7 @@ import { PersonObject } from "../../displayPostersSection/types";
 
 export const PeoplePoster = ({ imageURL, name, id }: PersonObject) =>
   id ? (
-    <Link to={`/film_library/person/${id}`} className='min-w-fit'>
+    <Link to={`/Film-Library/person/${id}`} className='min-w-fit'>
       <div
         className='flex gap-y-4 relative max-w-[185px] flex-col'
         data-id={`${id}`}

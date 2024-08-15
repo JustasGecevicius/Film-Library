@@ -11,7 +11,7 @@ export const PosterDisplayCredits = ({
   return (
     <div className='flex-col gap-4'>
       <DisplayPosterHeader
-        link={`/film_library/all/${type}/credits/${id}`}
+        link={`/Film-Library/all/${type}/credits/${id}`}
         title={sectionName}
       />
       <div className='flex-row gap-4 overflow-x-auto'>

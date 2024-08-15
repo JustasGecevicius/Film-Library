@@ -16,8 +16,8 @@ export const PosterMovieSeries = ({
     <Link
       to={
         type === 'movie'
-          ? `/film_library/movie/${id}`
-          : `/film_library/series/${id}`
+          ? `/Film-Library/movie/${id}`
+          : `/Film-Library/series/${id}`
       }
       className='min-w-fit'
     >

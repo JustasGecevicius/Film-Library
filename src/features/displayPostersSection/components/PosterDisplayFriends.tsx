@@ -9,7 +9,7 @@ export const PosterDisplayFriends = ({
   return (
     <div className='flex-col gap-y-4'>
       <DisplayPosterHeader
-        link={`/film_library/all/people/friends`}
+        link={`/Film-Library/all/people/friends`}
         title={sectionName}
       />
       <div className='flex-row py-4 overflow-x-auto gap-x-4'>

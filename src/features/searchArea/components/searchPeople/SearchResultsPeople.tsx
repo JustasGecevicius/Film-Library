@@ -9,7 +9,7 @@ export const SearchResultsPeople = ({ query }: SearchResultsPropsType) => {
   const results = useSearchPeople(query, 700);
   return results && config
     ? results.map((elem, index) => (
-        <Link to={`/film_library/person/${elem.id}`} key={index}>
+        <Link to={`/Film-Library/person/${elem.id}`} key={index}>
           {elem.profile_path && (
             <FoundSearch
               id={elem.id}

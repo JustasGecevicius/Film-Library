@@ -18,6 +18,6 @@ export const DisplayPosterHeader = ({
 }) => (
   <div className='flex flex-row items-center justify-between'>
     <h2 className='text-2xl italic font-bold'>{title}</h2>
-    <ViewAllButton link={`/film_library/all/people/${link}`} />
+    <ViewAllButton link={`/Film-Library/all/people/${link}`} />
   </div>
 );

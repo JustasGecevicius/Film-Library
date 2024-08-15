@@ -38,7 +38,7 @@ export const PosterDisplayMoviesSeries = ({
     <div className='pt-8 overflow-x-auto'>
       <DisplayPosterHeader
         link={
-          link || `/film_library/all/${type}/${section}${id ? `/${id}` : ''}`
+          link || `/Film-Library/all/${type}/${section}${id ? `/${id}` : ''}`
         }
         title={`${SECTION_NAMES[section]} ${TYPE_NAMES[type]}`}
       />

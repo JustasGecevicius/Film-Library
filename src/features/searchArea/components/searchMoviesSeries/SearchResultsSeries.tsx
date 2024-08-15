@@ -10,7 +10,7 @@ export const SearchResultsSeries = ({ query }: SearchResultsPropsType) => {
 
   return results && config
     ? results.map((elem, index) => (
-        <Link to={`/film_library/series/${elem.id}`} key={index}>
+        <Link to={`/Film-Library/series/${elem.id}`} key={index}>
           {elem.poster_path && (
             <FoundSearch
               id={elem.id}

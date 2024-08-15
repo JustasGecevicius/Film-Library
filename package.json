@@ -29,11 +29,13 @@
     "typescript": "^5.5.3",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://justasgecevicius.github.io/film_library/",
+  "homepage": "https://justasgecevicius.github.io/Film-Library/",
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d"
   },
   "eslintConfig": {
     "extends": [

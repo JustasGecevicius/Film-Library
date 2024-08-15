@@ -6,6 +6,10 @@ export default defineConfig(() => {
     build: {
       outDir: 'build',
     },
+    base: '/repo/',
     plugins: [react()],
+    server: {
+      host: true,
+    },
   };
 });

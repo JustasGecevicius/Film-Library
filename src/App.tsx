@@ -54,38 +54,38 @@ const App = () => {
       className={`App ${darkTheme ? 'dark' : 'light'} dark:text-white min-h-screen h-screen`}
     >
       <Routes location={location} key={location.pathname}>
-        <Route path='/film_library' element={<Home />} />
-        <Route path='/film_library/explore' element={<Explore />} />
-        <Route path='/film_library/friends' element={<Friends />} />
-        <Route path='/film_library/people' element={<People />} />
-        <Route path='/film_library/user_profile' element={<UserProfile />} />
-        <Route path='/film_library/movie/:id' element={<ShowMovie />} />
-        <Route path='/film_library/series/:id' element={<ShowSeries />} />
-        <Route path='/film_library/person/:id' element={<ShowPerson />} />
+        <Route path='/Film-Library' element={<Home />} />
+        <Route path='/Film-Library/explore' element={<Explore />} />
+        <Route path='/Film-Library/friends' element={<Friends />} />
+        <Route path='/Film-Library/people' element={<People />} />
+        <Route path='/Film-Library/user_profile' element={<UserProfile />} />
+        <Route path='/Film-Library/movie/:id' element={<ShowMovie />} />
+        <Route path='/Film-Library/series/:id' element={<ShowSeries />} />
+        <Route path='/Film-Library/person/:id' element={<ShowPerson />} />
         <Route
-          path='/film_library/all/:element/:type/:id'
+          path='/Film-Library/all/:element/:type/:id'
           element={<ShowAll />}
         />
-        <Route path='/film_library/all/:element/:type' element={<ShowAll />} />
+        <Route path='/Film-Library/all/:element/:type' element={<ShowAll />} />
         <Route
-          path='/film_library/all/people/:type/:subElement/:id'
+          path='/Film-Library/all/people/:type/:subElement/:id'
           element={<ShowAllPeople />}
         />
         <Route
-          path='/film_library/all/people/:type/:id'
+          path='/Film-Library/all/people/:type/:id'
           element={<ShowAllPeople />}
         />
         <Route
-          path='/film_library/all/people/:type'
+          path='/Film-Library/all/people/:type'
           element={<ShowAllPeople />}
         />
-        {/* <Route path='/film_library/all/:element' element={<ShowAllFriends />} /> */}
+        {/* <Route path='/Film-Library/all/:element' element={<ShowAllFriends />} /> */}
         <Route
-          path='/film_library/user/:element/:type'
+          path='/Film-Library/user/:element/:type'
           element={<ShowAllUserLikedRated />}
         />
-        <Route path='/film_library/user/:id' element={<ShowUser />} />
-        <Route path='/film_library/test' element={<ComponentTest />} />
+        <Route path='/Film-Library/user/:id' element={<ShowUser />} />
+        <Route path='/Film-Library/test' element={<ComponentTest />} />
       </Routes>
     </div>
   );

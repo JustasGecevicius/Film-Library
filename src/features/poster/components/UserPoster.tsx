@@ -5,7 +5,7 @@ import {
 
 export const UserPoster = ({ imageURL, name, id }: UserPosterType) =>
   id ? (
-    <Link to={`/film_library/user/${id}`} className='flex-col gap-y-2'>
+    <Link to={`/Film-Library/user/${id}`} className='flex-col gap-y-2'>
       <div
         className='h-64 bg-center bg-no-repeat bg-cover rounded-xl w-44'
         style={{ backgroundImage: `url(${imageURL})` }}
