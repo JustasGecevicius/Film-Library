@@ -29,11 +29,11 @@ export const ShowPerson = () => {
   const backdrop = useBackdropPerson(person);
   return (
     <div className='px-6 dark:bg-black'>
-      {backdrop && person && (
+      {!!backdrop && !!person && (
         <BackdropPerson backdrop={''} poster={backdrop} title={person.name} />
       )}
       <div className='flex-col max-w-4xl pt-4 mx-auto gap-y-4'>
-        {person && (
+        {!!person && (
           <>
             <Departments departments={[person.known_for_department]} />
             <LikePerson name={person.name} />
@@ -47,7 +47,7 @@ export const ShowPerson = () => {
             />
           </>
         )}
-        {movieCredits && (
+        {!!movieCredits && (
           <PosterDisplayCredits
             id={id}
             arr={movieCredits}
@@ -55,7 +55,7 @@ export const ShowPerson = () => {
             type='movie'
           />
         )}
-        {seriesCredits && (
+        {!!seriesCredits && (
           <PosterDisplayCredits
             id={id}
             arr={seriesCredits}

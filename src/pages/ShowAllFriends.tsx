@@ -1,5 +1,3 @@
-// import './css/showAll.css';
-
 import { SearchAreaFriends } from '../features/searchArea/components/searchFriends/SearchAreaFriends';
 import { useActiveFriends } from '../features/friends/hooks';
 import { User } from '../features/displayPostersSection/types';

@@ -1,30 +1,25 @@
 import { useParams } from 'react-router-dom';
-// import './css/showAll.css';
 import { useSearchAreaImages } from '../features/searchArea/hooks';
 import { PosterDisplayAllUserLikedRated } from '../features/displayAllPostersSection/components/PosterDisplayAllUserLikedRated';
-import { useFirebaseContext } from '../features/context/FirebaseContext';
 import { SearchArea } from '../features/searchArea/components/SearchArea';
 
 interface Params {
-  section: 'Liked' | 'Rated' | undefined;
-  type: 'movie' | 'series' | undefined;
-  id?: number;
+  type?: 'liked' | 'rated';
+  element?: 'movie' | 'series';
+  // id?: number;
 }
 
 export const ShowAllUserLikedRated = () => {
   const links = useSearchAreaImages();
-  const { type, section } = useParams<keyof Params>() as Params;
-  const { darkTheme } = useFirebaseContext();
+  const { type, element } = useParams<keyof Params>() as Params;
   return (
-    <div className={darkTheme ? 'darkTheme' : 'theme'}>
-      <div className='showAll'>
-        <SearchArea links={links} type={'movieSeries'} />
-        <div className='posterDisplayAllWrapper'>
-          <h2 className='sectionName'>{`${section} ${
-            type === 'movie' ? 'Movies' : 'Series'
-          }`}</h2>
-          <PosterDisplayAllUserLikedRated type={type} section={section} />
-        </div>
+    <div className='dark:bg-black'>
+      <SearchArea links={links} type={'movieSeries'} />
+      <div className='flex-col gap-4 p-8'>
+        <h2 className='text-2xl font-bold'>{`${type} ${
+          element === 'movie' ? 'Movies' : 'Series'
+        }`}</h2>
+        <PosterDisplayAllUserLikedRated type={element} section={type} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { LikedRatedData } from '../likeAndRate/types';
 import { Firestore } from 'firebase/firestore';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
-import _ from 'lodash';
+import { mean, round } from 'lodash';
 import { calculateRatings, fetchUserLiked, fetchUserRated } from './functions';
 import { useFirebaseContext } from '../context/FirebaseContext';
 import { fetchMoviesFromList, fetchSeriesFromList } from '../friends/functions';
@@ -26,13 +26,17 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
   useQuery<LikedRatedData | undefined>(
     ['ratedMovieData', db, userId],
     () => {
-      return fetchFirestore(db, getMovieOrSeriesCollectionName('movie', 'rated'), userId);
+      return fetchFirestore(
+        db,
+        getMovieOrSeriesCollectionName('movie', 'rated'),
+        userId
+      );
     },
     {
       enabled: !!userId && !!db,
       onSuccess(data) {
         if (!data) return;
-        const average = _.round(_.mean(Object.values(data)), 1);
+        const average = round(mean(Object.values(data)), 1);
         setAverageMovieRating(average ? average : 0);
         setDifferentMoviesRatings(calculateRatings(Object.values(data)));
       },
@@ -51,7 +55,7 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
       enabled: !!userId && !!db,
       onSuccess(data) {
         if (!data) return;
-        const average = _.round(_.mean(Object.values(data)), 1);
+        const average = round(mean(Object.values(data)), 1);
         setAverageSeriesRating(average ? average : 0);
         setDifferentSeriesRatings(calculateRatings(Object.values(data)));
       },

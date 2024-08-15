@@ -1,34 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from 'react';
 import { usePopularPeople } from '../../people/hooks';
-import { PersonObject } from '../../displayPostersSection/types';
 import { PeoplePoster } from '../../poster/components/PeoplePoster';
+import { useAllElementsVertical } from '../../../hooks';
 
-interface Props {
-  page: number;
-}
+export const PosterDisplayAllPopularPeople = () => {
+  const [divElement, setDivElement] = useState<HTMLDivElement | null>(null);
 
-export const PosterDisplayAllPopularPeople = ({ page }: Props) => {
-  const results = usePopularPeople(page);
-  const [combinedResults, setCombinedResults] = useState<PersonObject[]>();
-  useEffect(() => {
-    if (!results) return;
-    setCombinedResults((prev) => {
-      return prev ? [...prev, ...results] : [...results];
-    });
-  }, [results]);
-
-  return combinedResults ? (
-    <div className='flex-row gap-4'>
-      {combinedResults.map((elem, index) => {
-        return (
-          <PeoplePoster
-            key={index}
-            imageURL={elem.imageURL}
-            name={elem.name}
-            id={elem.id}
-          />
-        );
-      })}
+  const results = useAllElementsVertical(usePopularPeople, divElement);
+  return results ? (
+    <div
+      className='flex-row flex-wrap gap-4'
+      ref={(elem) => setDivElement(elem)}
+    >
+      {results?.map((elem, index) => (
+        <PeoplePoster
+          key={index}
+          imageURL={elem.imageURL}
+          name={elem.name}
+          id={elem.id}
+        />
+      ))}
     </div>
   ) : null;
 };

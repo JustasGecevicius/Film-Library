@@ -3,16 +3,27 @@ import { useTop } from '../../topRated/topRatedHooks';
 
 export const SECTION_NAMES = {
   top: 'Top',
-  pop: 'Popular',
+  popular: 'Popular',
   recommended: 'Recommended',
+  liked: 'Liked',
+  rated: 'Rated',
+  popular_friends: 'Popular With Friends',
+  rated_friends: 'Rated by Friends',
+  credits: 'Credits',
+};
+
+export const SECTION_NAMES_FRIENDS = {
+  popular: 'Popular',
+  rated: 'Rated',
 };
 
 export const TYPE_NAMES = {
-  movie: 'Movie',
+  movie: 'Movies',
   series: 'Series',
+  people: 'people',
 };
 
 export const HOOKS_FOR_SECTIONS = {
-  pop: usePopular,
+  popular: usePopular,
   top: useTop,
 };

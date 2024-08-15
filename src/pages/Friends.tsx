@@ -13,24 +13,23 @@ import { NoUser } from './NoUser';
 import { useFirebaseContext } from '../features/context/FirebaseContext';
 
 export const Friends = () => {
-  const friendLikedMovies = useFetchFriendLikedMovies();
-  const friendLikedSeries = useFetchFriendLikedSeries();
-  const friendRatedMovies = useFetchFriendRatedMovies();
-  const friendRatedSeries = useFetchFriendRatedSeries();
+  // const friendLikedMovies = useFetchFriendLikedMovies();
+  // const friendLikedSeries = useFetchFriendLikedSeries();
+  // const friendRatedMovies = useFetchFriendRatedMovies();
+  // const friendRatedSeries = useFetchFriendRatedSeries();
   const activeFriends = useActiveFriends() as User[];
-  const { darkTheme } = useFirebaseContext();
   return (
     <>
-      {friendLikedMovies &&
+      {/* {friendLikedMovies &&
       friendLikedSeries &&
       friendRatedMovies.filteredMoviesList &&
-      friendRatedSeries.filteredSeriesList &&
-      activeFriends ? (
-        <div className={darkTheme ? 'darkTheme' : 'theme'}>
-          <SearchAreaFriends></SearchAreaFriends>
+      friendRatedSeries.filteredSeriesList && */}
+      {activeFriends ? (
+        <div className='min-h-screen dark:bg-black'>
+          <SearchAreaFriends />
           <div className='p-8'>
-            <h2 className='font-bold text-3xl'> Movies </h2>
-            <PosterDisplayMoviesSeries
+            <h2 className='text-3xl font-bold'> WIP </h2>
+            {/* <PosterDisplayMoviesSeries
               arr={friendLikedMovies.slice(0, 19)}
               sectionName='Popular With Friends'
               type='movie'
@@ -42,7 +41,7 @@ export const Friends = () => {
               type='movie'
               link='all/movie/Rated by Friends'
             />
-            <h2 className='font-bold text-3xl'> Series </h2>
+            <h2 className='text-3xl font-bold'> Series </h2>
             <PosterDisplayMoviesSeries
               arr={friendLikedSeries}
               sectionName='Popular With Friends'
@@ -55,7 +54,10 @@ export const Friends = () => {
               type='series'
               link='all/series/Rated by Friends'
             />
-            <PosterDisplayFriends users={activeFriends} sectionName='Active Friends' />
+            <PosterDisplayFriends
+              users={activeFriends}
+              sectionName='Active Friends'
+            /> */}
           </div>
         </div>
       ) : (

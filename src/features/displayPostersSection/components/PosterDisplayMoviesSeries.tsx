@@ -1,5 +1,4 @@
 import { PosterMovieSeries } from '../../poster/components/PosterMovieSeries';
-import { Link } from 'react-router-dom';
 import { MoviesPosterDisplayType, PosterType } from '../types';
 import { useState } from 'react';
 import {
@@ -13,21 +12,18 @@ import {
   useElementScrollListener,
   useHorizontalScrollListenerCallback,
 } from '../../displayAllPostersSection/hooks/scrollHooks';
-
-type LinkType = {
-  link: string;
-};
+import type { MovieObject } from '../../movies/types';
+import { DisplayPosterHeader } from './helperComponents';
 
 export const PosterDisplayMoviesSeries = ({
   section,
   type,
-  link,
   id,
-}: MoviesPosterDisplayType & PosterType & LinkType) => {
+  link,
+}: MoviesPosterDisplayType & PosterType & { link?: string }) => {
   const [divElement, setDivElement] = useState<HTMLDivElement>();
   const useSectionHook =
     section === 'recommended' ? useRecommended : HOOKS_FOR_SECTIONS[section];
-
   const { results: data, fetchNextPage } = useSectionHook(type, id);
 
   const debouncedFetchNextPage = useMemoDebounce(fetchNextPage, 100);
@@ -39,34 +35,61 @@ export const PosterDisplayMoviesSeries = ({
   useElementScrollListener(listener, divElement);
 
   return (
-    <div className='py-8 overflow-x-auto'>
-      <div className='flex flex-row items-center justify-between'>
-        <h2 className='text-2xl italic font-bold'>{`${SECTION_NAMES[section]} ${TYPE_NAMES[type]}`}</h2>
-        <Link
-          to={`/Film-Library/${link}`}
-          className='border border-black rounded-full hover:outline-2 hover:outline-black hover:outline dark:border-white h-7'
-        >
-          <button className='h-full px-2 hover:font-bold'>View All</button>
-        </Link>
-      </div>
+    <div className='pt-8 overflow-x-auto'>
+      <DisplayPosterHeader
+        link={
+          link || `/film_library/all/${type}/${section}${id ? `/${id}` : ''}`
+        }
+        title={`${SECTION_NAMES[section]} ${TYPE_NAMES[type]}`}
+      />
       <div
         className='flex flex-row py-4 overflow-auto gap-x-4'
         ref={(ref) => setDivElement(ref || undefined)}
       >
-        {data?.map((elem, index) => {
-          return (
-            <PosterMovieSeries
-              key={index}
-              imageURL={elem.imageURL}
-              title={elem.title}
-              release_date={elem.release_date}
-              id={elem.id}
-              liked={elem.liked}
-              rating={elem.rating}
-              type={type}
-            ></PosterMovieSeries>
-          );
-        })}
+        {data?.map((elem, index) => (
+          <PosterMovieSeries
+            key={index}
+            imageURL={elem.imageURL}
+            title={elem.title}
+            release_date={elem.release_date}
+            id={elem.id}
+            liked={elem.liked}
+            rating={elem.rating}
+            type={type}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export const PosterDisplayMoviesSeriesNoFetch = ({
+  arr,
+  type,
+  link,
+  section,
+}: MoviesPosterDisplayType &
+  PosterType &
+  LinkType & { arr: MovieObject[] }) => {
+  return (
+    <div className='pt-8 overflow-x-auto'>
+      <DisplayPosterHeader
+        link={link}
+        title={`${SECTION_NAMES[section]} ${TYPE_NAMES[type]}`}
+      />
+      <div className='flex flex-row py-4 overflow-auto gap-x-4'>
+        {arr?.map((elem, index) => (
+          <PosterMovieSeries
+            key={index}
+            imageURL={elem.imageURL}
+            title={elem.title}
+            release_date={elem.release_date}
+            id={elem.id}
+            liked={elem.liked}
+            rating={elem.rating}
+            type={type}
+          />
+        ))}
       </div>
     </div>
   );

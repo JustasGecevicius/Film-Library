@@ -1,9 +1,6 @@
-// Hooks
 import { useFirebaseContext } from '../../../context/FirebaseContext';
-// Functions
-import { handleAddFriend } from "../../functions";
-// Types
-import { Friend, FriendIndex } from "../../types";
+import { handleAddFriend } from '../../functions';
+import { Friend, FriendIndex } from '../../types';
 
 export const UserFound = ({
   uid,
@@ -15,9 +12,9 @@ export const UserFound = ({
   const { userInfo, db } = useFirebaseContext();
 
   return (
-    <div className="foundUser">
-      <img src={profileURL} alt="userImage" />
-      <p className="userName">{friendName}</p>
+    <div className='foundUser'>
+      <img src={profileURL} alt='userImage' />
+      <p className='userName'>{friendName}</p>
       <button
         onClick={() => {
           handleAddFriend(uid, friendName, userInfo, db);

@@ -29,7 +29,7 @@
     "typescript": "^5.5.3",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://justasgecevicius.github.io/Film-Library/",
+  "homepage": "https://justasgecevicius.github.io/film_library/",
   "scripts": {
     "start": "vite",
     "build": "vite build",

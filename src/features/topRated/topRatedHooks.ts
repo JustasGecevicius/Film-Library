@@ -1,15 +1,11 @@
-// Hooks
 import { useFirebaseContext } from '../context/FirebaseContext';
 import { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
-// Functions
 import { checkLikeAndRate } from '../likeAndRate/functions';
 import { filterMovieInformation } from '../movies/functions';
 import { filterSeriesInformation } from '../series/functions';
-// Types
 import { MovieData, MovieObject } from '../movies/types';
 import { FetchedSeriesObjectResults } from '../series/types';
-// API
 import { getTopRated } from './api';
 import { useLikedAndRated } from '../utils/firestore';
 import { useConfig } from '../../hooks';

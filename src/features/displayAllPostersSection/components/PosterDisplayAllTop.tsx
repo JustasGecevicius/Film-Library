@@ -27,20 +27,18 @@ export const PosterDisplayAllTop = ({ type }: PropsType) => {
       className='flex-row flex-wrap justify-between gap-4'
       ref={(elem) => setDivElement(elem)}
     >
-      {results?.map((elem, index) => {
-        return (
-          <PosterMovieSeries
-            key={index}
-            imageURL={elem.imageURL}
-            title={elem.title}
-            release_date={elem.release_date}
-            id={elem.id}
-            liked={elem.liked}
-            rating={elem.rating}
-            type={type}
-          />
-        );
-      })}
+      {results?.map((elem, index) => (
+        <PosterMovieSeries
+          key={index}
+          imageURL={elem.imageURL}
+          title={elem.title}
+          release_date={elem.release_date}
+          id={elem.id}
+          liked={elem.liked}
+          rating={elem.rating}
+          type={type}
+        />
+      ))}
     </div>
   );
 };

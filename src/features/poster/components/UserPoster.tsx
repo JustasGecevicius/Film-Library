@@ -3,9 +3,9 @@ import {
   UserPosterType,
 } from "../../displayPostersSection/types";
 
-export const UserPoster = ({ imageURL, name, id }: UserPosterType) => {
-  return id ? (
-    <Link to={`/Film-Library/User/${id}`} className='flex-col gap-y-2'>
+export const UserPoster = ({ imageURL, name, id }: UserPosterType) =>
+  id ? (
+    <Link to={`/film_library/user/${id}`} className='flex-col gap-y-2'>
       <div
         className='h-64 bg-center bg-no-repeat bg-cover rounded-xl w-44'
         style={{ backgroundImage: `url(${imageURL})` }}
@@ -13,4 +13,3 @@ export const UserPoster = ({ imageURL, name, id }: UserPosterType) => {
       <p className='text-center'>{name}</p>
     </Link>
   ) : null;
-};

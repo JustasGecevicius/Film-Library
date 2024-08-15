@@ -3,9 +3,9 @@ import { usePeopleLikedByFriends } from '../../people/hooks';
 import { PeoplePoster } from '../../poster/components/PeoplePoster';
 import { useEffect, useState } from 'react';
 
-interface Props {
+type Props = {
   page: number;
-}
+};
 
 export const PosterDisplayAllFriendLikedPeople = ({ page }: Props) => {
   const results = usePeopleLikedByFriends();
@@ -25,22 +25,16 @@ export const PosterDisplayAllFriendLikedPeople = ({ page }: Props) => {
     });
   }, [multiplier]);
 
-  return (
-    <>
-      {results && (
-        <div className='flex-row gap-x-4'>
-          {combinedResults.map((elem, index) => {
-            return (
-              <PeoplePoster
-                key={index}
-                imageURL={elem.imageURL}
-                name={elem.name}
-                id={elem.id}
-              />
-            );
-          })}
-        </div>
-      )}
-    </>
-  );
+  return results ? (
+    <div className='flex-row gap-x-4'>
+      {combinedResults.map((elem, index) => (
+        <PeoplePoster
+          key={index}
+          imageURL={elem.imageURL}
+          name={elem.name}
+          id={elem.id}
+        />
+      ))}
+    </div>
+  ) : null;
 };

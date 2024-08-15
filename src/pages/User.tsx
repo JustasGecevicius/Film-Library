@@ -18,67 +18,63 @@ export const ShowUser = () => {
   const userLikedSeries = useUserLiked('series', id);
   const userRatedMovies = useUserRated('movie', id);
   const userRatedSeries = useUserRated('series', id);
-  const { darkTheme } = useFirebaseContext();
-  return (
-    <>
-      {userNumbers &&
-      links &&
-      userLikedMovies &&
-      userLikedSeries &&
-      userRatedMovies &&
-      userRatedSeries ? (
-        <div className={darkTheme ? 'darkTheme' : 'theme'}>
-          <Backdrop
-            links={links}
-            profileImage={userInfo?.profileURL}
-            userName={userInfo?.displayName}
-            userNumbers={userNumbers}
+
+  return userNumbers &&
+    links &&
+    userLikedMovies &&
+    userLikedSeries &&
+    userRatedMovies &&
+    userRatedSeries ? (
+    <div>
+      <Backdrop
+        links={links}
+        profileImage={userInfo?.profileURL}
+        userName={userInfo?.displayName}
+        userNumbers={userNumbers}
+      />
+      <div className='p-8'>
+        <Chart id={userInfo?.uid} />
+        {!!userLikedMovies?.length && (
+          <>
+            <h2 className='text-3xl font-bold'>Liked</h2>
+            <PosterDisplayMoviesSeries
+              arr={userLikedMovies}
+              sectionName={'Movies'}
+              type={'movie'}
+              link='User/movie/Liked'
+            />
+          </>
+        )}
+        {!!userLikedSeries?.length && (
+          <PosterDisplayMoviesSeries
+            arr={userLikedSeries}
+            sectionName={'Series'}
+            type={'series'}
+            link='User/series/Liked'
           />
-          <div className='p-8'>
-            <Chart id={userInfo?.uid} />
-            {userLikedMovies && userLikedMovies.length !== 0 && (
-              <>
-                <h2 className='text-3xl font-bold'>Liked</h2>
-                <PosterDisplayMoviesSeries
-                  arr={userLikedMovies}
-                  sectionName={'Movies'}
-                  type={'movie'}
-                  link='User/movie/Liked'
-                />
-              </>
-            )}
-            {userLikedSeries && userLikedSeries.length !== 0 && (
-              <PosterDisplayMoviesSeries
-                arr={userLikedSeries}
-                sectionName={'Series'}
-                type={'series'}
-                link='User/series/Liked'
-              />
-            )}
-            {userRatedMovies && userRatedMovies.length !== 0 && (
-              <>
-                <h2 className='text-3xl font-bold'>Rated</h2>
-                <PosterDisplayMoviesSeries
-                  arr={userRatedMovies}
-                  sectionName={'Movies'}
-                  type={'movie'}
-                  link='User/movie/Rated'
-                />
-              </>
-            )}
-            {userRatedSeries && userRatedSeries.length !== 0 && (
-              <PosterDisplayMoviesSeries
-                arr={userRatedSeries}
-                sectionName={'Series'}
-                type={'series'}
-                link='User/series/Rated'
-              />
-            )}
-          </div>
-        </div>
-      ) : (
-        <NoUser />
-      )}
-    </>
+        )}
+        {!!userRatedMovies?.length && (
+          <>
+            <h2 className='text-3xl font-bold'>Rated</h2>
+            <PosterDisplayMoviesSeries
+              arr={userRatedMovies}
+              sectionName={'Movies'}
+              type={'movie'}
+              link='User/movie/Rated'
+            />
+          </>
+        )}
+        {!!userRatedSeries?.length && (
+          <PosterDisplayMoviesSeries
+            arr={userRatedSeries}
+            sectionName={'Series'}
+            type={'series'}
+            link='User/series/Rated'
+          />
+        )}
+      </div>
+    </div>
+  ) : (
+    <NoUser />
   );
 };

@@ -8,15 +8,24 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 root.render(
-  <BrowserRouter>
-    <FirebaseContextComponent>
-      <QueryClientProvider client={queryClient}>
-        <App />
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </FirebaseContextComponent>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <FirebaseContextComponent>
+        <QueryClientProvider client={queryClient}>
+          <App />
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </FirebaseContextComponent>
+    </BrowserRouter>
+  </React.StrictMode>
 );

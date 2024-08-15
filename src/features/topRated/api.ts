@@ -1,7 +1,5 @@
-// Types
 import { GetMovies } from '../movies/types';
 import { FetchedSeriesObject } from '../series/types';
-// API
 import { api } from '../services/axios';
 
 // A function the returns information about the top rated movies or series

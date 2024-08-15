@@ -1,7 +1,5 @@
-import '../../displayPostersSection/css/posterDisplay.css';
 import { WatchProviderPoster } from '../../poster/components/WatchProviderPoster';
 import { WatchProvidersDataResultsProvider } from '../../showMovieAndSeries/types';
-import '../../displayPostersSection/css/posterDisplay.css';
 
 export interface PosterDisplayWatchProvidersType {
   arr: WatchProvidersDataResultsProvider[];

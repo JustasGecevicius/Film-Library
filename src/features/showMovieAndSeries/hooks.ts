@@ -1,6 +1,4 @@
-// API
 import { getConfig } from '../config/api';
-// Types
 import { MovieData, MovieObject } from '../movies/types';
 import { FetchedSeriesObjectResults, SeriesData } from '../series/types';
 import {
@@ -9,10 +7,8 @@ import {
   WatchProvidersDataResultsProvider,
   WatchProvidersDataResultsSingle,
 } from './types';
-// Hooks
 import { useEffect, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
-// Functions
 import { filterProductionCompanies } from './functions';
 import { getRecommendations, getWatchProviders } from './api';
 import { checkLikeAndRate } from '../likeAndRate/functions';
@@ -20,12 +16,11 @@ import { useFirebaseContext } from '../context/FirebaseContext';
 import { filterMovieInformation } from '../movies/functions';
 import { filterSeriesInformation } from '../series/functions';
 import { SingularPerson } from '../people/types';
-
 import { filterCastInformation } from '../people/functions';
 import { PersonObject } from '../displayPostersSection/types';
 import { getCreditsOfPerson } from '../credits/api';
 import { useCountry } from '../location/hooks';
-import _ from 'lodash';
+import { size, sortBy } from 'lodash';
 import { GetConfig } from '../config/types';
 import { useLikedAndRated } from '../utils/firestore';
 import { useConfig } from '../../hooks';
@@ -128,19 +123,25 @@ export const useRecommended = (type: 'movie' | 'series', id?: number) => {
   return { results: recommended, fetchNextPage };
 };
 
-export const useMovieSeriesCast = (
-  type: "movie" | "series",
-  id: string | number | undefined
-) => {
+const SUB_ELEMENTS = ['movie', 'series'] as const;
+
+export const useMovieSeriesCast = (subElement: string, id?: number) => {
   const [credits, setCredits] = useState<PersonObject[]>();
   const { config } = useConfig();
   const { data } = useQuery(
-    ["movieSeriesCredits", type, id],
+    ['movieSeriesCredits', subElement, id],
     () => {
-      return getCreditsOfPerson(id, type);
+      console.log('HERE', subElement);
+      //@ts-ignore
+      if (!SUB_ELEMENTS.includes(subElement))
+        return new Promise((res) => res(null));
+      return getCreditsOfPerson(
+        id,
+        subElement as (typeof SUB_ELEMENTS)[number]
+      );
     },
     {
-      enabled: !!type && !!id,
+      enabled: !!subElement && !!id,
     }
   );
   useEffect(() => {
@@ -157,31 +158,32 @@ export const useMovieSeriesCast = (
 
 const filterWatchProviders = (
   watchProviders: WatchProvidersDataResultsSingle,
-  config : GetConfig | undefined
+  config: GetConfig | undefined
 ) => {
-  console.log(watchProviders, "watch");
-  if(!config) return;
+  console.log(watchProviders, 'watch');
+  if (!config) return;
   const baseUrl = `${config.images.base_url}${config.images.logo_sizes[6]}`;
   const { buy, flatrate, rent, free } = watchProviders;
-  const sorted = _.sortBy({ buy, flatrate, rent, free }, [
+  const sorted = sortBy({ buy, flatrate, rent, free }, [
     (option) => {
-      return _.size(option);
+      return size(option);
     },
   ]);
   const filteredArray = sorted[3].map((elem) => {
-    return {...elem, logo_path : `${baseUrl}${elem.logo_path}`}
-  })
+    return { ...elem, logo_path: `${baseUrl}${elem.logo_path}` };
+  });
   return filteredArray;
 };
 
 export const useWatchProviders = (
   id: number | string | undefined,
-  type: "movie" | "series"
+  type: 'movie' | 'series'
 ) => {
-  const [watchProviders, setWatchProviders] = useState<WatchProvidersDataResultsProvider[]>();
-  const {data : config} = useQuery(["config"], getConfig);
+  const [watchProviders, setWatchProviders] =
+    useState<WatchProvidersDataResultsProvider[]>();
+  const { data: config } = useQuery(['config'], getConfig);
   const { data: watchProvidersData } = useQuery(
-    ["watchProviders", type, id],
+    ['watchProviders', type, id],
     () => {
       return getWatchProviders(id, type);
     },
@@ -191,9 +193,15 @@ export const useWatchProviders = (
   );
   const country = useCountry();
   useEffect(() => {
-    if (watchProvidersData && country && config && watchProvidersData[country]) {
+    if (
+      watchProvidersData &&
+      country &&
+      config &&
+      watchProvidersData[country]
+    ) {
       const filteredWatchProviders = filterWatchProviders(
-        watchProvidersData[country], config
+        watchProvidersData[country],
+        config
       );
       setWatchProviders(filteredWatchProviders);
     }

@@ -35,7 +35,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
           placeholder='Rating'
         />
         <button
-          className='h-full px-2 py-1 rounded-r-full'
+          className='h-full px-2 py-1 rounded-r-full dark:border-solid dark:border-white dark:border'
           onClick={() => {
             rate(db, id, userInfo.uid, userRating.current, type);
             setRateButtonClick(!rateButtonClick);

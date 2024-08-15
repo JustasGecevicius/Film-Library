@@ -7,23 +7,17 @@ import { useConfig } from '../../../../hooks';
 export const SearchResultsPeople = ({ query }: SearchResultsPropsType) => {
   const { config } = useConfig();
   const results = useSearchPeople(query, 700);
-  return (
-    <>
-      {results &&
-        config &&
-        results.map((elem, index) => {
-          return (
-            <Link to={`/Film-Library/person/${elem.id.toString()}`} key={index}>
-              {elem.profile_path && (
-                <FoundSearch
-                  id={elem.id}
-                  name={elem.name}
-                  URL={`${config.images.base_url}${config.images.profile_sizes[3]}${elem.profile_path}`}
-                />
-              )}
-            </Link>
-          );
-        })}
-    </>
-  );
-};
+  return results && config
+    ? results.map((elem, index) => (
+        <Link to={`/film_library/person/${elem.id}`} key={index}>
+          {elem.profile_path && (
+            <FoundSearch
+              id={elem.id}
+              name={elem.name}
+              URL={`${config.images.base_url}${config.images.profile_sizes[3]}${elem.profile_path}`}
+            />
+          )}
+        </Link>
+      ))
+    : null;
+}

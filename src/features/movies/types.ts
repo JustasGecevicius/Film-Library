@@ -51,6 +51,7 @@ export interface MovieBackdropType {
   backdrop: string;
   poster: string;
   title: string;
+  genres: any[];
 }
 
 export interface MovieObject {

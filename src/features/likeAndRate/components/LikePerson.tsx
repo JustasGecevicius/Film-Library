@@ -8,27 +8,20 @@ type PropsType = {
 };
 
 export const LikePerson = ({ name }: PropsType) => {
-  // Route Parameters and Context
   const { id, db, userInfo } = useContextAndParams();
   // Like functionality
   const [likeButtonClicked, setlikeButtonClicked] = useState(false);
   const liked = useLikedPerson(likeButtonClicked);
 
-  return (
-    <>
-      {!!userInfo && !!id && (
-        <div>
-          <button
-            className='border-[1px] dark:hover:bg-white dark:hover:text-black px-2 rounded-xl'
-            onClick={() => {
-              likePerson(db, id, userInfo.uid, name, liked);
-              setlikeButtonClicked(!likeButtonClicked);
-            }}
-          >
-            {liked ? 'Unlike' : 'Like'}
-          </button>
-        </div>
-      )}
-    </>
-  );
+  return userInfo && id ? (
+    <button
+      className='border-[1px] dark:hover:bg-white dark:hover:text-black px-2 rounded-xl max-w-16'
+      onClick={() => {
+        likePerson(db, id, userInfo.uid, name, liked);
+        setlikeButtonClicked(!likeButtonClicked);
+      }}
+    >
+      {liked ? 'Unlike' : 'Like'}
+    </button>
+  ) : null;
 };

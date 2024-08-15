@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import {  getSeriesData } from "./api";
 
 export const useSeriesData = () => {
-  const { id } = useParams();
+  const { id = '' } = useParams();
 
   const { data: seriesData } = useQuery(
     ["series", id],

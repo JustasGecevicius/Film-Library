@@ -1,12 +1,21 @@
 import { api } from '../services/axios';
-import { People, SingularPerson } from './types';
+import { People, SingularPerson, type Person } from './types';
 
-export const getPopularPeople = (page = 1) =>
-  api<People>(
+export function getPopularPeople(
+  page: number,
+  isInfinite: true
+): Promise<People>;
+export function getPopularPeople(
+  page: number,
+  isInfinite: false
+): Promise<Person[]>;
+export function getPopularPeople(page = 1, isInfinite?: boolean) {
+  return api<People>(
     `/person/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
-  ).then((response) => {
-    return response.data.results;
+  ).then(({ data }) => {
+    return isInfinite ? data : data.results;
   });
+}
 
 export const getPerson = (personId: string | undefined) => {
   return api<SingularPerson>(

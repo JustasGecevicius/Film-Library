@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { PersonObject } from "../../displayPostersSection/types";
 
-export const PeoplePoster = ({ imageURL, name, id }: PersonObject) => {
-  return id ? (
-    <Link to={`/Film-Library/person/${id}`} className='min-w-fit'>
-      <div className='flex gap-y-4 relative max-w-[185px] flex-col' data-id={`${id}`}>
+export const PeoplePoster = ({ imageURL, name, id }: PersonObject) =>
+  id ? (
+    <Link to={`/film_library/person/${id}`} className='min-w-fit'>
+      <div
+        className='flex gap-y-4 relative max-w-[185px] flex-col'
+        data-id={`${id}`}
+      >
         <img
           src={imageURL}
           alt='posterImage'
@@ -14,4 +17,3 @@ export const PeoplePoster = ({ imageURL, name, id }: PersonObject) => {
       </div>
     </Link>
   ) : null;
-};

@@ -6,6 +6,7 @@ import {
   CircularProgressBarAverages,
   CircularProgressBarNumbers,
 } from './CircularProgressBars';
+import { DarkBackground } from '../../../utils/DarkBackground';
 
 export interface Props {
   links: string[];
@@ -19,7 +20,12 @@ export interface Props {
   };
 }
 
-export const Backdrop = ({ links, profileImage, userName, userNumbers }: Props) => {
+export const Backdrop = ({
+  links,
+  profileImage,
+  userName,
+  userNumbers,
+}: Props) => {
   const background = useBackground();
 
   if (!links) {
@@ -27,15 +33,16 @@ export const Backdrop = ({ links, profileImage, userName, userNumbers }: Props) 
   }
 
   return (
-    <div className='' style={{ backgroundImage: `url(${background})` }}>
+    <div style={{ backgroundImage: `url(${background})` }} className='relative'>
       <Header />
-      <div className='mx-auto p-8'>
-        <div className='relative flex-row gap-x-6 max-w-4xl mx-auto p-8 items-center darker-background'>
+      <DarkBackground />
+      <div className='relative p-8 mx-auto'>
+        <div className='relative flex-row items-center max-w-4xl p-8 mx-auto gap-x-6 darker-background'>
           {profileImage && checkIfImageExists(profileImage) && (
             <img src={profileImage} alt='userImage' className='rounded-full' />
           )}
-          <div className='flex-row gap-x-4 gap-y-6 justify-around grow flex-wrap'>
-            <h3 className='font-bold text-wrap flex items-center text-white text-3xl'>
+          <div className='flex-row flex-wrap justify-around gap-x-4 gap-y-6 grow'>
+            <h3 className='flex items-center text-3xl font-bold text-white text-wrap'>
               {userName}
             </h3>
             <div className='flex-row gap-x-2'>

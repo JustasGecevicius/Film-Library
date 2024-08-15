@@ -7,19 +7,19 @@ import { useQuery } from 'react-query';
 import { filterPersonCreditsCastInformation } from './functions';
 import { useLikedAndRated } from '../utils/firestore';
 import { useConfig } from '../../hooks';
+import { ALL_ELEMENTS_NO_PERSON, type ElementNoPerson } from '../../App';
 
-export const useMovieSeriesCredits = (
-  type: 'movie' | 'series',
-  id: number | string | undefined,
-  page = 1
-) => {
+export const useMovieSeriesCredits = (type: string, id: string, page = 1) => {
   const [credits, setCredits] = useState<MovieObject[]>();
   const { userInfo, db } = useFirebaseContext();
   const { config } = useConfig();
   const { data } = useQuery(
     ['credits', id, type],
     () => {
-      return getCreditsOfMovieSeries(id, type);
+      //@ts-ignore
+      if (!ALL_ELEMENTS_NO_PERSON.includes(type))
+        return new Promise((res) => res(null));
+      return getCreditsOfMovieSeries(id, type as ElementNoPerson);
     },
     {
       enabled: !!id && !!type,

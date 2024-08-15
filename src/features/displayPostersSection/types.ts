@@ -1,12 +1,8 @@
+import type { SECTION_NAMES, TYPE_NAMES } from './constants/sections';
+
 export interface MoviesPosterDisplayType {
   id?: number;
-  section: 'pop' | 'top' | 'recommended';
-}
-
-export interface PeoplePosterDisplayType {
-  arr: PersonObject[];
-  sectionName: string;
-  link: string;
+  section: keyof typeof SECTION_NAMES;
 }
 
 export interface PersonObject {
@@ -16,7 +12,7 @@ export interface PersonObject {
 }
 
 export interface PosterType {
-  type: 'movie' | 'series';
+  type: keyof typeof TYPE_NAMES;
 }
 
 export interface UserPosterType {

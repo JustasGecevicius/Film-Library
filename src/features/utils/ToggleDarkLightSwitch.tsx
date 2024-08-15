@@ -1,10 +1,10 @@
 import { SwitchToggle } from '../searchArea/components/SearchTypeSwitch';
 import { useState } from 'react';
 
-interface Props {
+type Props = {
   setDarkTheme: React.Dispatch<React.SetStateAction<boolean>>;
   darkTheme: boolean;
-}
+};
 
 export const ToggleDarkLightSwitch = ({ setDarkTheme, darkTheme }: Props) => {
   const [checked, setChecked] = useState(false);
@@ -15,9 +15,9 @@ export const ToggleDarkLightSwitch = ({ setDarkTheme, darkTheme }: Props) => {
   };
 
   return (
-    <label className='min-w-14 relative inline-block h-8 rounded-2xl border-black dark:border-white border-2'>
+    <label className='relative inline-block h-8 border-2 border-black min-w-14 rounded-2xl dark:border-white'>
       <input
-        className='opacity-0 w-0 h-0'
+        className='w-0 h-0 opacity-0'
         checked={darkTheme}
         type='checkbox'
         onChange={(e) => {

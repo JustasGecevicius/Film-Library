@@ -1,15 +1,17 @@
 import { useFirebaseContext } from '../../../context/FirebaseContext';
 import { useUserInfo } from '../../../profile/hooks';
 import { Bar } from 'react-chartjs-2';
-import '../../../profile/css/chart.css';
 
-interface Props {
+type Props = {
   id: string | undefined;
-}
+};
 
 export const Chart = ({ id }: Props) => {
   const { db } = useFirebaseContext();
-  const { differentMoviesRatings, differentSeriesRatings } = useUserInfo(id, db);
+  const { differentMoviesRatings, differentSeriesRatings } = useUserInfo(
+    id,
+    db
+  );
   const options = {
     responsive: true,
     plugins: {
@@ -45,9 +47,6 @@ export const Chart = ({ id }: Props) => {
       {
         label: 'Movies',
         data: differentMoviesRatings,
-        borderColor: 'rgba(0, 0, 0, 1)',
-        color: 'rgba(255, 255, 0, 1)',
-        borderWidth: 1,
       },
       {
         label: 'Series',

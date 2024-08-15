@@ -1,8 +1,6 @@
 import { useFirebaseContext } from '../context/FirebaseContext';
-import { PersonObject } from '../displayPostersSection/types';
 import { fetchFriends } from '../friends/functions';
-import { useState } from 'react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import { getPopularPeople } from './api';
 import {
   fetchFriendLikedPeopleList,
@@ -11,22 +9,23 @@ import {
 } from './functions';
 import { useConfig } from '../../hooks';
 
-export const usePopularPeople = (page = 1) => {
-  const [popularPeople, setPopularPeople] = useState<PersonObject[]>();
+export const usePopularPeople = () => {
   const { config } = useConfig();
-  useQuery(
-    ['people', page],
-    () => {
-      return getPopularPeople(page);
-    },
+  const { data: { pages: responses } = {}, fetchNextPage } = useInfiniteQuery(
+    ['people'],
+    ({ pageParam = 1 }) => getPopularPeople(pageParam, true),
     {
-      enabled: !!config,
-      onSuccess: (data) => {
-        setPopularPeople(filterPeopleInformation(config, data));
-      },
+      getNextPageParam: (lastResponse) =>
+        !Array.isArray(lastResponse) &&
+        lastResponse.total_pages > lastResponse.page
+          ? lastResponse.page + 1
+          : undefined,
     }
   );
-  return popularPeople;
+  const data = responses?.flatMap(({ results }) =>
+    filterPeopleInformation(config, results)
+  );
+  return { results: data, fetchNextPage };
 };
 
 export const usePeopleLikedByFriends = () => {

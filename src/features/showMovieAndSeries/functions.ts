@@ -1,7 +1,6 @@
-// Types
-import { GetConfig } from "features/config/types";
-import { ProductionCompany } from "./types";
-import _ from "lodash";
+import { GetConfig } from 'features/config/types';
+import { ProductionCompany } from './types';
+import { inRange } from 'lodash';
 
 // A function that returns only the needed attributed of the fetched
 // production company information
@@ -25,13 +24,11 @@ export const filterProductionCompanies = (
 // A function the reduces the number size to thousands, million and billions
 // and makes it more readeable
 export const symbolChecker = (number: number) => {
-  if (_.inRange(number, 1000, 999999)) {
-    return Math.round(number / 1000).toString() + "k";
-  } 
-  else if (_.inRange(number, 1000000, 999999999)) {
-    return Math.round(number / 1000000).toString() + "m";
-  } 
-  else if (_.inRange(number, 1000000000, 999999999999)) {
-    return Math.round(number / 1000000000).toString() + "b";
+  if (inRange(number, 1000, 999999)) {
+    return Math.round(number / 1000).toString() + 'k';
+  } else if (inRange(number, 1000000, 999999999)) {
+    return Math.round(number / 1000000).toString() + 'm';
+  } else if (inRange(number, 1000000000, 999999999999)) {
+    return Math.round(number / 1000000000).toString() + 'b';
   }
 };

@@ -1,9 +1,7 @@
-// Base axios api
 import { api } from '../services/axios';
-// Types
-import { GetMovies, MovieData } from "./types";
+import { GetMovies, MovieData } from './types';
 
-export const getMovieData = (movieId: string | undefined) => {
+export const getMovieData = (movieId?: string) => {
   if (!movieId) return;
   return api<MovieData>(
     `/movie/${movieId}?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US`
@@ -12,7 +10,7 @@ export const getMovieData = (movieId: string | undefined) => {
   });
 };
 
-export const getMovieDataSearch = (searchString: string | undefined) => {
+export const getMovieDataSearch = (searchString?: string) => {
   if (!searchString) return;
   return api<GetMovies>(
     `/search/movie?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&query=${searchString}&page=1&include_adult=false`
@@ -20,5 +18,3 @@ export const getMovieDataSearch = (searchString: string | undefined) => {
     return response.data.results;
   });
 };
-
-

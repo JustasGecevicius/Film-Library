@@ -1,23 +1,18 @@
 import { useTrailer } from '../../trailer/hooks';
-interface Props {
+
+type TrailerPropsType = {
   name: string;
   year: string;
-}
+};
 
-export const Trailer = ({ name, year }: Props) => {
+export const Trailer = ({ name, year }: TrailerPropsType) => {
   const trailerLink = useTrailer(name, year);
-  return (
-    <>
-      {trailerLink && (
-        <div className='trailerDiv'>
-          <iframe
-            title='trailer'
-            src={`${trailerLink}`}
-            className='w-[900px]'
-            allowFullScreen={true}
-          />
-        </div>
-      )}
-    </>
-  );
+  return trailerLink ? (
+    <iframe
+      title='trailer'
+      src={`${trailerLink}`}
+      className='w-full aspect-video'
+      allowFullScreen={true}
+    />
+  ) : null;
 };

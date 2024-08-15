@@ -12,7 +12,10 @@ import {
 } from '../features/showMovieAndSeries/hooks';
 import { useMovieData } from '../features/movies/hooks';
 import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
-import { PosterDisplayPeople } from '../features/displayPostersSection/components/PosterDisplayPeople';
+import {
+  PosterDisplayPeople,
+  PosterDisplayPeopleNoFetch,
+} from '../features/displayPostersSection/components/PosterDisplayPeople';
 import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
 import { PosterDisplayWatchProviders } from '../features/displayPostersSection/components/PosterDisplayWatchProviders';
 
@@ -24,7 +27,7 @@ export const ShowMovie = () => {
   const watch = useWatchProviders(movieData?.id, 'movie');
   return (
     <div className='dark:bg-black'>
-      {backdropImages && movieData && (
+      {!!backdropImages && !!movieData && (
         <Backdrop
           backdrop={backdropImages.backdropURL}
           poster={backdropImages.posterURL}
@@ -33,7 +36,7 @@ export const ShowMovie = () => {
         />
       )}
       <div className='flex-col max-w-4xl gap-4 mx-auto'>
-        {movieData && (
+        {!!movieData && (
           <>
             <LikeAndRate title={movieData.title} type='movie' />
             <Description overview={movieData.overview} />
@@ -46,28 +49,27 @@ export const ShowMovie = () => {
             />
           </>
         )}
-        {productionCompanies?.length && (
+        {!!productionCompanies?.length && (
           <ProducedBy productionCompanies={productionCompanies} />
         )}
-        {movieData && (
+        {!!movieData && (
           <Trailer name={movieData?.title} year={movieData.release_date} />
         )}
-        {movieData?.id && (
+        {!!movieData?.id && (
           <PosterDisplayMoviesSeries
             section='recommended'
             type='movie'
             id={movieData?.id}
-            link={`all/movie/Recommended/${movieData?.id}`}
-          />
-        )}{' '}
-        {credits && credits.length !== 0 && (
-          <PosterDisplayPeople
-            arr={credits}
-            sectionName='Cast'
-            link={`movie/Cast/${movieData?.id}`}
           />
         )}
-        {watch && (
+        {!!credits?.length && (
+          <PosterDisplayPeopleNoFetch
+            arr={credits}
+            type='cast'
+            link={`cast/movie/${movieData?.id}`}
+          />
+        )}
+        {!!watch && (
           <PosterDisplayWatchProviders
             arr={watch}
             sectionName='Service Providers'

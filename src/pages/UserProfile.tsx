@@ -3,9 +3,8 @@ import { Backdrop } from '../features/profile/components/backdrop/Backdrop';
 import { Chart } from '../features/profile/components/chart/Chart';
 import { useUserInfo, useUserLiked, useUserRated } from '../features/profile/hooks';
 import { useSearchAreaImages } from '../features/searchArea/hooks';
-// import '../features/profile/css/backdrop.css';
 import './css/userProfile.css';
-import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
+import { PosterDisplayMoviesSeriesNoFetch } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
 import { NoUser } from './NoUser';
 
 export const UserProfile = () => {
@@ -16,68 +15,63 @@ export const UserProfile = () => {
   const userLikedSeries = useUserLiked('series', userInfo?.uid);
   const userRatedMovies = useUserRated('movie', userInfo?.uid);
   const userRatedSeries = useUserRated('series', userInfo?.uid);
-  const { darkTheme } = useFirebaseContext();
-  return (
-    <>
-      {userNumbers &&
-      links &&
-      userLikedMovies &&
-      userLikedSeries &&
-      userRatedMovies &&
-      userRatedSeries &&
-      userInfo ? (
-        <div className={darkTheme ? 'darkTheme' : 'theme'}>
-          <Backdrop
-            links={links}
-            profileImage={userInfo?.profileURL}
-            userName={userInfo?.displayName}
-            userNumbers={userNumbers}
+  return userNumbers &&
+    links &&
+    userLikedMovies &&
+    userLikedSeries &&
+    userRatedMovies &&
+    userRatedSeries &&
+    userInfo ? (
+    <div className='dark:bg-black'>
+      <Backdrop
+        links={links}
+        profileImage={userInfo?.profileURL}
+        userName={userInfo?.displayName}
+        userNumbers={userNumbers}
+      />
+      <div className='p-8'>
+        <Chart id={userInfo?.uid} />
+        {!!userLikedMovies?.length && (
+          <>
+            <h2 className='text-3xl font-bold'>Liked</h2>
+            <PosterDisplayMoviesSeriesNoFetch
+              arr={userLikedMovies}
+              section={'liked'}
+              type={'movie'}
+              link='user/movie/liked'
+            />
+          </>
+        )}
+        {!!userLikedSeries?.length && (
+          <PosterDisplayMoviesSeriesNoFetch
+            arr={userLikedSeries}
+            section={'liked'}
+            type={'series'}
+            link='user/series/liked'
           />
-          <div className='p-8'>
-            <Chart id={userInfo?.uid} />
-            {userLikedMovies && userLikedMovies.length !== 0 && (
-              <>
-                <h2 className='font-bold text-3xl'>Liked</h2>
-                <PosterDisplayMoviesSeries
-                  arr={userLikedMovies}
-                  sectionName={'Movies'}
-                  type={'movie'}
-                  link='User/movie/Liked'
-                />
-              </>
-            )}
-            {userLikedSeries && userLikedSeries.length !== 0 && (
-              <PosterDisplayMoviesSeries
-                arr={userLikedSeries}
-                sectionName={'Series'}
-                type={'series'}
-                link='User/series/Liked'
-              />
-            )}
-            {userRatedMovies && userRatedMovies.length !== 0 && (
-              <>
-                <h2 className='font-bold text-3xl'>Rated</h2>
-                <PosterDisplayMoviesSeries
-                  arr={userRatedMovies}
-                  sectionName={'Movies'}
-                  type={'movie'}
-                  link='User/movie/Rated'
-                />
-              </>
-            )}
-            {userRatedSeries && userRatedSeries.length !== 0 && (
-              <PosterDisplayMoviesSeries
-                arr={userRatedSeries}
-                sectionName={'Series'}
-                type={'series'}
-                link='User/series/Rated'
-              />
-            )}
-          </div>
-        </div>
-      ) : (
-        <NoUser />
-      )}
-    </>
+        )}
+        {!!userRatedMovies?.length && (
+          <>
+            <h2 className='text-3xl font-bold'>Rated</h2>
+            <PosterDisplayMoviesSeriesNoFetch
+              arr={userRatedMovies}
+              section={'rated'}
+              type={'movie'}
+              link='user/movie/rated'
+            />
+          </>
+        )}
+        {!!userRatedSeries?.length && (
+          <PosterDisplayMoviesSeriesNoFetch
+            arr={userRatedSeries}
+            section={'rated'}
+            type={'series'}
+            link='user/series/rated'
+          />
+        )}
+      </div>
+    </div>
+  ) : (
+    <NoUser />
   );
 };

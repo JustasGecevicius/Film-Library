@@ -1,6 +1,6 @@
 import { DataNumbersType } from 'features/showMovieAndSeries/types';
 import { symbolChecker } from '../functions';
-import _ from 'lodash';
+import { round } from 'lodash';
 
 export const DataNumbers = ({
   budget,
@@ -18,7 +18,7 @@ export const DataNumbers = ({
     ['Budget', fixedBudget],
     ['Revenue', fixedRevenue],
     ['Runtime', runtime ? `${runtime} minutes` : undefined],
-    ['Average Rating', voteAverage ? _.round(voteAverage, 2) : undefined],
+    ['Average Rating', voteAverage ? round(voteAverage, 2) : undefined],
     ['Last Episode', last_air_date],
     ['Episodes', number_of_episodes],
     ['Seasons', number_of_seasons],
@@ -26,16 +26,16 @@ export const DataNumbers = ({
 
   return (
     <div className='flex-row flex-wrap justify-start w-full max-w-4xl mx-auto gap-x-2'>
-      {fixedNumbers.map((elem, index) => {
-        return elem[1] ? (
+      {fixedNumbers.map((elem, index) =>
+        elem[1] ? (
           <div
-            className='px-2 py-1 border border-black rounded-full'
+            className='px-2 py-1 border border-black rounded-full dark:border-white'
             key={index}
           >
             <p>{`${elem[0]} | ${elem[1]}`}</p>
           </div>
-        ) : null;
-      })}
+        ) : null
+      )}
     </div>
   );
 };

@@ -9,8 +9,8 @@ export const Header = () => {
   const { userInfo, setDarkTheme, darkTheme } = useFirebaseContext();
 
   return (
-    <header className='flex flex-row flex-wrap items-center justify-around w-full max-w-4xl p-2 mx-auto bg-white dark:bg-black rounded-b-md gap-y-1'>
-      <Link to='/Film-Library'>
+    <header className='relative z-50 flex flex-row flex-wrap items-center justify-around w-full max-w-4xl p-2 mx-auto bg-white dark:bg-black rounded-b-md gap-y-1'>
+      <Link to='/film_library'>
         <h2 className='text-3xl font-bold font-noto dark:text-white'>
           Discoverisms
         </h2>
@@ -18,22 +18,22 @@ export const Header = () => {
       <ul className='flex-row items-center gap-x-4'>
         <NavigationIcon
           iconName={'film'}
-          link={'Explore'}
+          link={'explore'}
           sectionName='Explore'
         />
         <NavigationIcon
           iconName={'camera'}
-          link={'People'}
+          link={'people'}
           sectionName='People'
         />
         <NavigationIcon
           iconName={'users'}
-          link={'Friends'}
+          link={'friends'}
           sectionName='Friends'
         />
         <NavigationIcon
           iconName={'user'}
-          link={'UserProfile'}
+          link={'user_profile'}
           sectionName='Profile'
         />
       </ul>
@@ -42,22 +42,17 @@ export const Header = () => {
           setDarkTheme={setDarkTheme}
           darkTheme={darkTheme}
         />
-        {userInfo && (
-          <div>
-            {checkIfImageExists('http://website/images/img.png') && (
-              <img
-                alt='userImage'
-                className='userImage'
-                src={userInfo.profileURL}
-              />
-            )}
-          </div>
+        {userInfo && checkIfImageExists('http://website/images/img.png') && (
+          <img
+            alt='userImage'
+            className='userImage'
+            src={userInfo.profileURL}
+          />
         )}
         <button
           className='px-2 border border-black rounded-full dark:border-white dark:bg-black dark:text-white h-7'
-          onClick={() => {
-            userInfo ? signOutUser() : signInUser();
-          }}>
+          onClick={userInfo ? signOutUser : signInUser}
+        >
           {userInfo ? 'Sign Out' : 'Sign In'}
         </button>
       </div>

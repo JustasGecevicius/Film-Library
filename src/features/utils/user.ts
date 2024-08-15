@@ -1,10 +1,8 @@
 import { useFirebaseContext } from '../context/FirebaseContext';
 import { Firestore, doc, getDoc } from 'firebase/firestore';
-import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 export const useGetUser = (id: string | undefined) => {
-  //const [userInfo, setUserInfo] = useState();
   const { db } = useFirebaseContext();
   const { data: userInfo } = useQuery(
     ['user'],
