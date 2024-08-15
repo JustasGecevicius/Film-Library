@@ -1,0 +1,1 @@
+import{a as t}from"./api-zHsTOtF1.js";const n=e=>{if(e)return t(`/tv/${e}?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US`).then(a=>a.data)},u=e=>{if(e)return t(`/search/tv?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&query=${e}&page=1&include_adult=false`).then(a=>a.data.results)};export{u as a,n as g};
