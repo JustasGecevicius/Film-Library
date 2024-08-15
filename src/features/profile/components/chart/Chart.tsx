@@ -1,12 +1,26 @@
 import { useFirebaseContext } from '../../../context/FirebaseContext';
 import { useUserInfo } from '../../../profile/hooks';
 import { Bar } from 'react-chartjs-2';
+import {
+  BarController,
+  BarElement,
+  CategoryScale,
+  Colors,
+  Legend,
+  LinearScale,
+} from 'chart.js';
+import { Chart as ChartJS } from 'chart.js';
 
-type Props = {
-  id: string | undefined;
-};
+ChartJS.register(
+  BarElement,
+  BarController,
+  LinearScale,
+  CategoryScale,
+  Colors,
+  Legend
+);
 
-export const Chart = ({ id }: Props) => {
+export const Chart = ({ id }: { id?: string }) => {
   const { db } = useFirebaseContext();
   const { differentMoviesRatings, differentSeriesRatings } = useUserInfo(
     id,
@@ -54,6 +68,7 @@ export const Chart = ({ id }: Props) => {
       },
     ],
   };
+
   return (
     <div className='flex-row justify-center max-w-4xl mx-auto'>
       <Bar options={options} data={data} />

@@ -1,6 +1,6 @@
 import { LikedRatedData } from '../likeAndRate/types';
 import { Firestore } from 'firebase/firestore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { mean, round } from 'lodash';
 import { calculateRatings, fetchUserLiked, fetchUserRated } from './functions';
@@ -15,85 +15,73 @@ import {
 import { useConfig } from '../../hooks';
 
 export const useUserInfo = (userId: string | undefined, db: Firestore) => {
-  const [averageMovieRating, setAverageMovieRating] = useState<number>();
-  const [averageSeriesRating, setAverageSeriesRating] = useState<number>();
-  const [numberOfLikedMovies, setNumberOfLikedMovies] = useState<number>();
-  const [numberOfLikedSeries, setNumberOfLikedSeries] = useState<number>();
+  const [averageMovieRating, setAverageMovieRating] = useState(0);
+  const [averageSeriesRating, setAverageSeriesRating] = useState(0);
   const [differentMoviesRatings, setDifferentMoviesRatings] =
     useState<{ x: number; y: number }[]>();
   const [differentSeriesRatings, setDifferentSeriesRatings] =
     useState<{ x: number; y: number }[]>();
-  useQuery<LikedRatedData | undefined>(
+
+  const { data: collectionMovieData } = useQuery<LikedRatedData | undefined>(
     ['ratedMovieData', db, userId],
-    () => {
-      return fetchFirestore(
+    () =>
+      fetchFirestore(
         db,
         getMovieOrSeriesCollectionName('movie', 'rated'),
         userId
-      );
-    },
-    {
-      enabled: !!userId && !!db,
-      onSuccess(data) {
-        if (!data) return;
-        const average = round(mean(Object.values(data)), 1);
-        setAverageMovieRating(average ? average : 0);
-        setDifferentMoviesRatings(calculateRatings(Object.values(data)));
-      },
-    }
+      ),
+    { enabled: !!userId && !!db }
   );
-  useQuery<LikedRatedData | undefined>(
+
+  useEffect(() => {
+    if (!collectionMovieData) return;
+    const average = round(mean(Object.values(collectionMovieData)), 1);
+    setAverageMovieRating(average ? average : 0);
+    setDifferentMoviesRatings(
+      calculateRatings(Object.values(collectionMovieData))
+    );
+  }, [collectionMovieData]);
+
+  const { data: collectionSeriesData } = useQuery<LikedRatedData | undefined>(
     ['ratedSeriesData', db, userId],
-    () => {
-      return fetchFirestore(
+    () =>
+      fetchFirestore(
         db,
         getMovieOrSeriesCollectionName('series', 'rated'),
         userId
-      );
-    },
-    {
-      enabled: !!userId && !!db,
-      onSuccess(data) {
-        if (!data) return;
-        const average = round(mean(Object.values(data)), 1);
-        setAverageSeriesRating(average ? average : 0);
-        setDifferentSeriesRatings(calculateRatings(Object.values(data)));
-      },
-    }
+      ),
+    { enabled: !!userId && !!db }
   );
-  useQuery<number | undefined>(
+
+  useEffect(() => {
+    if (!collectionSeriesData) return;
+    const average = round(mean(Object.values(collectionSeriesData)), 1);
+    setAverageSeriesRating(average ? average : 0);
+    setDifferentSeriesRatings(
+      calculateRatings(Object.values(collectionSeriesData))
+    );
+  }, [collectionSeriesData]);
+
+  const { data: numberOfLikedMovies } = useQuery<number | undefined>(
     ['likedMoviesData', db, userId],
-    () => {
-      return fetchFirestoreCount(
+    () =>
+      fetchFirestoreCount(
         db,
         getMovieOrSeriesCollectionName('movie', 'liked'),
         userId
-      );
-    },
-    {
-      enabled: !!userId && !!db,
-      onSuccess(data) {
-        if (!data) return;
-        setNumberOfLikedMovies(data);
-      },
-    }
+      ),
+    { enabled: !!userId && !!db }
   );
-  useQuery<number | undefined>(
+
+  const { data: numberOfLikedSeries } = useQuery<number | undefined>(
     ['likedSeriesData', db, userId],
-    () => {
-      return fetchFirestoreCount(
+    () =>
+      fetchFirestoreCount(
         db,
         getMovieOrSeriesCollectionName('series', 'liked'),
         userId
-      );
-    },
-    {
-      enabled: !!userId && !!db,
-      onSuccess(data) {
-        if (!data) return;
-        setNumberOfLikedSeries(data);
-      },
-    }
+      ),
+    { enabled: !!userId && !!db }
   );
   return {
     averageMovieRating,
@@ -105,22 +93,18 @@ export const useUserInfo = (userId: string | undefined, db: Firestore) => {
   };
 };
 
-export const useUserLiked = (type: 'movie' | 'series', id: string | undefined) => {
+export const useUserLiked = (type: 'movie' | 'series', id?: string) => {
   const [data, setData] = useState<MovieObject[]>();
   const { db } = useFirebaseContext();
   const { config } = useConfig();
 
   const { data: userLiked } = useQuery(
     ['userLiked', type, db],
-    () => {
-      return fetchUserLiked(id, db, type);
-    },
-    {
-      enabled: !!id && !!db && !!type,
-    }
+    () => fetchUserLiked(id, db, type),
+    { enabled: !!id && !!db && !!type }
   );
 
-  useQuery(
+  const { data: userLikedData } = useQuery(
     ['filteredLiked', userLiked, config, type],
     () => {
       if (!userLiked) return;
@@ -128,41 +112,37 @@ export const useUserLiked = (type: 'movie' | 'series', id: string | undefined) =
         ? fetchMoviesFromList(Object.keys(userLiked), config)
         : fetchSeriesFromList(Object.keys(userLiked), config);
     },
-    {
-      enabled: !!userLiked && !!config,
-      onSuccess: (data) => {
-        setData(
-          data?.map((elem) => {
-            return { ...elem, liked: true };
-          })
-        );
-      },
-    }
+    { enabled: !!userLiked && !!config }
   );
+
+  useEffect(() => {
+    if (!userLikedData) return;
+
+    setData(userLikedData?.map((elem) => ({ ...elem, liked: true })));
+  }, [userLikedData]);
 
   return data;
 };
 
-export const useUserRated = (type: 'movie' | 'series', userId: string | undefined) => {
+export const useUserRated = (type: 'movie' | 'series', userId?: string) => {
   const [data, setData] = useState<MovieObject[]>();
   const { db } = useFirebaseContext();
   const { config } = useConfig();
+
   const { data: userRated } = useQuery(
     ['userRated', type, db],
-    () => {
-      return fetchUserRated(userId, db, type);
-    },
-    {
-      enabled: !!userId && !!db && !!type,
-    }
+    () => fetchUserRated(userId, db, type),
+    { enabled: !!userId && !!db && !!type }
   );
+
   const { data: rated } = useQuery(
     ['rated', type],
-    () => fetchFirestore(db, getMovieOrSeriesCollectionName(type, 'rated'), userId),
+    () =>
+      fetchFirestore(db, getMovieOrSeriesCollectionName(type, 'rated'), userId),
     { enabled: !!userId && !!db }
   );
 
-  useQuery(
+  const { data: userRatedData } = useQuery(
     ['filteredRated', userRated, config, type],
     () => {
       if (!userRated) return;
@@ -170,18 +150,16 @@ export const useUserRated = (type: 'movie' | 'series', userId: string | undefine
         ? fetchMoviesFromList(Object.keys(userRated), config)
         : fetchSeriesFromList(Object.keys(userRated), config);
     },
-    {
-      enabled: !!userRated && !!config && !!rated,
-      onSuccess: (data) => {
-        if (!rated) return;
-        setData(
-          data?.map((elem) => {
-            return { ...elem, rating: rated[elem.id] };
-          })
-        );
-      },
-    }
+    { enabled: !!userRated && !!config && !!rated }
   );
+
+  useEffect(() => {
+    if (!rated) return;
+    setData(
+      userRatedData?.map((elem) => ({ ...elem, rating: rated[elem.id] })) ||
+        undefined
+    );
+  }, [rated, userRatedData]);
 
   return data;
 };

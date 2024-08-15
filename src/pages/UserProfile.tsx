@@ -15,13 +15,8 @@ export default function UserProfile() {
   const userLikedSeries = useUserLiked('series', userInfo?.uid);
   const userRatedMovies = useUserRated('movie', userInfo?.uid);
   const userRatedSeries = useUserRated('series', userInfo?.uid);
-  return userNumbers &&
-    links &&
-    userLikedMovies &&
-    userLikedSeries &&
-    userRatedMovies &&
-    userRatedSeries &&
-    userInfo ? (
+
+  return userNumbers && links && userInfo ? (
     <div className='dark:bg-black'>
       <Backdrop
         links={links}
@@ -39,6 +34,7 @@ export default function UserProfile() {
               section={'liked'}
               type={'movie'}
               link='user/movie/liked'
+              viewAll={false}
             />
           </>
         )}
@@ -48,6 +44,7 @@ export default function UserProfile() {
             section={'liked'}
             type={'series'}
             link='user/series/liked'
+            viewAll={false}
           />
         )}
         {!!userRatedMovies?.length && (
@@ -58,6 +55,7 @@ export default function UserProfile() {
               section={'rated'}
               type={'movie'}
               link='user/movie/rated'
+              viewAll={false}
             />
           </>
         )}
@@ -67,6 +65,7 @@ export default function UserProfile() {
             section={'rated'}
             type={'series'}
             link='user/series/rated'
+            viewAll={false}
           />
         )}
       </div>

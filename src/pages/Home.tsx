@@ -14,7 +14,6 @@ export default function Home() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res, 'RESPONSE');
         axios
           .post(
             'http://localhost:8000/login',
@@ -25,10 +24,9 @@ export default function Home() {
             { withCredentials: true }
           )
           .then((res) => {
-            console.log(res);
             axios
               .get('http://localhost:8000/api/user', { withCredentials: true })
-              .then((res) => console.log(res));
+              .then();
           });
       });
   }, []);

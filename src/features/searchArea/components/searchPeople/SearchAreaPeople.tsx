@@ -3,6 +3,7 @@ import { SearchBarPeople } from '../searchBars/SearchBarPeople';
 import { useSearchAreaImages } from '../../../searchArea/hooks';
 import { Fade } from 'react-slideshow-image';
 import { DarkBackground } from '../../../utils/DarkBackground';
+import 'react-slideshow-image/dist/styles.css';
 
 export const SearchAreaPeople = () => {
   const links = useSearchAreaImages();

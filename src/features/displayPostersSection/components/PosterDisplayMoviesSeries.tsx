@@ -68,6 +68,7 @@ export const PosterDisplayMoviesSeriesNoFetch = ({
   type,
   link,
   section,
+  viewAll,
 }: MoviesPosterDisplayType &
   PosterType &
   LinkType & { arr: MovieObject[] }) => {
@@ -76,6 +77,7 @@ export const PosterDisplayMoviesSeriesNoFetch = ({
       <DisplayPosterHeader
         link={link}
         title={`${SECTION_NAMES[section]} ${TYPE_NAMES[type]}`}
+        viewAll={viewAll}
       />
       <div className='flex flex-row py-4 overflow-auto gap-x-4'>
         {arr?.map((elem, index) => (

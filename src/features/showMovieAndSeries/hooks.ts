@@ -131,8 +131,6 @@ export const useMovieSeriesCast = (subElement: string, id?: number) => {
   const { data } = useQuery(
     ['movieSeriesCredits', subElement, id],
     () => {
-      console.log('HERE', subElement);
-      //@ts-ignore
       if (!SUB_ELEMENTS.includes(subElement))
         return new Promise((res) => res(null));
       return getCreditsOfPerson(
@@ -160,7 +158,6 @@ const filterWatchProviders = (
   watchProviders: WatchProvidersDataResultsSingle,
   config: GetConfig | undefined
 ) => {
-  console.log(watchProviders, 'watch');
   if (!config) return;
   const baseUrl = `${config.images.base_url}${config.images.logo_sizes[6]}`;
   const { buy, flatrate, rent, free } = watchProviders;

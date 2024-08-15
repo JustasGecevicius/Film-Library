@@ -3,6 +3,7 @@ import { SearchBarFriends } from '../../../searchArea/components/searchBars/Sear
 import { useSearchAreaImages } from '../../../searchArea/hooks';
 import { Fade } from 'react-slideshow-image';
 import { DarkBackground } from '../../../utils/DarkBackground';
+import 'react-slideshow-image/dist/styles.css';
 
 export const SearchAreaFriends = () => {
   // Fetched links from firebase for the top movies

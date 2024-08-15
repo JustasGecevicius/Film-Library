@@ -25,7 +25,7 @@ type MovieSeriesProps = {
 
 const DisplayAllSwitch = (props: MovieSeriesProps & { pageNumber: number }) => {
   const { type, element, pageNumber, id } = props;
-  console.log(props, 'PROPS');
+
   if (!type || !element) return null;
 
   switch (type) {
@@ -58,7 +58,6 @@ export default function ShowAll() {
   if (!type || !element) return null;
 
   const getTypeName = () => {
-    // @ts-ignore
     if (!BASIC_TYPES.includes(type)) return '';
     return upperFirst(type);
   };

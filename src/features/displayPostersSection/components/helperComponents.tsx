@@ -12,12 +12,14 @@ export const ViewAllButton = (props: { link: string }) => (
 export const DisplayPosterHeader = ({
   link,
   title,
+  viewAll = true,
 }: {
   link: string;
   title: string;
+  viewAll?: boolean;
 }) => (
   <div className='flex flex-row items-center justify-between'>
     <h2 className='text-2xl italic font-bold'>{title}</h2>
-    <ViewAllButton link={`/Film-Library/all/people/${link}`} />
+    {!!viewAll && <ViewAllButton link={link} />}
   </div>
 );
