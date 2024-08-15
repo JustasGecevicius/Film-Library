@@ -14,7 +14,7 @@ export const PersonalFacts = ({
     </div>
     {also_known_as?.map(
       (nickname, index) =>
-        nickname && (
+        !!nickname && (
           <div className='border-2 rounded-xl h-[30px] px-2' key={index}>
             <p className='whitespace-nowrap'>{`Known as | ${nickname}`}</p>
           </div>
