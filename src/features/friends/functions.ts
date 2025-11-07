@@ -9,7 +9,10 @@ import { Data, MoviesListRated, SeriesListRated } from './types';
 
 // A FUNCTION TO FETCH THE LIST OF FRIENDS OF THE USER
 
-export const fetchFriends = async (userInfo: UserInfo | undefined, db: Firestore) => {
+export const fetchFriends = async (
+  userInfo: UserInfo | undefined,
+  db: Firestore
+) => {
   if (!userInfo) return;
   const friends = await getDoc(doc(db, 'friends', userInfo.uid));
   const data = friends.data() as Data;
@@ -132,6 +135,7 @@ export const fetchMoviesFromList = async (
   list: string[] | undefined,
   config: GetConfig | undefined
 ) => {
+  console.log('CONFIG2', config);
   if (!list || !config) return;
   const promiseArray = list.map((elem) => {
     const movieData = getMovieData(elem);
