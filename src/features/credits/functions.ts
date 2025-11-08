@@ -26,10 +26,18 @@ export const filterPersonCreditsCastInformation = (
     if (!elem || typeof elem !== 'object' || Array.isArray(elem)) return acc;
     const { title, release_date, poster_path, id } = elem;
 
-    if (!title || !id) return acc;
+    if (!title || typeof id !== 'number' || id < 0) return acc;
 
-    const imageURL = poster_path && baseUrl ? baseUrl + poster_path : '';
-    acc.push({ title, release_date, imageURL, id });
+    const imageURL =
+      poster_path && typeof poster_path === 'string' && baseUrl
+        ? baseUrl + poster_path
+        : '';
+    acc.push({
+      title: typeof title === 'string' ? title : '',
+      release_date: typeof release_date === 'string' ? release_date : '',
+      imageURL,
+      id,
+    });
     return acc;
   }, [] as MovieObject[]);
   return array;

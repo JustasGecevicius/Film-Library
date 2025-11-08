@@ -11,8 +11,14 @@ describe('filterPersonCreditsCastInformation_tests', () => {
     {
       title: 'Movie 2',
       release_date: '2022-02-01',
-      poster_path: '',
+      poster_path: {},
       id: 2,
+    },
+    {
+      title: 'Movie 3',
+      release_date: {},
+      poster_path: '',
+      id: 3,
     },
     undefined,
     null,
@@ -27,7 +33,7 @@ describe('filterPersonCreditsCastInformation_tests', () => {
     },
   ];
 
-  test('filterPersonCreditsCastInformation should filter and map cast information correctly', () => {
+  test('filterPersonCreditsCastInformation => checking filtering and mapping', () => {
     const mockConfig = {
       images: {
         base_url: 'https://image.tmdb.org/t/p/',
@@ -57,6 +63,12 @@ describe('filterPersonCreditsCastInformation_tests', () => {
         release_date: '2022-02-01',
         imageURL: '',
         id: 2,
+      },
+      {
+        title: 'Movie 3',
+        release_date: '',
+        imageURL: '',
+        id: 3,
       },
     ]);
   });
@@ -88,6 +100,42 @@ describe('filterPersonCreditsCastInformation_tests', () => {
         imageURL: '',
         id: 2,
       },
+      {
+        title: 'Movie 3',
+        release_date: '',
+        imageURL: '',
+        id: 3,
+      },
+    ]);
+  });
+
+  test('Incorrect config => poster_sizes is not an array', () => {
+    const mockConfig = {
+      images: {
+        base_url: 'https://image.tmdb.org/t/p/',
+        poster_sizes: {},
+      },
+    };
+    const result = filterPersonCreditsCastInformation(mockConfig, mockCast);
+    expect(result).toEqual([
+      {
+        title: 'Movie 1',
+        release_date: '2022-01-01',
+        imageURL: '',
+        id: 1,
+      },
+      {
+        title: 'Movie 2',
+        release_date: '2022-02-01',
+        imageURL: '',
+        id: 2,
+      },
+      {
+        title: 'Movie 3',
+        release_date: '',
+        imageURL: '',
+        id: 3,
+      },
     ]);
   });
 
@@ -95,7 +143,15 @@ describe('filterPersonCreditsCastInformation_tests', () => {
     const mockConfig = {
       images: {
         base_url: undefined,
-        poster_sizes: ['w130', 'w300', 'w780', 'w1280', 'w1920', 'original'],
+        poster_sizes: [
+          'w92',
+          'w154',
+          'w185',
+          'w342',
+          'w500',
+          'w780',
+          'original',
+        ],
       },
     };
     const result = filterPersonCreditsCastInformation(mockConfig, mockCast);
@@ -112,6 +168,51 @@ describe('filterPersonCreditsCastInformation_tests', () => {
         release_date: '2022-02-01',
         imageURL: '',
         id: 2,
+      },
+      {
+        title: 'Movie 3',
+        release_date: '',
+        imageURL: '',
+        id: 3,
+      },
+    ]);
+  });
+
+  test('Incorrect config => base_url an object', () => {
+    const mockConfig = {
+      images: {
+        base_url: {},
+        poster_sizes: [
+          'w92',
+          'w154',
+          'w185',
+          'w342',
+          'w500',
+          'w780',
+          'original',
+        ],
+      },
+    };
+    const result = filterPersonCreditsCastInformation(mockConfig, mockCast);
+
+    expect(result).toEqual([
+      {
+        title: 'Movie 1',
+        release_date: '2022-01-01',
+        imageURL: '',
+        id: 1,
+      },
+      {
+        title: 'Movie 2',
+        release_date: '2022-02-01',
+        imageURL: '',
+        id: 2,
+      },
+      {
+        title: 'Movie 3',
+        release_date: '',
+        imageURL: '',
+        id: 3,
       },
     ]);
   });
