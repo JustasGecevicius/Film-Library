@@ -11,8 +11,8 @@ export const getRecommendations = async (
 ) =>
   await api<FetchedSeriesObject | GetMovies>(
     type === 'movie'
-      ? `/movie/${id}/recommendations?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
-      : `/tv/${id}/recommendations?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
+      ? `/movie/${id}/recommendations?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US&page=${page}`
+      : `/tv/${id}/recommendations?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US&page=${page}`
   ).then(({ data }) => {
     return isInfinite ? data : data.results;
   });
@@ -23,8 +23,8 @@ export const getWatchProviders = async (
 ) => {
   return await api<WatchProvidersData>(
     type === 'movie'
-      ? `/movie/${id}/watch/providers?api_key=2e1d9e703d345ef35e7a54d9ac882a26`
-      : `/tv/${id}/watch/providers?api_key=2e1d9e703d345ef35e7a54d9ac882a26`
+      ? `/movie/${id}/watch/providers?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}`
+      : `/tv/${id}/watch/providers?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}`
   ).then((response) => {
     return response.data.results;
   });

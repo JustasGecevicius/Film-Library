@@ -10,8 +10,8 @@ export const getTopRated = async (
 ) =>
   await api<FetchedSeriesObject | GetMovies>(
     type === 'movie'
-      ? `/movie/top_rated?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
-      : `/tv/top_rated?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
+      ? `/movie/top_rated?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US&page=${page}`
+      : `/tv/top_rated?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US&page=${page}`
   ).then(({ data }) => {
     return isInfinite ? data : data.results;
   });

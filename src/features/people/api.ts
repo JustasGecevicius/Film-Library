@@ -11,7 +11,7 @@ export function getPopularPeople(
 ): Promise<Person[]>;
 export function getPopularPeople(page = 1, isInfinite?: boolean) {
   return api<People>(
-    `/person/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${page}`
+    `/person/popular?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US&page=${page}`
   ).then(({ data }) => {
     return isInfinite ? data : data.results;
   });
@@ -19,7 +19,7 @@ export function getPopularPeople(page = 1, isInfinite?: boolean) {
 
 export const getPerson = (personId: string | undefined) => {
   return api<SingularPerson>(
-    `/person/${personId}?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US`
+    `/person/${personId}?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US`
   ).then((response) => {
     return response.data;
   });
@@ -28,7 +28,7 @@ export const getPerson = (personId: string | undefined) => {
 export const getPeopleDataSearch = (searchString: string | undefined) => {
   if (!searchString) return;
   return api<People>(
-    `/search/person?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&query=${searchString}&page=1&include_adult=false`
+    `/search/person?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US&query=${searchString}&page=1&include_adult=false`
   ).then((response) => {
     return response.data.results;
   });
