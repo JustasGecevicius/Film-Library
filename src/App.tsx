@@ -50,7 +50,7 @@ export type PeopleType = (typeof PEOPLE_TYPES)[number];
 export type SubElement = (typeof SUB_ELEMENTS)[number];
 
 export const App = () => {
-  console.log('RANSDOM CHANGE TO TEST6');
+  console.log('RANSDOM CHANGE TO TEST7', import.meta.env.VITE_MOVIE_API_TOKEN);
   initializeApp(config);
   const location = useLocation();
   const { darkTheme } = useFirebaseContext();

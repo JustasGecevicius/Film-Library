@@ -27,8 +27,7 @@ jobs:
       - run: npm install
       - name: Build
         run: |
-          echo "VITE_MOVIE_API_TOKEN=${{ secrets.MOVIE_API_TOKEN }}" >> .env
-          npm -v
+          echo "VITE_MOVIE_API_TOKEN=${{ secrets.VITE_MOVIE_API_TOKEN }}" >> .env
           npm run build --if-present
       - run: |
           git config --global user.name $user_name
