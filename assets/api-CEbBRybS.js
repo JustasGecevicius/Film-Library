@@ -1,1 +1,0 @@
-import{a as t}from"./api-Da6TUB6i.js";const n=e=>{if(e)return t(`/movie/${e}?api_key=ZAZA&language=en-US`).then(a=>a.data)},u=e=>{if(e)return t(`/search/movie?api_key=ZAZA&language=en-US&query=${e}&page=1&include_adult=false`).then(a=>a.data.results)};export{u as a,n as g};

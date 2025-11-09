@@ -1,1 +1,0 @@
-import{a as r}from"./api-Da6TUB6i.js";const t=async(p,a=1,o)=>await r(p==="movie"?`/movie/popular?api_key=ZAZA&language=en-US&page=${a}`:`/tv/popular?api_key=ZAZA&language=en-US&page=${a}`).then(({data:e})=>o?e:e.results);export{t as g};
