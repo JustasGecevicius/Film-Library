@@ -1,0 +1,41 @@
+name: CI/CD
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ACCESS }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install
+      - name: Build
+        run: |
+          echo "VITE_MOVIE_API_TOKEN=${{ secrets.MOVIE_API_TOKEN }}" >> .env
+          npm run build --if-present
+      - run: |
+          git config --global user.name $user_name
+          git config --global user.email $user_email
+          git remote set-url origin https://x-access-token:${{ secrets.ACCESS }}@github.com/${{ github.repository }}.git
+          npm run deploy
+        env:
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          repository: ${{ github.repository }}
+
