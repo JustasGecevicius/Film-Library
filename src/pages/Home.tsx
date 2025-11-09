@@ -8,29 +8,6 @@ export default function Home() {
   const background = useBackground();
   const displayName = useDisplayName();
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:8000/sanctum/csrf-cookie', {
-        withCredentials: true,
-      })
-      .then((res) => {
-        axios
-          .post(
-            'http://localhost:8000/login',
-            {
-              email: 'new@email.com',
-              password: 'password123!',
-            },
-            { withCredentials: true }
-          )
-          .then((res) => {
-            axios
-              .get('http://localhost:8000/api/user', { withCredentials: true })
-              .then();
-          });
-      });
-  }, []);
-
   return background ? (
     <div
       className='w-screen h-screen px-8'
@@ -51,4 +28,4 @@ export default function Home() {
       )}
     </div>
   ) : null;
-};
+}

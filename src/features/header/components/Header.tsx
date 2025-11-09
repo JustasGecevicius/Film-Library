@@ -42,7 +42,7 @@ export const Header = () => {
           setDarkTheme={setDarkTheme}
           darkTheme={darkTheme}
         />
-        {userInfo && checkIfImageExists('http://website/images/img.png') && (
+        {userInfo && checkIfImageExists('https://website/images/img.png') && (
           <img
             alt='userImage'
             className='userImage'
