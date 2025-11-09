@@ -1,1 +1,0 @@
-import{a as r}from"./api-cLv8SsMH.js";const t=async(p,e=1,o)=>await r(p==="movie"?`/movie/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${e}`:`/tv/popular?api_key=2e1d9e703d345ef35e7a54d9ac882a26&language=en-US&page=${e}`).then(({data:a})=>o?a:a.results);export{t as g};
