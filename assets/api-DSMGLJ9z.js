@@ -1,0 +1,1 @@
+import{j as n}from"./api-BC9-h-q6.js";function u(e=1,r){return n(`/person/popular?language=en-US&page=${e}`).then(({data:a})=>r?a:a.results)}const s=e=>n(`/person/${e}?language=en-US`).then(r=>r.data),o=e=>{if(e)return n(`/search/person?language=en-US&query=${e}&page=1&include_adult=false`).then(r=>r.data.results)};export{u as a,o as b,s as g};
