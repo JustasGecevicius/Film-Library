@@ -1,5 +1,5 @@
 // Base axios api
-import { api } from '../services/axios';
+import { justasApi } from '../services/axios';
 
 // Types
 import { MovieCreditsType, PersonCreditsType } from '../people/types';
@@ -11,8 +11,8 @@ export const getCreditsOfMovieSeries = (
   type: 'movie' | 'series'
 ) => {
   if (!person_id) return;
-  return api<PersonCreditsType>(
-    `/person/${person_id}/${type === 'movie' ? 'movie' : 'tv'}_credits?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US`
+  return justasApi<PersonCreditsType>(
+    `/person/${person_id}/${type === 'movie' ? 'movie' : 'tv'}_credits?language=en-US`
   ).then((response) => {
     return response.data;
   });
@@ -23,10 +23,8 @@ export const getCreditsOfPerson = (
   id: string | number | undefined,
   type: 'movie' | 'series'
 ) => {
-  return api<MovieCreditsType>(
-    type === 'movie'
-      ? `/movie/${id}/credits?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US`
-      : `/tv/${id}/credits?api_key=${import.meta.env.VITE_MOVIE_API_TOKEN}&language=en-US`
+  return justasApi<MovieCreditsType>(
+    `/${type === 'movie' ? 'movie' : 'tv'}/${id}/credits?language=en-US`
   ).then((response) => {
     return response.data;
   });
