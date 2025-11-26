@@ -21,7 +21,6 @@ const ShowAllPeople = lazy(() => import('././pages/ShowAllPeople'));
 const ShowAllUserLikedRated = lazy(
   () => import('././pages/ShowAllUserLikedRated')
 );
-const ComponentTest = lazy(() => import('././pages/ComponentTest'));
 
 export type AvailableElements = 'movie' | 'series' | 'people';
 export type AvailableTypes = '';
@@ -177,14 +176,6 @@ export const App = () => {
           element={
             <Suspense>
               <ShowUser />
-            </Suspense>
-          }
-        />
-        <Route
-          path='/Film-Library/test'
-          element={
-            <Suspense>
-              <ComponentTest />
             </Suspense>
           }
         />

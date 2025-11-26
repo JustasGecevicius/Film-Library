@@ -1,6 +1,12 @@
 import { MovieObject } from '../movies/types';
 import { getMovieOrSeriesCollectionName } from '../utils/firestore';
-import { deleteField, doc, DocumentData, Firestore, updateDoc } from 'firebase/firestore';
+import {
+  deleteField,
+  doc,
+  DocumentData,
+  Firestore,
+  updateDoc,
+} from 'firebase/firestore';
 
 // LIKING RELATED FUNCTIONS
 
@@ -13,9 +19,12 @@ export const like = (
   type: 'movie' | 'series'
 ) => {
   // Delete or add the movie to firebase based on liked state
-  updateDoc(doc(db, getMovieOrSeriesCollectionName(type, 'liked'), `${userId}`), {
-    [movieId]: liked ? deleteField() : title,
-  });
+  updateDoc(
+    doc(db, getMovieOrSeriesCollectionName(type, 'liked'), `${userId}`),
+    {
+      [movieId]: liked ? deleteField() : title,
+    }
+  );
 };
 
 export const likePerson = (
@@ -31,10 +40,18 @@ export const likePerson = (
   });
 };
 
-export const checkIfLiked = (array: string[], value: string | undefined) => {
+export const checkIfLiked = (
+  likedMovieIds: string[],
+  movieId: string | undefined
+) => {
+  if (
+    !Array.isArray(likedMovieIds) ||
+    likedMovieIds.length === 0 ||
+    typeof movieId !== 'string'
+  )
+    return false;
   // Returns true or false depending on if the movie was found in the liked list or not
-  if (!value) return;
-  return array.includes(value.toString());
+  return likedMovieIds.includes(movieId);
 };
 
 // RATING RELATED FUNCTIONS
@@ -46,19 +63,30 @@ export const rate = (
   rating: number | undefined,
   type: 'movie' | 'series'
 ) => {
-  updateDoc(doc(db, `${getMovieOrSeriesCollectionName(type, 'rated')}`, `${userId}`), {
-    [id]: rating ? rating : deleteField(),
-  });
+  updateDoc(
+    doc(db, `${getMovieOrSeriesCollectionName(type, 'rated')}`, `${userId}`),
+    {
+      [id]: rating ? rating : deleteField(),
+    }
+  );
 };
 
 // Returns the rating if it was rated or undefined
 export const checkRating = (
-  ratedMovies: DocumentData,
-  currentMovieId: string | undefined
+  ratedMovies?: DocumentData,
+  currentMovieId?: string
 ) => {
-  if (!currentMovieId) return;
+  if (
+    typeof ratedMovies !== 'object' ||
+    Array.isArray(ratedMovies) ||
+    !ratedMovies ||
+    typeof currentMovieId !== 'string'
+  )
+    return undefined;
+
   if (Object.keys(ratedMovies).includes(currentMovieId)) {
-    return ratedMovies[currentMovieId];
+    const rating = ratedMovies[currentMovieId];
+    return typeof rating === 'number' ? rating : undefined;
   } else return undefined;
 };
 
@@ -68,11 +96,11 @@ export const checkRating = (
 export const checkLikeAndRate = (
   moviesList: MovieObject[],
   likedMovieIds: string[],
-  ratedMovies: DocumentData | undefined
+  ratedMovies?: DocumentData
 ) => {
   moviesList.forEach((elem) => {
+    if (typeof elem !== 'object' || Array.isArray(elem) || !elem?.id) return;
     elem.liked = checkIfLiked(likedMovieIds, elem.id.toString());
-    if (!ratedMovies) return;
     elem.rating = checkRating(ratedMovies, elem.id.toString());
   });
   return moviesList;
