@@ -1,1 +1,0 @@
-import{j as a}from"./api-BC9-h-q6.js";const n=e=>{if(e)return a(`/tv/${e}?language=en-US`).then(t=>t.data)},u=e=>{if(e)return a(`/search/tv?language=en-US&query=${e}&page=1&include_adult=false`).then(t=>t.data.results)};export{u as a,n as g};
