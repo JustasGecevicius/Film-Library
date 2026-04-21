@@ -1,17 +1,14 @@
-import { useBackground, useDisplayName } from '../features/welcomeScreen/hooks';
+import { useDisplayName } from '../features/welcomeScreen/hooks';
 import { Header } from '../features/header/components/Header';
-import { useEffect } from 'react';
-import axios from 'axios';
 import { DarkBackground } from '../features/utils/DarkBackground';
 
 export default function Home() {
-  const background = useBackground();
   const displayName = useDisplayName();
 
-  return background ? (
+  return (
     <div
       className='w-screen h-screen px-8'
-      style={{ backgroundImage: `url(${background})` }}
+      style={{ backgroundImage: `url(/Film-Library/background.avif)` }}
     >
       <Header />
       <DarkBackground />
@@ -27,5 +24,5 @@ export default function Home() {
         </h2>
       )}
     </div>
-  ) : null;
+  );
 }
