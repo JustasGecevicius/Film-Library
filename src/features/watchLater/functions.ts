@@ -14,3 +14,15 @@ export const updateWatchLater = (
     { [id]: wished ? deleteField() : title },
     { merge: true }
   );
+
+export const removeFromWatchLater = (
+  db: Firestore,
+  id: string,
+  userId: string,
+  type: 'movie' | 'series'
+) =>
+  setDoc(
+    doc(db, getMovieOrSeriesCollectionName(type, 'wished'), userId),
+    { [id]: deleteField() },
+    { merge: true }
+  );

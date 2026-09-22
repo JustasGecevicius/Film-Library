@@ -19,7 +19,7 @@ export const like = (
   type: 'movie' | 'series'
 ) => {
   // Delete or add the movie to firebase based on liked state
-  updateDoc(
+  return updateDoc(
     doc(db, getMovieOrSeriesCollectionName(type, 'liked'), `${userId}`),
     {
       [movieId]: liked ? deleteField() : title,
@@ -63,7 +63,7 @@ export const rate = (
   rating: number | undefined,
   type: 'movie' | 'series'
 ) => {
-  updateDoc(
+  return updateDoc(
     doc(db, `${getMovieOrSeriesCollectionName(type, 'rated')}`, `${userId}`),
     {
       [id]: rating ? rating : deleteField(),

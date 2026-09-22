@@ -55,7 +55,7 @@ export const fetchFirestoreCount = async (
     type: string,
     userId: string | undefined
   ) => {
-    const { data: liked } = useQuery(
+    const { data: liked, isLoading: likedLoading } = useQuery(
       ['liked', type],
       () =>
         fetchFirestore(
@@ -65,7 +65,7 @@ export const fetchFirestoreCount = async (
         ),
       { enabled: !!userId && !!db }
     );
-    const { data: rated } = useQuery(
+    const { data: rated, isLoading: ratedLoading } = useQuery(
       ['rated', type],
       () =>
         fetchFirestore(
@@ -75,5 +75,5 @@ export const fetchFirestoreCount = async (
         ),
       { enabled: !!userId && !!db }
     );
-    return { liked, rated };
+    return { liked, rated, isLoading: likedLoading || ratedLoading };
   };

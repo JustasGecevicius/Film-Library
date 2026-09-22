@@ -3,6 +3,7 @@ import { useContextAndParams } from '../../utils/ContextAndParams';
 import {
   fetchFirestore,
   getMovieOrSeriesCollectionName,
+  useLikedAndRated,
 } from '../../utils/firestore';
 import { updateWatchLater } from '../functions';
 import { useMemo } from 'react';
@@ -15,6 +16,11 @@ type WatchLaterButtonProps = {
 export const WatchLaterButton = ({ title, type }: WatchLaterButtonProps) => {
   const { id, db, userInfo } = useContextAndParams();
   const queryClient = useQueryClient();
+  const { liked, rated, isLoading } = useLikedAndRated(
+    db,
+    type,
+    userInfo?.uid
+  );
   const queryKey = useMemo(
     () => ['watchLater', type, userInfo?.uid],
     [type, userInfo?.uid]
@@ -31,6 +37,10 @@ export const WatchLaterButton = ({ title, type }: WatchLaterButtonProps) => {
   );
   const wished =
     !!id && !!data && Object.prototype.hasOwnProperty.call(data, id);
+  const alreadyWatched =
+    !!id &&
+    (Object.prototype.hasOwnProperty.call(liked || {}, id) ||
+      Object.prototype.hasOwnProperty.call(rated || {}, id));
   const mutation = useMutation(
     () => updateWatchLater(db, id!, userInfo!.uid, title, wished, type),
     {
@@ -38,7 +48,7 @@ export const WatchLaterButton = ({ title, type }: WatchLaterButtonProps) => {
     }
   );
 
-  return userInfo && id ? (
+  return userInfo && id && !isLoading && !alreadyWatched ? (
     <button
       className='px-2 py-1 border border-black rounded-full'
       disabled={mutation.isLoading}
