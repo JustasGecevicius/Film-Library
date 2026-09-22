@@ -1,7 +1,12 @@
 import { useFirebaseContext } from '../features/context/FirebaseContext';
 import { Backdrop } from '../features/profile/components/backdrop/Backdrop';
 import { Chart } from '../features/profile/components/chart/Chart';
-import { useUserInfo, useUserLiked, useUserRated } from '../features/profile/hooks';
+import {
+  useUserInfo,
+  useUserLiked,
+  useUserRated,
+  useUserWished,
+} from '../features/profile/hooks';
 import { useSearchAreaImages } from '../features/searchArea/hooks';
 import './css/userProfile.css';
 import { PosterDisplayMoviesSeriesNoFetch } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
@@ -15,6 +20,8 @@ export default function UserProfile() {
   const userLikedSeries = useUserLiked('series', userInfo?.uid);
   const userRatedMovies = useUserRated('movie', userInfo?.uid);
   const userRatedSeries = useUserRated('series', userInfo?.uid);
+  const wishedMovies = useUserWished('movie', userInfo?.uid);
+  const wishedSeries = useUserWished('series', userInfo?.uid);
 
   return userNumbers && links && userInfo ? (
     <div className='dark:bg-black'>
@@ -26,6 +33,27 @@ export default function UserProfile() {
       />
       <div className='p-8'>
         <Chart id={userInfo?.uid} />
+        {!!wishedMovies?.length && (
+          <>
+            <h2 className='text-3xl font-bold'>Watch later</h2>
+            <PosterDisplayMoviesSeriesNoFetch
+              arr={wishedMovies}
+              section='wished'
+              type='movie'
+              link=''
+              viewAll={false}
+            />
+          </>
+        )}
+        {!!wishedSeries?.length && (
+          <PosterDisplayMoviesSeriesNoFetch
+            arr={wishedSeries}
+            section='wished'
+            type='series'
+            link=''
+            viewAll={false}
+          />
+        )}
         {!!userLikedMovies?.length && (
           <>
             <h2 className='text-3xl font-bold'>Liked</h2>

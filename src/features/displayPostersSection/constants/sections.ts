@@ -7,6 +7,7 @@ export const SECTION_NAMES = {
   recommended: 'Recommended',
   liked: 'Liked',
   rated: 'Rated',
+  wished: 'Watch later',
   popular_friends: 'Popular With Friends',
   rated_friends: 'Rated by Friends',
   credits: 'Credits',

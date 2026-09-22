@@ -25,7 +25,7 @@ export const fetchFirestoreCount = async (
 
   export const getMovieOrSeriesCollectionName = (
     type: string,
-    option: 'rated' | 'liked'
+    option: 'rated' | 'liked' | 'wished'
   ) => {
     if (option === 'rated') {
       switch (type) {
@@ -36,7 +36,7 @@ export const fetchFirestoreCount = async (
         default:
           return '';
       }
-    } else {
+    } else if (option === 'liked') {
       switch (type) {
         case 'movie':
           return 'likedMovies';
@@ -45,6 +45,8 @@ export const fetchFirestoreCount = async (
         default:
           return '';
       }
+    } else {
+      return type === 'movie' ? 'wishedMovies' : type === 'series' ? 'wishedSeries' : '';
     }
   };
 

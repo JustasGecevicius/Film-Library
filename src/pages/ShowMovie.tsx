@@ -18,6 +18,7 @@ import {
 } from '../features/displayPostersSection/components/PosterDisplayPeople';
 import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
 import { PosterDisplayWatchProviders } from '../features/displayPostersSection/components/PosterDisplayWatchProviders';
+import { WatchLaterButton } from '../features/watchLater/components/WatchLaterButton';
 
 export default function ShowMovie() {
   const movieData = useMovieData();
@@ -39,6 +40,7 @@ export default function ShowMovie() {
         {!!movieData && (
           <>
             <LikeAndRate title={movieData.title} type='movie' />
+            <WatchLaterButton title={movieData.title} type='movie' />
             <Description overview={movieData.overview} />
             {movieData.homepage && <VisitHomepage link={movieData.homepage} />}
             <DataNumbers
@@ -78,4 +80,4 @@ export default function ShowMovie() {
       </div>
     </div>
   );
-};
+}

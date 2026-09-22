@@ -164,6 +164,35 @@ export const useUserRated = (type: 'movie' | 'series', userId?: string) => {
   return data;
 };
 
+export const useUserWished = (type: 'movie' | 'series', userId?: string) => {
+  const { db } = useFirebaseContext();
+  const { config } = useConfig();
+  const { data: wished } = useQuery(
+    ['userWished', type, userId],
+    () =>
+      fetchFirestore(
+        db,
+        getMovieOrSeriesCollectionName(type, 'wished'),
+        userId
+      ),
+    { enabled: !!userId }
+  );
+
+  const { data } = useQuery(
+    ['userWishedDetails', type, wished, config],
+    () => {
+      const ids = Object.keys(wished || {});
+      if (!ids.length) return [];
+      return type === 'movie'
+        ? fetchMoviesFromList(ids, config)
+        : fetchSeriesFromList(ids, config);
+    },
+    { enabled: !!wished && !!config }
+  );
+
+  return data;
+};
+
 // export const useChartUserRatedData = () => {
 //   const {db, id} = useFirebaseContext();
 //   const { data: userRatedMovies } = useQuery(

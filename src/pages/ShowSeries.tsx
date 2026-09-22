@@ -13,6 +13,7 @@ import { useSeriesData } from '../features/series/hooks';
 import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
 import { PosterDisplayPeopleNoFetch } from '../features/displayPostersSection/components/PosterDisplayPeople';
 import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
+import { WatchLaterButton } from '../features/watchLater/components/WatchLaterButton';
 
 export default function ShowSeries() {
   const seriesData = useSeriesData();
@@ -34,6 +35,7 @@ export default function ShowSeries() {
         {!!seriesData && (
           <>
             <LikeAndRate title={seriesData.name} type='series' />
+            <WatchLaterButton title={seriesData.name} type='series' />
             <Description overview={seriesData.overview} />
             {seriesData.homepage && (
               <VisitHomepage link={seriesData.homepage} />
@@ -65,4 +67,4 @@ export default function ShowSeries() {
       </div>
     </div>
   );
-};
+}

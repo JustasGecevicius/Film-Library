@@ -11,7 +11,14 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
 
   const userRating = useRef<number>();
   const [rateButtonClick, setRateButtonClick] = useState(false);
-  const rating = useRating(rateButtonClick, userRating.current, type, id, userInfo, db);
+  const rating = useRating(
+    rateButtonClick,
+    userRating.current,
+    type,
+    id,
+    userInfo,
+    db
+  );
 
   return userInfo && id ? (
     <div className='flex-row h-full py-4 gap-x-2'>
@@ -27,7 +34,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
       <div className='border border-black rounded-full'>
         <input
           name='rateInput'
-          className='w-[70px] h-full px-2 border-r border-black rounded-l-full'
+          className='w-[70px] h-full px-2 border-r border-black rounded-l-full dark: text-black'
           type='number'
           max='10'
           min='1'
