@@ -7,14 +7,12 @@ export const WatchProviderPoster = ({
   imageURL,
   providerName,
 }: WatchProviderPosterType) => (
-  <div className='relative flex-col imagePoster gap-y-4 max-w-48'>
+  <div className='flex items-center w-full gap-3 p-3 border bg-white/5 border-white/10 rounded-2xl sm:w-auto sm:min-w-52'>
     <img
       src={imageURL}
-      alt='posterImage'
-      className='rounded-lg h-[278px] w-[185px] bg-no-repeat bg-center bg-cover'
+      alt={`${providerName} logo`}
+      className='object-cover w-14 h-14 rounded-xl'
     />
-    <div className='posterText'>
-      <p className='title'>{providerName}</p>
-    </div>
+    <p className='font-semibold text-white/80'>{providerName}</p>
   </div>
 );

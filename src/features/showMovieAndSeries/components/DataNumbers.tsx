@@ -25,17 +25,20 @@ export const DataNumbers = ({
   ];
 
   return (
-    <div className='flex-row flex-wrap justify-start w-full max-w-4xl mx-auto gap-x-2'>
+    <section className='grid w-full grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4'>
       {fixedNumbers.map((elem, index) =>
         elem[1] ? (
           <div
-            className='px-2 py-1 border border-black rounded-full dark:border-white'
+            className='p-4 border bg-white/5 border-white/10 rounded-2xl'
             key={index}
           >
-            <p>{`${elem[0]} | ${elem[1]}`}</p>
+            <p className='mb-1 text-xs font-bold tracking-wider uppercase text-white/45'>
+              {elem[0]}
+            </p>
+            <p className='font-semibold text-white'>{elem[1]}</p>
           </div>
         ) : null
       )}
-    </div>
+    </section>
   );
 };

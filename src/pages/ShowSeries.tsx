@@ -22,7 +22,7 @@ export default function ShowSeries() {
   const credits = useMovieSeriesCast('series', seriesData?.id);
 
   return (
-    <div className='dark:bg-black'>
+    <main className='min-h-screen text-white bg-zinc-950'>
       {!!backdropImages && !!seriesData && (
         <Backdrop
           backdrop={backdropImages.backdropURL}
@@ -31,15 +31,17 @@ export default function ShowSeries() {
           genres={seriesData.genres}
         />
       )}
-      <div className='flex-col max-w-4xl gap-4 mx-auto'>
+      <div className='w-full max-w-6xl px-4 py-10 mx-auto space-y-8 sm:py-14'>
         {!!seriesData && (
           <>
-            <LikeAndRate title={seriesData.name} type='series' />
-            <WatchLaterButton title={seriesData.name} type='series' />
+            <section className='flex flex-wrap items-center gap-3'>
+              <LikeAndRate title={seriesData.name} type='series' />
+              <WatchLaterButton title={seriesData.name} type='series' />
+              {seriesData.homepage && (
+                <VisitHomepage link={seriesData.homepage} />
+              )}
+            </section>
             <Description overview={seriesData.overview} />
-            {seriesData.homepage && (
-              <VisitHomepage link={seriesData.homepage} />
-            )}
             <DataNumbers
               voteAverage={seriesData.vote_average}
               last_air_date={seriesData.last_air_date}
@@ -65,6 +67,6 @@ export default function ShowSeries() {
           <PosterDisplayPeopleNoFetch arr={credits} type='cast' link='Cast' />
         )}
       </div>
-    </div>
+    </main>
   );
 }

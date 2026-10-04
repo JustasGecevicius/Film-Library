@@ -16,11 +16,7 @@ type WatchLaterButtonProps = {
 export const WatchLaterButton = ({ title, type }: WatchLaterButtonProps) => {
   const { id, db, userInfo } = useContextAndParams();
   const queryClient = useQueryClient();
-  const { liked, rated, isLoading } = useLikedAndRated(
-    db,
-    type,
-    userInfo?.uid
-  );
+  const { liked, rated, isLoading } = useLikedAndRated(db, type, userInfo?.uid);
   const queryKey = useMemo(
     () => ['watchLater', type, userInfo?.uid],
     [type, userInfo?.uid]
@@ -50,7 +46,7 @@ export const WatchLaterButton = ({ title, type }: WatchLaterButtonProps) => {
 
   return userInfo && id && !isLoading && !alreadyWatched ? (
     <button
-      className='px-2 py-1 border border-black rounded-full'
+      className='h-11 px-5 text-sm font-bold text-white transition border rounded-full border-white/25 bg-white/5 hover:bg-white/10 disabled:cursor-wait disabled:opacity-50'
       disabled={mutation.isLoading}
       onClick={() => mutation.mutate()}
     >

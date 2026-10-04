@@ -19,10 +19,14 @@ export const PosterMovieSeries = ({
           ? `/Film-Library/movie/${id}`
           : `/Film-Library/series/${id}`
       }
-      className='min-w-fit'
+      className='group min-w-fit'
     >
-      <div className='relative flex-col gap-y-4 max-w-44'>
-        <img src={imageURL} alt='posterImage' className='rounded-lg' />
+      <div className='relative flex flex-col max-w-44 gap-y-4'>
+        <img
+          src={imageURL}
+          alt='posterImage'
+          className='object-cover w-44 h-64 border shadow-lg rounded-xl border-white/10 transition group-hover:-translate-y-1 group-hover:shadow-2xl'
+        />
         {!!liked && (
           <img
             className='absolute right-0 m-2 max-w-6'
@@ -35,8 +39,8 @@ export const PosterMovieSeries = ({
             {rating}
           </p>
         )}
-        <div className='flex-col items-center justify-between min-h-16'>
-          <p className='text-center'>{title}</p>
+        <div className='flex flex-col items-center justify-between min-h-16'>
+          <p className='text-sm font-medium text-center'>{title}</p>
           {!!release_date && <span className='posterDate'>{release_date}</span>}
         </div>
       </div>

@@ -12,30 +12,43 @@ const contentVariants = {
 type SwitchToggleType = {
   checked: boolean;
   content?: keyof typeof contentVariants;
+  highContrast?: boolean;
 };
 
 export const SearchTypeSwitch = ({ setType }: Props) => {
   const [checked, setChecked] = useState(false);
+
   return (
-    <label className='min-w-24 relative inline-block h-8 rounded-2xl border-black dark:border-white border-2'>
+    <label className='relative flex p-1 text-sm font-bold border cursor-pointer shrink-0 rounded-xl border-white/20 bg-black/30'>
       <input
-        className='opacity-0 w-0 h-0'
+        className='sr-only'
         type='checkbox'
+        aria-label='Search series instead of movies'
         onChange={(e) => {
           setType(e.target.checked ? 'series' : 'movie');
           setChecked(e.target.checked);
         }}
       />
-      <SwitchToggle
-        checked={checked}
-        content='moviesSeries'
-      />
+      <span
+        className={`px-4 py-2 rounded-lg transition ${
+          checked ? 'text-white/60' : 'text-black bg-white'
+        }`}
+      >
+        Movies
+      </span>
+      <span
+        className={`px-4 py-2 rounded-lg transition ${
+          checked ? 'text-black bg-white' : 'text-white/60'
+        }`}
+      >
+        Series
+      </span>
     </label>
   );
 };
 
 export const SwitchToggle = (props: SwitchToggleType) => {
-  const { checked, content } = props;
+  const { checked, content, highContrast = false } = props;
 
   return (
     <span
@@ -53,8 +66,7 @@ export const SwitchToggle = (props: SwitchToggleType) => {
         before:rounded-xl
         before:top-[2px]
         after:top-[2px]
-        before:bg-black
-        dark:before:bg-white
+        ${highContrast ? 'before:bg-white' : 'before:bg-black dark:before:bg-white'}
         ${
           checked
             ? contentVariants[content || ''][0]

@@ -1,9 +1,14 @@
 import { VisitHomepageType } from 'features/movies/types';
 
 export const VisitHomepage = ({ link }: VisitHomepageType) => (
-  <div className='max-w-4xl py-4 mx-auto text-2xl font-bold'>
-    <a href={link} target='_b' className='text-wrap'>
-      Visit the movie Homepage by clicking here!
+  <div>
+    <a
+      href={link}
+      target='_blank'
+      rel='noreferrer'
+      className='inline-flex items-center h-11 px-5 text-sm font-bold text-black transition bg-white rounded-full hover:bg-white/80'
+    >
+      Visit official website
     </a>
   </div>
 );

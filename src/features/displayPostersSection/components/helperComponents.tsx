@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 export const ViewAllButton = (props: { link: string }) => (
   <Link
     to={props.link}
-    className='border border-black rounded-full hover:outline-2 hover:outline-black hover:outline dark:border-white h-7'
+    className='inline-flex items-center h-8 px-4 text-sm font-medium transition border rounded-full border-current hover:bg-white/10'
   >
-    <button className='h-full px-2 hover:font-bold'>View All</button>
+    View all
   </Link>
 );
 
@@ -18,8 +18,8 @@ export const DisplayPosterHeader = ({
   title: string;
   viewAll?: boolean;
 }) => (
-  <div className='flex flex-row items-center justify-between'>
-    <h2 className='text-2xl italic font-bold'>{title}</h2>
+  <div className='flex items-center justify-between gap-4'>
+    <h2 className='text-2xl font-bold tracking-tight'>{title}</h2>
     {!!viewAll && <ViewAllButton link={link} />}
   </div>
 );

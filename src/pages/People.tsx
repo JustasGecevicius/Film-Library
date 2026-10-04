@@ -1,35 +1,13 @@
 import { SearchAreaPeople } from '../features/searchArea/components/searchPeople/SearchAreaPeople';
 import { PosterDisplayPeople } from '../features/displayPostersSection/components/PosterDisplayPeople';
-import {
-  usePeopleLikedByFriends,
-  usePopularPeople,
-} from '../features/people/hooks';
-import {
-  useElementScrollListener,
-  useHorizontalScrollListenerCallback,
-} from '../features/displayAllPostersSection/hooks/scrollHooks';
-import { useMemoDebounce } from '../hooks';
-import { useState } from 'react';
 
 export default function People() {
-  // Getting the popular people
-  // const peopleLikedByFriends = usePeopleLikedByFriends();
-
   return (
-    <>
-      {/* {popularPeople && peopleLikedByFriends && ( */}
-      <div className='flex-col h-full dark:bg-black'>
-        <SearchAreaPeople />
-        <div className='p-8'>
-          <PosterDisplayPeople type='pop' link='popular' />
-          {/* <PosterDisplayPeople
-              arr={peopleLikedByFriends.slice(0, 19)}
-              sectionName='Your Friends Like...'
-              link='FriendLiked'
-            /> */}
-        </div>
+    <main className='min-h-screen text-white bg-zinc-950'>
+      <SearchAreaPeople />
+      <div className='w-full max-w-6xl px-4 py-10 mx-auto sm:py-14'>
+        <PosterDisplayPeople type='pop' link='popular' />
       </div>
-      {/* )} */}
-    </>
+    </main>
   );
-};
+}

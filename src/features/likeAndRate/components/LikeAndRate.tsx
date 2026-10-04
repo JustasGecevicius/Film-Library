@@ -12,7 +12,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
   const [likeButtonClicked, setlikeButtonClicked] = useState(false);
   const liked = useLiked(likeButtonClicked, type, id, userInfo, db);
 
-  const userRating = useRef<number>();
+  const userRating = useRef<number | undefined>(undefined);
   const [rateButtonClick, setRateButtonClick] = useState(false);
   const rating = useRating(
     rateButtonClick,
@@ -24,9 +24,9 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
   );
 
   return userInfo && id ? (
-    <div className='flex-row h-full py-4 gap-x-2'>
+    <div className='flex flex-wrap items-center gap-3'>
       <button
-        className='px-2 py-1 border border-black rounded-full'
+        className='h-11 px-5 text-sm font-bold text-black transition bg-white rounded-full hover:bg-white/80'
         onClick={async () => {
           await like(db, id, userInfo.uid, title, liked, type);
           queryClient.invalidateQueries(['liked', type]);
@@ -40,10 +40,10 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
       >
         {liked ? 'Unlike' : 'Like'}
       </button>
-      <div className='border border-black rounded-full'>
+      <div className='flex h-11 overflow-hidden border border-white/20 rounded-full bg-white/5'>
         <input
           name='rateInput'
-          className='w-[70px] h-full px-2 border-r border-black rounded-l-full dark: text-black'
+          className='w-20 h-full px-3 text-sm text-white bg-transparent border-r outline-none border-white/20 placeholder:text-white/50'
           type='number'
           max='10'
           min='1'
@@ -51,7 +51,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
           placeholder='Rating'
         />
         <button
-          className='h-full px-2 py-1 rounded-r-full dark:border-solid dark:border-white dark:border'
+          className='h-full px-4 text-sm font-bold text-white transition hover:bg-white/10'
           onClick={async () => {
             await rate(db, id, userInfo.uid, userRating.current, type);
             queryClient.invalidateQueries(['rated', type]);
@@ -66,7 +66,7 @@ export const LikeAndRate = ({ title, type }: LikeAndRateType) => {
           Rate
         </button>
       </div>
-      <p className='px-2 py-1 border border-black rounded-full'>{`Your Rating: ${
+      <p className='flex items-center h-11 px-4 text-sm border rounded-full border-white/20 bg-white/5'>{`Your rating: ${
         rating ? rating : 'none'
       }`}</p>
     </div>

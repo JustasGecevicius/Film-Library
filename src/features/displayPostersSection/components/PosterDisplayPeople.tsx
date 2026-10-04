@@ -11,7 +11,7 @@ import { DisplayPosterHeader } from './helperComponents';
 
 export const DISPLAY_PEOPLE_TYPES = {
   cast: 'Cast',
-  pop: 'Popular',
+  pop: 'Popular people',
 } as const;
 
 type PeoplePosterDisplayType = {
@@ -47,6 +47,8 @@ export const PosterDisplayPeople = ({
             ref={(ref) => setDivElement(ref || undefined)}
           >
             {data?.map((elem, index) => {
+              if (!elem) return null;
+
               return (
                 <PeoplePoster
                   key={index}

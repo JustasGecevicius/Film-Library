@@ -12,10 +12,7 @@ import {
 } from '../features/showMovieAndSeries/hooks';
 import { useMovieData } from '../features/movies/hooks';
 import { PosterDisplayMoviesSeries } from '../features/displayPostersSection/components/PosterDisplayMoviesSeries';
-import {
-  PosterDisplayPeople,
-  PosterDisplayPeopleNoFetch,
-} from '../features/displayPostersSection/components/PosterDisplayPeople';
+import { PosterDisplayPeopleNoFetch } from '../features/displayPostersSection/components/PosterDisplayPeople';
 import { Trailer } from '../features/showMovieAndSeries/components/Trailer';
 import { PosterDisplayWatchProviders } from '../features/displayPostersSection/components/PosterDisplayWatchProviders';
 import { WatchLaterButton } from '../features/watchLater/components/WatchLaterButton';
@@ -27,7 +24,7 @@ export default function ShowMovie() {
   const credits = useMovieSeriesCast('movie', movieData?.id);
   const watch = useWatchProviders(movieData?.id, 'movie');
   return (
-    <div className='dark:bg-black'>
+    <main className='min-h-screen text-white bg-zinc-950'>
       {!!backdropImages && !!movieData && (
         <Backdrop
           backdrop={backdropImages.backdropURL}
@@ -36,13 +33,17 @@ export default function ShowMovie() {
           genres={movieData.genres}
         />
       )}
-      <div className='flex-col max-w-4xl gap-4 mx-auto'>
+      <div className='w-full max-w-6xl px-4 py-10 mx-auto space-y-8 sm:py-14'>
         {!!movieData && (
           <>
-            <LikeAndRate title={movieData.title} type='movie' />
-            <WatchLaterButton title={movieData.title} type='movie' />
+            <section className='flex flex-wrap items-center gap-3'>
+              <LikeAndRate title={movieData.title} type='movie' />
+              <WatchLaterButton title={movieData.title} type='movie' />
+              {movieData.homepage && (
+                <VisitHomepage link={movieData.homepage} />
+              )}
+            </section>
             <Description overview={movieData.overview} />
-            {movieData.homepage && <VisitHomepage link={movieData.homepage} />}
             <DataNumbers
               budget={movieData.budget}
               revenue={movieData.revenue}
@@ -78,6 +79,6 @@ export default function ShowMovie() {
           />
         )}
       </div>
-    </div>
+    </main>
   );
 }

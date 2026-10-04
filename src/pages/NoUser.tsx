@@ -6,10 +6,11 @@ export const NoUser = () => {
 
   return (
     <div
-      className='w-screen h-screen flex-col justify-center px-8'
-      style={{ backgroundImage: `url(${background})` }}>
+      className='w-screen min-h-screen flex-col'
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <Header />
-      <h2 className='m-auto w-fit p-2 text-center text-wrap text-white font-bold text-5xl darker-background'>
+      <h2 className='p-2 mx-8 my-auto text-5xl font-bold text-center text-white text-wrap w-fit darker-background self-center'>
         Sorry, you have to log in to access this page...
       </h2>
     </div>

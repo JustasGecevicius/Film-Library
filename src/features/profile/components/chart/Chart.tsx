@@ -28,9 +28,13 @@ export const Chart = ({ id }: { id?: string }) => {
   );
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'right' as const,
+        labels: {
+          color: 'rgba(255, 255, 255, 0.75)',
+        },
       },
       title: {
         display: false,
@@ -42,15 +46,30 @@ export const Chart = ({ id }: { id?: string }) => {
     },
     scales: {
       y: {
+        beginAtZero: true,
+        ticks: {
+          color: 'rgba(255, 255, 255, 0.55)',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.08)',
+        },
         title: {
           display: true,
           text: 'Count',
+          color: 'rgba(255, 255, 255, 0.55)',
         },
       },
       x: {
+        ticks: {
+          color: 'rgba(255, 255, 255, 0.55)',
+        },
+        grid: {
+          display: false,
+        },
         title: {
           display: true,
           text: 'Ratings',
+          color: 'rgba(255, 255, 255, 0.55)',
         },
       },
     },
@@ -70,8 +89,11 @@ export const Chart = ({ id }: { id?: string }) => {
   };
 
   return (
-    <div className='flex-row justify-center max-w-4xl mx-auto'>
-      <Bar options={options} data={data} />
+    <div className='h-full p-6 border shadow-xl rounded-3xl border-white/10 bg-white/5 sm:p-8'>
+      <h2 className='mb-6 text-2xl font-bold'>Your rating activity</h2>
+      <div className='h-72 sm:h-80'>
+        <Bar options={options} data={data} />
+      </div>
     </div>
   );
 };
