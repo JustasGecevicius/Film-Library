@@ -9,8 +9,8 @@ export const youtubeApi = axios.create({
 });
 
 export const justasApi = axios.create({
-  // baseURL: 'https://api.justasgecevicius.dev/film_library/',
-  baseURL: 'http://localhost:5000/film_library/',
+  baseURL: 'https://api.justasgecevicius.dev/film_library/',
+  // baseURL: 'http://localhost:5000/film_library/',
   withCredentials: true,
 });
 
